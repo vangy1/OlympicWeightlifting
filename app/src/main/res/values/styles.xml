@@ -1,0 +1,20 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:statusBarColor">@color/colorBackgroundDark</item>
+        <item name="android:windowLightStatusBar">false</item>
+    </style>
+
+    <style name="AppTheme.OverFlow">
+        <item name="android:background">?attr/actionBarItemBackground</item>
+        <item name="srcCompat">@drawable/ic_more_vert_black_18px</item>
+        <item name="android:paddingTop">6dp</item>
+        <item name="android:paddingRight">8dp</item>
+    </style>
+
+</resources>
