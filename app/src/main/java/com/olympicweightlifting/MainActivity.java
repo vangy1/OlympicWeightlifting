@@ -19,15 +19,17 @@ public class MainActivity extends AppCompatActivity {
 
         Typeface samsungSansBold = Typeface.createFromAsset(getAssets(), "SamsungSans-Bold.ttf");
         TextView toolbarTitle = findViewById(R.id.toolbar_title);
-
         toolbarTitle.setTypeface(samsungSansBold);
 
+        Typeface montserrat = Typeface.createFromAsset(getAssets(), "Montserrat-Bold.ttf");
+        TextView cardTitle = findViewById(R.id.card_title);
+        cardTitle.setTypeface(montserrat);
 
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_main, menu);
+        getMenuInflater().inflate(R.menu.menu_home, menu);
         return super.onCreateOptionsMenu(menu);
     }
 }
