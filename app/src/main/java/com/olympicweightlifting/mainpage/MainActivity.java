@@ -2,8 +2,8 @@ package com.olympicweightlifting.mainpage;
 
 import android.content.res.Resources;
 import android.graphics.Typeface;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -16,9 +16,12 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class MainActivity extends AppCompatActivity {
-    @BindView(R.id.toolbar) Toolbar toolbar;
-    @BindView(R.id.features_recycler_view) RecyclerView recyclerView;
-    @BindView(R.id.toolbar_title) TextView toolbarTitle;
+    @BindView(R.id.toolbar)
+    Toolbar toolbar;
+    @BindView(R.id.features_recycler_view)
+    RecyclerView recyclerView;
+    @BindView(R.id.toolbar_title)
+    TextView toolbarTitle;
 
     private RecyclerView.Adapter recyclerViewAdapter;
     private RecyclerView.LayoutManager recyclerViewLayoutManager;
@@ -40,14 +43,14 @@ public class MainActivity extends AppCompatActivity {
         return super.onCreateOptionsMenu(menu);
     }
 
-    private void setupToolbar(){
+    private void setupToolbar() {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         Typeface samsungSansBold = Typeface.createFromAsset(getAssets(), "SamsungSans-Bold.ttf");
         toolbarTitle.setTypeface(samsungSansBold);
     }
 
-    private void setupRecyclerView(){
+    private void setupRecyclerView() {
         recyclerView.setHasFixedSize(true);
         recyclerViewLayoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(recyclerViewLayoutManager);
@@ -64,7 +67,8 @@ public class MainActivity extends AppCompatActivity {
         FeatureDataset programsDataset = new FeatureDataset(resources.getString(R.string.programs), resources.getStringArray(R.array.programs_shortcuts), R.drawable.feature_image_programs);
         FeatureDataset trackingDataset = new FeatureDataset(resources.getString(R.string.tracking), resources.getStringArray(R.array.tracking_shortcuts), R.drawable.feature_image_tracking);
         FeatureDataset recordsDataset = new FeatureDataset(resources.getString(R.string.records), resources.getStringArray(R.array.records_shortcuts), R.drawable.feature_image_records);
-        recyclerViewAdapter = new FeatureCardsAdapter(new FeatureDataset[]{snatchDataset, cajDataset, calculatorsDataset, programsDataset, trackingDataset, recordsDataset},this);
+
+        recyclerViewAdapter = new FeatureCardsAdapter(new FeatureDataset[]{snatchDataset, cajDataset, calculatorsDataset, programsDataset, trackingDataset, recordsDataset}, this);
         recyclerView.setAdapter(recyclerViewAdapter);
     }
 }

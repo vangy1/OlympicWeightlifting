@@ -5,13 +5,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.olympicweightlifting.mainpage.MainActivity">
+    tools:activityContext="com.olympicweightlifting.mainpage.MainActivity">
 
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
-        android:layout_height="42dp"
+        android:layout_height="@dimen/toolbar_height"
         android:background="@color/colorBackground"
         android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
@@ -23,7 +23,7 @@
             android:layout_gravity="center"
             android:text="Olympic Weightlifting"
             android:textColor="@color/colorBlackText"
-            android:textSize="26sp" />
+            android:textSize="@dimen/toolbar_title_text_size" />
     </android.support.v7.widget.Toolbar>
 
 

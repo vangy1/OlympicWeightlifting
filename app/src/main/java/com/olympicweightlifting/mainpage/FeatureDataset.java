@@ -9,7 +9,7 @@ public class FeatureDataset {
     private String[] featureShortcuts;
     private int featureImage;
 
-    public FeatureDataset(String featureName, String[] featureShortcuts, int featureImage) {
+    FeatureDataset(String featureName, String[] featureShortcuts, int featureImage) {
         this.featureName = featureName;
         this.featureShortcuts = featureShortcuts;
         this.featureImage = featureImage;
