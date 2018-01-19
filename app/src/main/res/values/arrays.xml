@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="snatch_shortcuts">
+        <item>Technique</item>
+        <item>Mistakes</item>
+        <item>Exercises</item>
+    </string-array>
+    <string-array name="caj_shortcuts">
+        <item>Technique</item>
+        <item>Mistakes</item>
+        <item>Exercises</item>
+    </string-array>
+    <string-array name="calculators_shortcuts">
+        <item>Sinclair</item>
+        <item>Rep Max</item>
+        <item>Loading</item>
+    </string-array>
+    <string-array name="programs_shortcuts">
+        <item>Premade</item>
+        <item>Custom</item>
+    </string-array>
+    <string-array name="tracking_shortcuts">
+        <item>Track new</item>
+        <item>History</item>
+    </string-array>
+    <string-array name="records_shortcuts">
+        <item>Personal</item>
+        <item>World</item>
+    </string-array>
+</resources>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="toolbar_title_text_size">26sp</dimen>
+    <dimen name="toolbar_height">42dp</dimen>
+
+    <dimen name="feature_card_height">112dp</dimen>
+    <dimen name="feature_card_corner_radius">2dp</dimen>
+    <dimen name="feature_card_vertical_margin">6dp</dimen>
+    <dimen name="feature_card_horizontal_margin">18dp</dimen>
+
+    <dimen name="feature_name_padding">2dp</dimen>
+    <dimen name="feature_name_text_size">18sp</dimen>
+</resources>
