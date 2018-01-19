@@ -1,3 +1,9 @@
 <resources>
-    <string name="app_name">OlympicWeightlifting</string>
+    <string name="app_name">Olympic Weightlifting</string>
+    <string name="snatch">Snatch</string>
+    <string name="caj">Clean and Jerk</string>
+    <string name="calculators">Calculators</string>
+    <string name="programs">Programs</string>
+    <string name="tracking">Tracking</string>
+    <string name="records">Records</string>
 </resources>
