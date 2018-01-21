@@ -1,9 +1,19 @@
 <resources>
     <string name="app_name">Olympic Weightlifting</string>
+
+    <string name="font_path_samsung_sans_bold">SamsungSans-Bold.ttf</string>
+    <string name="font_path_montserrat_bold">Montserrat-Bold.ttf</string>
+
     <string name="snatch">Snatch</string>
     <string name="caj">Clean and Jerk</string>
     <string name="calculators">Calculators</string>
     <string name="programs">Programs</string>
     <string name="tracking">Tracking</string>
     <string name="records">Records</string>
+
+    <string name="settings_dialog_fragment_tag">settings</string>
+    <string name="settings_dark_theme">dark_theme</string>
+    <string name="settings_units">units</string>
+    <string name="settings_shared_preferences_id">settings</string>
+    <string name="settings_positive_button_text">Save</string>
 </resources>

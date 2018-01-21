@@ -8,6 +8,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.TextView;
 
 import com.olympicweightlifting.R;
@@ -22,9 +23,6 @@ public class MainActivity extends AppCompatActivity {
     RecyclerView recyclerView;
     @BindView(R.id.toolbar_title)
     TextView toolbarTitle;
-
-    private RecyclerView.Adapter recyclerViewAdapter;
-    private RecyclerView.LayoutManager recyclerViewLayoutManager;
 
 
     @Override
@@ -43,17 +41,24 @@ public class MainActivity extends AppCompatActivity {
         return super.onCreateOptionsMenu(menu);
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == R.id.settings) {
+            showSettingsDialog();
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
     private void setupToolbar() {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
-        Typeface samsungSansBold = Typeface.createFromAsset(getAssets(), "SamsungSans-Bold.ttf");
-        toolbarTitle.setTypeface(samsungSansBold);
+        toolbarTitle.setTypeface(Typeface.createFromAsset(getAssets(), getString(R.string.font_path_samsung_sans_bold)));
     }
 
     private void setupRecyclerView() {
         recyclerView.setHasFixedSize(true);
-        recyclerViewLayoutManager = new LinearLayoutManager(this);
-        recyclerView.setLayoutManager(recyclerViewLayoutManager);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         setupAndPopulateRecyclerAdapter();
     }
@@ -68,7 +73,12 @@ public class MainActivity extends AppCompatActivity {
         FeatureDataset trackingDataset = new FeatureDataset(resources.getString(R.string.tracking), resources.getStringArray(R.array.tracking_shortcuts), R.drawable.feature_image_tracking);
         FeatureDataset recordsDataset = new FeatureDataset(resources.getString(R.string.records), resources.getStringArray(R.array.records_shortcuts), R.drawable.feature_image_records);
 
-        recyclerViewAdapter = new FeatureCardsAdapter(new FeatureDataset[]{snatchDataset, cajDataset, calculatorsDataset, programsDataset, trackingDataset, recordsDataset}, this);
+        RecyclerView.Adapter recyclerViewAdapter = new FeatureCardsAdapter(new FeatureDataset[]{snatchDataset, cajDataset, calculatorsDataset, programsDataset, trackingDataset, recordsDataset}, this);
         recyclerView.setAdapter(recyclerViewAdapter);
+    }
+
+    private void showSettingsDialog() {
+        SettingsDialog settingsDialog = new SettingsDialog();
+        settingsDialog.show(getFragmentManager(), getString(R.string.settings_dialog_fragment_tag));
     }
 }

@@ -22,24 +22,10 @@ public class FeatureCardsAdapter extends RecyclerView.Adapter<FeatureCardsAdapte
     private Context activityContext;
     private Typeface montserratTypeface;
 
-    public static class ViewHolder extends RecyclerView.ViewHolder {
-        @BindView(R.id.feature_name)
-        TextView featureName;
-        @BindView(R.id.feature_image)
-        ImageView featureImage;
-        @BindView(R.id.feature_shortcuts_layout)
-        LinearLayout buttonsLayout;
-
-        public ViewHolder(CardView cardView) {
-            super(cardView);
-            ButterKnife.bind(this, itemView);
-        }
-    }
-
     public FeatureCardsAdapter(FeatureDataset[] featureDatasets, Context activityContext) {
         this.featureDatasets = featureDatasets;
         this.activityContext = activityContext;
-        montserratTypeface = Typeface.createFromAsset(activityContext.getAssets(), "Montserrat-Bold.ttf");
+        montserratTypeface = Typeface.createFromAsset(activityContext.getAssets(), activityContext.getString(R.string.font_path_montserrat_bold));
     }
 
     @Override
@@ -90,6 +76,20 @@ public class FeatureCardsAdapter extends RecyclerView.Adapter<FeatureCardsAdapte
     private void addAllShortcutButtonsToLayout(ViewHolder viewHolder, Button[] buttons) {
         for (Button button : buttons) {
             viewHolder.buttonsLayout.addView(button);
+        }
+    }
+
+    public static class ViewHolder extends RecyclerView.ViewHolder {
+        @BindView(R.id.feature_name)
+        TextView featureName;
+        @BindView(R.id.feature_image)
+        ImageView featureImage;
+        @BindView(R.id.feature_shortcuts_layout)
+        LinearLayout buttonsLayout;
+
+        public ViewHolder(CardView cardView) {
+            super(cardView);
+            ButterKnife.bind(this, cardView);
         }
     }
 }
