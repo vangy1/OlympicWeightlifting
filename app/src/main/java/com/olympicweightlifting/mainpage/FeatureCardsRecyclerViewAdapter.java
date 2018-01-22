@@ -1,6 +1,7 @@
 package com.olympicweightlifting.mainpage;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Typeface;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
@@ -17,12 +18,12 @@ import com.olympicweightlifting.R;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class FeatureCardsAdapter extends RecyclerView.Adapter<FeatureCardsAdapter.ViewHolder> {
+public class FeatureCardsRecyclerViewAdapter extends RecyclerView.Adapter<FeatureCardsRecyclerViewAdapter.ViewHolder> {
     private FeatureDataset[] featureDatasets;
     private Context activityContext;
     private Typeface montserratTypeface;
 
-    public FeatureCardsAdapter(FeatureDataset[] featureDatasets, Context activityContext) {
+    public FeatureCardsRecyclerViewAdapter(FeatureDataset[] featureDatasets, Context activityContext) {
         this.featureDatasets = featureDatasets;
         this.activityContext = activityContext;
         montserratTypeface = Typeface.createFromAsset(activityContext.getAssets(), activityContext.getString(R.string.font_path_montserrat_bold));
@@ -46,7 +47,7 @@ public class FeatureCardsAdapter extends RecyclerView.Adapter<FeatureCardsAdapte
         String[] featureShortcuts = currentFeatureDataset.getFeatureShortcuts();
         Button[] buttons = new Button[featureShortcuts.length];
 
-        createButtonsForShortcuts(featureShortcuts, buttons);
+        createButtonsForShortcuts(featureShortcuts, buttons, currentFeatureDataset.getActivityToStart());
         addAllShortcutButtonsToLayout(viewHolder, buttons);
     }
 
@@ -55,9 +56,10 @@ public class FeatureCardsAdapter extends RecyclerView.Adapter<FeatureCardsAdapte
         return featureDatasets.length;
     }
 
-    private void createButtonsForShortcuts(String[] featureShortcuts, Button[] buttons) {
+    private void createButtonsForShortcuts(String[] featureShortcuts, Button[] buttons, final Intent intent) {
         for (int i = 0; i < featureShortcuts.length; i++) {
             Button featureShortcutButton = new Button(activityContext);
+            featureShortcutButton.setOnClickListener(view -> activityContext.startActivity(intent));
 
             featureShortcutButton.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, 0, 1));
             setRippleEffectToCoverEntireButtonArea(featureShortcutButton);

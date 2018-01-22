@@ -38,15 +38,15 @@ public class SettingsDialog extends DialogFragment {
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        View dialog_view = this.getActivity().getLayoutInflater().inflate(R.layout.dialog_settings, null);
-        ButterKnife.bind(this, dialog_view);
+        View dialogView = this.getActivity().getLayoutInflater().inflate(R.layout.dialog_settings, null);
+        ButterKnife.bind(this, dialogView);
 
         Typeface montserratBold = Typeface.createFromAsset(getActivity().getAssets(), getString(R.string.font_path_montserrat_bold));
         dialogTitle.setTypeface(montserratBold);
 
         displayCurrentSettings();
 
-        return new AlertDialog.Builder(getActivity()).setView(dialog_view)
+        return new AlertDialog.Builder(getActivity()).setView(dialogView)
                 .setPositiveButton(R.string.settings_positive_button_text, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         saveSettingsToSharedPreferences();
