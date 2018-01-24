@@ -1,8 +1,4 @@
-plugins {
-    id "net.ltgt.apt" version "0.10"
-}
 apply plugin: 'com.android.application'
-apply plugin: "net.ltgt.apt"
 
 
 android {
@@ -27,8 +23,8 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility 1.8
+        sourceCompatibility 1.8
     }
 }
 
@@ -40,12 +36,27 @@ dependencies {
     implementation 'com.android.support:recyclerview-v7:27.0.2'
     implementation 'com.android.support.constraint:constraint-layout:1.0.2'
     implementation 'com.android.support:support-v13:27.0.2'
+    implementation 'com.android.support:support-v4:27.0.2'
     testImplementation 'junit:junit:4.12'
     testImplementation 'org.robolectric:robolectric:3.6.1'
     androidTestImplementation 'com.android.support.test:runner:1.0.1'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
-    implementation 'com.google.dagger:dagger:2.14.1'
-    annotationProcessor 'com.google.dagger:dagger-compiler:2.14.1'
+
+
+    def daggerVer = 2.12 // or latest version
+
+    compile "com.google.dagger:dagger:$daggerVer"
+    compile "com.google.dagger:dagger-android-support:$daggerVer"
+    annotationProcessor "com.google.dagger:dagger-android-processor:$daggerVer"
+    annotationProcessor "com.google.dagger:dagger-compiler:$daggerVer"
+
+//    implementation 'com.google.dagger:dagger:2.14.1'
+//    annotationProcessor 'com.google.dagger:dagger-compiler:2.14.1'
+//
+//    annotationProcessor "com.google.dagger:dagger-android-processor:2.14.1"
+//    implementation "com.google.dagger:dagger-android:2.14.1"
+
+
     implementation 'com.google.firebase:firebase-core:11.8.0'
     implementation 'com.google.firebase:firebase-auth:11.8.0'
     implementation 'com.google.firebase:firebase-database:11.8.0'
