@@ -1,4 +1,4 @@
-package com.olympicweightlifting.calculators;
+package com.olympicweightlifting.calculators.repmax;
 
 
 import android.app.Fragment;
@@ -9,12 +9,12 @@ import android.view.ViewGroup;
 
 import com.olympicweightlifting.R;
 
-public class LoadingCalculatorFragment extends Fragment {
+public class RepmaxCalculatorFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_loading_calculator, container, false);
+        return inflater.inflate(R.layout.fragment_repmax_calculator, container, false);
     }
 
 }

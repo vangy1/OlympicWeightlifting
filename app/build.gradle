@@ -43,12 +43,17 @@ dependencies {
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
 
 
-    def daggerVer = 2.12 // or latest version
+
+
+    def daggerVer = 2.14 // or latest version
 
     compile "com.google.dagger:dagger:$daggerVer"
     compile "com.google.dagger:dagger-android-support:$daggerVer"
     annotationProcessor "com.google.dagger:dagger-android-processor:$daggerVer"
     annotationProcessor "com.google.dagger:dagger-compiler:$daggerVer"
+
+    implementation "com.mikepenz:itemanimators:1.0.1@aar"
+
 
 //    implementation 'com.google.dagger:dagger:2.14.1'
 //    annotationProcessor 'com.google.dagger:dagger-compiler:2.14.1'

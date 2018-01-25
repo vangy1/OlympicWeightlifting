@@ -4,6 +4,10 @@ import android.app.Fragment;
 import android.app.FragmentManager;
 import android.support.v13.app.FragmentStatePagerAdapter;
 
+import com.olympicweightlifting.calculators.loading.LoadingCalculatorFragment;
+import com.olympicweightlifting.calculators.repmax.RepmaxCalculatorFragment;
+import com.olympicweightlifting.calculators.sinclair.SinclairCalculatorFragment;
+
 public class CalculatorsPagerAdapter extends FragmentStatePagerAdapter {
     private SinclairCalculatorFragment sinclairCalculatorFragment = new SinclairCalculatorFragment();
     private RepmaxCalculatorFragment repmaxCalculatorFragment = new RepmaxCalculatorFragment();

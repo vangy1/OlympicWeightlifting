@@ -23,6 +23,20 @@ public class FeatureCardsRecyclerViewAdapter extends RecyclerView.Adapter<Featur
     private Context activityContext;
     private Typeface montserratTypeface;
 
+    public static class ViewHolder extends RecyclerView.ViewHolder {
+        @BindView(R.id.feature_name)
+        TextView featureName;
+        @BindView(R.id.feature_image)
+        ImageView featureImage;
+        @BindView(R.id.feature_shortcuts_layout)
+        LinearLayout buttonsLayout;
+
+        public ViewHolder(CardView cardView) {
+            super(cardView);
+            ButterKnife.bind(this, cardView);
+        }
+    }
+
     public FeatureCardsRecyclerViewAdapter(FeatureDataset[] featureDatasets, Context activityContext) {
         this.featureDatasets = featureDatasets;
         this.activityContext = activityContext;
@@ -78,20 +92,6 @@ public class FeatureCardsRecyclerViewAdapter extends RecyclerView.Adapter<Featur
     private void addAllShortcutButtonsToLayout(ViewHolder viewHolder, Button[] buttons) {
         for (Button button : buttons) {
             viewHolder.buttonsLayout.addView(button);
-        }
-    }
-
-    public static class ViewHolder extends RecyclerView.ViewHolder {
-        @BindView(R.id.feature_name)
-        TextView featureName;
-        @BindView(R.id.feature_image)
-        ImageView featureImage;
-        @BindView(R.id.feature_shortcuts_layout)
-        LinearLayout buttonsLayout;
-
-        public ViewHolder(CardView cardView) {
-            super(cardView);
-            ButterKnife.bind(this, cardView);
         }
     }
 }

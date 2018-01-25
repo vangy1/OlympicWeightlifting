@@ -17,18 +17,20 @@ import com.olympicweightlifting.calculators.CalculatorsActivity;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import dagger.android.AndroidInjection;
 
 public class MainActivity extends AppCompatActivity {
     @BindView(R.id.toolbar)
     Toolbar toolbar;
     @BindView(R.id.features_recycler_view)
-    RecyclerView recyclerView;
+    RecyclerView featuresRecyclerView;
     @BindView(R.id.toolbar_title)
     TextView toolbarTitle;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        AndroidInjection.inject(this);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
@@ -59,8 +61,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void setupRecyclerView() {
-        recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        featuresRecyclerView.setHasFixedSize(true);
+        featuresRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         setupAndPopulateRecyclerAdapter();
     }
@@ -76,7 +78,7 @@ public class MainActivity extends AppCompatActivity {
         FeatureDataset recordsDataset = new FeatureDataset(resources.getString(R.string.records), resources.getStringArray(R.array.records_shortcuts), R.drawable.feature_image_records, new Intent(this, CalculatorsActivity.class));
 
         RecyclerView.Adapter recyclerViewAdapter = new FeatureCardsRecyclerViewAdapter(new FeatureDataset[]{snatchDataset, cajDataset, calculatorsDataset, programsDataset, trackingDataset, recordsDataset}, this);
-        recyclerView.setAdapter(recyclerViewAdapter);
+        featuresRecyclerView.setAdapter(recyclerViewAdapter);
     }
 
     private void showSettingsDialog() {
