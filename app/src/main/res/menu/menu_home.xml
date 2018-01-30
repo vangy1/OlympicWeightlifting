@@ -3,18 +3,18 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.olympicweightliftingpro.MainActivity">
     <item
-        android:id="@+id/settings"
-        android:orderInCategory="100"
-        android:title="Settings"
-        myApplication:showAsAction="never" />
-    <item
-        android:id="@+id/signout"
-        android:orderInCategory="100"
-        android:title="Sign out"
+        android:id="@+id/profile"
+        android:orderInCategory="1"
+        android:title="Profile"
         myApplication:showAsAction="never" />
     <item
         android:id="@+id/signin"
-        android:orderInCategory="100"
+        android:orderInCategory="1"
         android:title="Sign in"
+        myApplication:showAsAction="never" />
+    <item
+        android:id="@+id/settings"
+        android:orderInCategory="2"
+        android:title="Settings"
         myApplication:showAsAction="never" />
 </menu>

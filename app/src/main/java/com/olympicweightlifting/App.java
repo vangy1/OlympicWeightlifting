@@ -10,7 +10,7 @@ import dagger.android.DaggerApplication;
  * Created by vangor on 22/01/2018.
  */
 
-public class MyApplication extends DaggerApplication {
+public class App extends DaggerApplication {
 
     @Override
     protected AndroidInjector<? extends DaggerApplication> applicationInjector() {

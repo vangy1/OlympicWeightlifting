@@ -1,4 +1,4 @@
-package com.olympicweightlifting.calculators;
+package com.olympicweightlifting.features.calculators;
 
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;

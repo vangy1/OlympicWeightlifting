@@ -23,7 +23,7 @@ import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 import com.google.firebase.auth.GoogleAuthProvider;
 import com.olympicweightlifting.R;
 
-import java.util.Collections;
+import java.util.Arrays;
 
 
 public class Authenticator {
@@ -106,7 +106,7 @@ public class Authenticator {
 
 
     void startFacebookAuthentication() {
-        LoginManager.getInstance().logInWithReadPermissions(activity, Collections.singletonList("email"));
+        LoginManager.getInstance().logInWithReadPermissions(activity, Arrays.asList("email", "public_profile"));
     }
 
     private void firebaseAuthWithFacebook(AccessToken accessToken) {

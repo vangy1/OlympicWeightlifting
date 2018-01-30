@@ -1,4 +1,4 @@
-package com.olympicweightlifting.calculators.sinclair;
+package com.olympicweightlifting.features.calculators.sinclair;
 
 
 import android.content.Context;
@@ -14,8 +14,8 @@ import android.widget.RadioGroup;
 
 import com.mikepenz.itemanimators.SlideRightAlphaAnimator;
 import com.olympicweightlifting.R;
-import com.olympicweightlifting.calculators.Calculator;
-import com.olympicweightlifting.calculators.Calculator.Gender;
+import com.olympicweightlifting.features.calculators.Calculator;
+import com.olympicweightlifting.features.calculators.Calculator.Gender;
 
 import java.util.ArrayList;
 import java.util.List;

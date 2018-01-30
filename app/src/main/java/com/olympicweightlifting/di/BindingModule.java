@@ -1,8 +1,8 @@
 package com.olympicweightlifting.di;
 
 
-import com.olympicweightlifting.calculators.CalculatorsActivity;
-import com.olympicweightlifting.calculators.sinclair.SinclairCalculatorFragment;
+import com.olympicweightlifting.features.calculators.CalculatorsActivity;
+import com.olympicweightlifting.features.calculators.sinclair.SinclairCalculatorFragment;
 
 import dagger.Module;
 import dagger.android.ContributesAndroidInjector;

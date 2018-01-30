@@ -1,6 +1,6 @@
 package com.olympicweightlifting.di;
 
-import com.olympicweightlifting.MyApplication;
+import com.olympicweightlifting.App;
 
 import javax.inject.Singleton;
 
@@ -11,11 +11,11 @@ import dagger.android.support.AndroidSupportInjectionModule;
 
 @Singleton
 @Component(modules = {BindingModule.class, ApplicationModule.class, AndroidSupportInjectionModule.class})
-public interface ApplicationComponent extends AndroidInjector<MyApplication> {
+public interface ApplicationComponent extends AndroidInjector<App> {
     @Component.Builder
     interface Builder {
         @BindsInstance
-        Builder application(MyApplication application);
+        Builder application(App application);
 
         ApplicationComponent build();
     }

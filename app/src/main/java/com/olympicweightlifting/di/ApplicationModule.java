@@ -3,8 +3,8 @@ package com.olympicweightlifting.di;
 import android.app.Application;
 import android.content.Context;
 
-import com.olympicweightlifting.MyApplication;
-import com.olympicweightlifting.calculators.Calculator;
+import com.olympicweightlifting.App;
+import com.olympicweightlifting.features.calculators.Calculator;
 
 import dagger.Binds;
 import dagger.Module;
@@ -16,7 +16,7 @@ public abstract class ApplicationModule {
     abstract Context bindContext(Application application);
 
     @Provides
-    static Calculator provideCalculator(MyApplication application) {
+    static Calculator provideCalculator(App application) {
         return new Calculator(application.getApplicationContext());
     }
 }

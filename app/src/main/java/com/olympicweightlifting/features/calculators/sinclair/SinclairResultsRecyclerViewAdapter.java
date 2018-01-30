@@ -1,4 +1,4 @@
-package com.olympicweightlifting.calculators.sinclair;
+package com.olympicweightlifting.features.calculators.sinclair;
 
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;

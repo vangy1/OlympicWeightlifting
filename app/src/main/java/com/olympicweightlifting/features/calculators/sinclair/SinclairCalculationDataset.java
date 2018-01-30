@@ -1,6 +1,6 @@
-package com.olympicweightlifting.calculators.sinclair;
+package com.olympicweightlifting.features.calculators.sinclair;
 
-import com.olympicweightlifting.calculators.Calculator.Gender;
+import com.olympicweightlifting.features.calculators.Calculator.Gender;
 
 /**
  * Created by vangor on 25/01/2018.

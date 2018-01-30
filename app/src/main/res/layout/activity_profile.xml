@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.olympicweightlifting.authentication.profile.ProfileActivity">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/toolbar_height"
+        android:background="@color/colorBackground"
+        android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
+
+        <TextView
+            android:id="@+id/toolbar_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/profile_activity_toolbar_title"
+            android:textColor="@color/colorBlackText"
+            android:textSize="@dimen/toolbar_title_text_size" />
+    </android.support.v7.widget.Toolbar>
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/user_image"
+        android:layout_width="@dimen/profile_activity_user_image_size"
+        android:layout_height="@dimen/profile_activity_user_image_size"
+        android:layout_gravity="center"
+        android:layout_marginTop="@dimen/profile_activity_user_image_margin_vertical"
+        android:layout_marginBottom="@dimen/profile_activity_user_image_margin_vertical"/>
+
+
+    <TextView
+        android:id="@+id/user_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textColor="@color/colorBlackText"
+        android:textSize="@dimen/profile_activity_account_info_text_size" />
+
+    <TextView
+        android:id="@+id/user_account_status"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textColor="@color/colorBlackText"
+        android:textSize="@dimen/profile_activity_account_info_text_size" />
+
+    <Button
+        android:id="@+id/upgrade_premium_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="@string/profile_activity_upgrade_button_text" />
+
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/profile_activity_separator_line_height"
+        android:background="@color/separatorColor"/>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:layout_marginLeft="@dimen/profile_activity_horizontal_margin"
+        android:layout_marginRight="@dimen/profile_activity_horizontal_margin"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/plan_tracking_limit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="Workouts tracked - 0/25"
+            android:textColor="@color/colorBlackText"
+            android:textSize="@dimen/profile_activity_limits_text_size" />
+
+        <TextView
+            android:id="@+id/records_tracking_limit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="Personal records tracked - 0/50"
+            android:textColor="@color/colorBlackText"
+            android:textSize="@dimen/profile_activity_limits_text_size" />
+    </LinearLayout>
+
+
+    <Button
+        android:id="@+id/signout_button"
+        style="@style/Widget.AppCompat.Button.Colored"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="6dp"
+        android:layout_marginLeft="@dimen/profile_activity_horizontal_margin"
+        android:layout_marginRight="@dimen/profile_activity_horizontal_margin"
+        android:text="@string/signout_button_text" />
+
+
+</LinearLayout>
