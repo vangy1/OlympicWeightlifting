@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.olympicweightlifting.calculators.CalculatorsActivity">
+    tools:context=".features.calculators.CalculatorsActivity">
 
 
     <android.support.design.widget.TabLayout

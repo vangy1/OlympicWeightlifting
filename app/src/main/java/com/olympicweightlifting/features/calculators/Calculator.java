@@ -1,4 +1,4 @@
-package com.olympicweightlifting.calculators;
+package com.olympicweightlifting.features.calculators;
 
 import android.content.Context;
 import android.content.SharedPreferences;

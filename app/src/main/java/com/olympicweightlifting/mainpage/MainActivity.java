@@ -11,32 +11,50 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.olympicweightlifting.R;
-import com.olympicweightlifting.calculators.CalculatorsActivity;
+import com.olympicweightlifting.authentication.AuthenticationActivity;
+import com.olympicweightlifting.authentication.SignInDialog;
+import com.olympicweightlifting.authentication.profile.ProfileActivity;
+import com.olympicweightlifting.features.calculators.CalculatorsActivity;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import dagger.android.AndroidInjection;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements AuthenticationActivity{
     @BindView(R.id.toolbar)
     Toolbar toolbar;
-    @BindView(R.id.features_recycler_view)
-    RecyclerView featuresRecyclerView;
     @BindView(R.id.toolbar_title)
     TextView toolbarTitle;
+    @BindView(R.id.features_recycler_view)
+    RecyclerView featuresRecyclerView;
+    SignInDialog signInDialog;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        AndroidInjection.inject(this);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
 
         setupToolbar();
         setupRecyclerView();
+    }
+
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+        if(currentUser == null){
+            menu.findItem(R.id.profile).setVisible(false);
+            menu.findItem(R.id.signin).setVisible(true);
+        } else {
+            menu.findItem(R.id.signin).setVisible(false);
+            menu.findItem(R.id.profile).setVisible(true);
+        }
+        return super.onPrepareOptionsMenu(menu);
     }
 
     @Override
@@ -49,9 +67,21 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.settings) {
             showSettingsDialog();
+        }else if(item.getItemId() == R.id.profile){
+            startActivity(new Intent(this, ProfileActivity.class));
+//            FirebaseAuth.getInstance().signOut();
+        }else if(item.getItemId() == R.id.signin){
+            signInDialog = new SignInDialog();
+            signInDialog.show(getFragmentManager(), getString(R.string.signin_dialog_fragment_tag));
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        signInDialog.onActivityResult(requestCode,resultCode,data);
     }
 
     private void setupToolbar() {
@@ -84,5 +114,17 @@ public class MainActivity extends AppCompatActivity {
     private void showSettingsDialog() {
         SettingsDialog settingsDialog = new SettingsDialog();
         settingsDialog.show(getFragmentManager(), getString(R.string.settings_dialog_fragment_tag));
+    }
+
+
+    @Override
+    public void alreadyAuthenticated() {
+        signInDialog.dismiss();
+    }
+
+    @Override
+    public void authenticationSuccess(FirebaseUser user) {
+        signInDialog.dismiss();
+        Toast.makeText(this, "Signed in as " + user.getDisplayName(), Toast.LENGTH_SHORT).show();
     }
 }

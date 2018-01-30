@@ -41,9 +41,7 @@ public class SettingsDialog extends DialogFragment {
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         View dialogView = this.getActivity().getLayoutInflater().inflate(R.layout.dialog_settings, null);
         ButterKnife.bind(this, dialogView);
-
-        Typeface montserratBold = Typeface.createFromAsset(getActivity().getAssets(), getString(R.string.font_path_montserrat_bold));
-        dialogTitle.setTypeface(montserratBold);
+        dialogTitle.setTypeface(Typeface.createFromAsset(getActivity().getAssets(), getString(R.string.font_path_montserrat_bold)));
 
         displayCurrentSettings();
 

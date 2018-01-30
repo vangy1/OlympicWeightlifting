@@ -21,7 +21,7 @@ import butterknife.ButterKnife;
 public class FeatureCardsRecyclerViewAdapter extends RecyclerView.Adapter<FeatureCardsRecyclerViewAdapter.ViewHolder> {
     private FeatureDataset[] featureDatasets;
     private Context activityContext;
-    private Typeface montserratTypeface;
+    private Typeface montserratBoldTypeface;
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         @BindView(R.id.feature_name)
@@ -40,7 +40,7 @@ public class FeatureCardsRecyclerViewAdapter extends RecyclerView.Adapter<Featur
     public FeatureCardsRecyclerViewAdapter(FeatureDataset[] featureDatasets, Context activityContext) {
         this.featureDatasets = featureDatasets;
         this.activityContext = activityContext;
-        montserratTypeface = Typeface.createFromAsset(activityContext.getAssets(), activityContext.getString(R.string.font_path_montserrat_bold));
+        montserratBoldTypeface = Typeface.createFromAsset(activityContext.getAssets(), activityContext.getString(R.string.font_path_montserrat_bold));
     }
 
     @Override
@@ -54,7 +54,7 @@ public class FeatureCardsRecyclerViewAdapter extends RecyclerView.Adapter<Featur
     public void onBindViewHolder(ViewHolder viewHolder, int position) {
         FeatureDataset currentFeatureDataset = featureDatasets[position];
 
-        viewHolder.featureName.setTypeface(montserratTypeface);
+        viewHolder.featureName.setTypeface(montserratBoldTypeface);
         viewHolder.featureName.setText(currentFeatureDataset.getFeatureName());
         viewHolder.featureImage.setImageResource(currentFeatureDataset.getFeatureImage());
 
