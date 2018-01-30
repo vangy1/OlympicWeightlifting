@@ -1,7 +1,6 @@
 package com.olympicweightlifting.calculators.sinclair;
 
 
-import android.app.Fragment;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -25,10 +24,10 @@ import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import dagger.android.AndroidInjection;
+import dagger.android.DaggerFragment;
 
 
-public class SinclairCalculatorFragment extends Fragment {
+public class SinclairCalculatorFragment extends DaggerFragment {
     private final int HISTORY_MAX = 10;
 
     @BindView(R.id.total_edit_text)
@@ -50,11 +49,9 @@ public class SinclairCalculatorFragment extends Fragment {
 
     @Override
     public void onAttach(Context context) {
-        AndroidInjection.inject(this);
         super.onAttach(context);
 
     }
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

@@ -45,6 +45,7 @@ dependencies {
 
 
 
+
     def daggerVer = 2.14 // or latest version
 
     compile "com.google.dagger:dagger:$daggerVer"
@@ -53,7 +54,6 @@ dependencies {
     annotationProcessor "com.google.dagger:dagger-compiler:$daggerVer"
 
     implementation "com.mikepenz:itemanimators:1.0.1@aar"
-
 
 //    implementation 'com.google.dagger:dagger:2.14.1'
 //    annotationProcessor 'com.google.dagger:dagger-compiler:2.14.1'
@@ -65,7 +65,13 @@ dependencies {
     implementation 'com.google.firebase:firebase-core:11.8.0'
     implementation 'com.google.firebase:firebase-auth:11.8.0'
     implementation 'com.google.firebase:firebase-database:11.8.0'
+    compile 'com.google.android.gms:play-services-auth:11.8.0'
+    implementation 'com.facebook.android:facebook-login:[4,5)'
+
     implementation 'com.jakewharton:butterknife:8.8.1'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
     implementation 'com.android.support:design:27.0.2'
 }
+
+
+apply plugin: 'com.google.gms.google-services'
