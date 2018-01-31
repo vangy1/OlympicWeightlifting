@@ -18,7 +18,7 @@ import butterknife.ButterKnife;
 
 
 public class SinclairResultsRecyclerViewAdapter extends RecyclerView.Adapter<SinclairResultsRecyclerViewAdapter.ViewHolder> {
-    private List<SinclairCalculationDataset> sinclairCalculationDatasets;
+    private List<SinclairCalculation> sinclairCalculations;
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         @BindView(R.id.total_text_view)
@@ -36,8 +36,8 @@ public class SinclairResultsRecyclerViewAdapter extends RecyclerView.Adapter<Sin
         }
     }
 
-    public SinclairResultsRecyclerViewAdapter(List<SinclairCalculationDataset> sinclairCalculationDatasets) {
-        this.sinclairCalculationDatasets = sinclairCalculationDatasets;
+    public SinclairResultsRecyclerViewAdapter(List<SinclairCalculation> sinclairCalculations) {
+        this.sinclairCalculations = sinclairCalculations;
     }
 
     @Override
@@ -49,13 +49,13 @@ public class SinclairResultsRecyclerViewAdapter extends RecyclerView.Adapter<Sin
 
     @Override
     public void onBindViewHolder(SinclairResultsRecyclerViewAdapter.ViewHolder viewHolder, int position) {
-        SinclairCalculationDataset currentSinclairCalculationDataset = sinclairCalculationDatasets.get(position);
+        SinclairCalculation currentSinclairCalculation = sinclairCalculations.get(position);
 
-        viewHolder.totalTextView.setText(String.valueOf(currentSinclairCalculationDataset.getTotal()));
-        viewHolder.bodyweightTextView.setText(String.valueOf(currentSinclairCalculationDataset.getBodyweight()));
-        viewHolder.genderTextView.setText(currentSinclairCalculationDataset.getGender().toString());
+        viewHolder.totalTextView.setText(String.valueOf(currentSinclairCalculation.getTotal()));
+        viewHolder.bodyweightTextView.setText(String.valueOf(currentSinclairCalculation.getBodyweight()));
+        viewHolder.genderTextView.setText(currentSinclairCalculation.getGender().toString());
 
-        Spannable sinclairScoreSpannable = new SpannableString(new DecimalFormat("##.00").format(currentSinclairCalculationDataset.getSinclairScore()));
+        Spannable sinclairScoreSpannable = new SpannableString(new DecimalFormat("##.00").format(currentSinclairCalculation.getSinclairScore()));
         sinclairScoreSpannable.setSpan(new android.text.style.StyleSpan(android.graphics.Typeface.BOLD), 0, sinclairScoreSpannable.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         viewHolder.sinclairScoreTextView.setText(R.string.sinclair_score_result_text);
         viewHolder.sinclairScoreTextView.append(sinclairScoreSpannable);
@@ -63,7 +63,7 @@ public class SinclairResultsRecyclerViewAdapter extends RecyclerView.Adapter<Sin
 
     @Override
     public int getItemCount() {
-        return sinclairCalculationDatasets.size();
+        return sinclairCalculations.size();
     }
 
 }

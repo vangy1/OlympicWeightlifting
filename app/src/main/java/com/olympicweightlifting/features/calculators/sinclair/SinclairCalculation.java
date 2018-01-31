@@ -1,18 +1,23 @@
 package com.olympicweightlifting.features.calculators.sinclair;
 
-import com.olympicweightlifting.features.calculators.Calculator.Gender;
+import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.PrimaryKey;
 
 /**
  * Created by vangor on 25/01/2018.
  */
 
-public class SinclairCalculationDataset {
-    private double total;
-    private double bodyweight;
-    private Gender gender;
-    private double sinclairScore;
+@Entity
+public class SinclairCalculation {
+    @PrimaryKey(autoGenerate = true)
+    public int id;
 
-    public SinclairCalculationDataset(double total, double bodyweight, Gender gender, double sinclairScore) {
+    public double total;
+    public double bodyweight;
+    public String gender;
+    public double sinclairScore;
+
+    public SinclairCalculation(double total, double bodyweight, String gender, double sinclairScore) {
         this.total = total;
         this.bodyweight = bodyweight;
         this.gender = gender;
@@ -27,7 +32,7 @@ public class SinclairCalculationDataset {
         return bodyweight;
     }
 
-    public Gender getGender() {
+    public String getGender() {
         return gender;
     }
 

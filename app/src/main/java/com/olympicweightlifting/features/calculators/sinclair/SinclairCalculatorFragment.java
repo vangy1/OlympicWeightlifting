@@ -1,8 +1,10 @@
 package com.olympicweightlifting.features.calculators.sinclair;
 
 
+import android.arch.persistence.room.Room;
 import android.content.Context;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -13,6 +15,7 @@ import android.widget.EditText;
 import android.widget.RadioGroup;
 
 import com.mikepenz.itemanimators.SlideRightAlphaAnimator;
+import com.olympicweightlifting.AppDatabase;
 import com.olympicweightlifting.R;
 import com.olympicweightlifting.features.calculators.Calculator;
 import com.olympicweightlifting.features.calculators.Calculator.Gender;
@@ -25,6 +28,11 @@ import javax.inject.Inject;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import dagger.android.DaggerFragment;
+import io.reactivex.Completable;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
+
+import static com.facebook.FacebookSdk.getApplicationContext;
 
 
 public class SinclairCalculatorFragment extends DaggerFragment {
@@ -44,13 +52,21 @@ public class SinclairCalculatorFragment extends DaggerFragment {
     @Inject
     Calculator calculator;
 
-    private List<SinclairCalculationDataset> sinclairCalculationDatasets = new ArrayList<>();
+    private List<SinclairCalculation> sinclairCalculations = new ArrayList<>();
     private RecyclerView.Adapter resultsRecyclerViewAdapter;
+    private AppDatabase database;
 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
 
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        database = Room.databaseBuilder(getApplicationContext(),
+                AppDatabase.class, getString(R.string.database_name)).build();
     }
 
     @Override
@@ -60,22 +76,14 @@ public class SinclairCalculatorFragment extends DaggerFragment {
         ButterKnife.bind(this, fragmentView);
         setupRecyclerView();
 
+        populateRecyclerView();
+
 
         calculateButton.setOnClickListener(view -> {
-            double total = Double.parseDouble(this.total.getText().toString());
-            double bodyweight = Double.parseDouble(bodyWeightEditText.getText().toString());
-            Gender gender = genderRadioGroup.getCheckedRadioButtonId() == R.id.male_radio_button ? Gender.MALE : Gender.FEMALE;
-            double sinclairScore = calculator.calculateSinclair(total, bodyweight, gender);
+            SinclairCalculation sinclairCalculation = calculateSinclair();
 
-            if(sinclairCalculationDatasets.size() >= HISTORY_MAX){
-                sinclairCalculationDatasets.remove(sinclairCalculationDatasets.size() - 1);
-                resultsRecyclerViewAdapter.notifyItemRangeRemoved(sinclairCalculationDatasets.size(), 1);
-
-            }
-            sinclairCalculationDatasets.add(0,new SinclairCalculationDataset(total,bodyweight,gender,sinclairScore));
-            resultsRecyclerViewAdapter.notifyItemInserted(0);
-            resultsRecyclerView.scrollToPosition(0);
-
+            saveCalculationInDatabase(sinclairCalculation);
+            insertCalculationIntoRecyclerView(sinclairCalculation);
         });
 
         return fragmentView;
@@ -83,10 +91,39 @@ public class SinclairCalculatorFragment extends DaggerFragment {
 
     private void setupRecyclerView() {
         resultsRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        resultsRecyclerViewAdapter = new SinclairResultsRecyclerViewAdapter(sinclairCalculationDatasets);
+        resultsRecyclerViewAdapter = new SinclairResultsRecyclerViewAdapter(sinclairCalculations);
         resultsRecyclerView.setAdapter(resultsRecyclerViewAdapter);
         resultsRecyclerView.setItemAnimator(new SlideRightAlphaAnimator());
     }
 
+    private void populateRecyclerView() {
+        database.sinclairCalculationDao().get(HISTORY_MAX).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe((calculations) -> {
+            sinclairCalculations.addAll(calculations);
+            resultsRecyclerViewAdapter.notifyDataSetChanged();
+        });
+    }
 
+    private SinclairCalculation calculateSinclair() {
+        double total = Double.parseDouble(this.total.getText().toString());
+        double bodyweight = Double.parseDouble(bodyWeightEditText.getText().toString());
+        Gender gender = genderRadioGroup.getCheckedRadioButtonId() == R.id.male_radio_button ? Gender.MALE : Gender.FEMALE;
+        double sinclairScore = calculator.calculateSinclair(total, bodyweight, gender);
+        return new SinclairCalculation(total, bodyweight, gender.toString(), sinclairScore);
+    }
+
+    private void saveCalculationInDatabase(SinclairCalculation sinclairCalculation) {
+        Completable.fromAction(() -> {
+            database.sinclairCalculationDao().insert(sinclairCalculation);
+        }).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe();
+    }
+
+    private void insertCalculationIntoRecyclerView(SinclairCalculation sinclairCalculation) {
+        if (sinclairCalculations.size() >= HISTORY_MAX) {
+            sinclairCalculations.remove(sinclairCalculations.size() - 1);
+            resultsRecyclerViewAdapter.notifyItemRangeRemoved(sinclairCalculations.size(), 1);
+        }
+        sinclairCalculations.add(0, sinclairCalculation);
+        resultsRecyclerViewAdapter.notifyItemInserted(0);
+        resultsRecyclerView.scrollToPosition(0);
+    }
 }
