@@ -21,9 +21,9 @@ public class Calculator {
     }
 
     @Inject
-    public Calculator(Context context) {
+    public Calculator(Context context, SharedPreferences sharedPreferences) {
         this.context = context;
-        sharedPreferences = context.getSharedPreferences(context.getString(R.string.settings_shared_preferences_id), Context.MODE_PRIVATE);
+        this.sharedPreferences = sharedPreferences;
     }
 
     public double calculateSinclair(double total, double bodyweight, Gender gender) {

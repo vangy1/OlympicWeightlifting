@@ -40,7 +40,7 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:textColor="@color/colorBlackText"
-        android:textSize="@dimen/profile_activity_account_info_text_size" />
+        android:textSize="@dimen/profile_activity_account_info_text_text_size" />
 
     <TextView
         android:id="@+id/user_account_status"
@@ -48,7 +48,7 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:textColor="@color/colorBlackText"
-        android:textSize="@dimen/profile_activity_account_info_text_size" />
+        android:textSize="@dimen/profile_activity_account_info_text_text_size" />
 
     <Button
         android:id="@+id/upgrade_premium_button"
@@ -80,7 +80,7 @@
             android:gravity="center"
             android:text="Workouts tracked - 0/25"
             android:textColor="@color/colorBlackText"
-            android:textSize="@dimen/profile_activity_limits_text_size" />
+            android:textSize="@dimen/profile_activity_limits_text_text_size" />
 
         <TextView
             android:id="@+id/records_tracking_limit"
@@ -89,7 +89,7 @@
             android:gravity="center"
             android:text="Personal records tracked - 0/50"
             android:textColor="@color/colorBlackText"
-            android:textSize="@dimen/profile_activity_limits_text_size" />
+            android:textSize="@dimen/profile_activity_limits_text_text_size" />
     </LinearLayout>
 
 

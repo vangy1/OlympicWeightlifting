@@ -37,5 +37,13 @@
     <string name="profile_activity_upgrade_button_text">Upgrade to Premium</string>
     <string name="signout_button_text">Sign out</string>
     <string name="database_name">database</string>
+    <string name="sinclair_calculator_fragment_total_text">Total</string>
+    <string name="sinclair_calculator_fragment_total_input_hint">0</string>
+    <string name="sinclair_calculator_fragment_bodyweight_input_hint">0</string>
+    <string name="sinclair_calculator_fragment_bodyweight_text">Bodyweight</string>
+    <string name="sinclair_calculator_fragment_calculate_button_text">Calculate</string>
+    <string name="gender_female">Female</string>
+    <string name="gender_male">Male</string>
+    <string name="sinclair_calculator_fragment_gender_text">Gender</string>
 
 </resources>

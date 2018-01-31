@@ -1,8 +1,6 @@
 package com.olympicweightlifting.mainpage;
 
 import android.app.Dialog;
-import android.app.DialogFragment;
-import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.os.Bundle;
@@ -14,10 +12,14 @@ import android.widget.TextView;
 
 import com.olympicweightlifting.R;
 
+import javax.inject.Inject;
+import javax.inject.Named;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import dagger.android.DaggerDialogFragment;
 
-public class SettingsDialog extends DialogFragment {
+public class SettingsDialog extends DaggerDialogFragment {
     @BindView(R.id.dialog_title)
     TextView dialogTitle;
     @BindView(R.id.dark_theme_switch)
@@ -25,16 +27,13 @@ public class SettingsDialog extends DialogFragment {
     @BindView(R.id.units_radio_group)
     RadioGroup unitsRadioGroup;
 
-    private SharedPreferences sharedPreferences;
+    @Inject
+    @Named("settings")
+    SharedPreferences settingsSharedPreferences;
+
 
     public enum Units {
         KG, LB
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        sharedPreferences = getActivity().getSharedPreferences(getString(R.string.settings_shared_preferences_id), Context.MODE_PRIVATE);
     }
 
     @Override
@@ -50,8 +49,8 @@ public class SettingsDialog extends DialogFragment {
     }
 
     private void displayCurrentSettings() {
-        darkThemeSwitch.setChecked(sharedPreferences.getBoolean(getString(R.string.settings_dark_theme), false));
-        Units units = Units.valueOf(sharedPreferences.getString(getString(R.string.settings_units), Units.KG.toString()));
+        darkThemeSwitch.setChecked(settingsSharedPreferences.getBoolean(getString(R.string.settings_dark_theme), false));
+        Units units = Units.valueOf(settingsSharedPreferences.getString(getString(R.string.settings_units), Units.KG.toString()));
         if(units == Units.KG){
             unitsRadioGroup.check(R.id.kg_radio_button);
         } else if(units == Units.LB){
@@ -60,7 +59,7 @@ public class SettingsDialog extends DialogFragment {
     }
 
     private void saveSettingsToSharedPreferences() {
-        SharedPreferences.Editor sharedPreferencesEditor = sharedPreferences.edit();
+        SharedPreferences.Editor sharedPreferencesEditor = settingsSharedPreferences.edit();
         sharedPreferencesEditor.putBoolean(getString(R.string.settings_dark_theme), darkThemeSwitch.isChecked());
         if(unitsRadioGroup.getCheckedRadioButtonId() == R.id.kg_radio_button){
             sharedPreferencesEditor.putString(getString(R.string.settings_units), Units.KG.toString());

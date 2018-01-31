@@ -3,6 +3,7 @@ package com.olympicweightlifting.features.calculators.sinclair;
 
 import android.arch.persistence.room.Room;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
@@ -13,17 +14,20 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioGroup;
+import android.widget.TextView;
 
 import com.mikepenz.itemanimators.SlideRightAlphaAnimator;
 import com.olympicweightlifting.AppDatabase;
 import com.olympicweightlifting.R;
 import com.olympicweightlifting.features.calculators.Calculator;
 import com.olympicweightlifting.features.calculators.Calculator.Gender;
+import com.olympicweightlifting.mainpage.SettingsDialog.Units;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
+import javax.inject.Named;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -39,15 +43,23 @@ public class SinclairCalculatorFragment extends DaggerFragment {
     private final int HISTORY_MAX = 10;
 
     @BindView(R.id.total_edit_text)
-    EditText total;
+    EditText totalEditText;
+    @BindView(R.id.total_units)
+    TextView totalUnitsText;
     @BindView(R.id.bodyweight_edit_text)
     EditText bodyWeightEditText;
+    @BindView(R.id.bodyweight_units)
+    TextView bodyweightUnitsText;
     @BindView(R.id.gender_radio_group)
     RadioGroup genderRadioGroup;
     @BindView(R.id.calculate_button)
     Button calculateButton;
     @BindView(R.id.results_recycler_view)
     RecyclerView resultsRecyclerView;
+
+    @Inject
+    @Named("settings")
+    SharedPreferences settingsSharedPreferences;
 
     @Inject
     Calculator calculator;
@@ -59,7 +71,6 @@ public class SinclairCalculatorFragment extends DaggerFragment {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-
     }
 
     @Override
@@ -74,10 +85,10 @@ public class SinclairCalculatorFragment extends DaggerFragment {
                              Bundle savedInstanceState) {
         View fragmentView = inflater.inflate(R.layout.fragment_sinclair_calculator, container, false);
         ButterKnife.bind(this, fragmentView);
+        setUnitsForView();
+
         setupRecyclerView();
-
         populateRecyclerView();
-
 
         calculateButton.setOnClickListener(view -> {
             SinclairCalculation sinclairCalculation = calculateSinclair();
@@ -87,6 +98,12 @@ public class SinclairCalculatorFragment extends DaggerFragment {
         });
 
         return fragmentView;
+    }
+
+    private void setUnitsForView() {
+        String units = settingsSharedPreferences.getString(getActivity().getString(R.string.settings_units), Units.KG.toString()).toLowerCase();
+        totalUnitsText.setText(units);
+        bodyweightUnitsText.setText(units);
     }
 
     private void setupRecyclerView() {
@@ -104,11 +121,12 @@ public class SinclairCalculatorFragment extends DaggerFragment {
     }
 
     private SinclairCalculation calculateSinclair() {
-        double total = Double.parseDouble(this.total.getText().toString());
+        double total = Double.parseDouble(this.totalEditText.getText().toString());
         double bodyweight = Double.parseDouble(bodyWeightEditText.getText().toString());
         Gender gender = genderRadioGroup.getCheckedRadioButtonId() == R.id.male_radio_button ? Gender.MALE : Gender.FEMALE;
+        String units = settingsSharedPreferences.getString(getActivity().getString(R.string.settings_units), Units.KG.toString()).toLowerCase();
         double sinclairScore = calculator.calculateSinclair(total, bodyweight, gender);
-        return new SinclairCalculation(total, bodyweight, gender.toString(), sinclairScore);
+        return new SinclairCalculation(total, bodyweight, gender.toString(), units, sinclairScore);
     }
 
     private void saveCalculationInDatabase(SinclairCalculation sinclairCalculation) {
