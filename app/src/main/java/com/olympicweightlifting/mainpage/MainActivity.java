@@ -24,7 +24,7 @@ import com.olympicweightlifting.features.calculators.CalculatorsActivity;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class MainActivity extends AppCompatActivity implements AuthenticationActivity{
+public class MainActivity extends AppCompatActivity implements AuthenticationActivity {
     @BindView(R.id.toolbar)
     Toolbar toolbar;
     @BindView(R.id.toolbar_title)
@@ -44,46 +44,6 @@ public class MainActivity extends AppCompatActivity implements AuthenticationAct
         setupRecyclerView();
     }
 
-    @Override
-    public boolean onPrepareOptionsMenu(Menu menu) {
-        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
-        if(currentUser == null){
-            menu.findItem(R.id.profile).setVisible(false);
-            menu.findItem(R.id.signin).setVisible(true);
-        } else {
-            menu.findItem(R.id.signin).setVisible(false);
-            menu.findItem(R.id.profile).setVisible(true);
-        }
-        return super.onPrepareOptionsMenu(menu);
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_home, menu);
-        return super.onCreateOptionsMenu(menu);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == R.id.settings) {
-            showSettingsDialog();
-        }else if(item.getItemId() == R.id.profile){
-            startActivity(new Intent(this, ProfileActivity.class));
-//            FirebaseAuth.getInstance().signOut();
-        }else if(item.getItemId() == R.id.signin){
-            signInDialog = new SignInDialog();
-            signInDialog.show(getFragmentManager(), getString(R.string.signin_dialog_fragment_tag));
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        signInDialog.onActivityResult(requestCode,resultCode,data);
-    }
-
     private void setupToolbar() {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
@@ -100,15 +60,48 @@ public class MainActivity extends AppCompatActivity implements AuthenticationAct
     private void setupAndPopulateRecyclerAdapter() {
         Resources resources = getResources();
 
-        FeatureDataset snatchDataset = new FeatureDataset(resources.getString(R.string.snatch), resources.getStringArray(R.array.snatch_shortcuts), R.drawable.feature_image_snatch, new Intent(this, CalculatorsActivity.class));
-        FeatureDataset cajDataset = new FeatureDataset(resources.getString(R.string.caj), resources.getStringArray(R.array.caj_shortcuts), R.drawable.feature_image_caj, new Intent(this, CalculatorsActivity.class));
-        FeatureDataset calculatorsDataset = new FeatureDataset(resources.getString(R.string.calculators), resources.getStringArray(R.array.calculators_shortcuts), R.drawable.feature_image_calculators, new Intent(this, CalculatorsActivity.class));
-        FeatureDataset programsDataset = new FeatureDataset(resources.getString(R.string.programs), resources.getStringArray(R.array.programs_shortcuts), R.drawable.feature_image_programs, new Intent(this, CalculatorsActivity.class));
-        FeatureDataset trackingDataset = new FeatureDataset(resources.getString(R.string.tracking), resources.getStringArray(R.array.tracking_shortcuts), R.drawable.feature_image_tracking, new Intent(this, CalculatorsActivity.class));
-        FeatureDataset recordsDataset = new FeatureDataset(resources.getString(R.string.records), resources.getStringArray(R.array.records_shortcuts), R.drawable.feature_image_records, new Intent(this, CalculatorsActivity.class));
+        FeatureDataset snatchDataset = new FeatureDataset(resources.getString(R.string.snatch), resources.getStringArray(R.array.snatch_shortcuts), R.drawable.feature_image_snatch, CalculatorsActivity.class);
+        FeatureDataset cajDataset = new FeatureDataset(resources.getString(R.string.caj), resources.getStringArray(R.array.caj_shortcuts), R.drawable.feature_image_caj, CalculatorsActivity.class);
+        FeatureDataset calculatorsDataset = new FeatureDataset(resources.getString(R.string.calculators), resources.getStringArray(R.array.calculators_shortcuts), R.drawable.feature_image_calculators, CalculatorsActivity.class);
+        FeatureDataset programsDataset = new FeatureDataset(resources.getString(R.string.programs), resources.getStringArray(R.array.programs_shortcuts), R.drawable.feature_image_programs, CalculatorsActivity.class);
+        FeatureDataset trackingDataset = new FeatureDataset(resources.getString(R.string.tracking), resources.getStringArray(R.array.tracking_shortcuts), R.drawable.feature_image_tracking, CalculatorsActivity.class);
+        FeatureDataset recordsDataset = new FeatureDataset(resources.getString(R.string.records), resources.getStringArray(R.array.records_shortcuts), R.drawable.feature_image_records, CalculatorsActivity.class);
 
         RecyclerView.Adapter recyclerViewAdapter = new FeatureCardsRecyclerViewAdapter(new FeatureDataset[]{snatchDataset, cajDataset, calculatorsDataset, programsDataset, trackingDataset, recordsDataset}, this);
         featuresRecyclerView.setAdapter(recyclerViewAdapter);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_home, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+        if (currentUser == null) {
+            menu.findItem(R.id.profile).setVisible(false);
+            menu.findItem(R.id.signin).setVisible(true);
+        } else {
+            menu.findItem(R.id.signin).setVisible(false);
+            menu.findItem(R.id.profile).setVisible(true);
+        }
+        return super.onPrepareOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == R.id.settings) {
+            showSettingsDialog();
+        } else if (item.getItemId() == R.id.profile) {
+            startActivity(new Intent(this, ProfileActivity.class));
+        } else if (item.getItemId() == R.id.signin) {
+            signInDialog = new SignInDialog();
+            signInDialog.show(getFragmentManager(), getString(R.string.signin_dialog_fragment_tag));
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 
     private void showSettingsDialog() {
@@ -116,6 +109,11 @@ public class MainActivity extends AppCompatActivity implements AuthenticationAct
         settingsDialog.show(getFragmentManager(), getString(R.string.settings_dialog_fragment_tag));
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        signInDialog.onActivityResult(requestCode, resultCode, data);
+    }
 
     @Override
     public void alreadyAuthenticated() {

@@ -51,8 +51,8 @@ public class SinclairResultsRecyclerViewAdapter extends RecyclerView.Adapter<Sin
     public void onBindViewHolder(SinclairResultsRecyclerViewAdapter.ViewHolder viewHolder, int position) {
         SinclairCalculation currentSinclairCalculation = sinclairCalculations.get(position);
 
-        viewHolder.totalTextView.setText(String.format("%s %s", currentSinclairCalculation.getTotalFormatted(), currentSinclairCalculation.units));
-        viewHolder.bodyweightTextView.setText(String.format("%s %s", currentSinclairCalculation.getBodyweightFormatted(), currentSinclairCalculation.units));
+        viewHolder.totalTextView.setText(String.format("%s %s", currentSinclairCalculation.getTotalFormatted(), currentSinclairCalculation.getUnits()));
+        viewHolder.bodyweightTextView.setText(String.format("%s %s", currentSinclairCalculation.getBodyweightFormatted(), currentSinclairCalculation.getUnits()));
         viewHolder.genderTextView.setText(currentSinclairCalculation.getGender());
 
         Spannable sinclairScoreSpannable = new SpannableString(new DecimalFormat("##.00").format(currentSinclairCalculation.getSinclairScore()));

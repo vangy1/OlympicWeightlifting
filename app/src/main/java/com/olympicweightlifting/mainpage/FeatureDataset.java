@@ -1,7 +1,5 @@
 package com.olympicweightlifting.mainpage;
 
-import android.content.Intent;
-
 /**
  * Created by vangor on 16/01/2018.
  */
@@ -10,9 +8,9 @@ public class FeatureDataset {
     private String featureName;
     private String[] featureShortcuts;
     private int featureImage;
-    private Intent activityToStart;
+    private Class activityToStart;
 
-    public FeatureDataset(String featureName, String[] featureShortcuts, int featureImage, Intent activityToStart) {
+    public FeatureDataset(String featureName, String[] featureShortcuts, int featureImage, Class activityToStart) {
         this.featureName = featureName;
         this.featureShortcuts = featureShortcuts;
         this.featureImage = featureImage;
@@ -31,7 +29,7 @@ public class FeatureDataset {
         return featureImage;
     }
 
-    public Intent getActivityToStart() {
+    public Class getActivityToStart() {
         return activityToStart;
     }
 }

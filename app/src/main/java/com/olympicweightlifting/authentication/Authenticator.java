@@ -74,12 +74,26 @@ public class Authenticator {
         });
     }
 
+    private void firebaseAuthWithFacebook(AccessToken accessToken) {
+        facebookAuthCredential = FacebookAuthProvider.getCredential(accessToken.getToken());
+        firebaseAuth.signInWithCredential(facebookAuthCredential).addOnCompleteListener(activity, task -> {
+                    if (task.isSuccessful()) {
+                        ((AuthenticationActivity) activity).authenticationSuccess(FirebaseAuth.getInstance().getCurrentUser());
+                    } else {
+                        if (task.getException() instanceof FirebaseAuthUserCollisionException) {
+                            Toast.makeText(activity, R.string.facebook_collision_message,
+                                    Toast.LENGTH_LONG).show();
+                        }
+                    }
+                }
+        );
+    }
+
     void checkIfAlreadySignedIn() {
         if (FirebaseAuth.getInstance().getCurrentUser() != null) {
             ((AuthenticationActivity) activity).alreadyAuthenticated();
         }
     }
-
 
     void startGoogleAuthentication() {
         activity.startActivityForResult(googleSignInClient.getSignInIntent(), GOOGLE_LOGIN_REQUEST_CODE);
@@ -104,24 +118,8 @@ public class Authenticator {
         });
     }
 
-
     void startFacebookAuthentication() {
         LoginManager.getInstance().logInWithReadPermissions(activity, Arrays.asList("email", "public_profile"));
-    }
-
-    private void firebaseAuthWithFacebook(AccessToken accessToken) {
-        facebookAuthCredential = FacebookAuthProvider.getCredential(accessToken.getToken());
-        firebaseAuth.signInWithCredential(facebookAuthCredential).addOnCompleteListener(activity, task -> {
-                    if (task.isSuccessful()) {
-                        ((AuthenticationActivity) activity).authenticationSuccess(FirebaseAuth.getInstance().getCurrentUser());
-                    } else {
-                        if (task.getException() instanceof FirebaseAuthUserCollisionException) {
-                            Toast.makeText(activity, R.string.facebook_collision_message,
-                                    Toast.LENGTH_LONG).show();
-                        }
-                    }
-                }
-        );
     }
 
     void handleFacebookSignInResult(int requestCode, int resultCode, Intent data) {

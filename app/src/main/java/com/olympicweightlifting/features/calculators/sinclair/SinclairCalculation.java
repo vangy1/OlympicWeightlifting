@@ -32,15 +32,19 @@ public class SinclairCalculation {
         return total;
     }
 
-    public String getTotalFormatted(){
+    public String getTotalFormatted() {
         return formatDoubleToString(total);
+    }
+
+    private String formatDoubleToString(double bodyweight) {
+        return new DecimalFormat("##.##").format(bodyweight);
     }
 
     public double getBodyweight() {
         return bodyweight;
     }
 
-    public String getBodyweightFormatted(){
+    public String getBodyweightFormatted() {
         return formatDoubleToString(bodyweight);
     }
 
@@ -48,17 +52,12 @@ public class SinclairCalculation {
         return gender;
     }
 
-
     public String getUnits() {
         return units;
     }
 
     public double getSinclairScore() {
         return sinclairScore;
-    }
-
-    private String formatDoubleToString(double bodyweight) {
-        return new DecimalFormat("##.##").format(bodyweight);
     }
 
 }

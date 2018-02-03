@@ -27,4 +27,31 @@
         <item>Personal</item>
         <item>World</item>
     </string-array>
+
+    <string-array name="calculators_repmax_reps">
+        <item>1 rep</item>
+        <item>2 reps</item>
+        <item>3 reps</item>
+        <item>4 reps</item>
+        <item>5 reps</item>
+        <item>6 reps</item>
+        <item>7 reps</item>
+        <item>8 reps</item>
+        <item>9 reps</item>
+        <item>10 reps</item>
+    </string-array>
+
+
+    <string-array name="calculators_repmax_percentage">
+        <item>100%</item>
+        <item>95%</item>
+        <item>90%</item>
+        <item>85%</item>
+        <item>80%</item>
+        <item>75%</item>
+        <item>70%</item>
+        <item>65%</item>
+        <item>60%</item>
+        <item>55%</item>
+    </string-array>
 </resources>

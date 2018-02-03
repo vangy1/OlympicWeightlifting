@@ -1,11 +1,13 @@
 package com.olympicweightlifting.di;
 
+import android.arch.persistence.room.Room;
 import android.content.Context;
 import android.content.SharedPreferences;
 
 import com.olympicweightlifting.App;
 import com.olympicweightlifting.R;
-import com.olympicweightlifting.features.calculators.Calculator;
+import com.olympicweightlifting.data.local.AppDatabase;
+import com.olympicweightlifting.features.calculators.CalculatorService;
 
 import javax.inject.Named;
 import javax.inject.Singleton;
@@ -30,9 +32,16 @@ public abstract class ApplicationModule {
 
     @Provides
     @Singleton
-    static Calculator provideCalculator(Context context, @Named("settings") SharedPreferences sharedPreferences) {
-        return new Calculator(context, sharedPreferences);
+    static AppDatabase provideDatabase(Context context) {
+        return Room.databaseBuilder(context,
+                AppDatabase.class, context.getString(R.string.database_name))
+                .fallbackToDestructiveMigration()
+                .build();
     }
 
-
+    @Provides
+    @Singleton
+    static CalculatorService provideCalculator(Context context, @Named("settings") SharedPreferences sharedPreferences) {
+        return new CalculatorService(context, sharedPreferences);
+    }
 }

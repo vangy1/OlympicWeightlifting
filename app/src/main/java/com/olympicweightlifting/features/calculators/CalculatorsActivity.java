@@ -41,5 +41,8 @@ public class CalculatorsActivity extends DaggerAppCompatActivity {
     private void setupViewPager() {
         viewPager.setAdapter(new CalculatorsPagerAdapter(getFragmentManager()));
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
+        int fragmentIndex = getIntent().getIntExtra(getString(R.string.extra_fragment_index), 0);
+        System.out.println(fragmentIndex);
+        viewPager.setCurrentItem(fragmentIndex);
     }
 }

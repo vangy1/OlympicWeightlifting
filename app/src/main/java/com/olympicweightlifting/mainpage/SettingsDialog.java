@@ -31,7 +31,6 @@ public class SettingsDialog extends DaggerDialogFragment {
     @Named("settings")
     SharedPreferences settingsSharedPreferences;
 
-
     public enum Units {
         KG, LB
     }
@@ -51,9 +50,9 @@ public class SettingsDialog extends DaggerDialogFragment {
     private void displayCurrentSettings() {
         darkThemeSwitch.setChecked(settingsSharedPreferences.getBoolean(getString(R.string.settings_dark_theme), false));
         Units units = Units.valueOf(settingsSharedPreferences.getString(getString(R.string.settings_units), Units.KG.toString()));
-        if(units == Units.KG){
+        if (units == Units.KG) {
             unitsRadioGroup.check(R.id.kg_radio_button);
-        } else if(units == Units.LB){
+        } else if (units == Units.LB) {
             unitsRadioGroup.check(R.id.lb_radio_button);
         }
     }
@@ -61,9 +60,9 @@ public class SettingsDialog extends DaggerDialogFragment {
     private void saveSettingsToSharedPreferences() {
         SharedPreferences.Editor sharedPreferencesEditor = settingsSharedPreferences.edit();
         sharedPreferencesEditor.putBoolean(getString(R.string.settings_dark_theme), darkThemeSwitch.isChecked());
-        if(unitsRadioGroup.getCheckedRadioButtonId() == R.id.kg_radio_button){
+        if (unitsRadioGroup.getCheckedRadioButtonId() == R.id.kg_radio_button) {
             sharedPreferencesEditor.putString(getString(R.string.settings_units), Units.KG.toString());
-        } else if(unitsRadioGroup.getCheckedRadioButtonId() == R.id.lb_radio_button){
+        } else if (unitsRadioGroup.getCheckedRadioButtonId() == R.id.lb_radio_button) {
             sharedPreferencesEditor.putString(getString(R.string.settings_units), Units.LB.toString());
         }
         sharedPreferencesEditor.apply();

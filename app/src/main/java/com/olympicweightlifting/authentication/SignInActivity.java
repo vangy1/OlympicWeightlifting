@@ -15,8 +15,6 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class SignInActivity extends AppCompatActivity implements AuthenticationActivity {
-
-
     @BindView(R.id.google_signin_button)
     Button googleSigninButton;
     @BindView(R.id.facebook_signin_button)
@@ -39,6 +37,10 @@ public class SignInActivity extends AppCompatActivity implements AuthenticationA
         facebookSigninButton.setOnClickListener(view -> authenticator.startFacebookAuthentication());
     }
 
+    private void moveToMainActivity() {
+        this.startActivity(new Intent(this, MainActivity.class));
+    }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -59,9 +61,5 @@ public class SignInActivity extends AppCompatActivity implements AuthenticationA
     public void authenticationSuccess(FirebaseUser user) {
         moveToMainActivity();
         Toast.makeText(this, "Signed in as " + user.getDisplayName(), Toast.LENGTH_SHORT).show();
-    }
-
-    private void moveToMainActivity() {
-        this.startActivity(new Intent(this, MainActivity.class));
     }
 }

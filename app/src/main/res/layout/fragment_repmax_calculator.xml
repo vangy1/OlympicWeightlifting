@@ -4,10 +4,158 @@
     android:layout_height="match_parent"
     tools:context=".features.calculators.repmax.RepmaxCalculatorFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/sinclair_calculator_fragment_row_vertical_margin"
+            android:layout_marginLeft="@dimen/sinclair_calculator_fragment_row_horizontal_margin"
+            android:layout_marginRight="@dimen/sinclair_calculator_fragment_row_horizontal_margin"
+            android:layout_marginTop="@dimen/sinclair_calculator_fragment_row_vertical_margin"
+            android:gravity="center_vertical">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Weight"
+                android:textColor="@color/colorBlackText"
+                android:textSize="@dimen/sinclair_calculator_fragment_input_info_text_size" />
+
+            <EditText
+                android:id="@+id/weight_edit_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:gravity="end"
+                android:hint="@string/sinclair_calculator_fragment_total_input_hint"
+                android:inputType="numberDecimal"
+                android:maxLength="6"
+                android:minEms="6"
+                android:textColor="@color/colorBlackText"
+                android:textSize="@dimen/sinclair_calculator_fragment_input_text_size" />
+
+            <TextView
+                android:id="@+id/weight_units"
+                android:layout_width="32dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginStart="@dimen/sinclair_calculator_fragment_unit_margin_left"
+                android:gravity="center"
+                android:text="kg"
+                android:textSize="11sp" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/sinclair_calculator_fragment_row_separator_line_height"
+            android:background="@color/separatorColor" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/sinclair_calculator_fragment_row_vertical_margin"
+            android:layout_marginLeft="@dimen/sinclair_calculator_fragment_row_horizontal_margin"
+            android:layout_marginRight="@dimen/sinclair_calculator_fragment_row_horizontal_margin"
+            android:layout_marginTop="@dimen/sinclair_calculator_fragment_row_vertical_margin"
+            android:gravity="center_vertical">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Reps"
+                android:textColor="@color/colorBlackText"
+                android:textSize="@dimen/sinclair_calculator_fragment_input_info_text_size" />
+
+            <EditText
+                android:id="@+id/reps_edit_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:gravity="end"
+                android:hint="@string/sinclair_calculator_fragment_bodyweight_input_hint"
+                android:inputType="numberDecimal"
+                android:maxLength="6"
+                android:minEms="6"
+                android:textColor="@color/colorBlackText"
+                android:textSize="@dimen/sinclair_calculator_fragment_input_text_size" />
+
+            <TextView
+                android:layout_width="32dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/sinclair_calculator_fragment_unit_margin_left"
+                android:gravity="center"
+                android:text="(1-10)"
+                android:textSize="11sp" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/sinclair_calculator_fragment_row_separator_line_height"
+            android:background="@color/separatorColor" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/sinclair_calculator_fragment_row_vertical_margin"
+            android:layout_marginLeft="@dimen/sinclair_calculator_fragment_row_horizontal_margin"
+            android:layout_marginRight="@dimen/sinclair_calculator_fragment_row_horizontal_margin"
+            android:layout_marginTop="@dimen/sinclair_calculator_fragment_row_vertical_margin"
+            android:gravity="center_vertical">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Type"
+                android:textColor="@color/colorBlackText"
+                android:textSize="@dimen/sinclair_calculator_fragment_input_info_text_size" />
+
+            <RadioGroup xmlns:android="http://schemas.android.com/apk/res/android"
+                android:id="@+id/calculation_type_radio_group"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checkedButton="@id/reps_radio_button"
+                android:orientation="horizontal">
+
+                <RadioButton
+                    android:id="@+id/percentage_radio_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Percentage" />
+
+                <RadioButton
+                    android:id="@+id/reps_radio_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Reps" />
+            </RadioGroup>
+        </LinearLayout>
+
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/sinclair_calculator_fragment_row_separator_line_height"
+            android:background="@color/separatorColor" />
+
+        <Button
+            android:id="@+id/calculate_button"
+            style="@style/Widget.AppCompat.Button.Colored"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/sinclair_calculator_fragment_calculate_button_text" />
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/results_recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:theme="@style/DarkBackgroundTheme">
+
+        </android.support.v7.widget.RecyclerView>
+    </LinearLayout>
 </FrameLayout>

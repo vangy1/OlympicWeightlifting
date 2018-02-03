@@ -70,9 +70,12 @@ public class FeatureCardsRecyclerViewAdapter extends RecyclerView.Adapter<Featur
         return featureDatasets.length;
     }
 
-    private void createButtonsForShortcuts(String[] featureShortcuts, Button[] buttons, final Intent intent) {
+    private void createButtonsForShortcuts(String[] featureShortcuts, Button[] buttons, Class activityToStart) {
         for (int i = 0; i < featureShortcuts.length; i++) {
             Button featureShortcutButton = new Button(activityContext);
+
+            Intent intent = new Intent(activityContext, activityToStart);
+            intent.putExtra(activityContext.getString(R.string.extra_fragment_index), i);
             featureShortcutButton.setOnClickListener(view -> activityContext.startActivity(intent));
 
             featureShortcutButton.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, 0, 1));

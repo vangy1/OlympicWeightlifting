@@ -45,5 +45,6 @@
     <string name="gender_female">Female</string>
     <string name="gender_male">Male</string>
     <string name="sinclair_calculator_fragment_gender_text">Gender</string>
+    <string name="extra_fragment_index">fragmentIndex</string>
 
 </resources>
