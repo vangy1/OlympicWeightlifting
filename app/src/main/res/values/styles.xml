@@ -18,4 +18,7 @@
         <item name="android:paddingRight">8dp</item>
     </style>
 
+    <style name="DarkBackgroundTheme">
+        <item name="android:textColor">@color/colorBackgroundDark</item>
+    </style>
 </resources>

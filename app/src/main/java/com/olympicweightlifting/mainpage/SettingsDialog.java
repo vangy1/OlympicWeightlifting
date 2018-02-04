@@ -1,9 +1,6 @@
 package com.olympicweightlifting.mainpage;
 
 import android.app.Dialog;
-import android.app.DialogFragment;
-import android.content.Context;
-import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.os.Bundle;
@@ -15,10 +12,16 @@ import android.widget.TextView;
 
 import com.olympicweightlifting.R;
 
+import javax.inject.Inject;
+import javax.inject.Named;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import dagger.android.DaggerDialogFragment;
 
-public class SettingsDialog extends DialogFragment {
+import static com.olympicweightlifting.features.calculators.CalculatorService.Units;
+
+public class SettingsDialog extends DaggerDialogFragment {
     @BindView(R.id.dialog_title)
     TextView dialogTitle;
     @BindView(R.id.dark_theme_switch)
@@ -26,42 +29,40 @@ public class SettingsDialog extends DialogFragment {
     @BindView(R.id.units_radio_group)
     RadioGroup unitsRadioGroup;
 
-    private SharedPreferences sharedPreferences;
-    private SharedPreferences.Editor sharedPreferencesEditor;
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        sharedPreferences = getActivity().getSharedPreferences(getString(R.string.settings_shared_preferences_id), Context.MODE_PRIVATE);
-        sharedPreferencesEditor = sharedPreferences.edit();
-    }
+    @Inject
+    @Named("settings")
+    SharedPreferences settingsSharedPreferences;
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        View dialog_view = this.getActivity().getLayoutInflater().inflate(R.layout.dialog_settings, null);
-        ButterKnife.bind(this, dialog_view);
-
-        Typeface montserratBold = Typeface.createFromAsset(getActivity().getAssets(), getString(R.string.font_path_montserrat_bold));
-        dialogTitle.setTypeface(montserratBold);
+        View dialogView = this.getActivity().getLayoutInflater().inflate(R.layout.dialog_settings, null);
+        ButterKnife.bind(this, dialogView);
+        dialogTitle.setTypeface(Typeface.createFromAsset(getActivity().getAssets(), getString(R.string.font_path_montserrat_bold)));
 
         displayCurrentSettings();
 
-        return new AlertDialog.Builder(getActivity()).setView(dialog_view)
-                .setPositiveButton(R.string.settings_positive_button_text, new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        saveSettingsToSharedPreferences();
-                    }
-                }).create();
+        return new AlertDialog.Builder(getActivity()).setView(dialogView)
+                .setPositiveButton(R.string.settings_positive_button_text, (dialog, id) -> saveSettingsToSharedPreferences()).create();
     }
 
     private void displayCurrentSettings() {
-        darkThemeSwitch.setChecked(sharedPreferences.getBoolean(getString(R.string.settings_dark_theme), false));
-        unitsRadioGroup.check(sharedPreferences.getInt(getString(R.string.settings_units), R.id.kg));
+        darkThemeSwitch.setChecked(settingsSharedPreferences.getBoolean(getString(R.string.settings_dark_theme), false));
+        Units units = Units.valueOf(settingsSharedPreferences.getString(getString(R.string.settings_units), Units.KG.toString()));
+        if (units == Units.KG) {
+            unitsRadioGroup.check(R.id.kg_radio_button);
+        } else if (units == Units.LB) {
+            unitsRadioGroup.check(R.id.lb_radio_button);
+        }
     }
 
     private void saveSettingsToSharedPreferences() {
+        SharedPreferences.Editor sharedPreferencesEditor = settingsSharedPreferences.edit();
         sharedPreferencesEditor.putBoolean(getString(R.string.settings_dark_theme), darkThemeSwitch.isChecked());
-        sharedPreferencesEditor.putInt(getString(R.string.settings_units), unitsRadioGroup.getCheckedRadioButtonId());
+        if (unitsRadioGroup.getCheckedRadioButtonId() == R.id.kg_radio_button) {
+            sharedPreferencesEditor.putString(getString(R.string.settings_units), Units.KG.toString());
+        } else if (unitsRadioGroup.getCheckedRadioButtonId() == R.id.lb_radio_button) {
+            sharedPreferencesEditor.putString(getString(R.string.settings_units), Units.LB.toString());
+        }
         sharedPreferencesEditor.apply();
     }
 

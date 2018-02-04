@@ -1,6 +1,7 @@
 package com.olympicweightlifting.mainpage;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Typeface;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
@@ -17,15 +18,29 @@ import com.olympicweightlifting.R;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class FeatureCardsAdapter extends RecyclerView.Adapter<FeatureCardsAdapter.ViewHolder> {
+public class FeatureCardsRecyclerViewAdapter extends RecyclerView.Adapter<FeatureCardsRecyclerViewAdapter.ViewHolder> {
     private FeatureDataset[] featureDatasets;
     private Context activityContext;
-    private Typeface montserratTypeface;
+    private Typeface montserratBoldTypeface;
 
-    public FeatureCardsAdapter(FeatureDataset[] featureDatasets, Context activityContext) {
+    public static class ViewHolder extends RecyclerView.ViewHolder {
+        @BindView(R.id.feature_name)
+        TextView featureName;
+        @BindView(R.id.feature_image)
+        ImageView featureImage;
+        @BindView(R.id.feature_shortcuts_layout)
+        LinearLayout buttonsLayout;
+
+        public ViewHolder(CardView cardView) {
+            super(cardView);
+            ButterKnife.bind(this, cardView);
+        }
+    }
+
+    public FeatureCardsRecyclerViewAdapter(FeatureDataset[] featureDatasets, Context activityContext) {
         this.featureDatasets = featureDatasets;
         this.activityContext = activityContext;
-        montserratTypeface = Typeface.createFromAsset(activityContext.getAssets(), activityContext.getString(R.string.font_path_montserrat_bold));
+        montserratBoldTypeface = Typeface.createFromAsset(activityContext.getAssets(), activityContext.getString(R.string.font_path_montserrat_bold));
     }
 
     @Override
@@ -39,14 +54,14 @@ public class FeatureCardsAdapter extends RecyclerView.Adapter<FeatureCardsAdapte
     public void onBindViewHolder(ViewHolder viewHolder, int position) {
         FeatureDataset currentFeatureDataset = featureDatasets[position];
 
-        viewHolder.featureName.setTypeface(montserratTypeface);
+        viewHolder.featureName.setTypeface(montserratBoldTypeface);
         viewHolder.featureName.setText(currentFeatureDataset.getFeatureName());
         viewHolder.featureImage.setImageResource(currentFeatureDataset.getFeatureImage());
 
         String[] featureShortcuts = currentFeatureDataset.getFeatureShortcuts();
         Button[] buttons = new Button[featureShortcuts.length];
 
-        createButtonsForShortcuts(featureShortcuts, buttons);
+        createButtonsForShortcuts(featureShortcuts, buttons, currentFeatureDataset.getActivityToStart());
         addAllShortcutButtonsToLayout(viewHolder, buttons);
     }
 
@@ -55,9 +70,13 @@ public class FeatureCardsAdapter extends RecyclerView.Adapter<FeatureCardsAdapte
         return featureDatasets.length;
     }
 
-    private void createButtonsForShortcuts(String[] featureShortcuts, Button[] buttons) {
+    private void createButtonsForShortcuts(String[] featureShortcuts, Button[] buttons, Class activityToStart) {
         for (int i = 0; i < featureShortcuts.length; i++) {
             Button featureShortcutButton = new Button(activityContext);
+
+            Intent intent = new Intent(activityContext, activityToStart);
+            intent.putExtra(activityContext.getString(R.string.extra_fragment_index), i);
+            featureShortcutButton.setOnClickListener(view -> activityContext.startActivity(intent));
 
             featureShortcutButton.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, 0, 1));
             setRippleEffectToCoverEntireButtonArea(featureShortcutButton);
@@ -76,20 +95,6 @@ public class FeatureCardsAdapter extends RecyclerView.Adapter<FeatureCardsAdapte
     private void addAllShortcutButtonsToLayout(ViewHolder viewHolder, Button[] buttons) {
         for (Button button : buttons) {
             viewHolder.buttonsLayout.addView(button);
-        }
-    }
-
-    public static class ViewHolder extends RecyclerView.ViewHolder {
-        @BindView(R.id.feature_name)
-        TextView featureName;
-        @BindView(R.id.feature_image)
-        ImageView featureImage;
-        @BindView(R.id.feature_shortcuts_layout)
-        LinearLayout buttonsLayout;
-
-        public ViewHolder(CardView cardView) {
-            super(cardView);
-            ButterKnife.bind(this, cardView);
         }
     }
 }

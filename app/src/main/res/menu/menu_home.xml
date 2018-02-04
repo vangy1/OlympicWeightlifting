@@ -1,10 +1,20 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:myApplication="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.olympicweightliftingpro.MainActivity">
     <item
+        android:id="@+id/profile"
+        android:orderInCategory="1"
+        android:title="Profile"
+        myApplication:showAsAction="never" />
+    <item
+        android:id="@+id/signin"
+        android:orderInCategory="1"
+        android:title="Sign in"
+        myApplication:showAsAction="never" />
+    <item
         android:id="@+id/settings"
-        android:orderInCategory="100"
+        android:orderInCategory="2"
         android:title="Settings"
-        app:showAsAction="never" />
+        myApplication:showAsAction="never" />
 </menu>

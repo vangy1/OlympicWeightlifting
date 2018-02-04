@@ -1,7 +1,11 @@
 <resources>
     <string name="app_name">Olympic Weightlifting</string>
 
+    <string name="facebook_app_id">2074456829502538</string>
+    <string name="fb_login_protocol_scheme">fb2074456829502538</string>
+
     <string name="font_path_samsung_sans_bold">SamsungSans-Bold.ttf</string>
+    <string name="font_path_montserrat_medium">Montserrat-Medium.ttf</string>
     <string name="font_path_montserrat_bold">Montserrat-Bold.ttf</string>
 
     <string name="snatch">Snatch</string>
@@ -9,11 +13,38 @@
     <string name="calculators">Calculators</string>
     <string name="programs">Programs</string>
     <string name="tracking">Tracking</string>
-    <string name="records">Records</string>
+    <string name="records">Records</string>22
 
     <string name="settings_dialog_fragment_tag">settings</string>
     <string name="settings_dark_theme">dark_theme</string>
     <string name="settings_units">units</string>
     <string name="settings_shared_preferences_id">settings</string>
     <string name="settings_positive_button_text">Save</string>
+
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="sinclair_score_result_text">Sinclair score is\u0020</string>
+
+    <string name="web_client_id">966264089520-mhe4q88i5945m81nvcn6jk2gint2ubc3.apps.googleusercontent.com</string>
+    <string name="facebook_collision_message">Use Google account associated with this email address.</string>
+    <string name="facebook_signin_button_text">Sign in with Facebook</string>
+    <string name="google_signin_button_text">Sign in with Google</string>
+    <string name="anonymous_signin_button_text">Continue as a guest</string>
+    <string name="signin_buttons_separator_text">OR</string>
+    <string name="signin_activity_header_text">Welcome!</string>
+    <string name="signin_dialog_fragment_tag">signin</string>
+    <string name="main_activity_toolbar_title">Olympic Weightlifting</string>
+    <string name="profile_activity_toolbar_title">User profile</string>
+    <string name="profile_activity_upgrade_button_text">Upgrade to Premium</string>
+    <string name="signout_button_text">Sign out</string>
+    <string name="database_name">database</string>
+    <string name="sinclair_calculator_fragment_total_text">Total</string>
+    <string name="sinclair_calculator_fragment_total_input_hint">0</string>
+    <string name="sinclair_calculator_fragment_bodyweight_input_hint">0</string>
+    <string name="sinclair_calculator_fragment_bodyweight_text">Bodyweight</string>
+    <string name="sinclair_calculator_fragment_calculate_button_text">Calculate</string>
+    <string name="gender_female">Female</string>
+    <string name="gender_male">Male</string>
+    <string name="sinclair_calculator_fragment_gender_text">Gender</string>
+    <string name="extra_fragment_index">fragmentIndex</string>
+
 </resources>
