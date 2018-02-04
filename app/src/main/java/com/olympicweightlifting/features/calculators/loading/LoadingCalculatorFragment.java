@@ -11,6 +11,7 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.RadioGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.olympicweightlifting.R;
 import com.olympicweightlifting.data.local.AppDatabase;
@@ -54,6 +55,7 @@ public class LoadingCalculatorFragment extends DaggerFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        // TODO: migrate to Constraint layout
         View fragmentView = inflater.inflate(R.layout.fragment_loading_calculator, container, false);
         ButterKnife.bind(this, fragmentView);
 
@@ -62,14 +64,20 @@ public class LoadingCalculatorFragment extends DaggerFragment {
         calculatorService.populateRecyclerViewFromDatabase(database.loadingCalculationDao().get(calculatorService.HISTORY_MAX), loadingCalculations, resultsRecyclerView);
 
         calculateButton.setOnClickListener(view -> {
-            LoadingCalculation loadingCalculation = calculateLoading();
-
-            saveCalculationInDatabase(loadingCalculation);
-            calculatorService.insertCalculationIntoRecyclerView(loadingCalculation, loadingCalculations, resultsRecyclerView);
+            if (isInputValid()) {
+                LoadingCalculation loadingCalculation = calculateLoading();
+                saveCalculationInDatabase(loadingCalculation);
+                calculatorService.insertCalculationIntoRecyclerView(loadingCalculation, loadingCalculations, resultsRecyclerView);
+            } else {
+                Toast.makeText(getActivity(), "Fill out all information!", Toast.LENGTH_SHORT).show();
+            }
         });
 
-
         return fragmentView;
+    }
+
+    private boolean isInputValid() {
+        return weightEditText.getText().length() != 0 && barbellWeightRadioGroup.getCheckedRadioButtonId() != -1;
     }
 
     private LoadingCalculation calculateLoading() {

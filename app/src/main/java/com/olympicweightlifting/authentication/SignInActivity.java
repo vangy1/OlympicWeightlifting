@@ -39,6 +39,7 @@ public class SignInActivity extends AppCompatActivity implements AuthenticationA
 
     private void moveToMainActivity() {
         this.startActivity(new Intent(this, MainActivity.class));
+        finish();
     }
 
     @Override

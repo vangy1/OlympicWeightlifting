@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.olympicweightlifting.R;
 import com.olympicweightlifting.data.local.AppDatabase;
@@ -72,6 +73,7 @@ public class SinclairCalculatorFragment extends DaggerFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        // TODO: migrate to Constraint layout
         View fragmentView = inflater.inflate(R.layout.fragment_sinclair_calculator, container, false);
         ButterKnife.bind(this, fragmentView);
 
@@ -80,14 +82,23 @@ public class SinclairCalculatorFragment extends DaggerFragment {
         calculatorService.populateRecyclerViewFromDatabase(database.sinclairCalculationDao().get(calculatorService.HISTORY_MAX), sinclairCalculations, resultsRecyclerView);
 
         calculateButton.setOnClickListener(view -> {
-            SinclairCalculation sinclairCalculation = calculateSinclair();
+            if (isInputValid()) {
+                SinclairCalculation sinclairCalculation = calculateSinclair();
+                saveCalculationIntoDatabase(sinclairCalculation);
+                calculatorService.insertCalculationIntoRecyclerView(sinclairCalculation, sinclairCalculations, resultsRecyclerView);
+            } else {
+                Toast.makeText(getActivity(), "Fill out all information!", Toast.LENGTH_SHORT).show();
+            }
 
-            saveCalculationIntoDatabase(sinclairCalculation);
-            calculatorService.insertCalculationIntoRecyclerView(sinclairCalculation, sinclairCalculations, resultsRecyclerView);
         });
 
         return fragmentView;
     }
+
+    private boolean isInputValid() {
+        return totalEditText.getText().length() != 0 && bodyWeightEditText.getText().length() != 0 && genderRadioGroup.getCheckedRadioButtonId() != -1;
+    }
+
 
     private SinclairCalculation calculateSinclair() {
         double total = Double.parseDouble(totalEditText.getText().toString());

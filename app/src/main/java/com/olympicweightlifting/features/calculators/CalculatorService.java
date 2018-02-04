@@ -43,6 +43,7 @@ public class CalculatorService {
     }
 
     // TODO: move database dependency from individual calculator fragments into this service once Android Room allows generics in @Query
+    // TODO: abstract all calculations so they implement Calculation interface
     @Inject
     public CalculatorService(Context context, SharedPreferences sharedPreferences) {
         this.context = context;

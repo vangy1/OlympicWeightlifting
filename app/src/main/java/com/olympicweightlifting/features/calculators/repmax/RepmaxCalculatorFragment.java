@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.olympicweightlifting.R;
 import com.olympicweightlifting.data.local.AppDatabase;
@@ -73,15 +74,22 @@ public class RepmaxCalculatorFragment extends DaggerFragment {
         repsEditText.setFilters(new InputFilter[]{new EditTextInputFilter(1, 10)});
 
         calculateButton.setOnClickListener(view -> {
-            RepmaxCalculation repmaxCalculation = calculateRepmax();
-
-            saveCalculationInDatabase(repmaxCalculation);
-            calculatorService.insertCalculationIntoRecyclerView(repmaxCalculation, repmaxCalculations, resultsRecyclerView);
+            if (isInputValid()) {
+                RepmaxCalculation repmaxCalculation = calculateRepmax();
+                saveCalculationInDatabase(repmaxCalculation);
+                calculatorService.insertCalculationIntoRecyclerView(repmaxCalculation, repmaxCalculations, resultsRecyclerView);
+            } else {
+                Toast.makeText(getActivity(), "Fill out all information!", Toast.LENGTH_SHORT).show();
+            }
         });
 
 
         return fragmentView;
 
+    }
+
+    private boolean isInputValid() {
+        return weightEditText.getText().length() != 0 && repsEditText.getText().length() != 0 && calculationTypeRadioGroup.getCheckedRadioButtonId() != -1;
     }
 
     private RepmaxCalculation calculateRepmax() {

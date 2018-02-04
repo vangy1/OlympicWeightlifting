@@ -3,6 +3,7 @@ package com.olympicweightlifting.features.calculators;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
+import android.view.WindowManager;
 
 import com.olympicweightlifting.R;
 
@@ -21,6 +22,8 @@ public class CalculatorsActivity extends DaggerAppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_calculator);
         ButterKnife.bind(this);
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
+
 
         setupTabLayout();
         setupViewPager();
