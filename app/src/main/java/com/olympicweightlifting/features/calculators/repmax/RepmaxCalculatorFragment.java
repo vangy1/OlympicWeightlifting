@@ -1,7 +1,6 @@
 package com.olympicweightlifting.features.calculators.repmax;
 
 
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
@@ -17,14 +16,12 @@ import android.widget.TextView;
 import com.olympicweightlifting.R;
 import com.olympicweightlifting.data.local.AppDatabase;
 import com.olympicweightlifting.features.calculators.CalculatorService;
-import com.olympicweightlifting.mainpage.SettingsDialog;
 import com.olympicweightlifting.utilities.EditTextInputFilter;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
-import javax.inject.Named;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -43,16 +40,13 @@ public class RepmaxCalculatorFragment extends DaggerFragment {
     TextView weightUnitsText;
     @BindView(R.id.reps_edit_text)
     EditText repsEditText;
-    @BindView(R.id.calculate_button)
-    Button calculateButton;
     @BindView(R.id.calculation_type_radio_group)
     RadioGroup calculationTypeRadioGroup;
+    @BindView(R.id.calculate_button)
+    Button calculateButton;
     @BindView(R.id.results_recycler_view)
     RecyclerView resultsRecyclerView;
 
-    @Inject
-    @Named("settings")
-    SharedPreferences settingsSharedPreferences;
     @Inject
     AppDatabase database;
     @Inject
@@ -73,8 +67,8 @@ public class RepmaxCalculatorFragment extends DaggerFragment {
         ButterKnife.bind(this, fragmentView);
 
         calculatorService.setUnitsForViews(weightUnitsText);
-        calculatorService.setupResultsRecyclerView(resultsRecyclerView, new RepmaxResultsRecyclerViewAdapter(repmaxCalculations));
-        calculatorService.populateRecyclerViewFromDatabase(database.repmaxCalculation().get(calculatorService.HISTORY_MAX), repmaxCalculations, resultsRecyclerView);
+        calculatorService.setupResultsRecyclerView(resultsRecyclerView, new RepmaxResultsRecyclerViewAdapter(repmaxCalculations, calculatorService));
+        calculatorService.populateRecyclerViewFromDatabase(database.repmaxCalculationDao().get(calculatorService.HISTORY_MAX), repmaxCalculations, resultsRecyclerView);
 
         repsEditText.setFilters(new InputFilter[]{new EditTextInputFilter(1, 10)});
 
@@ -94,14 +88,14 @@ public class RepmaxCalculatorFragment extends DaggerFragment {
         double weight = Double.parseDouble(weightEditText.getText().toString());
         int reps = Integer.parseInt(repsEditText.getText().toString());
         RepmaxType repmaxType = calculationTypeRadioGroup.getCheckedRadioButtonId() == R.id.reps_radio_button ? RepmaxType.REPS : RepmaxType.PERCENTAGE;
-        String units = settingsSharedPreferences.getString(getActivity().getString(R.string.settings_units), SettingsDialog.Units.KG.toString()).toLowerCase();
+        String units = calculatorService.getUnits();
         List<Integer> repmaxResults = calculatorService.calculateRepmax(weight, reps, repmaxType);
         return new RepmaxCalculation(repmaxResults, repmaxType.toString(), units);
     }
 
     private void saveCalculationInDatabase(RepmaxCalculation repmaxCalculation) {
         Completable.fromAction(() -> {
-            database.repmaxCalculation().insert(repmaxCalculation);
+            database.repmaxCalculationDao().insert(repmaxCalculation);
         }).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe();
     }
 }

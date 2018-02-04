@@ -4,14 +4,16 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.mikepenz.itemanimators.SlideRightAlphaAnimator;
 import com.olympicweightlifting.R;
-import com.olympicweightlifting.mainpage.SettingsDialog.Units;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import javax.inject.Inject;
 
@@ -34,6 +36,10 @@ public class CalculatorService {
 
     public enum RepmaxType {
         REPS, PERCENTAGE
+    }
+
+    public enum Units {
+        KG, LB
     }
 
     // TODO: move database dependency from individual calculator fragments into this service once Android Room allows generics in @Query
@@ -72,6 +78,22 @@ public class CalculatorService {
         calculations.add(0, calculation);
         resultsRecyclerView.getAdapter().notifyItemInserted(0);
         resultsRecyclerView.scrollToPosition(0);
+    }
+
+    public void getResultViewsFromLayout(ViewGroup resultsLayout, List<TextView> resultsTitleTextViews, List<TextView> resultsTextViews) {
+        int childCount = resultsLayout.getChildCount();
+        for (int i = 0; i < childCount; i++) {
+            View view = resultsLayout.getChildAt(i);
+            if (view.getTag() == null) continue;
+            String viewTag = view.getTag().toString();
+            if (view instanceof TextView) {
+                if (Objects.equals(viewTag, "result_title")) {
+                    resultsTitleTextViews.add((TextView) view);
+                } else if (Objects.equals(viewTag, "result")) {
+                    resultsTextViews.add((TextView) view);
+                }
+            }
+        }
     }
 
     public double calculateSinclair(double total, double bodyweight, Gender gender) {
@@ -117,5 +139,40 @@ public class CalculatorService {
         return results;
     }
 
+    public List<Integer> calculateLoading(int weight, int barbellWeight, boolean collars) {
+        // all amounts are doubled, as barbell has two sides
+        int weightToLoad = weight - barbellWeight;
+        if (collars) {
+            int weightOfCollars = 5;
+            weightToLoad -= weightOfCollars;
+        }
 
+        List<Integer> results = new ArrayList<>();
+
+        results.add(weightToLoad / 50);
+        int rest25 = weightToLoad % 50;
+        results.add(rest25 / 40);
+        int rest20 = rest25 % 40;
+        results.add(rest20 / 30);
+        int rest15 = rest20 % 30;
+        results.add(rest15 / 20);
+        int rest10 = rest15 % 20;
+        results.add(rest10 / 10);
+        int rest5 = rest10 % 10;
+        results.add(rest5 / 5);
+        int rest025 = rest5 % 5;
+        results.add(rest025 / 4);
+        int rest02 = rest025 % 4;
+        results.add(rest02 / 3);
+        int rest015 = rest02 % 3;
+        results.add(rest015 / 2);
+        results.add(rest015 % 2);
+
+        return results;
+    }
+
+
+    public String getUnits() {
+        return sharedPreferences.getString(context.getString(R.string.settings_units), Units.KG.toString()).toLowerCase();
+    }
 }

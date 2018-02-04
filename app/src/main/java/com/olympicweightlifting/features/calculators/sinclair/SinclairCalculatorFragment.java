@@ -3,7 +3,6 @@ package com.olympicweightlifting.features.calculators.sinclair;
 
 import android.arch.persistence.room.Room;
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
@@ -19,13 +18,11 @@ import com.olympicweightlifting.R;
 import com.olympicweightlifting.data.local.AppDatabase;
 import com.olympicweightlifting.features.calculators.CalculatorService;
 import com.olympicweightlifting.features.calculators.CalculatorService.Gender;
-import com.olympicweightlifting.mainpage.SettingsDialog.Units;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
-import javax.inject.Named;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -53,9 +50,6 @@ public class SinclairCalculatorFragment extends DaggerFragment {
     @BindView(R.id.results_recycler_view)
     RecyclerView resultsRecyclerView;
 
-    @Inject
-    @Named("settings")
-    SharedPreferences settingsSharedPreferences;
     @Inject
     AppDatabase database;
     @Inject
@@ -99,7 +93,7 @@ public class SinclairCalculatorFragment extends DaggerFragment {
         double total = Double.parseDouble(totalEditText.getText().toString());
         double bodyweight = Double.parseDouble(bodyWeightEditText.getText().toString());
         Gender gender = genderRadioGroup.getCheckedRadioButtonId() == R.id.male_radio_button ? Gender.MALE : Gender.FEMALE;
-        String units = settingsSharedPreferences.getString(getActivity().getString(R.string.settings_units), Units.KG.toString()).toLowerCase();
+        String units = calculatorService.getUnits();
         double sinclairScore = calculatorService.calculateSinclair(total, bodyweight, gender);
         return new SinclairCalculation(total, bodyweight, gender.toString(), units, sinclairScore);
     }

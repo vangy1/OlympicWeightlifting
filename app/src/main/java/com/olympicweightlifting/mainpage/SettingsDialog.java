@@ -19,6 +19,8 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import dagger.android.DaggerDialogFragment;
 
+import static com.olympicweightlifting.features.calculators.CalculatorService.Units;
+
 public class SettingsDialog extends DaggerDialogFragment {
     @BindView(R.id.dialog_title)
     TextView dialogTitle;
@@ -30,10 +32,6 @@ public class SettingsDialog extends DaggerDialogFragment {
     @Inject
     @Named("settings")
     SharedPreferences settingsSharedPreferences;
-
-    public enum Units {
-        KG, LB
-    }
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {

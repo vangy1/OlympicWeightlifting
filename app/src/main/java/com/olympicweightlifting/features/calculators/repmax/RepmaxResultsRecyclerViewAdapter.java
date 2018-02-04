@@ -1,5 +1,6 @@
 package com.olympicweightlifting.features.calculators.repmax;
 
+import android.content.Context;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
@@ -9,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.olympicweightlifting.R;
+import com.olympicweightlifting.features.calculators.CalculatorService;
 import com.olympicweightlifting.features.calculators.CalculatorService.RepmaxType;
 
 import java.util.ArrayList;
@@ -25,6 +27,8 @@ import butterknife.ButterKnife;
 
 public class RepmaxResultsRecyclerViewAdapter extends RecyclerView.Adapter<RepmaxResultsRecyclerViewAdapter.ViewHolder> {
     private List<RepmaxCalculation> repmaxCalculations;
+    private CalculatorService calculatorService;
+
 
     static class ViewHolder extends RecyclerView.ViewHolder {
         @BindView(R.id.results_layout)
@@ -36,8 +40,9 @@ public class RepmaxResultsRecyclerViewAdapter extends RecyclerView.Adapter<Repma
         }
     }
 
-    public RepmaxResultsRecyclerViewAdapter(List<RepmaxCalculation> repmaxCalculations) {
+    public RepmaxResultsRecyclerViewAdapter(List<RepmaxCalculation> repmaxCalculations, CalculatorService calculatorService) {
         this.repmaxCalculations = repmaxCalculations;
+        this.calculatorService = calculatorService;
     }
 
     @Override
@@ -53,7 +58,7 @@ public class RepmaxResultsRecyclerViewAdapter extends RecyclerView.Adapter<Repma
 
         List<TextView> resultsTitleTextViews = new ArrayList<>();
         List<TextView> resultsTextViews = new ArrayList<>();
-        getViewsFromLayout(viewHolder, resultsTitleTextViews, resultsTextViews);
+        calculatorService.getResultViewsFromLayout(viewHolder.resultsLayout, resultsTitleTextViews, resultsTextViews);
 
         populateResultTitlesTextViews(viewHolder, currentRepmaxCalculation, resultsTitleTextViews);
         populateResultsTextViews(currentRepmaxCalculation, resultsTextViews);
@@ -62,6 +67,30 @@ public class RepmaxResultsRecyclerViewAdapter extends RecyclerView.Adapter<Repma
     @Override
     public int getItemCount() {
         return repmaxCalculations.size();
+    }
+
+    private void populateResultTitlesTextViews(ViewHolder viewHolder, RepmaxCalculation currentRepmaxCalculation, List<TextView> resultsTitleTextViews) {
+        List<String> resultsTitles = getTitlesFromResourcesBasedOnCalculationType(viewHolder.resultsLayout.getContext(), currentRepmaxCalculation);
+        for (int i = 0; i < resultsTitleTextViews.size(); i++) {
+            resultsTitleTextViews.get(i).setText(String.valueOf(resultsTitles.get(i)));
+        }
+    }
+
+    private void populateResultsTextViews(RepmaxCalculation currentRepmaxCalculation, List<TextView> resultsTextViews) {
+        List<Integer> calculationResults = currentRepmaxCalculation.getResults();
+        for (int i = 0; i < resultsTextViews.size(); i++) {
+            resultsTextViews.get(i).setText(String.valueOf(calculationResults.get(i) + " " + currentRepmaxCalculation.getUnits()));
+        }
+    }
+
+    private List<String> getTitlesFromResourcesBasedOnCalculationType(Context context, RepmaxCalculation currentRepmaxCalculation) {
+        List<String> resultsTitles;
+        if (RepmaxType.valueOf(currentRepmaxCalculation.getType()) == RepmaxType.REPS) {
+            resultsTitles = Arrays.asList(context.getResources().getStringArray(R.array.calculators_repmax_reps));
+        } else {
+            resultsTitles = Arrays.asList(context.getResources().getStringArray(R.array.calculators_repmax_percentage));
+        }
+        return resultsTitles;
     }
 
     private void getViewsFromLayout(ViewHolder viewHolder, List<TextView> resultsTitleTextViews, List<TextView> resultsTextViews) {
@@ -79,30 +108,4 @@ public class RepmaxResultsRecyclerViewAdapter extends RecyclerView.Adapter<Repma
             }
         }
     }
-
-    private void populateResultTitlesTextViews(ViewHolder viewHolder, RepmaxCalculation currentRepmaxCalculation, List<TextView> resultsTitleTextViews) {
-        List<String> resultsTitles = getTitlesFromResourcesBasedOnCalculationType(viewHolder, currentRepmaxCalculation);
-        for (int i = 0; i < resultsTitleTextViews.size(); i++) {
-            resultsTitleTextViews.get(i).setText(String.valueOf(resultsTitles.get(i)));
-        }
-    }
-
-    private List<String> getTitlesFromResourcesBasedOnCalculationType(ViewHolder viewHolder, RepmaxCalculation currentRepmaxCalculation) {
-        List<String> resultsTitles;
-        if (RepmaxType.valueOf(currentRepmaxCalculation.getType()) == RepmaxType.REPS) {
-            resultsTitles = Arrays.asList(viewHolder.resultsLayout.getContext().getResources().getStringArray(R.array.calculators_repmax_reps));
-        } else {
-            resultsTitles = Arrays.asList(viewHolder.resultsLayout.getContext().getResources().getStringArray(R.array.calculators_repmax_percentage));
-        }
-        return resultsTitles;
-    }
-
-    private void populateResultsTextViews(RepmaxCalculation currentRepmaxCalculation, List<TextView> resultsTextViews) {
-        List<Integer> calculationResults = currentRepmaxCalculation.getResults();
-        for (int i = 0; i < resultsTextViews.size(); i++) {
-            resultsTextViews.get(i).setText(String.valueOf(calculationResults.get(i) + " " + currentRepmaxCalculation.getUnits()));
-        }
-    }
-
-
 }
