@@ -38,10 +38,16 @@ public abstract class ApplicationModule {
                 .fallbackToDestructiveMigration()
                 .build();
     }
+//
+//    @Provides
+//    @Singleton
+//    static LiftsContentDataUtility provideLiftsService(Context context) {
+//        return new LiftsContentDataUtility(context);
+//    }
 
     @Provides
     @Singleton
-    static CalculatorService provideCalculator(Context context, @Named("settings") SharedPreferences sharedPreferences) {
+    static CalculatorService provideCalculatorService(Context context, @Named("settings") SharedPreferences sharedPreferences) {
         return new CalculatorService(context, sharedPreferences);
     }
 }

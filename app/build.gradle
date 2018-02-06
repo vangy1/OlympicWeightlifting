@@ -49,7 +49,6 @@ dependencies {
 //    implementation "android.arch.lifecycle:common-java8:1.1.0"
 
 
-
     def daggerVer = 2.14 // or latest version
 
     compile "com.google.dagger:dagger:$daggerVer"
@@ -80,6 +79,11 @@ dependencies {
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
     implementation 'com.android.support:design:27.0.2'
 }
+
+
+
+
+
 
 
 

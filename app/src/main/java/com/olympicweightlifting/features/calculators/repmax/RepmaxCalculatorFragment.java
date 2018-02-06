@@ -83,9 +83,7 @@ public class RepmaxCalculatorFragment extends DaggerFragment {
             }
         });
 
-
         return fragmentView;
-
     }
 
     private boolean isInputValid() {

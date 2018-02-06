@@ -24,12 +24,13 @@
             </intent-filter>
         </activity>
         <activity android:name=".features.calculators.CalculatorsActivity" />
-        <activity android:name=".mainpage.MainActivity"/>
+        <activity android:name=".mainpage.MainActivity" />
         <activity android:name=".authentication.profile.ProfileActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".mainpage.MainActivity" />
         </activity>
+        <activity android:name=".features.lifts.LiftsActivity"></activity>
     </application>
 
 </manifest>

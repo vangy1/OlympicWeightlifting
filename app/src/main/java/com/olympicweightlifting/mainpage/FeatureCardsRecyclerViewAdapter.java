@@ -3,6 +3,7 @@ package com.olympicweightlifting.mainpage;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Typeface;
+import android.os.Bundle;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.util.TypedValue;
@@ -58,10 +59,9 @@ public class FeatureCardsRecyclerViewAdapter extends RecyclerView.Adapter<Featur
         viewHolder.featureName.setText(currentFeatureDataset.getFeatureName());
         viewHolder.featureImage.setImageResource(currentFeatureDataset.getFeatureImage());
 
-        String[] featureShortcuts = currentFeatureDataset.getFeatureShortcuts();
-        Button[] buttons = new Button[featureShortcuts.length];
+        Button[] buttons = new Button[currentFeatureDataset.getFeatureShortcuts().length];
 
-        createButtonsForShortcuts(featureShortcuts, buttons, currentFeatureDataset.getActivityToStart());
+        createButtonsForShortcuts(buttons, currentFeatureDataset);
         addAllShortcutButtonsToLayout(viewHolder, buttons);
     }
 
@@ -70,19 +70,27 @@ public class FeatureCardsRecyclerViewAdapter extends RecyclerView.Adapter<Featur
         return featureDatasets.length;
     }
 
-    private void createButtonsForShortcuts(String[] featureShortcuts, Button[] buttons, Class activityToStart) {
-        for (int i = 0; i < featureShortcuts.length; i++) {
+    private void createButtonsForShortcuts(Button[] buttons, FeatureDataset featureDataset) {
+        for (int i = 0; i < featureDataset.getFeatureShortcuts().length; i++) {
             Button featureShortcutButton = new Button(activityContext);
 
-            Intent intent = new Intent(activityContext, activityToStart);
-            intent.putExtra(activityContext.getString(R.string.extra_fragment_index), i);
+            Intent intent = new Intent(activityContext, featureDataset.getActivityToStart());
+            Bundle activityArguments = featureDataset.getActivityArguments() == null ? new Bundle() : featureDataset.getActivityArguments();
+            activityArguments.putInt(activityContext.getString(R.string.extra_fragment_index), i);
+            intent.putExtras(activityArguments);
             featureShortcutButton.setOnClickListener(view -> activityContext.startActivity(intent));
 
             featureShortcutButton.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, 0, 1));
             setRippleEffectToCoverEntireButtonArea(featureShortcutButton);
-            featureShortcutButton.setText(featureShortcuts[i]);
+            featureShortcutButton.setText(featureDataset.getFeatureShortcuts()[i]);
 
             buttons[i] = featureShortcutButton;
+        }
+    }
+
+    private void addAllShortcutButtonsToLayout(ViewHolder viewHolder, Button[] buttons) {
+        for (Button button : buttons) {
+            viewHolder.buttonsLayout.addView(button);
         }
     }
 
@@ -90,11 +98,5 @@ public class FeatureCardsRecyclerViewAdapter extends RecyclerView.Adapter<Featur
         TypedValue outValue = new TypedValue();
         activityContext.getTheme().resolveAttribute(android.R.attr.selectableItemBackground, outValue, true);
         featureShortcutButton.setBackgroundResource(outValue.resourceId);
-    }
-
-    private void addAllShortcutButtonsToLayout(ViewHolder viewHolder, Button[] buttons) {
-        for (Button button : buttons) {
-            viewHolder.buttonsLayout.addView(button);
-        }
     }
 }

@@ -15,11 +15,14 @@ import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.gson.Gson;
 import com.olympicweightlifting.R;
 import com.olympicweightlifting.authentication.AuthenticationActivity;
 import com.olympicweightlifting.authentication.SignInDialog;
 import com.olympicweightlifting.authentication.profile.ProfileActivity;
 import com.olympicweightlifting.features.calculators.CalculatorsActivity;
+import com.olympicweightlifting.features.lifts.LiftsActivity;
+import com.olympicweightlifting.features.lifts.LiftsContentDataUtility;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -60,8 +63,15 @@ public class MainActivity extends AppCompatActivity implements AuthenticationAct
     private void setupAndPopulateRecyclerAdapter() {
         Resources resources = getResources();
 
-        FeatureDataset snatchDataset = new FeatureDataset(resources.getString(R.string.snatch), resources.getStringArray(R.array.snatch_shortcuts), R.drawable.feature_image_snatch, CalculatorsActivity.class);
-        FeatureDataset cajDataset = new FeatureDataset(resources.getString(R.string.caj), resources.getStringArray(R.array.caj_shortcuts), R.drawable.feature_image_caj, CalculatorsActivity.class);
+
+        LiftsContentDataUtility liftsContentDataUtility = new LiftsContentDataUtility(getApplicationContext());
+
+        Bundle snatchActivityBundle = getLiftsBundle(new Gson().toJson(liftsContentDataUtility.getContentDataSnatch()), R.drawable.lifts_image_snatch);
+        FeatureDataset snatchDataset = new FeatureDataset(resources.getString(R.string.snatch), resources.getStringArray(R.array.snatch_shortcuts), R.drawable.feature_image_snatch, LiftsActivity.class, snatchActivityBundle);
+
+        Bundle cajActivityBundle = getLiftsBundle(new Gson().toJson(liftsContentDataUtility.getContentDataCaj()), R.drawable.lifts_image_caj);
+        FeatureDataset cajDataset = new FeatureDataset(resources.getString(R.string.caj), resources.getStringArray(R.array.caj_shortcuts), R.drawable.feature_image_caj, LiftsActivity.class, cajActivityBundle);
+
         FeatureDataset calculatorsDataset = new FeatureDataset(resources.getString(R.string.calculators), resources.getStringArray(R.array.calculators_shortcuts), R.drawable.feature_image_calculators, CalculatorsActivity.class);
         FeatureDataset programsDataset = new FeatureDataset(resources.getString(R.string.programs), resources.getStringArray(R.array.programs_shortcuts), R.drawable.feature_image_programs, CalculatorsActivity.class);
         FeatureDataset trackingDataset = new FeatureDataset(resources.getString(R.string.tracking), resources.getStringArray(R.array.tracking_shortcuts), R.drawable.feature_image_tracking, CalculatorsActivity.class);
@@ -69,6 +79,13 @@ public class MainActivity extends AppCompatActivity implements AuthenticationAct
 
         RecyclerView.Adapter recyclerViewAdapter = new FeatureCardsRecyclerViewAdapter(new FeatureDataset[]{snatchDataset, cajDataset, calculatorsDataset, programsDataset, trackingDataset, recordsDataset}, this);
         featuresRecyclerView.setAdapter(recyclerViewAdapter);
+    }
+
+    private Bundle getLiftsBundle(String activityDataSerialized, int activityHeaderImage) {
+        Bundle bundle = new Bundle();
+        bundle.putInt(getString(R.string.lifts_header_image), activityHeaderImage);
+        bundle.putString(getString(R.string.lifts_activity_data), activityDataSerialized);
+        return bundle;
     }
 
     @Override

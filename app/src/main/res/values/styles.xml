@@ -18,7 +18,14 @@
         <item name="android:paddingRight">8dp</item>
     </style>
 
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
     <style name="DarkBackgroundTheme">
         <item name="android:textColor">@color/colorBackgroundDark</item>
+    </style>
+
+    <style name="MineCustomTabText" parent="TextAppearance.Design.Tab">
+        <item name="android:textSize">18sp</item>
+        <item name="android:fontFamily">sans-serif-condensed</item>
     </style>
 </resources>

@@ -13,8 +13,8 @@ public class CalculatorsPagerAdapter extends FragmentStatePagerAdapter {
     private RepmaxCalculatorFragment repmaxCalculatorFragment = new RepmaxCalculatorFragment();
     private LoadingCalculatorFragment loadingCalculatorFragment = new LoadingCalculatorFragment();
 
-    public CalculatorsPagerAdapter(FragmentManager fm) {
-        super(fm);
+    public CalculatorsPagerAdapter(FragmentManager fragmentManager) {
+        super(fragmentManager);
     }
 
     @Override
