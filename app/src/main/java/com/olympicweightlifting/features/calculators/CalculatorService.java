@@ -10,6 +10,8 @@ import android.widget.TextView;
 
 import com.mikepenz.itemanimators.SlideRightAlphaAnimator;
 import com.olympicweightlifting.R;
+import com.olympicweightlifting.utilities.AppLevelConstants.Gender;
+import com.olympicweightlifting.utilities.AppLevelConstants.Units;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,17 +32,11 @@ public class CalculatorService {
     private final Context context;
     private final SharedPreferences sharedPreferences;
 
-    public enum Gender {
-        MALE, FEMALE
-    }
 
     public enum RepmaxType {
         REPS, PERCENTAGE
     }
 
-    public enum Units {
-        KG, LB
-    }
 
     // TODO: move database dependency from individual calculator fragments into this service once Android Room allows generics in @Query
     // TODO: abstract all calculations so they implement Calculation interface
@@ -104,7 +100,7 @@ public class CalculatorService {
             bodyweight /= 2.268;
         }
 
-        if (gender == Gender.MALE) {
+        if (gender == Gender.MEN) {
             return total * pow(10, 0.751945030 * pow(log10(bodyweight / 175.508), 2));
         } else {
             return total * pow(10, 0.783497476 * pow(log10(bodyweight / 153.655), 2));

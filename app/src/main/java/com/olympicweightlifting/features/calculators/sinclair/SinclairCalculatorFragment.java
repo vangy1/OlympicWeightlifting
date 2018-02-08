@@ -18,7 +18,7 @@ import android.widget.Toast;
 import com.olympicweightlifting.R;
 import com.olympicweightlifting.data.local.AppDatabase;
 import com.olympicweightlifting.features.calculators.CalculatorService;
-import com.olympicweightlifting.features.calculators.CalculatorService.Gender;
+import com.olympicweightlifting.utilities.AppLevelConstants.Gender;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -103,7 +103,7 @@ public class SinclairCalculatorFragment extends DaggerFragment {
     private SinclairCalculation calculateSinclair() {
         double total = Double.parseDouble(totalEditText.getText().toString());
         double bodyweight = Double.parseDouble(bodyWeightEditText.getText().toString());
-        Gender gender = genderRadioGroup.getCheckedRadioButtonId() == R.id.male_radio_button ? Gender.MALE : Gender.FEMALE;
+        Gender gender = genderRadioGroup.getCheckedRadioButtonId() == R.id.men_radio_button ? Gender.MEN : Gender.WOMEN;
         String units = calculatorService.getUnits();
         double sinclairScore = calculatorService.calculateSinclair(total, bodyweight, gender);
         return new SinclairCalculation(total, bodyweight, gender.toString(), units, sinclairScore);
