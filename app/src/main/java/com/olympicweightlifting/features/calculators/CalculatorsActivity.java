@@ -24,7 +24,6 @@ public class CalculatorsActivity extends DaggerAppCompatActivity {
         ButterKnife.bind(this);
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
 
-
         setupTabLayout();
         setupViewPager();
     }

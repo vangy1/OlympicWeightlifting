@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Typeface;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -20,15 +19,19 @@ import com.olympicweightlifting.R;
 import com.olympicweightlifting.authentication.AuthenticationActivity;
 import com.olympicweightlifting.authentication.SignInDialog;
 import com.olympicweightlifting.authentication.profile.ProfileActivity;
+import com.olympicweightlifting.data.local.AppDatabase;
 import com.olympicweightlifting.features.calculators.CalculatorsActivity;
 import com.olympicweightlifting.features.lifts.LiftsActivity;
 import com.olympicweightlifting.features.lifts.LiftsContentDataUtility;
 import com.olympicweightlifting.features.records.RecordsActivity;
 
+import javax.inject.Inject;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import dagger.android.support.DaggerAppCompatActivity;
 
-public class MainActivity extends AppCompatActivity implements AuthenticationActivity {
+public class MainActivity extends DaggerAppCompatActivity implements AuthenticationActivity {
     @BindView(R.id.toolbar)
     Toolbar toolbar;
     @BindView(R.id.toolbar_title)
@@ -37,12 +40,17 @@ public class MainActivity extends AppCompatActivity implements AuthenticationAct
     RecyclerView featuresRecyclerView;
     SignInDialog signInDialog;
 
+    @Inject
+    AppDatabase database;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
+        // to make sure that database object will be constructed before next activities
+        database.getOpenHelper().getWritableDatabase();
 
         setupToolbar();
         setupRecyclerView();
@@ -63,8 +71,6 @@ public class MainActivity extends AppCompatActivity implements AuthenticationAct
 
     private void setupAndPopulateRecyclerAdapter() {
         Resources resources = getResources();
-
-
         LiftsContentDataUtility liftsContentDataUtility = new LiftsContentDataUtility(getApplicationContext());
 
         Bundle snatchActivityBundle = getLiftsBundle(new Gson().toJson(liftsContentDataUtility.getContentDataSnatch()), R.drawable.lifts_image_snatch);

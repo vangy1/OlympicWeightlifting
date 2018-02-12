@@ -140,7 +140,7 @@
         style="@style/Widget.AppCompat.Button.Colored"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="6dp"
         android:text="@string/sinclair_calculator_fragment_calculate_button_text"
         app:layout_constraintTop_toBottomOf="@id/separator3" />
 
@@ -148,7 +148,6 @@
         android:id="@+id/results_recycler_view"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:theme="@style/DarkBackgroundTheme"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

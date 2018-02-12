@@ -31,12 +31,20 @@ public class WorldCategoryRecordsData {
         return id;
     }
 
-    public String getGender() {
-        return gender.toString();
+    public boolean validateObject() {
+        return getWeightCategory() != null &&
+                getGender() != null &&
+                getSnatchRecord() != null &&
+                getCajRecord() != null &&
+                getTotalRecord() != null;
     }
 
     public String getWeightCategory() {
         return weightCategory;
+    }
+
+    public String getGender() {
+        return gender.toString();
     }
 
     public WorldRecordData getSnatchRecord() {

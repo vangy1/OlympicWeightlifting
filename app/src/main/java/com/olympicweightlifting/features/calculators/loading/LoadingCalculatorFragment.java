@@ -3,6 +3,7 @@ package com.olympicweightlifting.features.calculators.loading;
 
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
+import android.text.InputFilter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +17,7 @@ import android.widget.Toast;
 import com.olympicweightlifting.R;
 import com.olympicweightlifting.data.local.AppDatabase;
 import com.olympicweightlifting.features.calculators.CalculatorService;
+import com.olympicweightlifting.utilities.EditTextInputFilter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -63,13 +65,15 @@ public class LoadingCalculatorFragment extends DaggerFragment {
         calculatorService.setupResultsRecyclerView(resultsRecyclerView, new LoadingResultsRecyclerViewAdapter(loadingCalculations, calculatorService));
         calculatorService.populateRecyclerViewFromDatabase(database.loadingCalculationDao().get(calculatorService.HISTORY_MAX), loadingCalculations, resultsRecyclerView);
 
+        weightEditText.setFilters(new InputFilter[]{new EditTextInputFilter(1, 9999)});
+
         calculateButton.setOnClickListener(view -> {
             if (isInputValid()) {
                 LoadingCalculation loadingCalculation = calculateLoading();
                 saveCalculationInDatabase(loadingCalculation);
                 calculatorService.insertCalculationIntoRecyclerView(loadingCalculation, loadingCalculations, resultsRecyclerView);
             } else {
-                Toast.makeText(getActivity(), "Fill out all information!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), "Fill out all information and make sure that weight is bigger than the weight of barbell and collars!", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -77,7 +81,9 @@ public class LoadingCalculatorFragment extends DaggerFragment {
     }
 
     private boolean isInputValid() {
-        return weightEditText.getText().length() != 0 && barbellWeightRadioGroup.getCheckedRadioButtonId() != -1;
+        return weightEditText.getText().length() != 0 &&
+                barbellWeightRadioGroup.getCheckedRadioButtonId() != -1 &&
+                weightToLoadDoesNotExceedWeightOfBar();
     }
 
     private LoadingCalculation calculateLoading() {
@@ -93,6 +99,11 @@ public class LoadingCalculatorFragment extends DaggerFragment {
         Completable.fromAction(() -> {
             database.loadingCalculationDao().insert(loadingCalculation);
         }).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe();
+    }
+
+    private boolean weightToLoadDoesNotExceedWeightOfBar() {
+        int weightOfCollars = collarsCheckbox.isChecked() ? 5 : 0;
+        return Integer.parseInt(weightEditText.getText().toString()) >= getBarbellWeight() + weightOfCollars;
     }
 
     private int getBarbellWeight() {

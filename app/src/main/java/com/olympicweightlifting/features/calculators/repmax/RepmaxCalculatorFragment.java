@@ -2,7 +2,6 @@ package com.olympicweightlifting.features.calculators.repmax;
 
 
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
 import android.text.InputFilter;
 import android.view.LayoutInflater;
@@ -56,12 +55,6 @@ public class RepmaxCalculatorFragment extends DaggerFragment {
     private List<RepmaxCalculation> repmaxCalculations = new ArrayList<>();
 
     @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-    }
-
-
-    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View fragmentView = inflater.inflate(R.layout.fragment_repmax_calculator, container, false);
@@ -71,6 +64,7 @@ public class RepmaxCalculatorFragment extends DaggerFragment {
         calculatorService.setupResultsRecyclerView(resultsRecyclerView, new RepmaxResultsRecyclerViewAdapter(repmaxCalculations, calculatorService));
         calculatorService.populateRecyclerViewFromDatabase(database.repmaxCalculationDao().get(calculatorService.HISTORY_MAX), repmaxCalculations, resultsRecyclerView);
 
+        weightEditText.setFilters(new InputFilter[]{new EditTextInputFilter(1, 9999)});
         repsEditText.setFilters(new InputFilter[]{new EditTextInputFilter(1, 10)});
 
         calculateButton.setOnClickListener(view -> {
@@ -87,7 +81,9 @@ public class RepmaxCalculatorFragment extends DaggerFragment {
     }
 
     private boolean isInputValid() {
-        return weightEditText.getText().length() != 0 && repsEditText.getText().length() != 0 && calculationTypeRadioGroup.getCheckedRadioButtonId() != -1;
+        return weightEditText.getText().length() != 0 &&
+                repsEditText.getText().length() != 0 &&
+                calculationTypeRadioGroup.getCheckedRadioButtonId() != -1;
     }
 
     private RepmaxCalculation calculateRepmax() {

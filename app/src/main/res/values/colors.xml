@@ -6,6 +6,7 @@
     <color name="colorBackground">#FFFAFAFA</color>
     <color name="colorBackgroundDark">#ffe0e0e0</color>
     <color name="colorBlackText">#000000</color>
+    <color name="colorGreyText">#050505</color>
     <color name="colorWhite">#FFFFFF</color>
     <color name="separatorColor">#AAAAAA</color>
 </resources>

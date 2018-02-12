@@ -92,6 +92,7 @@ public class RecordsWorldRecyclerViewAdapter extends RecyclerView.Adapter<Record
         dateOfRecord.setText(dateFormat.format(recordData.getDateOfRecord()));
     }
 
+
     @Override
     public int getItemCount() {
         return worldCategoryRecordsDataList.size();

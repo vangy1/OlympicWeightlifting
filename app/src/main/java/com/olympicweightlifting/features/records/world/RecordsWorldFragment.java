@@ -29,13 +29,11 @@ public class RecordsWorldFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View fragmentView = inflater.inflate(R.layout.fragment_records_personal, container, false);
+        View fragmentView = inflater.inflate(R.layout.fragment_records_world, container, false);
         ButterKnife.bind(this, fragmentView);
 
         setupRecyclerView();
         populateRecyclerViewWithTheNewestDataFromFirestore();
-
-
         return fragmentView;
     }
 
@@ -48,10 +46,11 @@ public class RecordsWorldFragment extends Fragment {
     private void populateRecyclerViewWithTheNewestDataFromFirestore() {
         CollectionReference worldRecords = FirebaseFirestore.getInstance().collection(getString(R.string.firestore_collection_world_records));
         worldRecords.orderBy(getString(R.string.firestore_collection_world_records_id_column)).addSnapshotListener((documentSnapshots, e) -> {
+            worldCategoryRecordsDataList.clear();
             for (DocumentSnapshot documentSnapshot : documentSnapshots) {
                 WorldCategoryRecordsData queriedObject = documentSnapshot.toObject(WorldCategoryRecordsData.class);
 
-                if (validateQueriedObject(queriedObject)) {
+                if (queriedObject.validateObject()) {
                     WorldCategoryRecordsData worldCategoryRecordsData = documentSnapshot.toObject(WorldCategoryRecordsData.class);
                     worldCategoryRecordsDataList.add(worldCategoryRecordsData);
                 }
@@ -59,14 +58,6 @@ public class RecordsWorldFragment extends Fragment {
                 recordsRecyclerView.getAdapter().notifyDataSetChanged();
             }
         });
-    }
-
-    private boolean validateQueriedObject(WorldCategoryRecordsData worldCategoryRecordsData) {
-        return worldCategoryRecordsData.getWeightCategory() != null &&
-                worldCategoryRecordsData.getGender() != null &&
-                worldCategoryRecordsData.getSnatchRecord() != null &&
-                worldCategoryRecordsData.getCajRecord() != null &&
-                worldCategoryRecordsData.getTotalRecord() != null;
     }
 
 }

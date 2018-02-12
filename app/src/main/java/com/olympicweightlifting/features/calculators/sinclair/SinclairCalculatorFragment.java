@@ -1,11 +1,10 @@
 package com.olympicweightlifting.features.calculators.sinclair;
 
 
-import android.arch.persistence.room.Room;
 import android.content.Context;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
+import android.text.InputFilter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,6 +18,7 @@ import com.olympicweightlifting.R;
 import com.olympicweightlifting.data.local.AppDatabase;
 import com.olympicweightlifting.features.calculators.CalculatorService;
 import com.olympicweightlifting.utilities.AppLevelConstants.Gender;
+import com.olympicweightlifting.utilities.EditTextInputFilter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,8 +31,6 @@ import dagger.android.DaggerFragment;
 import io.reactivex.Completable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
-
-import static com.facebook.FacebookSdk.getApplicationContext;
 
 
 public class SinclairCalculatorFragment extends DaggerFragment {
@@ -64,13 +62,6 @@ public class SinclairCalculatorFragment extends DaggerFragment {
     }
 
     @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        database = Room.databaseBuilder(getApplicationContext(),
-                AppDatabase.class, getString(R.string.database_name)).build();
-    }
-
-    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // TODO: migrate to Constraint layout
@@ -80,6 +71,10 @@ public class SinclairCalculatorFragment extends DaggerFragment {
         calculatorService.setUnitsForViews(totalUnitsText, bodyweightUnitsText);
         calculatorService.setupResultsRecyclerView(resultsRecyclerView, new SinclairResultsRecyclerViewAdapter(sinclairCalculations));
         calculatorService.populateRecyclerViewFromDatabase(database.sinclairCalculationDao().get(calculatorService.HISTORY_MAX), sinclairCalculations, resultsRecyclerView);
+
+        totalEditText.setFilters(new InputFilter[]{new EditTextInputFilter(1, 9999)});
+        bodyWeightEditText.setFilters(new InputFilter[]{new EditTextInputFilter(1, 9999)});
+
 
         calculateButton.setOnClickListener(view -> {
             if (isInputValid()) {
@@ -96,7 +91,9 @@ public class SinclairCalculatorFragment extends DaggerFragment {
     }
 
     private boolean isInputValid() {
-        return totalEditText.getText().length() != 0 && bodyWeightEditText.getText().length() != 0 && genderRadioGroup.getCheckedRadioButtonId() != -1;
+        return totalEditText.getText().length() != 0 &&
+                bodyWeightEditText.getText().length() != 0 &&
+                genderRadioGroup.getCheckedRadioButtonId() != -1;
     }
 
 
