@@ -4,7 +4,6 @@ package com.olympicweightlifting.features.calculators.sinclair;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
-import android.text.InputFilter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,7 +17,6 @@ import com.olympicweightlifting.R;
 import com.olympicweightlifting.data.local.AppDatabase;
 import com.olympicweightlifting.features.calculators.CalculatorService;
 import com.olympicweightlifting.utilities.AppLevelConstants.Gender;
-import com.olympicweightlifting.utilities.EditTextInputFilter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -64,7 +62,6 @@ public class SinclairCalculatorFragment extends DaggerFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // TODO: migrate to Constraint layout
         View fragmentView = inflater.inflate(R.layout.fragment_sinclair_calculator, container, false);
         ButterKnife.bind(this, fragmentView);
 
@@ -72,16 +69,11 @@ public class SinclairCalculatorFragment extends DaggerFragment {
         calculatorService.setupResultsRecyclerView(resultsRecyclerView, new SinclairResultsRecyclerViewAdapter(sinclairCalculations));
         calculatorService.populateRecyclerViewFromDatabase(database.sinclairCalculationDao().get(calculatorService.HISTORY_MAX), sinclairCalculations, resultsRecyclerView);
 
-        totalEditText.setFilters(new InputFilter[]{new EditTextInputFilter(1, 9999)});
-        bodyWeightEditText.setFilters(new InputFilter[]{new EditTextInputFilter(1, 9999)});
-
-
         calculateButton.setOnClickListener(view -> {
-            if (isInputValid()) {
+            try {
                 SinclairCalculation sinclairCalculation = calculateSinclair();
                 saveCalculationIntoDatabase(sinclairCalculation);
-                calculatorService.insertCalculationIntoRecyclerView(sinclairCalculation, sinclairCalculations, resultsRecyclerView);
-            } else {
+            } catch (Exception e) {
                 Toast.makeText(getActivity(), "Fill out all information!", Toast.LENGTH_SHORT).show();
             }
 
@@ -89,13 +81,6 @@ public class SinclairCalculatorFragment extends DaggerFragment {
 
         return fragmentView;
     }
-
-    private boolean isInputValid() {
-        return totalEditText.getText().length() != 0 &&
-                bodyWeightEditText.getText().length() != 0 &&
-                genderRadioGroup.getCheckedRadioButtonId() != -1;
-    }
-
 
     private SinclairCalculation calculateSinclair() {
         double total = Double.parseDouble(totalEditText.getText().toString());
@@ -110,6 +95,8 @@ public class SinclairCalculatorFragment extends DaggerFragment {
     private void saveCalculationIntoDatabase(SinclairCalculation sinclairCalculation) {
         Completable.fromAction(() -> {
             database.sinclairCalculationDao().insert(sinclairCalculation);
-        }).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe();
+        }).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).doOnComplete(() -> {
+            calculatorService.insertCalculationIntoRecyclerView(sinclairCalculation, sinclairCalculations, resultsRecyclerView);
+        }).onErrorComplete().subscribe();
     }
 }

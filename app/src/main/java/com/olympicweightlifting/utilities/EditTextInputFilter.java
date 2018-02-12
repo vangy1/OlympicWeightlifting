@@ -3,8 +3,6 @@ package com.olympicweightlifting.utilities;
 import android.text.InputFilter;
 import android.text.Spanned;
 
-import java.util.Objects;
-
 /**
  * Created by vangor on 01/02/2018.
  */
@@ -23,13 +21,11 @@ public class EditTextInputFilter implements InputFilter {
             String newValue = destination.toString().substring(0, dstart) + destination.toString().substring(dend, destination.toString().length());
             newValue = newValue.substring(0, dstart) + source.toString() + newValue.substring(dstart, newValue.length());
             if (newValue.equalsIgnoreCase("-") && min < 0) return null;
-            if (!Objects.equals(newValue, "")) {
-                int input = Integer.parseInt(newValue);
-                if (isInRange(min, max, input))
-                    return null;
-            }
-        } catch (Exception exception) {
-            exception.printStackTrace();
+            int input = Integer.parseInt(newValue);
+            if (isInRange(min, max, input))
+                return null;
+        } catch (NumberFormatException nfe) {
+            nfe.printStackTrace();
         }
         return "";
     }

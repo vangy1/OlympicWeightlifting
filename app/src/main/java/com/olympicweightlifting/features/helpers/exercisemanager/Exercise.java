@@ -21,7 +21,7 @@ public class Exercise {
     public String exerciseName;
 
     public Exercise(String exerciseName) {
-        this.exerciseName = Character.toUpperCase(exerciseName.charAt(0)) + exerciseName.substring(1);
+        this.exerciseName = exerciseName;
     }
 
     public String getExerciseName() {

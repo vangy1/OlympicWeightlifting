@@ -3,6 +3,7 @@ package com.olympicweightlifting.features.records.personal;
 import com.google.firebase.firestore.Exclude;
 import com.google.firebase.firestore.IgnoreExtraProperties;
 
+import java.text.DecimalFormat;
 import java.util.Date;
 
 /**
@@ -53,6 +54,10 @@ public class PersonalRecordData {
         return weight;
     }
 
+    public String getWeightFormatted() {
+        return new DecimalFormat("##.##").format(weight);
+    }
+
     public int getReps() {
         return reps;
     }
@@ -73,16 +78,5 @@ public class PersonalRecordData {
 
     public Date getDate() {
         return date;
-    }
-
-    @Override
-    public String toString() {
-        return "PersonalRecordData{" +
-                "weight=" + weight +
-                ", units='" + units + '\'' +
-                ", reps=" + reps +
-                ", exercise='" + exercise + '\'' +
-                ", date=" + date +
-                '}';
     }
 }

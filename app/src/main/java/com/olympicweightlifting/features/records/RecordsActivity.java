@@ -24,7 +24,6 @@ public class RecordsActivity extends AppCompatActivity {
 
         setupTabLayout();
         setupViewPager();
-
     }
 
     private void setupTabLayout() {

@@ -37,16 +37,6 @@ public abstract class ApplicationModule {
         return context.getSharedPreferences(context.getString(R.string.settings_shared_preferences_id), Context.MODE_PRIVATE);
     }
 
-//    private static AppDatabase INSTANCE;
-//
-//
-//    public synchronized static AppDatabase getInstance(Context context) {
-//        if (INSTANCE == null) {
-//            INSTANCE = provideDatabase(context);
-//        }
-//        return INSTANCE;
-//    }
-
     @Provides
     @Singleton
     static AppDatabase provideDatabase(Context context) {
@@ -74,12 +64,6 @@ public abstract class ApplicationModule {
                 .fallbackToDestructiveMigration()
                 .build();
     }
-//
-//    @Provides
-//    @Singleton
-//    static LiftsContentDataUtility provideLiftsService(Context context) {
-//        return new LiftsContentDataUtility(context);
-//    }
 
     @Provides
     @Singleton

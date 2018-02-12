@@ -37,7 +37,6 @@ public class RecordsPersonalRecyclerViewAdapter extends RecyclerView.Adapter<Rec
         @BindView(R.id.records_layout)
         ConstraintLayout recordsLayout;
 
-
         @BindView(R.id.exercise_name)
         TextView exerciseName;
         @BindView(R.id.date_of_record)
@@ -46,7 +45,6 @@ public class RecordsPersonalRecyclerViewAdapter extends RecyclerView.Adapter<Rec
         TextView lifted_weight;
         @BindView(R.id.reps)
         TextView reps;
-
 
         ViewHolder(CardView cardView) {
             super(cardView);
@@ -74,9 +72,6 @@ public class RecordsPersonalRecyclerViewAdapter extends RecyclerView.Adapter<Rec
             FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
             CollectionReference worldRecords = FirebaseFirestore.getInstance().collection("users").document(currentUser.getUid()).collection("personal_records");
             worldRecords.document(personalRecordDataList.get(viewHolder.getAdapterPosition()).getDocumentId()).delete();
-//            personalRecordDataList.remove(viewHolder.getAdapterPosition());
-//            notifyItemRangeChanged(0,personalRecordDataList.size()-1);
-
             return true;
         });
 
@@ -84,7 +79,7 @@ public class RecordsPersonalRecyclerViewAdapter extends RecyclerView.Adapter<Rec
         viewHolder.exerciseName.setText(currentPersonalRecordData.getExercise());
 
         viewHolder.dateOfrecord.setText(dateFormat.format(currentPersonalRecordData.getDate()));
-        viewHolder.lifted_weight.setText(String.valueOf(String.format("%s %s", currentPersonalRecordData.getWeight(), currentPersonalRecordData.getUnits().toLowerCase())));
+        viewHolder.lifted_weight.setText(String.format("%s %s", currentPersonalRecordData.getWeightFormatted(), currentPersonalRecordData.getUnits().toLowerCase()));
         viewHolder.reps.setText(context.getResources().getQuantityString(R.plurals.repetiton, currentPersonalRecordData.getReps(), currentPersonalRecordData.getReps()));
     }
 

@@ -32,11 +32,9 @@ public class CalculatorService {
     private final Context context;
     private final SharedPreferences sharedPreferences;
 
-
     public enum RepmaxType {
         REPS, PERCENTAGE
     }
-
 
     // TODO: move database dependency from individual calculator fragments into this service once Android Room allows generics in @Query
     // TODO: abstract all calculations so they implement Calculation interface

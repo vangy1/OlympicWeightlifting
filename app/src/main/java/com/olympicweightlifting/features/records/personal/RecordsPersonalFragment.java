@@ -2,10 +2,10 @@ package com.olympicweightlifting.features.records.personal;
 
 
 import android.app.DatePickerDialog;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.text.InputFilter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,13 +24,11 @@ import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
-import com.mikepenz.itemanimators.SlideRightAlphaAnimator;
 import com.olympicweightlifting.R;
 import com.olympicweightlifting.data.local.AppDatabase;
 import com.olympicweightlifting.features.helpers.exercisemanager.Exercise;
 import com.olympicweightlifting.features.helpers.exercisemanager.ExerciseManagerDialog;
 import com.olympicweightlifting.utilities.AppLevelConstants;
-import com.olympicweightlifting.utilities.EditTextInputFilter;
 
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -41,6 +39,7 @@ import java.util.Date;
 import java.util.List;
 
 import javax.inject.Inject;
+import javax.inject.Named;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -72,6 +71,12 @@ public class RecordsPersonalFragment extends DaggerFragment implements DatePicke
 
     @Inject
     AppDatabase database;
+    @Inject
+    @Named("settings")
+    SharedPreferences sharedPreferences;
+
+    FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+
 
     List<String> exerciseList = new ArrayList<>();
     ArrayAdapter spinnerAdapter;
@@ -79,37 +84,19 @@ public class RecordsPersonalFragment extends DaggerFragment implements DatePicke
     private DateFormat dateFormat = getDateFormat(getActivity());
     private Date currentDate;
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View fragmentView = inflater.inflate(R.layout.fragment_records_personal, container, false);
         ButterKnife.bind(this, fragmentView);
 
-        spinnerAdapter = new ArrayAdapter<>(getActivity(), R.layout.spinner_item_exercise, exerciseList);
-        exerciseSpinner.setAdapter(spinnerAdapter);
+        String units = sharedPreferences.getString(getString(R.string.settings_units), AppLevelConstants.Units.KG.toString());
 
+        weightUnits.setText(units.toLowerCase());
         setupSpinner();
-        setupRecyclerView();
         setupDatePicker();
-
-        weightEditText.setFilters(new InputFilter[]{new EditTextInputFilter(1, 9999)});
-        repsEditText.setFilters(new InputFilter[]{new EditTextInputFilter(1, 9999)});
-
-
-        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
-        CollectionReference worldRecords = FirebaseFirestore.getInstance().collection("users").document(currentUser.getUid()).collection("personal_records");
-        worldRecords.orderBy("dateAdded", Query.Direction.DESCENDING).addSnapshotListener((documentSnapshots, e) -> {
-            personalRecordDataList.clear();
-            for (DocumentSnapshot documentSnapshot : documentSnapshots) {
-                PersonalRecordData queriedObject = documentSnapshot.toObject(PersonalRecordData.class).withId(documentSnapshot.getId());
-                if (queriedObject.validateObject()) {
-                    personalRecordDataList.add(queriedObject);
-                }
-            }
-            recordsRecyclerView.getAdapter().notifyDataSetChanged();
-
-        });
+        setupRecyclerView();
+        populateRecyclerViewFromFirestore();
 
         exerciseManagerButton.setOnClickListener(view -> {
             ExerciseManagerDialog exerciseManagerDialog = new ExerciseManagerDialog();
@@ -118,37 +105,28 @@ public class RecordsPersonalFragment extends DaggerFragment implements DatePicke
         });
 
         saveButton.setOnClickListener(view -> {
-            if (isInputValid()) {
-                PersonalRecordData personalRecordData = new PersonalRecordData(Double.parseDouble(weightEditText.getText().toString()), AppLevelConstants.Units.KG.toString(),
+            try {
+                PersonalRecordData personalRecordData = new PersonalRecordData(Double.parseDouble(weightEditText.getText().toString()), units,
                         Integer.parseInt(repsEditText.getText().toString()), exerciseSpinner.getSelectedItem().toString(), currentDate);
                 FirebaseFirestore.getInstance().collection("users").document(currentUser.getUid()).collection("personal_records").add(personalRecordData);
-            } else {
+            } catch (Exception exception) {
                 Toast.makeText(getActivity(), "Fill out all information!", Toast.LENGTH_SHORT).show();
             }
-
         });
 
         return fragmentView;
-
-
     }
 
-
     private void setupSpinner() {
+        spinnerAdapter = new ArrayAdapter<>(getActivity(), R.layout.spinner_item_exercise, exerciseList);
+        exerciseSpinner.setAdapter(spinnerAdapter);
+
         database.exerciseDao().getAll().subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe((queriedExercises) -> {
             for (Exercise queriedExercise : queriedExercises) {
                 exerciseList.add(queriedExercise.getExerciseName());
             }
             spinnerAdapter.notifyDataSetChanged();
         });
-
-    }
-
-    private void setupRecyclerView() {
-        recordsRecyclerView.setHasFixedSize(true);
-        recordsRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        recordsRecyclerView.setAdapter(new RecordsPersonalRecyclerViewAdapter(personalRecordDataList, getActivity()));
-        recordsRecyclerView.setItemAnimator(new SlideRightAlphaAnimator());
     }
 
     private void setupDatePicker() {
@@ -162,19 +140,29 @@ public class RecordsPersonalFragment extends DaggerFragment implements DatePicke
         });
     }
 
-    public boolean isInputValid() {
-        return weightEditText.getText().length() != 0 &&
-                repsEditText.getText().length() != 0 &&
-                exerciseSpinner.getSelectedItem() != null &&
-                datePickerButton.getText().length() != 0;
+    private void setupRecyclerView() {
+        recordsRecyclerView.setHasFixedSize(true);
+        recordsRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        recordsRecyclerView.setAdapter(new RecordsPersonalRecyclerViewAdapter(personalRecordDataList, getActivity()));
     }
 
-//    @Override
-//    public void onExerciseListChasnged(List<String> exerciseList) {
-//        this.exerciseList.clear();
-//        this.exerciseList.addAll(exerciseList);
-//        spinnerAdapter.notifyDataSetChanged();
-//    }
+    private void populateRecyclerViewFromFirestore() {
+        CollectionReference personalRecordsCollection = FirebaseFirestore.getInstance().collection("users").document(currentUser.getUid()).collection("personal_records");
+        personalRecordsCollection.orderBy("dateAdded", Query.Direction.DESCENDING).addSnapshotListener((documentSnapshots, e) -> {
+            personalRecordDataList.clear();
+            for (DocumentSnapshot documentSnapshot : documentSnapshots) {
+                try {
+                    PersonalRecordData queriedObject = documentSnapshot.toObject(PersonalRecordData.class).withId(documentSnapshot.getId());
+                    if (queriedObject.validateObject()) {
+                        personalRecordDataList.add(queriedObject);
+                    }
+                } catch (Exception exception) {
+                    exception.printStackTrace();
+                }
+            }
+            recordsRecyclerView.getAdapter().notifyDataSetChanged();
+        });
+    }
 
     @Override
     public void onDateSet(DatePicker datePicker, int year, int month, int day) {

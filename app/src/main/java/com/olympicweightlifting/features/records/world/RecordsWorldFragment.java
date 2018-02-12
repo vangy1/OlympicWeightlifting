@@ -54,7 +54,6 @@ public class RecordsWorldFragment extends Fragment {
                     WorldCategoryRecordsData worldCategoryRecordsData = documentSnapshot.toObject(WorldCategoryRecordsData.class);
                     worldCategoryRecordsDataList.add(worldCategoryRecordsData);
                 }
-
                 recordsRecyclerView.getAdapter().notifyDataSetChanged();
             }
         });
