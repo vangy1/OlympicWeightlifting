@@ -28,6 +28,5 @@ public class Converters {
             list.add(Integer.parseInt(jsonArray.getString(i)));
         }
         return list;
-
     }
 }

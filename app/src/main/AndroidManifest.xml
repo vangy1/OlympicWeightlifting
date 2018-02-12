@@ -30,7 +30,8 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".mainpage.MainActivity" />
         </activity>
-        <activity android:name=".features.lifts.LiftsActivity"></activity>
+        <activity android:name=".features.lifts.LiftsActivity" />
+        <activity android:name=".features.records.RecordsActivity"></activity>
     </application>
 
 </manifest>

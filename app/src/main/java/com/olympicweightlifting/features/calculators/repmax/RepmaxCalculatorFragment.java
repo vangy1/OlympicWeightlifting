@@ -2,7 +2,6 @@ package com.olympicweightlifting.features.calculators.repmax;
 
 
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
 import android.text.InputFilter;
 import android.view.LayoutInflater;
@@ -56,12 +55,6 @@ public class RepmaxCalculatorFragment extends DaggerFragment {
     private List<RepmaxCalculation> repmaxCalculations = new ArrayList<>();
 
     @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-    }
-
-
-    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View fragmentView = inflater.inflate(R.layout.fragment_repmax_calculator, container, false);
@@ -74,22 +67,16 @@ public class RepmaxCalculatorFragment extends DaggerFragment {
         repsEditText.setFilters(new InputFilter[]{new EditTextInputFilter(1, 10)});
 
         calculateButton.setOnClickListener(view -> {
-            if (isInputValid()) {
+            try {
                 RepmaxCalculation repmaxCalculation = calculateRepmax();
                 saveCalculationInDatabase(repmaxCalculation);
-                calculatorService.insertCalculationIntoRecyclerView(repmaxCalculation, repmaxCalculations, resultsRecyclerView);
-            } else {
+            } catch (Exception e) {
                 Toast.makeText(getActivity(), "Fill out all information!", Toast.LENGTH_SHORT).show();
             }
         });
 
         return fragmentView;
     }
-
-    private boolean isInputValid() {
-        return weightEditText.getText().length() != 0 && repsEditText.getText().length() != 0 && calculationTypeRadioGroup.getCheckedRadioButtonId() != -1;
-    }
-
     private RepmaxCalculation calculateRepmax() {
         double weight = Double.parseDouble(weightEditText.getText().toString());
         int reps = Integer.parseInt(repsEditText.getText().toString());
@@ -102,6 +89,8 @@ public class RepmaxCalculatorFragment extends DaggerFragment {
     private void saveCalculationInDatabase(RepmaxCalculation repmaxCalculation) {
         Completable.fromAction(() -> {
             database.repmaxCalculationDao().insert(repmaxCalculation);
-        }).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe();
+        }).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).doOnComplete(() -> {
+            calculatorService.insertCalculationIntoRecyclerView(repmaxCalculation, repmaxCalculations, resultsRecyclerView);
+        }).onErrorComplete().subscribe();
     }
 }

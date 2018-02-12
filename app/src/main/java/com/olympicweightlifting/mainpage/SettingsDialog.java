@@ -19,7 +19,8 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import dagger.android.DaggerDialogFragment;
 
-import static com.olympicweightlifting.features.calculators.CalculatorService.Units;
+import static com.olympicweightlifting.utilities.AppLevelConstants.Units;
+
 
 public class SettingsDialog extends DaggerDialogFragment {
     @BindView(R.id.dialog_title)

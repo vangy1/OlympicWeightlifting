@@ -41,8 +41,8 @@
     <string name="sinclair_calculator_fragment_bodyweight_input_hint">0</string>
     <string name="sinclair_calculator_fragment_bodyweight_text">Bodyweight</string>
     <string name="sinclair_calculator_fragment_calculate_button_text">Calculate</string>
-    <string name="gender_female">Female</string>
-    <string name="gender_male">Male</string>
+    <string name="gender_women">Women</string>
+    <string name="gender_men">Men</string>
     <string name="sinclair_calculator_fragment_gender_text">Gender</string>
     <string name="extra_fragment_index">fragmentIndex</string>
 
@@ -139,5 +139,13 @@
     <string name="lifts_activity_data">liftsActivityData</string>
     <string name="floating_button_video_url">floatingButtonVideoUrl</string>
     <string name="lifts_content_data_list">liftsContentDataList</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="world_records_exercise_name_caj"><![CDATA[Clean & Jerk]]></string>
+    <string name="world_records_exercise_name_snatch">Snatch</string>
+    <string name="world_records_exercise_name_total">Total</string>
+    <string name="firestore_collection_world_records">world_records</string>
+    <string name="firestore_collection_world_records_id_column">id</string>
 
 </resources>

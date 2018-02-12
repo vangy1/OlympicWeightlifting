@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.olympicweightlifting.R;
 import com.olympicweightlifting.features.calculators.CalculatorService;
+import com.olympicweightlifting.utilities.AppLevelConstants.Units;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -19,7 +20,6 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-import static com.olympicweightlifting.features.calculators.CalculatorService.Units;
 
 /**
  * Created by vangor on 04/02/2018.

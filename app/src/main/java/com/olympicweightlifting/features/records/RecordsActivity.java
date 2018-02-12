@@ -1,17 +1,16 @@
-package com.olympicweightlifting.features.calculators;
+package com.olympicweightlifting.features.records;
 
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
-import android.view.WindowManager;
+import android.support.v7.app.AppCompatActivity;
 
 import com.olympicweightlifting.R;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import dagger.android.support.DaggerAppCompatActivity;
 
-public class CalculatorsActivity extends DaggerAppCompatActivity {
+public class RecordsActivity extends AppCompatActivity {
     @BindView(R.id.tab_layout)
     TabLayout tabLayout;
     @BindView(R.id.view_pager)
@@ -20,18 +19,16 @@ public class CalculatorsActivity extends DaggerAppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_calculator);
+        setContentView(R.layout.activity_records);
         ButterKnife.bind(this);
-        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
 
         setupTabLayout();
         setupViewPager();
     }
 
     private void setupTabLayout() {
-        tabLayout.addTab(tabLayout.newTab().setText("Sinclair"));
-        tabLayout.addTab(tabLayout.newTab().setText("Rep Max"));
-        tabLayout.addTab(tabLayout.newTab().setText("Loading"));
+        tabLayout.addTab(tabLayout.newTab().setText("Personal"));
+        tabLayout.addTab(tabLayout.newTab().setText("World"));
         tabLayout.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(viewPager) {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
@@ -41,10 +38,9 @@ public class CalculatorsActivity extends DaggerAppCompatActivity {
     }
 
     private void setupViewPager() {
-        viewPager.setAdapter(new CalculatorsPagerAdapter(getFragmentManager()));
+        viewPager.setAdapter(new RecordsPagerAdapter(getFragmentManager()));
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
         int fragmentIndex = getIntent().getIntExtra(getString(R.string.extra_fragment_index), 0);
-        System.out.println(fragmentIndex);
         viewPager.setCurrentItem(fragmentIndex);
     }
 }

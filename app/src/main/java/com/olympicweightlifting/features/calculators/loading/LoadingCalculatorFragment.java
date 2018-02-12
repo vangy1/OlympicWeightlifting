@@ -55,7 +55,6 @@ public class LoadingCalculatorFragment extends DaggerFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // TODO: migrate to Constraint layout
         View fragmentView = inflater.inflate(R.layout.fragment_loading_calculator, container, false);
         ButterKnife.bind(this, fragmentView);
 
@@ -64,11 +63,12 @@ public class LoadingCalculatorFragment extends DaggerFragment {
         calculatorService.populateRecyclerViewFromDatabase(database.loadingCalculationDao().get(calculatorService.HISTORY_MAX), loadingCalculations, resultsRecyclerView);
 
         calculateButton.setOnClickListener(view -> {
-            if (isInputValid()) {
+            try {
                 LoadingCalculation loadingCalculation = calculateLoading();
                 saveCalculationInDatabase(loadingCalculation);
-                calculatorService.insertCalculationIntoRecyclerView(loadingCalculation, loadingCalculations, resultsRecyclerView);
-            } else {
+            } catch (WeightIsSmallerThanTheBarException e) {
+                Toast.makeText(getActivity(), "Make sure that weight is bigger than the weight of barbell and collars!", Toast.LENGTH_SHORT).show();
+            } catch (Exception exception) {
                 Toast.makeText(getActivity(), "Fill out all information!", Toast.LENGTH_SHORT).show();
             }
         });
@@ -76,14 +76,15 @@ public class LoadingCalculatorFragment extends DaggerFragment {
         return fragmentView;
     }
 
-    private boolean isInputValid() {
-        return weightEditText.getText().length() != 0 && barbellWeightRadioGroup.getCheckedRadioButtonId() != -1;
-    }
-
-    private LoadingCalculation calculateLoading() {
+    private LoadingCalculation calculateLoading() throws WeightIsSmallerThanTheBarException {
         int weight = Integer.parseInt(weightEditText.getText().toString());
         int barbellWeight = getBarbellWeight();
         boolean collars = collarsCheckbox.isChecked();
+
+        int collarsWeight = collars ? 5 : 0;
+        if (weight <= barbellWeight + collarsWeight) {
+            throw new WeightIsSmallerThanTheBarException();
+        }
 
         List<Integer> results = calculatorService.calculateLoading(weight, barbellWeight, collars);
         return new LoadingCalculation(weight, barbellWeight, collars, results);
@@ -92,7 +93,9 @@ public class LoadingCalculatorFragment extends DaggerFragment {
     private void saveCalculationInDatabase(LoadingCalculation loadingCalculation) {
         Completable.fromAction(() -> {
             database.loadingCalculationDao().insert(loadingCalculation);
-        }).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe();
+        }).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).doOnComplete(() -> {
+            calculatorService.insertCalculationIntoRecyclerView(loadingCalculation, loadingCalculations, resultsRecyclerView);
+        }).onErrorComplete().subscribe();
     }
 
     private int getBarbellWeight() {
@@ -106,5 +109,10 @@ public class LoadingCalculatorFragment extends DaggerFragment {
             default:
                 return 20;
         }
+    }
+
+    private boolean weightToLoadDoesNotExceedWeightOfBar() {
+        int weightOfCollars = collarsCheckbox.isChecked() ? 5 : 0;
+        return Integer.parseInt(weightEditText.getText().toString()) >= getBarbellWeight() + weightOfCollars;
     }
 }

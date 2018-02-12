@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Typeface;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -20,14 +19,19 @@ import com.olympicweightlifting.R;
 import com.olympicweightlifting.authentication.AuthenticationActivity;
 import com.olympicweightlifting.authentication.SignInDialog;
 import com.olympicweightlifting.authentication.profile.ProfileActivity;
+import com.olympicweightlifting.data.local.AppDatabase;
 import com.olympicweightlifting.features.calculators.CalculatorsActivity;
 import com.olympicweightlifting.features.lifts.LiftsActivity;
 import com.olympicweightlifting.features.lifts.LiftsContentDataUtility;
+import com.olympicweightlifting.features.records.RecordsActivity;
+
+import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import dagger.android.support.DaggerAppCompatActivity;
 
-public class MainActivity extends AppCompatActivity implements AuthenticationActivity {
+public class MainActivity extends DaggerAppCompatActivity implements AuthenticationActivity {
     @BindView(R.id.toolbar)
     Toolbar toolbar;
     @BindView(R.id.toolbar_title)
@@ -36,12 +40,17 @@ public class MainActivity extends AppCompatActivity implements AuthenticationAct
     RecyclerView featuresRecyclerView;
     SignInDialog signInDialog;
 
+    @Inject
+    AppDatabase database;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
+        // to make sure that database object will be constructed before next activities
+        database.getOpenHelper().getWritableDatabase();
 
         setupToolbar();
         setupRecyclerView();
@@ -62,8 +71,6 @@ public class MainActivity extends AppCompatActivity implements AuthenticationAct
 
     private void setupAndPopulateRecyclerAdapter() {
         Resources resources = getResources();
-
-
         LiftsContentDataUtility liftsContentDataUtility = new LiftsContentDataUtility(getApplicationContext());
 
         Bundle snatchActivityBundle = getLiftsBundle(new Gson().toJson(liftsContentDataUtility.getContentDataSnatch()), R.drawable.lifts_image_snatch);
@@ -75,7 +82,7 @@ public class MainActivity extends AppCompatActivity implements AuthenticationAct
         FeatureDataset calculatorsDataset = new FeatureDataset(resources.getString(R.string.calculators), resources.getStringArray(R.array.calculators_shortcuts), R.drawable.feature_image_calculators, CalculatorsActivity.class);
         FeatureDataset programsDataset = new FeatureDataset(resources.getString(R.string.programs), resources.getStringArray(R.array.programs_shortcuts), R.drawable.feature_image_programs, CalculatorsActivity.class);
         FeatureDataset trackingDataset = new FeatureDataset(resources.getString(R.string.tracking), resources.getStringArray(R.array.tracking_shortcuts), R.drawable.feature_image_tracking, CalculatorsActivity.class);
-        FeatureDataset recordsDataset = new FeatureDataset(resources.getString(R.string.records), resources.getStringArray(R.array.records_shortcuts), R.drawable.feature_image_records, CalculatorsActivity.class);
+        FeatureDataset recordsDataset = new FeatureDataset(resources.getString(R.string.records), resources.getStringArray(R.array.records_shortcuts), R.drawable.feature_image_records, RecordsActivity.class);
 
         RecyclerView.Adapter recyclerViewAdapter = new FeatureCardsRecyclerViewAdapter(new FeatureDataset[]{snatchDataset, cajDataset, calculatorsDataset, programsDataset, trackingDataset, recordsDataset}, this);
         featuresRecyclerView.setAdapter(recyclerViewAdapter);

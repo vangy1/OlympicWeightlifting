@@ -1,9 +1,9 @@
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
+    android:layout_width="wrap_content"
     android:layout_height="match_parent"
-    tools:context=".features.calculators.loading.LoadingCalculatorFragment">
+    tools:context=".features.calculators.repmax.RepmaxCalculatorFragment">
 
     <TextView
         android:id="@+id/weight_text_view"
@@ -47,7 +47,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/weight_text_view" />
 
-
     <View
         android:id="@+id/separator1"
         android:layout_width="match_parent"
@@ -57,73 +56,73 @@
         app:layout_constraintTop_toBottomOf="@id/weight_text_view" />
 
     <TextView
-        android:id="@+id/barbell_weight_text_view"
+        android:id="@+id/reps_text_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="12dp"
-        android:text="Barbell"
+        android:text="Reps"
         android:textColor="@color/colorBlackText"
         android:textSize="@dimen/sinclair_calculator_fragment_input_info_text_size"
         app:layout_constraintStart_toStartOf="@+id/weight_text_view"
         app:layout_constraintTop_toBottomOf="@+id/separator1" />
 
-    <RadioGroup
-        android:id="@+id/barbell_weight_radio_group"
+    <EditText
+        android:id="@+id/reps_edit_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:checkedButton="@id/men_radio_button"
-        android:orientation="horizontal"
-        app:layout_constraintBottom_toBottomOf="@+id/barbell_weight_text_view"
+        android:background="@android:color/transparent"
+        android:gravity="end"
+        android:hint="@string/sinclair_calculator_fragment_bodyweight_input_hint"
+        android:inputType="number"
+        android:maxLength="3"
+        android:minEms="6"
+        android:textColor="@color/colorBlackText"
+        android:textSize="@dimen/sinclair_calculator_fragment_input_text_size"
+        app:layout_constraintBottom_toBottomOf="@+id/reps_text_view"
         app:layout_constraintEnd_toEndOf="@+id/weight_units"
-        app:layout_constraintTop_toTopOf="@+id/barbell_weight_text_view">
-
-        <RadioButton
-            android:id="@+id/technique_radio_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="10 kg" />
-
-        <RadioButton
-            android:id="@+id/women_radio_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="15 kg" />
-
-        <RadioButton
-            android:id="@+id/men_radio_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="20 kg" />
-    </RadioGroup>
+        app:layout_constraintTop_toTopOf="@+id/reps_text_view" />
 
     <View
         android:id="@+id/separator2"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="@dimen/sinclair_calculator_fragment_row_separator_line_height"
         android:layout_marginTop="12dp"
         android:background="@color/separatorColor"
-        app:layout_constraintTop_toBottomOf="@id/barbell_weight_text_view" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/reps_text_view" />
 
     <TextView
-        android:id="@+id/collars_text_view"
+        android:id="@+id/exercise_text_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="12dp"
-        android:text="Collars"
+        android:text="Exercise"
         android:textColor="@color/colorBlackText"
         android:textSize="@dimen/sinclair_calculator_fragment_input_info_text_size"
         app:layout_constraintStart_toStartOf="@+id/weight_text_view"
         app:layout_constraintTop_toBottomOf="@+id/separator2" />
 
-    <CheckBox
-        android:id="@+id/collars_checkbox"
+    <Spinner
+        android:id="@+id/exercise_spinner"
+        android:layout_width="172dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@+id/exercise_text_view"
+        app:layout_constraintEnd_toStartOf="@+id/exercise_manager_button"
+        app:layout_constraintTop_toTopOf="@+id/exercise_text_view" />
+
+    <ImageButton
+        android:id="@+id/exercise_manager_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:gravity="end"
-        app:layout_constraintBottom_toBottomOf="@+id/collars_text_view"
+        android:layout_marginEnd="8dp"
+        android:background="?android:selectableItemBackground"
+        android:src="@drawable/modify"
+        android:tint="@color/colorGreyText"
+        app:layout_constraintBottom_toBottomOf="@+id/exercise_text_view"
         app:layout_constraintEnd_toEndOf="@+id/weight_units"
         app:layout_constraintStart_toStartOf="@+id/weight_units"
-        app:layout_constraintTop_toTopOf="@+id/collars_text_view" />
+        app:layout_constraintTop_toTopOf="@+id/exercise_text_view" />
 
 
     <View
@@ -132,26 +131,61 @@
         android:layout_height="@dimen/sinclair_calculator_fragment_row_separator_line_height"
         android:layout_marginTop="12dp"
         android:background="@color/separatorColor"
-        app:layout_constraintTop_toBottomOf="@id/collars_text_view" />
+        app:layout_constraintTop_toBottomOf="@id/exercise_text_view" />
+
+
+    <TextView
+        android:id="@+id/date_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:text="Date"
+
+        android:textColor="@color/colorBlackText"
+        android:textSize="@dimen/sinclair_calculator_fragment_input_info_text_size"
+        app:layout_constraintStart_toStartOf="@+id/weight_text_view"
+        app:layout_constraintTop_toBottomOf="@+id/separator3" />
+
+    <Button
+        android:id="@+id/date_picker_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:text="25.1"
+        app:layout_constraintBottom_toBottomOf="@+id/date_text_view"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/date_text_view" />
+
+    <View
+        android:id="@+id/separator4"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/sinclair_calculator_fragment_row_separator_line_height"
+        android:layout_marginTop="12dp"
+        android:background="@color/separatorColor"
+        app:layout_constraintTop_toBottomOf="@id/date_text_view" />
 
 
     <Button
-        android:id="@+id/calculate_button"
+        android:id="@+id/save_button"
         style="@style/Widget.AppCompat.Button.Colored"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="6dp"
-        android:text="@string/sinclair_calculator_fragment_calculate_button_text"
-        app:layout_constraintTop_toBottomOf="@id/separator3" />
+        android:text="Save"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/separator4" />
 
     <android.support.v7.widget.RecyclerView
-        android:id="@+id/results_recycler_view"
+        android:id="@+id/records_recycler_view"
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/calculate_button" />
+        app:layout_constraintTop_toBottomOf="@+id/save_button" />
 
 
 </android.support.constraint.ConstraintLayout>
@@ -160,3 +194,8 @@
 
 
 
+
+        
+
+
+    

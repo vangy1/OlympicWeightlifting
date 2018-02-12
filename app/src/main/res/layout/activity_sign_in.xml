@@ -22,15 +22,6 @@
         android:gravity="center"
         android:orientation="vertical">
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
-            android:text="@string/signin_activity_header_text"
-            android:textAlignment="center"
-            android:textSize="@dimen/signin_activity_header_text_size"
-            android:textStyle="bold" />
-
         <Button
             android:id="@+id/google_signin_button"
             style="@style/Widget.AppCompat.Button.Colored"
