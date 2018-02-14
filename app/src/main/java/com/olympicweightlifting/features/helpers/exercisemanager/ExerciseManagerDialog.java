@@ -66,8 +66,8 @@ public class ExerciseManagerDialog extends DaggerDialogFragment {
 
 
         addExerciseButton.setOnClickListener(view -> {
-            String exerciseName = Character.toUpperCase(exerciseToAdd.getText().toString().charAt(0)) + exerciseToAdd.getText().toString().substring(1);
-            if (!exerciseName.isEmpty()) {
+            if (!exerciseToAdd.getText().toString().isEmpty()) {
+                String exerciseName = Character.toUpperCase(exerciseToAdd.getText().toString().charAt(0)) + exerciseToAdd.getText().toString().substring(1);
                 Exercise exercise = new Exercise(exerciseName);
                 Completable.fromAction(() -> {
                     database.exerciseDao().insert(exercise);

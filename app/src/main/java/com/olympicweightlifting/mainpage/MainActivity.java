@@ -24,6 +24,7 @@ import com.olympicweightlifting.features.calculators.CalculatorsActivity;
 import com.olympicweightlifting.features.lifts.LiftsActivity;
 import com.olympicweightlifting.features.lifts.LiftsContentDataUtility;
 import com.olympicweightlifting.features.records.RecordsActivity;
+import com.olympicweightlifting.features.tracking.TrackingActivity;
 
 import javax.inject.Inject;
 
@@ -81,7 +82,7 @@ public class MainActivity extends DaggerAppCompatActivity implements Authenticat
 
         FeatureDataset calculatorsDataset = new FeatureDataset(resources.getString(R.string.calculators), resources.getStringArray(R.array.calculators_shortcuts), R.drawable.feature_image_calculators, CalculatorsActivity.class);
         FeatureDataset programsDataset = new FeatureDataset(resources.getString(R.string.programs), resources.getStringArray(R.array.programs_shortcuts), R.drawable.feature_image_programs, CalculatorsActivity.class);
-        FeatureDataset trackingDataset = new FeatureDataset(resources.getString(R.string.tracking), resources.getStringArray(R.array.tracking_shortcuts), R.drawable.feature_image_tracking, CalculatorsActivity.class);
+        FeatureDataset trackingDataset = new FeatureDataset(resources.getString(R.string.tracking), resources.getStringArray(R.array.tracking_shortcuts), R.drawable.feature_image_tracking, TrackingActivity.class);
         FeatureDataset recordsDataset = new FeatureDataset(resources.getString(R.string.records), resources.getStringArray(R.array.records_shortcuts), R.drawable.feature_image_records, RecordsActivity.class);
 
         RecyclerView.Adapter recyclerViewAdapter = new FeatureCardsRecyclerViewAdapter(new FeatureDataset[]{snatchDataset, cajDataset, calculatorsDataset, programsDataset, trackingDataset, recordsDataset}, this);

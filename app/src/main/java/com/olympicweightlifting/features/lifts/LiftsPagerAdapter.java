@@ -14,10 +14,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class LiftsPagerAdapter extends FragmentStatePagerAdapter {
-    private List<LiftsFragment> liftsFragmentList = new ArrayList<>();
+    private List<Fragment> liftsFragmentList = new ArrayList<>();
 
     public static class LiftsPagerAdapterBuilder {
-        List<LiftsFragment> liftsFragmentList = new ArrayList<>();
+        List<Fragment> liftsFragmentList = new ArrayList<>();
 
         FragmentManager fragmentManager;
         Context context;
@@ -41,7 +41,7 @@ public class LiftsPagerAdapter extends FragmentStatePagerAdapter {
     }
 
     public LiftsPagerAdapter(FragmentManager fragmentManager,
-                             List<LiftsFragment> liftsFragmentList) {
+                             List<Fragment> liftsFragmentList) {
         super(fragmentManager);
         this.liftsFragmentList = liftsFragmentList;
     }

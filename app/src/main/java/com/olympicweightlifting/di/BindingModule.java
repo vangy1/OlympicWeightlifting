@@ -7,6 +7,7 @@ import com.olympicweightlifting.features.calculators.repmax.RepmaxCalculatorFrag
 import com.olympicweightlifting.features.calculators.sinclair.SinclairCalculatorFragment;
 import com.olympicweightlifting.features.helpers.exercisemanager.ExerciseManagerDialog;
 import com.olympicweightlifting.features.records.personal.RecordsPersonalFragment;
+import com.olympicweightlifting.features.tracking.tracknew.TrackingNewFragment;
 import com.olympicweightlifting.mainpage.MainActivity;
 import com.olympicweightlifting.mainpage.SettingsDialog;
 
@@ -35,6 +36,9 @@ public abstract class BindingModule {
 
     @ContributesAndroidInjector
     abstract RecordsPersonalFragment bindRecordsPersonalFragment();
+
+    @ContributesAndroidInjector
+    abstract TrackingNewFragment bindTrackingNewFragment();
 
     @ContributesAndroidInjector
     abstract ExerciseManagerDialog bindExerciseManagerDialog();

@@ -31,7 +31,8 @@
                 android:value=".mainpage.MainActivity" />
         </activity>
         <activity android:name=".features.lifts.LiftsActivity" />
-        <activity android:name=".features.records.RecordsActivity"></activity>
+        <activity android:name=".features.records.RecordsActivity" />
+        <activity android:name=".features.tracking.TrackingActivity"></activity>
     </application>
 
 </manifest>

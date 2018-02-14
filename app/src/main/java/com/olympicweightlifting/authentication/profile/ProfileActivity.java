@@ -50,7 +50,7 @@ public class ProfileActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        toolbarTitle.setTypeface(Typeface.createFromAsset(getAssets(), getString(R.string.font_path_samsung_sans_bold)));
+        toolbarTitle.setTypeface(Typeface.createFromAsset(getAssets(), getString(R.string.font_path_montserrat_bold)));
     }
 
     private void setFonts() {

@@ -9,9 +9,9 @@ import com.olympicweightlifting.features.calculators.repmax.RepmaxCalculatorFrag
 import com.olympicweightlifting.features.calculators.sinclair.SinclairCalculatorFragment;
 
 public class CalculatorsPagerAdapter extends FragmentStatePagerAdapter {
-    private SinclairCalculatorFragment sinclairCalculatorFragment = new SinclairCalculatorFragment();
-    private RepmaxCalculatorFragment repmaxCalculatorFragment = new RepmaxCalculatorFragment();
-    private LoadingCalculatorFragment loadingCalculatorFragment = new LoadingCalculatorFragment();
+    private Fragment sinclairCalculatorFragment = new SinclairCalculatorFragment();
+    private Fragment repmaxCalculatorFragment = new RepmaxCalculatorFragment();
+    private Fragment loadingCalculatorFragment = new LoadingCalculatorFragment();
 
     public CalculatorsPagerAdapter(FragmentManager fragmentManager) {
         super(fragmentManager);

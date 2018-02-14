@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <plurals name="repetiton">
+    <plurals name="repetitons">
         <item quantity="one">%d rep</item>
         <item quantity="other">%d reps</item>
+    </plurals>
+    <plurals name="sets">
+        <item quantity="one">%d set</item>
+        <item quantity="other">%d sets</item>
     </plurals>
 </resources>

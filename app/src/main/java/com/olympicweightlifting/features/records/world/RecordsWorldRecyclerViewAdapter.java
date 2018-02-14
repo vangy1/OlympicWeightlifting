@@ -68,7 +68,7 @@ public class RecordsWorldRecyclerViewAdapter extends RecyclerView.Adapter<Record
     @Override
     public RecordsWorldRecyclerViewAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         CardView cardView = (CardView) LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.view_holder_world_records_result_card, parent, false);
+                .inflate(R.layout.view_holder_world_records_card, parent, false);
         return new RecordsWorldRecyclerViewAdapter.ViewHolder(cardView);
     }
 

@@ -61,7 +61,7 @@ public class RecordsPersonalRecyclerViewAdapter extends RecyclerView.Adapter<Rec
     @Override
     public RecordsPersonalRecyclerViewAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         CardView cardView = (CardView) LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.view_holder_personal_records_result_card, parent, false);
+                .inflate(R.layout.view_holder_personal_records_card, parent, false);
         return new RecordsPersonalRecyclerViewAdapter.ViewHolder(cardView);
     }
 
@@ -70,8 +70,8 @@ public class RecordsPersonalRecyclerViewAdapter extends RecyclerView.Adapter<Rec
         PersonalRecordData currentPersonalRecordData = personalRecordDataList.get(position);
         viewHolder.recordsLayout.setOnLongClickListener(view -> {
             FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
-            CollectionReference worldRecords = FirebaseFirestore.getInstance().collection("users").document(currentUser.getUid()).collection("personal_records");
-            worldRecords.document(personalRecordDataList.get(viewHolder.getAdapterPosition()).getDocumentId()).delete();
+            CollectionReference personalRecords = FirebaseFirestore.getInstance().collection("users").document(currentUser.getUid()).collection("personal_records");
+            personalRecords.document(personalRecordDataList.get(viewHolder.getAdapterPosition()).getDocumentId()).delete();
             return true;
         });
 
@@ -80,7 +80,7 @@ public class RecordsPersonalRecyclerViewAdapter extends RecyclerView.Adapter<Rec
 
         viewHolder.dateOfrecord.setText(dateFormat.format(currentPersonalRecordData.getDate()));
         viewHolder.lifted_weight.setText(String.format("%s %s", currentPersonalRecordData.getWeightFormatted(), currentPersonalRecordData.getUnits().toLowerCase()));
-        viewHolder.reps.setText(context.getResources().getQuantityString(R.plurals.repetiton, currentPersonalRecordData.getReps(), currentPersonalRecordData.getReps()));
+        viewHolder.reps.setText(context.getResources().getQuantityString(R.plurals.repetitons, currentPersonalRecordData.getReps(), currentPersonalRecordData.getReps()));
     }
 
 
