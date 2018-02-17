@@ -1,9 +1,7 @@
 package com.olympicweightlifting.features.programs.create;
 
-import android.app.Fragment;
-import android.support.annotation.Nullable;
+import android.content.Context;
 import android.support.v7.widget.RecyclerView;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,128 +22,134 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-import static com.olympicweightlifting.utilities.AppLevelConstants.VIEW_HOLDER_ITEM_LAST;
-import static com.olympicweightlifting.utilities.AppLevelConstants.VIEW_HOLDER_ITEM_NORMAL;
-
 /**
  * Created by vangor on 01/02/2018.
  */
 
 public class ProgramExercisesViewAdapter extends RecyclerView.Adapter<ProgramExercisesViewAdapter.ViewHolder> {
-    private final Fragment parentFragment;
-    List<String> exerciseList = new ArrayList<>();
-    ArrayAdapter spinnerAdapter;
+    private final Context context;
     private List<ProgramExercise> exercises;
+    private List<String> userExercises = new ArrayList<>();
+    private ArrayAdapter spinnerAdapter;
 
-    static class ViewHolder extends RecyclerView.ViewHolder {
-        @Nullable
-        @BindView(R.id.exercise_name)
-        TextView exerciseName;
-        @Nullable
-        @BindView(R.id.reps_value)
-        TextView reps;
-        @Nullable
-        @BindView(R.id.sets_value)
-        TextView sets;
-        @Nullable
-        @BindView(R.id.add_exercise_button)
-        Button addExerciseButton;
-        @Nullable
-        @BindView(R.id.exercise_spinner)
-        Spinner exerciseSpinner;
-
-        @Nullable
-        @BindView(R.id.reps_edit_text)
-        EditText repsEditText;
-        @Nullable
-        @BindView(R.id.sets_edit_text)
-        EditText setsEditText;
-
-        int viewType;
-
-        View view;
-
-        ViewHolder(View view, int viewType) {
+    static abstract class ViewHolder extends RecyclerView.ViewHolder {
+        ViewHolder(View view) {
             super(view);
             ButterKnife.bind(this, view);
-            this.view = view;
-            this.viewType = viewType;
+        }
+
+        abstract void bind(List<ProgramExercise> exercises, List<String> exerciseList, ArrayAdapter spinnerAdapter, ProgramExercisesViewAdapter programExercisesViewAdapter, Context parentFragment);
+    }
+
+    static class ShowItemViewHolder extends ProgramExercisesViewAdapter.ViewHolder {
+        @BindView(R.id.item_layout)
+        ViewGroup itemLayout;
+
+        @BindView(R.id.exercise_name)
+        TextView exerciseName;
+        @BindView(R.id.reps_value)
+        TextView reps;
+        @BindView(R.id.sets_value)
+        TextView sets;
+
+        ShowItemViewHolder(View view) {
+            super(view);
+        }
+
+        @Override
+        void bind(List<ProgramExercise> exercises, List<String> exerciseList, ArrayAdapter spinnerAdapter, ProgramExercisesViewAdapter programExercisesViewAdapter, Context parentFragment) {
+            ProgramExercise currentProgramExercise = exercises.get(getAdapterPosition());
+            exerciseName.setText(currentProgramExercise.getExerciseName());
+            reps.setText(String.valueOf(currentProgramExercise.getReps()));
+            sets.setText(String.valueOf(currentProgramExercise.getSets()));
+
+            itemLayout.setOnLongClickListener(view -> {
+                exercises.remove(getAdapterPosition());
+                programExercisesViewAdapter.notifyItemRemoved(getAdapterPosition());
+                return true;
+            });
+
         }
     }
 
-    public ProgramExercisesViewAdapter(List<ProgramExercise> exercises, Fragment parentFragment, List<String> exerciseList) {
-        this.exercises = exercises;
-        this.parentFragment = parentFragment;
+    static class AddItemViewHolder extends ProgramExercisesViewAdapter.ViewHolder {
+        @BindView(R.id.exercise_spinner)
+        Spinner exerciseSpinner;
+        @BindView(R.id.reps_edit_text)
+        EditText repsEditText;
+        @BindView(R.id.sets_edit_text)
+        EditText setsEditText;
+        @BindView(R.id.add_exercise_button)
+        Button addExerciseButton;
 
-        spinnerAdapter = new ArrayAdapter<>(parentFragment.getActivity(), R.layout.spinner_item_small, exerciseList);
+        AddItemViewHolder(View view) {
+            super(view);
+        }
+
+        @Override
+        void bind(List<ProgramExercise> exercises, List<String> exerciseList, ArrayAdapter spinnerAdapter, ProgramExercisesViewAdapter programExercisesViewAdapter, Context context) {
+            exerciseSpinner.setAdapter(spinnerAdapter);
+            setsEditText.setOnEditorActionListener((textView, actionId, keyEvent) -> {
+                if (actionId == EditorInfo.IME_ACTION_DONE) {
+                    addExerciseButton.performClick();
+                }
+                return false;
+            });
+
+            addExerciseButton.setOnClickListener(view -> {
+                try {
+                    addExercise(exercises, programExercisesViewAdapter);
+                    resetExerciseInputFields();
+                } catch (Exception exception) {
+                    Toast.makeText(context, "Fill out all information!", Toast.LENGTH_SHORT).show();
+                }
+            });
+        }
+
+        private void addExercise(List<ProgramExercise> exercises, ProgramExercisesViewAdapter programExercisesViewAdapter) {
+            ProgramExercise programExercise = new ProgramExercise(exerciseSpinner.getSelectedItem().toString(), Integer.parseInt(repsEditText.getText().toString()), Integer.parseInt(setsEditText.getText().toString()));
+            exercises.add(programExercise);
+            programExercisesViewAdapter.notifyDataSetChanged();
+        }
+
+        private void resetExerciseInputFields() {
+            exerciseSpinner.setSelection(0);
+            repsEditText.setText("");
+            setsEditText.setText("");
+            repsEditText.requestFocus();
+        }
+
+    }
+
+    ProgramExercisesViewAdapter(List<ProgramExercise> exercises, Context context, List<String> exerciseList) {
+        this.exercises = exercises;
+        this.context = context;
+
+        spinnerAdapter = new ArrayAdapter<>(context, R.layout.spinner_item_small, exerciseList);
     }
 
     @Override
     public ProgramExercisesViewAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        if (viewType == VIEW_HOLDER_ITEM_LAST) {
-            View view = LayoutInflater.from(parent.getContext())
-                    .inflate(R.layout.view_holder_custom_workout_exercise_add_card, parent, false);
-            return new ProgramExercisesViewAdapter.ViewHolder(view, VIEW_HOLDER_ITEM_LAST);
-
+        View view = LayoutInflater.from(parent.getContext()).inflate(viewType, parent, false);
+        if (viewType == R.layout.view_holder_custom_workout_exercise_add_card) {
+            return new ProgramExercisesViewAdapter.AddItemViewHolder(view);
         } else {
-            View view = LayoutInflater.from(parent.getContext())
-                    .inflate(R.layout.view_holder_custom_workout_exercise_card, parent, false);
-            return new ProgramExercisesViewAdapter.ViewHolder(view, VIEW_HOLDER_ITEM_NORMAL);
+            return new ProgramExercisesViewAdapter.ShowItemViewHolder(view);
         }
     }
 
+
     @Override
     public void onBindViewHolder(ProgramExercisesViewAdapter.ViewHolder viewHolder, int position) {
-
-        if (viewHolder.viewType == VIEW_HOLDER_ITEM_NORMAL) {
-            ProgramExercise currentProgramExercise = exercises.get(position);
-            viewHolder.exerciseName.setText(currentProgramExercise.getExerciseName());
-            viewHolder.reps.setText(String.valueOf(currentProgramExercise.getReps()));
-            viewHolder.sets.setText(String.valueOf(currentProgramExercise.getSets()));
-
-            viewHolder.view.setOnLongClickListener(view -> {
-                exercises.remove(viewHolder.getAdapterPosition());
-                notifyItemRemoved(viewHolder.getAdapterPosition());
-                return true;
-            });
-        } else {
-            viewHolder.exerciseSpinner.setAdapter(spinnerAdapter);
-            viewHolder.setsEditText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-                @Override
-                public boolean onEditorAction(TextView textView, int actionId, KeyEvent keyEvent) {
-                    if (actionId == EditorInfo.IME_ACTION_DONE) {
-                        viewHolder.addExerciseButton.callOnClick();
-                        return true;
-                    }
-                    return false;
-                }
-            });
-
-            viewHolder.addExerciseButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    try {
-                        ProgramExercise programExercise = new ProgramExercise(viewHolder.exerciseSpinner.getSelectedItem().toString(), Integer.parseInt(viewHolder.repsEditText.getText().toString()), Integer.parseInt(viewHolder.setsEditText.getText().toString()));
-                        exercises.add(programExercise);
-                        notifyDataSetChanged();
-                        viewHolder.exerciseSpinner.setSelection(0);
-                        viewHolder.repsEditText.setText("");
-                        viewHolder.setsEditText.setText("");
-                    } catch (Exception exception) {
-                        Toast.makeText(parentFragment.getActivity(), "Fill out all information!", Toast.LENGTH_SHORT).show();
-                    }
-                }
-            });
-
-        }
+        viewHolder.bind(exercises, userExercises, spinnerAdapter, this, context);
     }
 
     @Override
     public int getItemViewType(int position) {
         if (position == exercises.size())
-            return VIEW_HOLDER_ITEM_LAST;
+            return R.layout.view_holder_custom_workout_exercise_add_card;
         else
-            return VIEW_HOLDER_ITEM_NORMAL;
+            return R.layout.view_holder_custom_workout_exercise_card;
     }
 
     @Override

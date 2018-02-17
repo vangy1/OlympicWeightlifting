@@ -1,6 +1,6 @@
 package com.olympicweightlifting.features.programs.list.details;
 
-import android.app.Fragment;
+import android.content.Context;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -16,12 +16,9 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-/**
- * Created by vangor on 01/02/2018.
- */
 
 public class ProgramDetailsDaysViewAdapter extends RecyclerView.Adapter<ProgramDetailsDaysViewAdapter.ViewHolder> {
-    private final Fragment parentFragment;
+    private final Context context;
     private List<ProgramDay> days;
 
     static class ViewHolder extends RecyclerView.ViewHolder {
@@ -38,9 +35,9 @@ public class ProgramDetailsDaysViewAdapter extends RecyclerView.Adapter<ProgramD
         }
     }
 
-    public ProgramDetailsDaysViewAdapter(List<ProgramDay> days, Fragment parentFragment) {
+    public ProgramDetailsDaysViewAdapter(List<ProgramDay> days, Context context) {
         this.days = days;
-        this.parentFragment = parentFragment;
+        this.context = context;
     }
 
     @Override
@@ -58,15 +55,14 @@ public class ProgramDetailsDaysViewAdapter extends RecyclerView.Adapter<ProgramD
         viewHolder.dayTitle.setText(String.format("Day %s", String.valueOf(position + 1)));
         setupRecyclerView(viewHolder.exercisesRecyclerView, currentProgramDay);
         if (viewHolder.getAdapterPosition() == days.size() - 1) {
-            System.out.println("aa");
             viewHolder.separator.setVisibility(View.GONE);
         }
     }
 
     private void setupRecyclerView(RecyclerView daysRecyclerView, ProgramDay currentProgramDay) {
-        daysRecyclerView.setHasFixedSize(false);
-        daysRecyclerView.setLayoutManager(new LinearLayoutManager(parentFragment.getActivity()));
-        daysRecyclerView.setAdapter(new ProgramDetailsExercisesViewAdapter(currentProgramDay.getExercises(), parentFragment));
+        daysRecyclerView.setHasFixedSize(true);
+        daysRecyclerView.setLayoutManager(new LinearLayoutManager(context));
+        daysRecyclerView.setAdapter(new ProgramDetailsExercisesViewAdapter(currentProgramDay.getExercises(), context));
     }
 
 

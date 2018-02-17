@@ -64,7 +64,7 @@ public class ProgramDetails extends Fragment {
     private void setupRecyclerView() {
         workoutsRecyclerView.setHasFixedSize(true);
         workoutsRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        workoutsRecyclerView.setAdapter(new ProgramDetailsWeeksViewAdapter(program, this));
+        workoutsRecyclerView.setAdapter(new ProgramDetailsWeeksViewAdapter(program, getActivity().getBaseContext()));
     }
 
     private void removeWorkoutFromFirestore() {

@@ -1,6 +1,6 @@
 package com.olympicweightlifting.features.programs.list.details;
 
-import android.app.Fragment;
+import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,7 +17,7 @@ import butterknife.ButterKnife;
 
 
 public class ProgramDetailsExercisesViewAdapter extends RecyclerView.Adapter<ProgramDetailsExercisesViewAdapter.ViewHolder> {
-    private final Fragment parentFragment;
+    private final Context context;
     private List<ProgramExercise> exercises;
 
     static class ViewHolder extends RecyclerView.ViewHolder {
@@ -35,9 +35,9 @@ public class ProgramDetailsExercisesViewAdapter extends RecyclerView.Adapter<Pro
         }
     }
 
-    public ProgramDetailsExercisesViewAdapter(List<ProgramExercise> exercises, Fragment parentFragment) {
+    public ProgramDetailsExercisesViewAdapter(List<ProgramExercise> exercises, Context context) {
         this.exercises = exercises;
-        this.parentFragment = parentFragment;
+        this.context = context;
     }
 
     @Override

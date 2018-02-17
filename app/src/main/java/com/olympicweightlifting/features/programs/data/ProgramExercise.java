@@ -1,9 +1,5 @@
 package com.olympicweightlifting.features.programs.data;
 
-/**
- * Created by vangor on 14/02/2018.
- */
-
 public class ProgramExercise {
     private String exerciseName;
     private int reps;

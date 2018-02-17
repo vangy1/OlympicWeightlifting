@@ -16,8 +16,8 @@
         <item>Loading</item>
     </string-array>
     <string-array name="programs_shortcuts">
-        <item>Premade</item>
-        <item>Custom</item>
+        <item>List</item>
+        <item>Create</item>
     </string-array>
     <string-array name="tracking_shortcuts">
         <item>Track new</item>

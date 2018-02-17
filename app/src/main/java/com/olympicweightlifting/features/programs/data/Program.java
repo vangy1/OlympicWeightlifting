@@ -6,10 +6,6 @@ import com.google.firebase.firestore.IgnoreExtraProperties;
 import java.util.Date;
 import java.util.List;
 
-/**
- * Created by vangor on 14/02/2018.
- */
-
 @IgnoreExtraProperties
 public class Program {
     @Exclude

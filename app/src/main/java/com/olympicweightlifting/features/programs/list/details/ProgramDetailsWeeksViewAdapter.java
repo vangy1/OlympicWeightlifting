@@ -1,6 +1,6 @@
 package com.olympicweightlifting.features.programs.list.details;
 
-import android.app.Fragment;
+import android.content.Context;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -22,7 +22,7 @@ import butterknife.ButterKnife;
  */
 
 public class ProgramDetailsWeeksViewAdapter extends RecyclerView.Adapter<ProgramDetailsWeeksViewAdapter.ViewHolder> {
-    private final Fragment parentFragment;
+    private final Context context;
     private List<ProgramWeek> weeks;
 
     static class ViewHolder extends RecyclerView.ViewHolder {
@@ -38,9 +38,9 @@ public class ProgramDetailsWeeksViewAdapter extends RecyclerView.Adapter<Program
         }
     }
 
-    public ProgramDetailsWeeksViewAdapter(Program program, Fragment parentFragment) {
+    public ProgramDetailsWeeksViewAdapter(Program program, Context context) {
         this.weeks = program.getWeeks();
-        this.parentFragment = parentFragment;
+        this.context = context;
     }
 
     @Override
@@ -60,8 +60,8 @@ public class ProgramDetailsWeeksViewAdapter extends RecyclerView.Adapter<Program
 
     private void setupRecyclerView(RecyclerView daysRecyclerView, ProgramWeek currentProgramWeek) {
         daysRecyclerView.setHasFixedSize(true);
-        daysRecyclerView.setLayoutManager(new LinearLayoutManager(parentFragment.getActivity()));
-        daysRecyclerView.setAdapter(new ProgramDetailsDaysViewAdapter(currentProgramWeek.getDays(), parentFragment));
+        daysRecyclerView.setLayoutManager(new LinearLayoutManager(context));
+        daysRecyclerView.setAdapter(new ProgramDetailsDaysViewAdapter(currentProgramWeek.getDays(), context));
     }
 
 

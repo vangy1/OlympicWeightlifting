@@ -6,7 +6,7 @@ import android.support.v13.app.FragmentStatePagerAdapter;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.olympicweightlifting.authentication.SignInFragment;
-import com.olympicweightlifting.features.programs.create.NewProgramFragment;
+import com.olympicweightlifting.features.programs.create.CreateProgramFragment;
 import com.olympicweightlifting.features.programs.list.ListProgramsFragment;
 
 /**
@@ -14,8 +14,8 @@ import com.olympicweightlifting.features.programs.list.ListProgramsFragment;
  */
 
 public class ProgramsPagerAdapter extends FragmentStatePagerAdapter {
-    private Fragment premade = new ListProgramsFragment();
-    private Fragment custom = FirebaseAuth.getInstance().getCurrentUser() != null ? new NewProgramFragment() : new SignInFragment();
+    private Fragment list = new ListProgramsFragment();
+    private Fragment create = FirebaseAuth.getInstance().getCurrentUser() != null ? new CreateProgramFragment() : new SignInFragment();
 
     public ProgramsPagerAdapter(FragmentManager fragmentManager) {
         super(fragmentManager);
@@ -25,11 +25,11 @@ public class ProgramsPagerAdapter extends FragmentStatePagerAdapter {
     public Fragment getItem(int position) {
         switch (position) {
             case 0:
-                return premade;
+                return list;
             case 1:
-                return custom;
+                return create;
             default:
-                return premade;
+                return list;
         }
     }
 

@@ -1,7 +1,6 @@
 package com.olympicweightlifting.features.programs.create;
 
-import android.app.Fragment;
-import android.support.annotation.Nullable;
+import android.content.Context;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -15,107 +14,109 @@ import com.olympicweightlifting.R;
 import com.olympicweightlifting.features.programs.data.ProgramDay;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-
-import static com.olympicweightlifting.utilities.AppLevelConstants.VIEW_HOLDER_ITEM_LAST;
-import static com.olympicweightlifting.utilities.AppLevelConstants.VIEW_HOLDER_ITEM_NORMAL;
 
 /**
  * Created by vangor on 01/02/2018.
  */
 
 public class ProgramDaysViewAdapter extends RecyclerView.Adapter<ProgramDaysViewAdapter.ViewHolder> {
-    private final Fragment parentFragment;
-    private List<String> exerciseList;
+    private final Context context;
     private List<ProgramDay> days;
+    private List<String> userExercises;
 
-    static class ViewHolder extends RecyclerView.ViewHolder {
-        @Nullable
-        @BindView(R.id.day_title)
-        TextView dayTitle;
-        @Nullable
-        @BindView(R.id.execises_recycler_view)
-        RecyclerView exercisesRecyclerView;
-        @Nullable
-        @BindView(R.id.add_day_button)
-        Button addDayButton;
-
-
-        int viewType;
-        View view;
-
-        ViewHolder(View view, int viewType) {
+    static abstract class ViewHolder extends RecyclerView.ViewHolder {
+        ViewHolder(View view) {
             super(view);
             ButterKnife.bind(this, view);
-            this.viewType = viewType;
-            this.view = view;
+        }
+
+        abstract void bind(List<ProgramDay> days, List<String> exerciseList, ProgramDaysViewAdapter programDaysViewAdapter, Context context);
+    }
+
+    static class ShowItemViewHolder extends ViewHolder {
+        @BindView(R.id.item_layout)
+        ViewGroup itemLayout;
+        @BindView(R.id.day_title)
+        TextView dayTitle;
+        @BindView(R.id.execises_recycler_view)
+        RecyclerView exercisesRecyclerView;
+
+        ShowItemViewHolder(View view) {
+            super(view);
+        }
+
+        @Override
+        void bind(List<ProgramDay> days, List<String> exerciseList, ProgramDaysViewAdapter programDaysViewAdapter, Context context) {
+            dayTitle.setText(String.format("Day %s", String.valueOf(getAdapterPosition() + 1)));
+            setupRecyclerView(exercisesRecyclerView, days.get(getAdapterPosition()), exerciseList, context);
+
+            itemLayout.setOnLongClickListener(view -> {
+                days.remove(getAdapterPosition());
+                programDaysViewAdapter.notifyDataSetChanged();
+                return true;
+            });
+        }
+
+        private void setupRecyclerView(RecyclerView daysRecyclerView, ProgramDay currentProgramDay, List<String> exerciseList, Context context) {
+            daysRecyclerView.setHasFixedSize(false);
+            daysRecyclerView.setLayoutManager(new LinearLayoutManager(context));
+            daysRecyclerView.setAdapter(new ProgramExercisesViewAdapter(currentProgramDay.getExercises(), context, exerciseList));
         }
     }
 
-    public ProgramDaysViewAdapter(List<ProgramDay> days, Fragment parentFragment, List<String> exerciseList) {
+    static class AddItemViewHolder extends ViewHolder {
+        @BindView(R.id.add_day_button)
+        Button addDayButton;
+
+        AddItemViewHolder(View view) {
+            super(view);
+        }
+
+        @Override
+        void bind(List<ProgramDay> days, List<String> exerciseList, ProgramDaysViewAdapter programDaysViewAdapter, Context context) {
+            addDayButton.setOnClickListener(view -> {
+                if (days.size() < 7) {
+                    ProgramDay programDay = new ProgramDay(new ArrayList<>());
+                    days.add(programDay);
+                    programDaysViewAdapter.notifyDataSetChanged();
+                } else {
+                    Toast.makeText(context, "There are only 7 days in a week", Toast.LENGTH_SHORT).show();
+                }
+            });
+        }
+    }
+
+    ProgramDaysViewAdapter(List<ProgramDay> days, List<String> userExercises, Context context) {
         this.days = days;
-        this.parentFragment = parentFragment;
-        this.exerciseList = exerciseList;
+        this.userExercises = userExercises;
+        this.context = context;
     }
 
     @Override
     public ProgramDaysViewAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        if (viewType == VIEW_HOLDER_ITEM_NORMAL) {
-            View view = LayoutInflater.from(parent.getContext())
-                    .inflate(R.layout.view_holder_custom_workout_day_card, parent, false);
-            return new ProgramDaysViewAdapter.ViewHolder(view, VIEW_HOLDER_ITEM_NORMAL);
+        View view = LayoutInflater.from(parent.getContext()).inflate(viewType, parent, false);
+        if (viewType == R.layout.view_holder_custom_workout_day_add_card) {
+            return new ProgramDaysViewAdapter.AddItemViewHolder(view);
         } else {
-            View view = LayoutInflater.from(parent.getContext())
-                    .inflate(R.layout.view_holder_custom_workout_day_add_card, parent, false);
-            return new ProgramDaysViewAdapter.ViewHolder(view, VIEW_HOLDER_ITEM_LAST);
+            return new ProgramDaysViewAdapter.ShowItemViewHolder(view);
         }
-
     }
 
     @Override
     public void onBindViewHolder(ProgramDaysViewAdapter.ViewHolder viewHolder, int position) {
-        if (viewHolder.viewType == VIEW_HOLDER_ITEM_NORMAL) {
-            ProgramDay currentProgramDay = days.get(position);
-            viewHolder.dayTitle.setText(String.format("Day %s", String.valueOf(position + 1)));
-            setupRecyclerView(viewHolder.exercisesRecyclerView, currentProgramDay);
-            viewHolder.view.setOnLongClickListener(view -> {
-                days.remove(viewHolder.getAdapterPosition());
-                notifyDataSetChanged();
-                return true;
-            });
-        } else {
-            viewHolder.addDayButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    if (days.size() < 7) {
-                        ProgramDay programDay = new ProgramDay(new ArrayList<>(Arrays.asList()));
-                        days.add(programDay);
-                        notifyDataSetChanged();
-                    } else {
-                        Toast.makeText(parentFragment.getActivity(), "There are only 7 days in a week", Toast.LENGTH_SHORT).show();
-                    }
-                }
-            });
-        }
-
-    }
-
-    private void setupRecyclerView(RecyclerView daysRecyclerView, ProgramDay currentProgramDay) {
-        daysRecyclerView.setHasFixedSize(false);
-        daysRecyclerView.setLayoutManager(new LinearLayoutManager(parentFragment.getActivity()));
-        daysRecyclerView.setAdapter(new ProgramExercisesViewAdapter(currentProgramDay.getExercises(), parentFragment, exerciseList));
+        viewHolder.bind(days, userExercises, this, context);
     }
 
     @Override
     public int getItemViewType(int position) {
         if (position == days.size())
-            return VIEW_HOLDER_ITEM_LAST;
+            return R.layout.view_holder_custom_workout_day_add_card;
         else
-            return VIEW_HOLDER_ITEM_NORMAL;
+            return R.layout.view_holder_custom_workout_day_card;
     }
 
     @Override

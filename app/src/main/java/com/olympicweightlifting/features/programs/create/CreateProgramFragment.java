@@ -23,7 +23,7 @@ import com.olympicweightlifting.features.programs.data.ProgramDay;
 import com.olympicweightlifting.features.programs.data.ProgramWeek;
 
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -35,13 +35,11 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
 
-public class NewProgramFragment extends DaggerFragment implements ExerciseManagerDialog.OnExerciseListChangedListener {
-
+public class CreateProgramFragment extends DaggerFragment implements ExerciseManagerDialog.OnExerciseListChangedListener {
     @BindView(R.id.weeks_recycler_view)
     RecyclerView weeksRecyclerView;
     @BindView(R.id.exercise_manager_button)
     Button exerciseManagerButton;
-
     @BindView(R.id.program_name_edit_text)
     EditText programNameEditText;
     @BindView(R.id.save_button)
@@ -49,8 +47,10 @@ public class NewProgramFragment extends DaggerFragment implements ExerciseManage
 
     @Inject
     AppDatabase database;
-    List<String> exerciseList = new ArrayList<>();
+
+    private List<String> userExercises = new ArrayList<>();
     private Program program;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -58,76 +58,72 @@ public class NewProgramFragment extends DaggerFragment implements ExerciseManage
         View fragmentView = inflater.inflate(R.layout.fragment_custom_workout_new, container, false);
         ButterKnife.bind(this, fragmentView);
 
-        ProgramDay programDay = new ProgramDay(new ArrayList<>(Arrays.asList()));
-
-        ProgramWeek programWeek = new ProgramWeek(new ArrayList<>(Arrays.asList(programDay)));
-
-        program = new Program((new ArrayList<>(Arrays.asList(programWeek))));
+        program = new Program(new ArrayList<>(Collections.singletonList(new ProgramWeek(new ArrayList<>(Collections.singletonList(new ProgramDay()))))));
 
         setupRecyclerView();
 
-        exerciseManagerButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                ExerciseManagerDialog exerciseManagerDialog = new ExerciseManagerDialog();
-                exerciseManagerDialog.setTargetFragment(NewProgramFragment.this, 0);
-                exerciseManagerDialog.show(NewProgramFragment.this.getFragmentManager(), "exerciseManagerDialog");
-            }
+        exerciseManagerButton.setOnClickListener(view -> {
+            ExerciseManagerDialog exerciseManagerDialog = new ExerciseManagerDialog();
+            exerciseManagerDialog.setTargetFragment(CreateProgramFragment.this, 0);
+            exerciseManagerDialog.show(CreateProgramFragment.this.getFragmentManager(), "exerciseManagerDialog");
         });
 
         database.exerciseDao().getAll().subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe((queriedExercises) -> {
             for (Exercise queriedExercise : queriedExercises) {
-                exerciseList.add(queriedExercise.getExerciseName());
+                userExercises.add(queriedExercise.getExerciseName());
             }
-            ((ProgramWeeksViewAdapter) weeksRecyclerView.getAdapter()).notifyExercisesQueried(exerciseList);
+            ((ProgramWeeksViewAdapter) weeksRecyclerView.getAdapter()).notifyExercisesQueried(userExercises);
         });
 
-        saveButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (!programNameEditText.getText().toString().isEmpty()) {
-                    program.setProgramTitle(programNameEditText.getText().toString());
-                    try {
-                        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
-                        FirebaseFirestore.getInstance().collection("users").document(currentUser.getUid()).collection("programs").add(program);
-
-                        program.getWeeks().clear();
-                        programNameEditText.setText("");
-                        weeksRecyclerView.getAdapter().notifyDataSetChanged();
-                    } catch (Exception exception) {
-                        exception.printStackTrace();
-                        Toast.makeText(getActivity(), "Something went wrong while saving your program!", Toast.LENGTH_SHORT).show();
-
-                    }
-
-                } else {
-                    Toast.makeText(getActivity(), "Fill out program name!", Toast.LENGTH_SHORT).show();
+        saveButton.setOnClickListener(view -> {
+            if (!programNameEditText.getText().toString().isEmpty()) {
+                program.setProgramTitle(programNameEditText.getText().toString());
+                try {
+                    saveProgramToFirestore();
+                    Toast.makeText(getActivity(), programNameEditText.getText().toString() + " program was saved", Toast.LENGTH_SHORT).show();
+                    clearOldProgram();
+                } catch (Exception exception) {
+                    exception.printStackTrace();
+                    Toast.makeText(getActivity(), "Something went wrong while saving your program!", Toast.LENGTH_SHORT).show();
                 }
-
+            } else {
+                Toast.makeText(getActivity(), "Fill out program name!", Toast.LENGTH_SHORT).show();
             }
+
         });
 
         return fragmentView;
 
     }
 
-
     private void setupRecyclerView() {
         weeksRecyclerView.setHasFixedSize(false);
         LinearLayoutManager layout = new LinearLayoutManager(getActivity());
         weeksRecyclerView.setLayoutManager(layout);
-        weeksRecyclerView.setAdapter(new ProgramWeeksViewAdapter(program, this, layout));
+        weeksRecyclerView.setAdapter(new ProgramWeeksViewAdapter(program, getActivity().getBaseContext(), layout));
+    }
+
+    private void saveProgramToFirestore() {
+        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+        FirebaseFirestore.getInstance().collection("users").document(currentUser.getUid()).collection("programs").add(program);
+    }
+
+    private void clearOldProgram() {
+        program.getWeeks().clear();
+        program.getWeeks().add(new ProgramWeek(new ArrayList<>(Collections.singletonList(new ProgramDay()))));
+        programNameEditText.setText("");
+        weeksRecyclerView.getAdapter().notifyDataSetChanged();
     }
 
     @Override
     public void onExerciseAdded(String exercise) {
-        exerciseList.add(exercise);
+        userExercises.add(exercise);
         ((ProgramWeeksViewAdapter) weeksRecyclerView.getAdapter()).notifyExerciseListModified();
     }
 
     @Override
     public void onExerciseRemoved(String exercise) {
-        exerciseList.remove(exercise);
+        userExercises.remove(exercise);
         ((ProgramWeeksViewAdapter) weeksRecyclerView.getAdapter()).notifyExerciseListModified();
     }
 }
