@@ -38,7 +38,7 @@ public class RepmaxCalculatorFragment extends DaggerFragment {
     EditText weightEditText;
     @BindView(R.id.weight_units)
     TextView weightUnitsText;
-    @BindView(R.id.reps_edit_text)
+    @BindView(R.id.sets_edit_text)
     EditText repsEditText;
     @BindView(R.id.calculation_type_radio_group)
     RadioGroup calculationTypeRadioGroup;

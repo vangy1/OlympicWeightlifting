@@ -56,7 +56,7 @@
         app:layout_constraintTop_toBottomOf="@id/weight_text_view" />
 
     <TextView
-        android:id="@+id/reps_text_view"
+        android:id="@+id/sets_text_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="12dp"
@@ -67,7 +67,7 @@
         app:layout_constraintTop_toBottomOf="@+id/separator1" />
 
     <EditText
-        android:id="@+id/reps_edit_text"
+        android:id="@+id/sets_edit_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@android:color/transparent"
@@ -78,9 +78,9 @@
         android:minEms="6"
         android:textColor="@color/colorBlackText"
         android:textSize="@dimen/sinclair_calculator_fragment_input_text_size"
-        app:layout_constraintBottom_toBottomOf="@+id/reps_text_view"
+        app:layout_constraintBottom_toBottomOf="@+id/sets_text_view"
         app:layout_constraintEnd_toEndOf="@+id/weight_units"
-        app:layout_constraintTop_toTopOf="@+id/reps_text_view" />
+        app:layout_constraintTop_toTopOf="@+id/sets_text_view" />
 
     <View
         android:id="@+id/separator2"
@@ -90,7 +90,7 @@
         android:background="@color/separatorColor"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/reps_text_view" />
+        app:layout_constraintTop_toBottomOf="@id/sets_text_view" />
 
     <TextView
         android:id="@+id/exercise_text_view"

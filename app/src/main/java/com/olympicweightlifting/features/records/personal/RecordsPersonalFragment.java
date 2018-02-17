@@ -58,7 +58,7 @@ public class RecordsPersonalFragment extends DaggerFragment implements DatePicke
     EditText weightEditText;
     @BindView(R.id.weight_units)
     TextView weightUnits;
-    @BindView(R.id.reps_edit_text)
+    @BindView(R.id.sets_edit_text)
     EditText repsEditText;
     @BindView(R.id.exercise_spinner)
     Spinner exerciseSpinner;
@@ -140,7 +140,7 @@ public class RecordsPersonalFragment extends DaggerFragment implements DatePicke
     }
 
     private void setupRecyclerView() {
-        recordsRecyclerView.setHasFixedSize(true);
+        recordsRecyclerView.setHasFixedSize(false);
         recordsRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         recordsRecyclerView.setAdapter(new RecordsPersonalRecyclerViewAdapter(personalRecordDataList, getActivity()));
     }

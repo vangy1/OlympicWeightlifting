@@ -61,9 +61,9 @@ public class TrackingNewFragment extends DaggerFragment implements DatePickerDia
     EditText weightEditText;
     @BindView(R.id.weight_units)
     TextView weightUnits;
-    @BindView(R.id.reps_edit_text)
-    EditText repsEditText;
     @BindView(R.id.sets_edit_text)
+    EditText repsEditText;
+    @BindView(R.id.reps_edit_text)
     EditText setsEditText;
     @BindView(R.id.exercise_spinner)
     Spinner exerciseSpinner;
@@ -117,7 +117,7 @@ public class TrackingNewFragment extends DaggerFragment implements DatePickerDia
 
         saveButton.setOnClickListener(view -> {
             saveWorkoutToFirestore();
-            Toast.makeText(getActivity(), "Workout has been saved!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(), "Program has been saved!", Toast.LENGTH_SHORT).show();
             clearInputData();
         });
 
@@ -148,7 +148,7 @@ public class TrackingNewFragment extends DaggerFragment implements DatePickerDia
     }
 
     private void setupRecyclerView() {
-        exercisesRecyclerView.setHasFixedSize(true);
+        exercisesRecyclerView.setHasFixedSize(false);
         exercisesRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         exercisesRecyclerView.setAdapter(new TrackingNewRecyclerViewAdapter(trackedExerciseData, getActivity()));
     }

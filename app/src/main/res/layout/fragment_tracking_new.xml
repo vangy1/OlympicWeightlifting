@@ -56,7 +56,7 @@
         app:layout_constraintTop_toBottomOf="@id/weight_text_view" />
 
     <TextView
-        android:id="@+id/reps_text_view"
+        android:id="@+id/sets_text_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="12dp"
@@ -65,6 +65,44 @@
         android:textSize="@dimen/sinclair_calculator_fragment_input_info_text_size"
         app:layout_constraintStart_toStartOf="@+id/weight_text_view"
         app:layout_constraintTop_toBottomOf="@+id/separator1" />
+
+    <EditText
+        android:id="@+id/sets_edit_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        android:gravity="end"
+        android:hint="@string/sinclair_calculator_fragment_bodyweight_input_hint"
+        android:inputType="number"
+        android:maxLength="3"
+        android:minEms="6"
+        android:textColor="@color/colorBlackText"
+        android:textSize="@dimen/sinclair_calculator_fragment_input_text_size"
+        app:layout_constraintBottom_toBottomOf="@+id/sets_text_view"
+        app:layout_constraintEnd_toEndOf="@+id/weight_units"
+        app:layout_constraintTop_toTopOf="@+id/sets_text_view" />
+
+    <View
+        android:id="@+id/separator2"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/sinclair_calculator_fragment_row_separator_line_height"
+        android:layout_marginTop="12dp"
+        android:background="@color/separatorColor"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/sets_text_view" />
+
+
+    <TextView
+        android:id="@+id/date_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:text="Sets"
+        android:textColor="@color/colorBlackText"
+        android:textSize="@dimen/sinclair_calculator_fragment_input_info_text_size"
+        app:layout_constraintStart_toStartOf="@+id/weight_text_view"
+        app:layout_constraintTop_toTopOf="@+id/separator2" />
 
     <EditText
         android:id="@+id/reps_edit_text"
@@ -78,19 +116,17 @@
         android:minEms="6"
         android:textColor="@color/colorBlackText"
         android:textSize="@dimen/sinclair_calculator_fragment_input_text_size"
-        app:layout_constraintBottom_toBottomOf="@+id/reps_text_view"
-        app:layout_constraintEnd_toEndOf="@+id/weight_units"
-        app:layout_constraintTop_toTopOf="@+id/reps_text_view" />
+        app:layout_constraintBottom_toBottomOf="@+id/date_text_view"
+        app:layout_constraintEnd_toEndOf="@+id/sets_edit_text"
+        app:layout_constraintTop_toTopOf="@+id/date_text_view" />
 
     <View
-        android:id="@+id/separator2"
-        android:layout_width="0dp"
+        android:id="@+id/separator3"
+        android:layout_width="match_parent"
         android:layout_height="@dimen/sinclair_calculator_fragment_row_separator_line_height"
         android:layout_marginTop="12dp"
         android:background="@color/separatorColor"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/reps_text_view" />
+        app:layout_constraintTop_toBottomOf="@+id/date_text_view" />
 
     <TextView
         android:id="@+id/exercise_text_view"
@@ -126,43 +162,6 @@
 
 
     <View
-        android:id="@+id/separator3"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/sinclair_calculator_fragment_row_separator_line_height"
-        android:layout_marginTop="12dp"
-        android:background="@color/separatorColor"
-        app:layout_constraintTop_toBottomOf="@+id/date_text_view" />
-
-
-    <TextView
-        android:id="@+id/date_text_view"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-
-        android:layout_marginTop="12dp"
-        android:text="Sets"
-        android:textColor="@color/colorBlackText"
-        android:textSize="@dimen/sinclair_calculator_fragment_input_info_text_size"
-        app:layout_constraintStart_toStartOf="@+id/weight_text_view"
-        app:layout_constraintTop_toTopOf="@+id/separator2" />
-
-    <EditText
-        android:id="@+id/sets_edit_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@android:color/transparent"
-        android:gravity="end"
-        android:hint="@string/sinclair_calculator_fragment_bodyweight_input_hint"
-        android:inputType="number"
-        android:maxLength="3"
-        android:minEms="6"
-        android:textColor="@color/colorBlackText"
-        android:textSize="@dimen/sinclair_calculator_fragment_input_text_size"
-        app:layout_constraintBottom_toBottomOf="@+id/date_text_view"
-        app:layout_constraintEnd_toEndOf="@+id/reps_edit_text"
-        app:layout_constraintTop_toTopOf="@+id/date_text_view" />
-
-    <View
         android:id="@+id/separator4"
         android:layout_width="match_parent"
         android:layout_height="@dimen/sinclair_calculator_fragment_row_separator_line_height"
@@ -188,11 +187,12 @@
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
         android:text="Date"
         android:textColor="@color/colorBlackText"
         android:textSize="@dimen/sinclair_calculator_fragment_input_info_text_size"
         app:layout_constraintBottom_toBottomOf="@+id/save_button"
-        app:layout_constraintStart_toStartOf="@+id/weight_text_view"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/save_button" />
 
     <Button
@@ -211,9 +211,10 @@
         android:layout_width="wrap_content"
         android:layout_height="40dp"
         android:layout_marginBottom="8dp"
+        android:layout_marginEnd="24dp"
         android:text="Save workout"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/weight_units" />
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/exercises_recycler_view"
