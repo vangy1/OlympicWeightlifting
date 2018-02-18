@@ -12,7 +12,6 @@
         android:layout_height="0dp"
         android:layout_gravity="center"
         android:layout_weight="1"
-        android:padding="@dimen/signin_activity_header_image_padding"
         android:src="@drawable/logo" />
 
     <LinearLayout
@@ -30,7 +29,7 @@
             android:layout_gravity="center"
             android:layout_margin="@dimen/signin_activity_button_margin"
             android:backgroundTint="#FFFFFF"
-            android:drawableStart="@drawable/google_logo"
+            android:drawableStart="@drawable/ic_google"
             android:text="@string/google_signin_button_text"
             android:textColor="#000000" />
 
@@ -42,7 +41,7 @@
             android:layout_gravity="center"
             android:layout_margin="@dimen/signin_activity_button_margin"
             android:backgroundTint="#3C5A96"
-            android:drawableStart="@drawable/facebook_logo"
+            android:drawableStart="@drawable/ic_facebook"
             android:text="@string/facebook_signin_button_text" />
 
         <LinearLayout
@@ -77,7 +76,7 @@
             android:layout_height="@dimen/signin_button_height"
             android:layout_gravity="center"
             android:layout_margin="@dimen/signin_activity_button_margin"
-            android:drawableStart="@drawable/user_icon"
+            android:drawableStart="@drawable/ic_user"
             android:text="@string/anonymous_signin_button_text" />
     </LinearLayout>
 </LinearLayout>

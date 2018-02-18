@@ -22,12 +22,12 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/signin_button_height"
         android:layout_gravity="center"
-        android:layout_marginTop="@dimen/signin_dialog_button_margin_vertical"
         android:layout_marginBottom="@dimen/signin_dialog_button_margin_vertical"
         android:layout_marginLeft="@dimen/signin_dialog_button_margin_horizontal"
         android:layout_marginRight="@dimen/signin_dialog_button_margin_horizontal"
+        android:layout_marginTop="@dimen/signin_dialog_button_margin_vertical"
         android:backgroundTint="#FFFFFF"
-        android:drawableStart="@drawable/google_logo"
+        android:drawableStart="@drawable/ic_google"
         android:text="@string/google_signin_button_text"
         android:textColor="#000000" />
 
@@ -38,11 +38,11 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/signin_button_height"
         android:layout_gravity="center"
-        android:layout_marginTop="@dimen/signin_dialog_button_margin_vertical"
         android:layout_marginBottom="@dimen/signin_dialog_button_margin_vertical"
         android:layout_marginLeft="@dimen/signin_dialog_button_margin_horizontal"
         android:layout_marginRight="@dimen/signin_dialog_button_margin_horizontal"
+        android:layout_marginTop="@dimen/signin_dialog_button_margin_vertical"
         android:backgroundTint="#3C5A96"
-        android:drawableStart="@drawable/facebook_logo"
+        android:drawableStart="@drawable/ic_facebook"
         android:text="@string/facebook_signin_button_text" />
 </LinearLayout>

@@ -14,7 +14,7 @@
     <dimen name="signin_button_height">48dp</dimen>
     <dimen name="signin_activity_button_margin">6dp</dimen>
     <dimen name="signin_activity_header_image_padding">16dp</dimen>
-    <dimen name="signing_activity_padding">32dp</dimen>
+    <dimen name="signing_activity_padding">24dp</dimen>
     <dimen name="signin_activity_header_text_size">40sp</dimen>
     <dimen name="signin_buttons_separator_line_height">2dp</dimen>
     <dimen name="signin_buttons_separator_text_margin_right">6dp</dimen>

@@ -73,7 +73,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="Workouts tracked - 0/20"
+            android:text="Workouts tracked - x/20"
             android:textColor="@color/colorBlackText"
             android:textSize="@dimen/profile_activity_limits_text_text_size" />
 
@@ -82,7 +82,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="Personal records tracked - 0/50"
+            android:text="Personal records tracked - x/50"
             android:textColor="@color/colorBlackText"
             android:textSize="@dimen/profile_activity_limits_text_text_size" />
 
@@ -92,7 +92,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="Programs created - 0/5"
+            android:text="Programs created - x/5"
             android:textColor="@color/colorBlackText"
             android:textSize="@dimen/profile_activity_limits_text_text_size" />
     </LinearLayout>

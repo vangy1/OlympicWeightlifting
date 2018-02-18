@@ -36,6 +36,6 @@
         android:layout_margin="16dp"
         android:clickable="true"
         android:focusable="true"
-        android:src="@drawable/delete"
+        android:src="@drawable/ic_delete"
         app:backgroundTint="@color/colorAccent" />
 </FrameLayout>

@@ -153,7 +153,7 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:background="?android:selectableItemBackground"
-        android:src="@drawable/modify"
+        android:src="@drawable/ic_modify"
         android:tint="@color/colorGreyText"
         app:layout_constraintBottom_toBottomOf="@+id/exercise_text_view"
         app:layout_constraintEnd_toEndOf="@+id/weight_units"

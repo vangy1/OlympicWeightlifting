@@ -20,10 +20,16 @@ import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthUserCollisionException;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.olympicweightlifting.R;
+import com.olympicweightlifting.features.programs.ProgramsInitialData;
+import com.olympicweightlifting.features.programs.data.Program;
 
 import java.util.Arrays;
+import java.util.List;
 
 
 public class Authenticator {
@@ -78,7 +84,11 @@ public class Authenticator {
         facebookAuthCredential = FacebookAuthProvider.getCredential(accessToken.getToken());
         firebaseAuth.signInWithCredential(facebookAuthCredential).addOnCompleteListener(activity, task -> {
                     if (task.isSuccessful()) {
-                        ((AuthenticationActivity) activity).authenticationSuccess(FirebaseAuth.getInstance().getCurrentUser());
+                        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+                        if (task.getResult().getAdditionalUserInfo().isNewUser()) {
+                            insertInitialDataToDatabase(currentUser);
+                        }
+                        ((AuthenticationActivity) activity).authenticationSuccess(currentUser);
                     } else {
                         if (task.getException() instanceof FirebaseAuthUserCollisionException) {
                             Toast.makeText(activity, R.string.facebook_collision_message,
@@ -87,6 +97,15 @@ public class Authenticator {
                     }
                 }
         );
+    }
+
+    private void insertInitialDataToDatabase(FirebaseUser currentUser) {
+        CollectionReference programsCollection = FirebaseFirestore.getInstance().collection("users").document(currentUser.getUid()).collection("programs");
+        List<Program> initialPrograms = ProgramsInitialData.getInitialPrograms();
+        for (Program program : initialPrograms) {
+            programsCollection.add(program);
+        }
+
     }
 
     void checkIfAlreadySignedIn() {
@@ -110,10 +129,14 @@ public class Authenticator {
         AuthCredential credential = GoogleAuthProvider.getCredential(googleSignInAccount.getIdToken(), null);
         firebaseAuth.signInWithCredential(credential).addOnCompleteListener(activity, task -> {
             if (task.isSuccessful()) {
+                FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
                 if (facebookAuthCredential != null) {
-                    firebaseAuth.getCurrentUser().linkWithCredential(facebookAuthCredential);
+                    currentUser.linkWithCredential(facebookAuthCredential);
                 }
-                ((AuthenticationActivity) activity).authenticationSuccess(FirebaseAuth.getInstance().getCurrentUser());
+                if (task.getResult().getAdditionalUserInfo().isNewUser()) {
+                    insertInitialDataToDatabase(currentUser);
+                }
+                ((AuthenticationActivity) activity).authenticationSuccess(currentUser);
             }
         });
     }
@@ -125,5 +148,6 @@ public class Authenticator {
     void handleFacebookSignInResult(int requestCode, int resultCode, Intent data) {
         facebookCallbackManager.onActivityResult(requestCode, resultCode, data);
     }
+
 
 }

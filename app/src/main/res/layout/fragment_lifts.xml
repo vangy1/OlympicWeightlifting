@@ -19,6 +19,6 @@
         android:layout_margin="16dp"
         android:clickable="true"
         android:focusable="true"
-        android:src="@drawable/youtube"
+        android:src="@drawable/ic_youtube"
         app:backgroundTint="#FC0D1B" />
 </FrameLayout>

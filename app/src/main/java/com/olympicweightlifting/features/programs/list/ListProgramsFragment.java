@@ -58,7 +58,7 @@ public class ListProgramsFragment extends Fragment {
         FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
 
         CollectionReference workoutsCollection = FirebaseFirestore.getInstance().collection("users").document(currentUser.getUid()).collection("programs");
-        workoutsCollection.orderBy("dateAdded", Query.Direction.DESCENDING).addSnapshotListener((documentSnapshots, e) -> {
+        workoutsCollection.orderBy("dateAdded", Query.Direction.ASCENDING).addSnapshotListener((documentSnapshots, e) -> {
             programsList.clear();
             for (DocumentSnapshot documentSnapshot : documentSnapshots) {
                 try {
