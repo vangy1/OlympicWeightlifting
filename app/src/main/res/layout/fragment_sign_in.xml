@@ -28,6 +28,7 @@
 
         <Button
             android:id="@+id/signin_button"
+            style="@style/Widget.AppCompat.Button.Borderless.Colored"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Continue to sign in" />
