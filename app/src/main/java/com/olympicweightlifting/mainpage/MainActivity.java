@@ -124,7 +124,7 @@ public class MainActivity extends DaggerAppCompatActivity implements Authenticat
             startActivity(new Intent(this, ProfileActivity.class));
         } else if (item.getItemId() == R.id.signin) {
             signInDialog = new SignInDialog();
-            signInDialog.show(getFragmentManager(), getString(R.string.signin_dialog_fragment_tag));
+            signInDialog.show(getSupportFragmentManager(), getString(R.string.signin_dialog_fragment_tag));
         }
 
         return super.onOptionsItemSelected(item);
@@ -132,7 +132,7 @@ public class MainActivity extends DaggerAppCompatActivity implements Authenticat
 
     private void showSettingsDialog() {
         SettingsDialog settingsDialog = new SettingsDialog();
-        settingsDialog.show(getFragmentManager(), getString(R.string.settings_dialog_fragment_tag));
+        settingsDialog.show(getSupportFragmentManager(), getString(R.string.settings_dialog_fragment_tag));
     }
 
     @Override

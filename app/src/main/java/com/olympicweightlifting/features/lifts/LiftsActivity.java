@@ -53,7 +53,7 @@ public class LiftsActivity extends AppCompatActivity {
     }
 
     private void setupViewPager(List<LiftsFragmentData> liftsActivityData) {
-        LiftsPagerAdapter liftsPagerAdapter = new LiftsPagerAdapterBuilder(getFragmentManager(), getApplicationContext())
+        LiftsPagerAdapter liftsPagerAdapter = new LiftsPagerAdapterBuilder(getSupportFragmentManager(), getApplicationContext())
                 .addFragment(liftsActivityData.get(0))
                 .addFragment(liftsActivityData.get(1))
                 .addFragment(liftsActivityData.get(2))

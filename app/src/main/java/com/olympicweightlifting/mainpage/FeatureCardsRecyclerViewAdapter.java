@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.util.TypedValue;
@@ -83,6 +84,7 @@ public class FeatureCardsRecyclerViewAdapter extends RecyclerView.Adapter<Featur
             featureShortcutButton.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, 0, 1));
             setRippleEffectToCoverEntireButtonArea(featureShortcutButton);
             featureShortcutButton.setText(featureDataset.getFeatureShortcuts()[i]);
+            featureShortcutButton.setTextColor(ContextCompat.getColor(activityContext, R.color.colorAccent));
 
             buttons[i] = featureShortcutButton;
         }

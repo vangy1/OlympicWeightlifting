@@ -38,7 +38,7 @@ public class ProgramExercisesViewAdapter extends RecyclerView.Adapter<ProgramExe
             ButterKnife.bind(this, view);
         }
 
-        abstract void bind(List<ProgramExercise> exercises, List<String> exerciseList, ArrayAdapter spinnerAdapter, ProgramExercisesViewAdapter programExercisesViewAdapter, Context parentFragment);
+        abstract void bind(List<ProgramExercise> exercises, List<String> exerciseList, ArrayAdapter spinnerAdapter, ProgramExercisesViewAdapter programExercisesViewAdapter, Context context);
     }
 
     static class ShowItemViewHolder extends ProgramExercisesViewAdapter.ViewHolder {
@@ -57,7 +57,7 @@ public class ProgramExercisesViewAdapter extends RecyclerView.Adapter<ProgramExe
         }
 
         @Override
-        void bind(List<ProgramExercise> exercises, List<String> exerciseList, ArrayAdapter spinnerAdapter, ProgramExercisesViewAdapter programExercisesViewAdapter, Context parentFragment) {
+        void bind(List<ProgramExercise> exercises, List<String> exerciseList, ArrayAdapter spinnerAdapter, ProgramExercisesViewAdapter programExercisesViewAdapter, Context context) {
             ProgramExercise currentProgramExercise = exercises.get(getAdapterPosition());
             exerciseName.setText(currentProgramExercise.getExerciseName());
             reps.setText(String.valueOf(currentProgramExercise.getReps()));

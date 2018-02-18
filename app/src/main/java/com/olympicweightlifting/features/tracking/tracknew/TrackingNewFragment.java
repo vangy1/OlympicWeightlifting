@@ -2,7 +2,6 @@ package com.olympicweightlifting.features.tracking.tracknew;
 
 
 import android.app.DatePickerDialog;
-import android.app.Fragment;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -42,16 +41,13 @@ import javax.inject.Named;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import dagger.android.DaggerFragment;
+import dagger.android.support.DaggerFragment;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
 import static android.text.format.DateFormat.getDateFormat;
 import static com.olympicweightlifting.utilities.AppLevelConstants.Units;
 
-/**
- * A simple {@link Fragment} subclass.
- */
 public class TrackingNewFragment extends DaggerFragment implements DatePickerDialog.OnDateSetListener, ExerciseManagerDialog.OnExerciseListChangedListener {
 
     @BindView(R.id.exercises_recycler_view)
@@ -84,7 +80,7 @@ public class TrackingNewFragment extends DaggerFragment implements DatePickerDia
     @Inject
     @Named("settings")
     SharedPreferences sharedPreferences;
-    private DateFormat dateFormat = getDateFormat(getActivity());
+    private DateFormat dateFormat;
     private Date currentDate;
     private List<TrackedExerciseData> trackedExerciseData = new ArrayList<>();
 
@@ -93,6 +89,7 @@ public class TrackingNewFragment extends DaggerFragment implements DatePickerDia
                              Bundle savedInstanceState) {
         View fragmentView = inflater.inflate(R.layout.fragment_tracking_new, container, false);
         ButterKnife.bind(this, fragmentView);
+        dateFormat = getDateFormat(getActivity());
 
         setupDatePicker();
         setupSpinner();
@@ -106,9 +103,10 @@ public class TrackingNewFragment extends DaggerFragment implements DatePickerDia
 
         addButton.setOnClickListener(view -> {
             try {
-                trackedExerciseData.add(new TrackedExerciseData(Double.parseDouble(weightEditText.getText().toString()), Units.KG.toString(),
+                trackedExerciseData.add(0, new TrackedExerciseData(Double.parseDouble(weightEditText.getText().toString()), Units.KG.toString(),
                         Integer.parseInt(repsEditText.getText().toString()), Integer.parseInt(setsEditText.getText().toString()), exerciseSpinner.getSelectedItem().toString()));
-                exercisesRecyclerView.getAdapter().notifyDataSetChanged();
+                exercisesRecyclerView.getAdapter().notifyItemInserted(0);
+                exercisesRecyclerView.scrollToPosition(0);
             } catch (Exception exception) {
                 Toast.makeText(getActivity(), "Fill out all information!", Toast.LENGTH_SHORT).show();
             }

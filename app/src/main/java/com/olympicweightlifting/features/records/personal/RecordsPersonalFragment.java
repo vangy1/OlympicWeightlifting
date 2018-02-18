@@ -43,7 +43,7 @@ import javax.inject.Named;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import dagger.android.DaggerFragment;
+import dagger.android.support.DaggerFragment;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
@@ -76,11 +76,10 @@ public class RecordsPersonalFragment extends DaggerFragment implements DatePicke
     SharedPreferences sharedPreferences;
 
     FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
-
     List<String> exerciseList = new ArrayList<>();
     ArrayAdapter spinnerAdapter;
+    private DateFormat dateFormat;
     private List<PersonalRecordData> personalRecordDataList = new ArrayList<>();
-    private DateFormat dateFormat = getDateFormat(getActivity());
     private Date currentDate;
 
     @Override
@@ -88,7 +87,7 @@ public class RecordsPersonalFragment extends DaggerFragment implements DatePicke
                              Bundle savedInstanceState) {
         View fragmentView = inflater.inflate(R.layout.fragment_records_personal, container, false);
         ButterKnife.bind(this, fragmentView);
-
+        dateFormat = getDateFormat(getActivity());
         String units = sharedPreferences.getString(getString(R.string.settings_units), AppLevelConstants.Units.KG.toString());
 
         weightUnits.setText(units.toLowerCase());

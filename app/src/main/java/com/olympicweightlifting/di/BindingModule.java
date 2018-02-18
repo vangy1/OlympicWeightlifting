@@ -6,8 +6,11 @@ import com.olympicweightlifting.features.calculators.loading.LoadingCalculatorFr
 import com.olympicweightlifting.features.calculators.repmax.RepmaxCalculatorFragment;
 import com.olympicweightlifting.features.calculators.sinclair.SinclairCalculatorFragment;
 import com.olympicweightlifting.features.helpers.exercisemanager.ExerciseManagerDialog;
+import com.olympicweightlifting.features.programs.ProgramsActivity;
 import com.olympicweightlifting.features.programs.create.CreateProgramFragment;
+import com.olympicweightlifting.features.records.RecordsActivity;
 import com.olympicweightlifting.features.records.personal.RecordsPersonalFragment;
+import com.olympicweightlifting.features.tracking.TrackingActivity;
 import com.olympicweightlifting.features.tracking.tracknew.TrackingNewFragment;
 import com.olympicweightlifting.mainpage.MainActivity;
 import com.olympicweightlifting.mainpage.SettingsDialog;
@@ -24,7 +27,19 @@ public abstract class BindingModule {
     abstract SettingsDialog bindSettingsDialog();
 
     @ContributesAndroidInjector
+    abstract RecordsActivity bindRecordsActivity();
+
+    @ContributesAndroidInjector
+    abstract TrackingActivity bindTrackingActivity();
+
+    @ContributesAndroidInjector
+    abstract RecordsPersonalFragment bindRecordsPersonalFragment();
+
+    @ContributesAndroidInjector
     abstract CalculatorsActivity bindCalculatorActivity();
+
+    @ContributesAndroidInjector
+    abstract ProgramsActivity bindProgramsActivity();
 
     @ContributesAndroidInjector
     abstract SinclairCalculatorFragment bindSinclairCalculatorFragment();
@@ -34,9 +49,6 @@ public abstract class BindingModule {
 
     @ContributesAndroidInjector
     abstract LoadingCalculatorFragment bindLoadingCalculatorFragment();
-
-    @ContributesAndroidInjector
-    abstract RecordsPersonalFragment bindRecordsPersonalFragment();
 
     @ContributesAndroidInjector
     abstract TrackingNewFragment bindTrackingNewFragment();

@@ -8,7 +8,7 @@
         <item name="colorAccent">@color/colorAccent</item>
         <item name="android:statusBarColor">@color/colorBackgroundDark</item>
         <item name="android:windowLightStatusBar">false</item>
-        <item name="android:buttonStyle">@style/Widget.AppCompat.Button.Borderless.Colored</item>
+        <item name="android:windowBackground">@color/colorBackground</item>
     </style>
 
     <style name="AppTheme.OverFlow">
@@ -16,6 +16,10 @@
         <item name="srcCompat">@drawable/ic_more_vert_black_18px</item>
         <item name="android:paddingTop">6dp</item>
         <item name="android:paddingRight">8dp</item>
+    </style>
+
+    <style name="BorderlessButtonStyle" parent="Widget.AppCompat.Button.Borderless.Colored">
+        <item name="android:textColor">@color/colorGreyText</item>
     </style>
 
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />

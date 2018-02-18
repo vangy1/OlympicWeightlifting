@@ -30,8 +30,8 @@
         android:layout_width="@dimen/profile_activity_user_image_size"
         android:layout_height="@dimen/profile_activity_user_image_size"
         android:layout_gravity="center"
-        android:layout_marginTop="@dimen/profile_activity_user_image_margin_vertical"
-        android:layout_marginBottom="@dimen/profile_activity_user_image_margin_vertical"/>
+        android:layout_marginBottom="@dimen/profile_activity_user_image_margin_vertical"
+        android:layout_marginTop="@dimen/profile_activity_user_image_margin_vertical" />
 
 
     <TextView
@@ -58,19 +58,14 @@
         android:text="@string/profile_activity_upgrade_button_text" />
 
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/profile_activity_separator_line_height"
-        android:background="@color/separatorColor"/>
-
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"
-        android:gravity="center"
         android:layout_marginLeft="@dimen/profile_activity_horizontal_margin"
         android:layout_marginRight="@dimen/profile_activity_horizontal_margin"
+        android:layout_weight="1"
+        android:gravity="center"
         android:orientation="vertical">
 
         <TextView
@@ -78,7 +73,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="Workouts tracked - 0/25"
+            android:text="Workouts tracked - 0/20"
             android:textColor="@color/colorBlackText"
             android:textSize="@dimen/profile_activity_limits_text_text_size" />
 
@@ -88,6 +83,16 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:text="Personal records tracked - 0/50"
+            android:textColor="@color/colorBlackText"
+            android:textSize="@dimen/profile_activity_limits_text_text_size" />
+
+
+        <TextView
+            android:id="@+id/programs_limit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="Programs created - 0/5"
             android:textColor="@color/colorBlackText"
             android:textSize="@dimen/profile_activity_limits_text_text_size" />
     </LinearLayout>
@@ -101,7 +106,8 @@
         android:layout_marginBottom="6dp"
         android:layout_marginLeft="@dimen/profile_activity_horizontal_margin"
         android:layout_marginRight="@dimen/profile_activity_horizontal_margin"
-        android:text="@string/signout_button_text" />
+        android:text="@string/signout_button_text"
+        android:textColor="@color/colorWhite" />
 
 
 </LinearLayout>

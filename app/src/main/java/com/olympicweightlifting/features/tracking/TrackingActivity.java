@@ -3,16 +3,15 @@ package com.olympicweightlifting.features.tracking;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
-import android.view.WindowManager;
 import android.widget.FrameLayout;
 
 import com.olympicweightlifting.R;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import dagger.android.support.DaggerAppCompatActivity;
 
-public class TrackingActivity extends AppCompatActivity {
+public class TrackingActivity extends DaggerAppCompatActivity {
 
     @BindView(R.id.tab_layout)
     TabLayout tabLayout;
@@ -27,7 +26,6 @@ public class TrackingActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tracking);
         ButterKnife.bind(this);
-        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
 
         setupTabLayout();
         setupViewPager();
@@ -45,7 +43,7 @@ public class TrackingActivity extends AppCompatActivity {
     }
 
     private void setupViewPager() {
-        viewPager.setAdapter(new TrackingPagerAdapter(getFragmentManager()));
+        viewPager.setAdapter(new TrackingPagerAdapter(getSupportFragmentManager()));
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
         int fragmentIndex = getIntent().getIntExtra(getString(R.string.extra_fragment_index), 0);
         viewPager.setCurrentItem(fragmentIndex);

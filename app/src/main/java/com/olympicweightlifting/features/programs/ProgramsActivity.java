@@ -3,15 +3,14 @@ package com.olympicweightlifting.features.programs;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
-import android.view.WindowManager;
 
 import com.olympicweightlifting.R;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import dagger.android.support.DaggerAppCompatActivity;
 
-public class ProgramsActivity extends AppCompatActivity {
+public class ProgramsActivity extends DaggerAppCompatActivity {
 
     @BindView(R.id.tab_layout)
     TabLayout tabLayout;
@@ -23,7 +22,6 @@ public class ProgramsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_programs);
         ButterKnife.bind(this);
-        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
 
         setupTabLayout();
         setupViewPager();
@@ -41,7 +39,7 @@ public class ProgramsActivity extends AppCompatActivity {
     }
 
     private void setupViewPager() {
-        viewPager.setAdapter(new ProgramsPagerAdapter(getFragmentManager()));
+        viewPager.setAdapter(new ProgramsPagerAdapter(getSupportFragmentManager()));
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
         int fragmentIndex = getIntent().getIntExtra(getString(R.string.extra_fragment_index), 0);
         viewPager.setCurrentItem(fragmentIndex);

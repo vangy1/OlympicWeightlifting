@@ -22,12 +22,12 @@ import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import dagger.android.DaggerDialogFragment;
+import dagger.android.support.DaggerAppCompatDialogFragment;
 import io.reactivex.Completable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
-public class ExerciseManagerDialog extends DaggerDialogFragment {
+public class ExerciseManagerDialog extends DaggerAppCompatDialogFragment {
     @BindView(R.id.dialog_title)
     TextView dialogTitle;
     @BindView(R.id.exercise_to_add)
@@ -51,7 +51,7 @@ public class ExerciseManagerDialog extends DaggerDialogFragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         onExerciseListChangedListener = (OnExerciseListChangedListener) getTargetFragment();
-        getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
+        getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_NOTHING);
     }
 
     @Override

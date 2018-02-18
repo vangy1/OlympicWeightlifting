@@ -22,13 +22,9 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-/**
- * Created by vangor on 01/02/2018.
- */
-
 public class ProgramWeeksViewAdapter extends RecyclerView.Adapter<ProgramWeeksViewAdapter.ViewHolder> {
     private final Context context;
-    List<String> userExercises = new ArrayList<>();
+    private List<String> userExercises = new ArrayList<>();
     private List<ProgramWeek> weeks;
     private LinearLayoutManager linearLayoutManager;
 

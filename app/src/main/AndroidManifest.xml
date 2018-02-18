@@ -15,24 +15,45 @@
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"
             android:value="@string/facebook_app_id" />
-        <activity android:name=".authentication.SignInActivity">
+
+        <activity
+            android:name=".authentication.SignInActivity"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".features.calculators.CalculatorsActivity" />
-        <activity android:name=".mainpage.MainActivity" />
-        <activity android:name=".authentication.profile.ProfileActivity">
+        <activity
+            android:name=".features.calculators.CalculatorsActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".mainpage.MainActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".authentication.profile.ProfileActivity"
+            android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".mainpage.MainActivity" />
         </activity>
-        <activity android:name=".features.lifts.LiftsActivity" />
-        <activity android:name=".features.records.RecordsActivity" />
-        <activity android:name=".features.tracking.TrackingActivity" />
-        <activity android:name=".features.programs.ProgramsActivity" />
+        <activity
+            android:name=".features.lifts.LiftsActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".features.records.RecordsActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".features.tracking.TrackingActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".features.programs.ProgramsActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
     </application>
 
 </manifest>

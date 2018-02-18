@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.view.View;
 import android.widget.RadioGroup;
-import android.widget.Switch;
 import android.widget.TextView;
 
 import com.olympicweightlifting.R;
@@ -17,16 +16,16 @@ import javax.inject.Named;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import dagger.android.DaggerDialogFragment;
+import dagger.android.support.DaggerAppCompatDialogFragment;
 
 import static com.olympicweightlifting.utilities.AppLevelConstants.Units;
 
 
-public class SettingsDialog extends DaggerDialogFragment {
+public class SettingsDialog extends DaggerAppCompatDialogFragment {
     @BindView(R.id.dialog_title)
     TextView dialogTitle;
-    @BindView(R.id.dark_theme_switch)
-    Switch darkThemeSwitch;
+    //    @BindView(R.id.dark_theme_switch)
+//    Switch darkThemeSwitch;
     @BindView(R.id.units_radio_group)
     RadioGroup unitsRadioGroup;
 
@@ -47,7 +46,7 @@ public class SettingsDialog extends DaggerDialogFragment {
     }
 
     private void displayCurrentSettings() {
-        darkThemeSwitch.setChecked(settingsSharedPreferences.getBoolean(getString(R.string.settings_dark_theme), false));
+//        darkThemeSwitch.setChecked(settingsSharedPreferences.getBoolean(getString(R.string.settings_dark_theme), false));
         Units units = Units.valueOf(settingsSharedPreferences.getString(getString(R.string.settings_units), Units.KG.toString()));
         if (units == Units.KG) {
             unitsRadioGroup.check(R.id.kg_radio_button);
@@ -58,7 +57,7 @@ public class SettingsDialog extends DaggerDialogFragment {
 
     private void saveSettingsToSharedPreferences() {
         SharedPreferences.Editor sharedPreferencesEditor = settingsSharedPreferences.edit();
-        sharedPreferencesEditor.putBoolean(getString(R.string.settings_dark_theme), darkThemeSwitch.isChecked());
+//        sharedPreferencesEditor.putBoolean(getString(R.string.settings_dark_theme), darkThemeSwitch.isChecked());
         if (unitsRadioGroup.getCheckedRadioButtonId() == R.id.kg_radio_button) {
             sharedPreferencesEditor.putString(getString(R.string.settings_units), Units.KG.toString());
         } else if (unitsRadioGroup.getCheckedRadioButtonId() == R.id.lb_radio_button) {

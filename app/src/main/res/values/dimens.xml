@@ -5,7 +5,7 @@
 
     <dimen name="feature_card_height">112dp</dimen>
     <dimen name="feature_card_corner_radius">2dp</dimen>
-    <dimen name="feature_card_vertical_margin">6dp</dimen>
+    <dimen name="feature_card_vertical_margin">4dp</dimen>
     <dimen name="feature_card_horizontal_margin">18dp</dimen>
 
     <dimen name="feature_name_padding">2dp</dimen>
@@ -25,12 +25,12 @@
     <dimen name="profile_activity_user_image_margin_vertical">8dp</dimen>
     <dimen name="profile_activity_separator_line_height">2dp</dimen>
     <dimen name="profile_activity_horizontal_margin">12dp</dimen>
-    <dimen name="profile_activity_limits_text_text_size">24sp</dimen>
+    <dimen name="profile_activity_limits_text_text_size">22sp</dimen>
     <dimen name="profile_activity_account_info_text_text_size">24sp</dimen>
     <dimen name="sinclair_calculator_fragment_row_horizontal_margin">32dp</dimen>
     <dimen name="sinclair_calculator_fragment_row_vertical_margin">12dp</dimen>
     <dimen name="sinclair_calculator_fragment_input_text_size">18sp</dimen>
     <dimen name="sinclair_calculator_fragment_input_info_text_size">18sp</dimen>
     <dimen name="sinclair_calculator_fragment_unit_margin_left">2dp</dimen>
-    <dimen name="sinclair_calculator_fragment_row_separator_line_height">2dp</dimen>
+    <dimen name="sinclair_calculator_fragment_row_separator_line_height">1dp</dimen>
 </resources>
