@@ -22,12 +22,12 @@ public class ProgramDetailsDaysViewAdapter extends RecyclerView.Adapter<ProgramD
     private List<ProgramDay> days;
 
     static class ViewHolder extends RecyclerView.ViewHolder {
-        @BindView(R.id.day_title)
-        TextView dayTitle;
-        @BindView(R.id.execises_recycler_view)
-        RecyclerView exercisesRecyclerView;
+        @BindView(R.id.text_title_day)
+        TextView textViewDayTitle;
+        @BindView(R.id.recyclerview_exercises)
+        RecyclerView recyclerViewExercises;
         @BindView(R.id.separator)
-        View separator;
+        View viewSeparator;
 
         ViewHolder(View view) {
             super(view);
@@ -43,7 +43,7 @@ public class ProgramDetailsDaysViewAdapter extends RecyclerView.Adapter<ProgramD
     @Override
     public ProgramDetailsDaysViewAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.view_holder_custom_workout_day_card, parent, false);
+                .inflate(R.layout.view_holder_programs_day, parent, false);
         return new ProgramDetailsDaysViewAdapter.ViewHolder(view);
 
 
@@ -52,10 +52,10 @@ public class ProgramDetailsDaysViewAdapter extends RecyclerView.Adapter<ProgramD
     @Override
     public void onBindViewHolder(ProgramDetailsDaysViewAdapter.ViewHolder viewHolder, int position) {
         ProgramDay currentProgramDay = days.get(position);
-        viewHolder.dayTitle.setText(String.format("Day %s", String.valueOf(position + 1)));
-        setupRecyclerView(viewHolder.exercisesRecyclerView, currentProgramDay);
+        viewHolder.textViewDayTitle.setText(String.format("Day %s", String.valueOf(position + 1)));
+        setupRecyclerView(viewHolder.recyclerViewExercises, currentProgramDay);
         if (viewHolder.getAdapterPosition() == days.size() - 1) {
-            viewHolder.separator.setVisibility(View.GONE);
+            viewHolder.viewSeparator.setVisibility(View.GONE);
         }
     }
 

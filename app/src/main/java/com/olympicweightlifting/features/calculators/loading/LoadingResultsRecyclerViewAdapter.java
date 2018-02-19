@@ -10,7 +10,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.olympicweightlifting.R;
-import com.olympicweightlifting.features.calculators.CalculatorService;
+import com.olympicweightlifting.features.calculators.CalculatorsService;
 import com.olympicweightlifting.utilities.AppLevelConstants.Units;
 
 import java.util.ArrayList;
@@ -20,24 +20,19 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-
-/**
- * Created by vangor on 04/02/2018.
- */
-
 public class LoadingResultsRecyclerViewAdapter extends RecyclerView.Adapter<LoadingResultsRecyclerViewAdapter.ViewHolder> {
     private List<LoadingCalculation> loadingCalculations;
-    private CalculatorService calculatorService;
+    private CalculatorsService calculatorsService;
 
     static class ViewHolder extends RecyclerView.ViewHolder {
-        @BindView(R.id.weight_value)
-        TextView weightValue;
-        @BindView(R.id.barbell_value)
-        TextView barbellValue;
-        @BindView(R.id.collars_value)
-        TextView collarsValue;
-        @BindView(R.id.results_layout)
-        ConstraintLayout resultsLayout;
+        @BindView(R.id.text_weight_value)
+        TextView textViewWeightValue;
+        @BindView(R.id.text_barbell_value)
+        TextView textViewBarbellValue;
+        @BindView(R.id.text_collars_value)
+        TextView textViewCollarsValue;
+        @BindView(R.id.layout_results)
+        ConstraintLayout layoutResults;
 
         ViewHolder(CardView cardView) {
             super(cardView);
@@ -45,15 +40,15 @@ public class LoadingResultsRecyclerViewAdapter extends RecyclerView.Adapter<Load
         }
     }
 
-    public LoadingResultsRecyclerViewAdapter(List<LoadingCalculation> loadingCalculations, CalculatorService calculatorService) {
+    public LoadingResultsRecyclerViewAdapter(List<LoadingCalculation> loadingCalculations, CalculatorsService calculatorsService) {
         this.loadingCalculations = loadingCalculations;
-        this.calculatorService = calculatorService;
+        this.calculatorsService = calculatorsService;
     }
 
     @Override
     public LoadingResultsRecyclerViewAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         CardView cardView = (CardView) LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.view_holder_loading_calculator_result_card, parent, false);
+                .inflate(R.layout.view_holder_calculators_loading_result, parent, false);
         return new LoadingResultsRecyclerViewAdapter.ViewHolder(cardView);
     }
 
@@ -66,17 +61,17 @@ public class LoadingResultsRecyclerViewAdapter extends RecyclerView.Adapter<Load
     }
 
     private void setCalculationInfoValues(ViewHolder viewHolder, LoadingCalculation currentLoadingCalculation) {
-        viewHolder.weightValue.setText(String.format("%s %s", currentLoadingCalculation.getWeight(), Units.KG.toString().toLowerCase()));
-        viewHolder.barbellValue.setText(String.format("%s %s", currentLoadingCalculation.getBarbell(), Units.KG.toString().toLowerCase()));
-        viewHolder.collarsValue.setText(currentLoadingCalculation.hasCollars() ? "Yes" : "No");
+        viewHolder.textViewWeightValue.setText(String.format("%s %s", currentLoadingCalculation.getWeight(), Units.KG.toString().toLowerCase()));
+        viewHolder.textViewBarbellValue.setText(String.format("%s %s", currentLoadingCalculation.getBarbell(), Units.KG.toString().toLowerCase()));
+        viewHolder.textViewCollarsValue.setText(currentLoadingCalculation.hasCollars() ? "Yes" : "No");
     }
 
     private void setResultValues(ViewHolder viewHolder, LoadingCalculation currentLoadingCalculation) {
         List<TextView> resultsTitleTextViews = new ArrayList<>();
         List<TextView> resultsTextViews = new ArrayList<>();
 
-        calculatorService.getResultViewsFromLayout(viewHolder.resultsLayout, resultsTitleTextViews, resultsTextViews);
-        populateResultTitlesTextViews(viewHolder.resultsLayout.getContext(), currentLoadingCalculation, resultsTitleTextViews);
+        calculatorsService.getResultViewsFromLayout(viewHolder.layoutResults, resultsTitleTextViews, resultsTextViews);
+        populateResultTitlesTextViews(viewHolder.layoutResults.getContext(), currentLoadingCalculation, resultsTitleTextViews);
         populateResultsTextViews(currentLoadingCalculation, resultsTextViews);
     }
 

@@ -15,26 +15,26 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class SignInActivity extends AppCompatActivity implements AuthenticationActivity {
-    @BindView(R.id.google_signin_button)
-    Button googleSigninButton;
-    @BindView(R.id.facebook_signin_button)
-    Button facebookSigninButton;
-    @BindView(R.id.guest_button)
-    Button guestButton;
+    @BindView(R.id.button_google_signin)
+    Button buttonGoogleSignin;
+    @BindView(R.id.button_facebook_signin)
+    Button buttonFacebookSignin;
+    @BindView(R.id.button_guest)
+    Button buttonGuest;
 
     private Authenticator authenticator;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_sign_in);
+        setContentView(R.layout.activity_signin);
         ButterKnife.bind(this);
         authenticator = new Authenticator(this);
 
         authenticator.checkIfAlreadySignedIn();
-        guestButton.setOnClickListener(view -> moveToMainActivity());
-        googleSigninButton.setOnClickListener(view -> authenticator.startGoogleAuthentication());
-        facebookSigninButton.setOnClickListener(view -> authenticator.startFacebookAuthentication());
+        buttonGuest.setOnClickListener(view -> moveToMainActivity());
+        buttonGoogleSignin.setOnClickListener(view -> authenticator.startGoogleAuthentication());
+        buttonFacebookSignin.setOnClickListener(view -> authenticator.startFacebookAuthentication());
     }
 
     private void moveToMainActivity() {

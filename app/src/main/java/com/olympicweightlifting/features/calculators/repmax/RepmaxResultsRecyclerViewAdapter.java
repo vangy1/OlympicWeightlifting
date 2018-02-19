@@ -10,8 +10,8 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.olympicweightlifting.R;
-import com.olympicweightlifting.features.calculators.CalculatorService;
-import com.olympicweightlifting.features.calculators.CalculatorService.RepmaxType;
+import com.olympicweightlifting.features.calculators.CalculatorsService;
+import com.olympicweightlifting.features.calculators.CalculatorsService.RepmaxType;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -27,12 +27,12 @@ import butterknife.ButterKnife;
 
 public class RepmaxResultsRecyclerViewAdapter extends RecyclerView.Adapter<RepmaxResultsRecyclerViewAdapter.ViewHolder> {
     private List<RepmaxCalculation> repmaxCalculations;
-    private CalculatorService calculatorService;
+    private CalculatorsService calculatorsService;
 
 
     static class ViewHolder extends RecyclerView.ViewHolder {
-        @BindView(R.id.results_layout)
-        ConstraintLayout resultsLayout;
+        @BindView(R.id.layout_results)
+        ConstraintLayout layoutResults;
 
         ViewHolder(CardView cardView) {
             super(cardView);
@@ -40,15 +40,15 @@ public class RepmaxResultsRecyclerViewAdapter extends RecyclerView.Adapter<Repma
         }
     }
 
-    public RepmaxResultsRecyclerViewAdapter(List<RepmaxCalculation> repmaxCalculations, CalculatorService calculatorService) {
+    public RepmaxResultsRecyclerViewAdapter(List<RepmaxCalculation> repmaxCalculations, CalculatorsService calculatorsService) {
         this.repmaxCalculations = repmaxCalculations;
-        this.calculatorService = calculatorService;
+        this.calculatorsService = calculatorsService;
     }
 
     @Override
     public RepmaxResultsRecyclerViewAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         CardView cardView = (CardView) LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.view_holder_repmax_calculator_result_card, parent, false);
+                .inflate(R.layout.view_holder_calculators_repmax_result, parent, false);
         return new RepmaxResultsRecyclerViewAdapter.ViewHolder(cardView);
     }
 
@@ -58,7 +58,7 @@ public class RepmaxResultsRecyclerViewAdapter extends RecyclerView.Adapter<Repma
 
         List<TextView> resultsTitleTextViews = new ArrayList<>();
         List<TextView> resultsTextViews = new ArrayList<>();
-        calculatorService.getResultViewsFromLayout(viewHolder.resultsLayout, resultsTitleTextViews, resultsTextViews);
+        calculatorsService.getResultViewsFromLayout(viewHolder.layoutResults, resultsTitleTextViews, resultsTextViews);
 
         populateResultTitlesTextViews(viewHolder, currentRepmaxCalculation, resultsTitleTextViews);
         populateResultsTextViews(currentRepmaxCalculation, resultsTextViews);
@@ -70,7 +70,7 @@ public class RepmaxResultsRecyclerViewAdapter extends RecyclerView.Adapter<Repma
     }
 
     private void populateResultTitlesTextViews(ViewHolder viewHolder, RepmaxCalculation currentRepmaxCalculation, List<TextView> resultsTitleTextViews) {
-        List<String> resultsTitles = getTitlesFromResourcesBasedOnCalculationType(viewHolder.resultsLayout.getContext(), currentRepmaxCalculation);
+        List<String> resultsTitles = getTitlesFromResourcesBasedOnCalculationType(viewHolder.layoutResults.getContext(), currentRepmaxCalculation);
         for (int i = 0; i < resultsTitleTextViews.size(); i++) {
             resultsTitleTextViews.get(i).setText(String.valueOf(resultsTitles.get(i)));
         }
@@ -94,9 +94,9 @@ public class RepmaxResultsRecyclerViewAdapter extends RecyclerView.Adapter<Repma
     }
 
     private void getViewsFromLayout(ViewHolder viewHolder, List<TextView> resultsTitleTextViews, List<TextView> resultsTextViews) {
-        int childCount = viewHolder.resultsLayout.getChildCount();
+        int childCount = viewHolder.layoutResults.getChildCount();
         for (int i = 0; i < childCount; i++) {
-            View view = viewHolder.resultsLayout.getChildAt(i);
+            View view = viewHolder.layoutResults.getChildAt(i);
             if (view.getTag() == null) continue;
             String viewTag = view.getTag().toString();
             if (view instanceof TextView) {

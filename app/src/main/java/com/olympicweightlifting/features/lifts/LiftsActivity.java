@@ -20,15 +20,15 @@ public class LiftsActivity extends AppCompatActivity {
 
     @BindView(R.id.tab_layout)
     TabLayout tabLayout;
-    @BindView(R.id.header_image)
-    ImageView headerImage;
+    @BindView(R.id.image_header)
+    ImageView imageHeader;
     @BindView(R.id.view_pager)
     ViewPager viewPager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_lift);
+        setContentView(R.layout.activity_lifts);
         ButterKnife.bind(this);
 
         setupTabLayout();
@@ -37,7 +37,7 @@ public class LiftsActivity extends AppCompatActivity {
         setupViewPager(new Gson().fromJson(extras.getString(getString(R.string.lifts_activity_data)), new TypeToken<List<LiftsFragmentData>>() {
         }.getType()));
 
-        setHeaderImage(extras.getInt(getString(R.string.lifts_header_image)));
+        setImageHeader(extras.getInt(getString(R.string.lifts_header_image)));
     }
 
     private void setupTabLayout() {
@@ -64,7 +64,7 @@ public class LiftsActivity extends AppCompatActivity {
         viewPager.setCurrentItem(fragmentIndex);
     }
 
-    private void setHeaderImage(int liftsHeaderImage) {
-        headerImage.setImageResource(liftsHeaderImage);
+    private void setImageHeader(int liftsHeaderImage) {
+        imageHeader.setImageResource(liftsHeaderImage);
     }
 }

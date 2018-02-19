@@ -29,10 +29,10 @@ import butterknife.ButterKnife;
 public class TrackingHistoryFragment extends Fragment {
 
 
-    @BindView(R.id.workouts_recycler_view)
-    RecyclerView workoutsRecyclerView;
-    @BindView(R.id.no_workouts)
-    TextView noWorkouts;
+    @BindView(R.id.recyclerview_workouts)
+    RecyclerView recyclerViewWorkouts;
+    @BindView(R.id.text_no_workouts_saved)
+    TextView textViewNoWorkoutsSaved;
 
     private List<TrackedWorkoutData> trackedWorkouts = new ArrayList<>();
 
@@ -50,9 +50,9 @@ public class TrackingHistoryFragment extends Fragment {
     }
 
     private void setupRecyclerView() {
-        workoutsRecyclerView.setHasFixedSize(true);
-        workoutsRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        workoutsRecyclerView.setAdapter(new TrackingHistoryRecyclerViewAdapter(trackedWorkouts, getActivity()));
+        recyclerViewWorkouts.setHasFixedSize(true);
+        recyclerViewWorkouts.setLayoutManager(new LinearLayoutManager(getActivity()));
+        recyclerViewWorkouts.setAdapter(new TrackingHistoryRecyclerViewAdapter(trackedWorkouts, getActivity()));
     }
 
     private void populateRecyclerViewFromFirestore() {
@@ -71,18 +71,18 @@ public class TrackingHistoryFragment extends Fragment {
                     exception.printStackTrace();
                 }
             }
-            workoutsRecyclerView.getAdapter().notifyDataSetChanged();
+            recyclerViewWorkouts.getAdapter().notifyDataSetChanged();
             handleNoWorkoutTracked();
         });
     }
 
     private void handleNoWorkoutTracked() {
         if (trackedWorkouts.isEmpty()) {
-            noWorkouts.setVisibility(View.VISIBLE);
-            workoutsRecyclerView.setVisibility(View.GONE);
+            textViewNoWorkoutsSaved.setVisibility(View.VISIBLE);
+            recyclerViewWorkouts.setVisibility(View.GONE);
         } else {
-            noWorkouts.setVisibility(View.GONE);
-            workoutsRecyclerView.setVisibility(View.VISIBLE);
+            textViewNoWorkoutsSaved.setVisibility(View.GONE);
+            recyclerViewWorkouts.setVisibility(View.VISIBLE);
         }
     }
 

@@ -28,14 +28,14 @@ public class LiftsFragmentRecyclerViewAdapter extends RecyclerView.Adapter<Lifts
 
 
     static class ViewHolder extends RecyclerView.ViewHolder {
-        @BindView(R.id.title)
-        TextView title;
-        @BindView(R.id.expandable_group)
-        LinearLayout expandableGroup;
-        @BindView(R.id.description)
-        TextView description;
-        @BindView(R.id.video_button)
-        Button videoButton;
+        @BindView(R.id.text_title)
+        TextView textViewTitle;
+        @BindView(R.id.layout_expandable_group)
+        LinearLayout layoutExpandableGroup;
+        @BindView(R.id.text_description)
+        TextView textViewDescription;
+        @BindView(R.id.button_video)
+        Button buttonVideo;
 
         ViewHolder(CardView cardView) {
             super(cardView);
@@ -64,15 +64,15 @@ public class LiftsFragmentRecyclerViewAdapter extends RecyclerView.Adapter<Lifts
     }
 
     private void populateViewHolder(ViewHolder viewHolder, LiftsContentData liftsContentData, String videoUrl) {
-        viewHolder.title.setText(liftsContentData.getTitle());
-        viewHolder.description.setText(liftsContentData.getDescription());
+        viewHolder.textViewTitle.setText(liftsContentData.getTitle());
+        viewHolder.textViewDescription.setText(liftsContentData.getDescription());
         if (videoUrl != null) {
-            viewHolder.videoButton.setOnClickListener(view -> {
+            viewHolder.buttonVideo.setOnClickListener(view -> {
                 Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(videoUrl));
                 view.getContext().startActivity(intent);
             });
         } else {
-            viewHolder.expandableGroup.removeView(viewHolder.videoButton);
+            viewHolder.layoutExpandableGroup.removeView(viewHolder.buttonVideo);
         }
     }
 
@@ -99,19 +99,19 @@ public class LiftsFragmentRecyclerViewAdapter extends RecyclerView.Adapter<Lifts
     }
 
     private void expandCard(ViewHolder viewHolder) {
-        viewHolder.expandableGroup.setVisibility(View.VISIBLE);
+        viewHolder.layoutExpandableGroup.setVisibility(View.VISIBLE);
     }
 
     private void collapseCard(ViewHolder viewHolder) {
-        viewHolder.expandableGroup.setVisibility(View.GONE);
+        viewHolder.layoutExpandableGroup.setVisibility(View.GONE);
     }
 
     private boolean cardIsCollapsed(ViewHolder viewHolder) {
-        return viewHolder.expandableGroup.getVisibility() == View.GONE;
+        return viewHolder.layoutExpandableGroup.getVisibility() == View.GONE;
     }
 
     private boolean cardIsExpanded(ViewHolder viewHolder) {
-        return viewHolder.expandableGroup.getVisibility() == View.VISIBLE;
+        return viewHolder.layoutExpandableGroup.getVisibility() == View.VISIBLE;
     }
 
     @Override

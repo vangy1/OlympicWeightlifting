@@ -18,7 +18,7 @@ public class TrackingActivity extends DaggerAppCompatActivity {
     @BindView(R.id.view_pager)
     ViewPager viewPager;
 
-    @BindView(R.id.workout_details_fragment_container)
+    @BindView(R.id.fragment_container_workouts)
     FrameLayout frameLayout;
 
     @Override

@@ -53,23 +53,23 @@ public class TrackingNewFragment extends DaggerFragment implements DatePickerDia
     @BindView(R.id.exercises_recycler_view)
     RecyclerView exercisesRecyclerView;
 
-    @BindView(R.id.weight_edit_text)
+    @BindView(R.id.edittext_weight)
     EditText weightEditText;
-    @BindView(R.id.weight_units)
+    @BindView(R.id.text_weight_units)
     TextView weightUnits;
-    @BindView(R.id.sets_edit_text)
+    @BindView(R.id.edittext_sets)
     EditText repsEditText;
-    @BindView(R.id.reps_edit_text)
+    @BindView(R.id.edittext_reps)
     EditText setsEditText;
-    @BindView(R.id.exercise_spinner)
+    @BindView(R.id.spinner_exercise)
     Spinner exerciseSpinner;
-    @BindView(R.id.exercise_manager_button)
+    @BindView(R.id.button_exercise_manager)
     ImageButton exerciseManagerButton;
     @BindView(R.id.add_button)
     Button addButton;
-    @BindView(R.id.date_picker_button)
+    @BindView(R.id.button_date_picker)
     Button datePickerButton;
-    @BindView(R.id.save_button)
+    @BindView(R.id.button_save)
     Button saveButton;
 
 
@@ -80,6 +80,7 @@ public class TrackingNewFragment extends DaggerFragment implements DatePickerDia
     @Inject
     @Named("settings")
     SharedPreferences sharedPreferences;
+
     private DateFormat dateFormat;
     private Date currentDate;
     private List<TrackedExerciseData> trackedExerciseData = new ArrayList<>();

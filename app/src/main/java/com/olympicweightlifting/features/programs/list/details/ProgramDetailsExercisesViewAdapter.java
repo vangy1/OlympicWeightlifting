@@ -21,13 +21,12 @@ public class ProgramDetailsExercisesViewAdapter extends RecyclerView.Adapter<Pro
     private List<ProgramExercise> exercises;
 
     static class ViewHolder extends RecyclerView.ViewHolder {
-        @BindView(R.id.exercise_name)
+        @BindView(R.id.text_exercise_name)
         TextView exerciseName;
-        @BindView(R.id.sets_value)
-        TextView reps;
-        @BindView(R.id.reps_value)
-        TextView sets;
-
+        @BindView(R.id.text_reps_value)
+        TextView textViewRepsValue;
+        @BindView(R.id.text_sets_value)
+        TextView textViewSetsValue;
 
         ViewHolder(View view) {
             super(view);
@@ -43,7 +42,7 @@ public class ProgramDetailsExercisesViewAdapter extends RecyclerView.Adapter<Pro
     @Override
     public ProgramDetailsExercisesViewAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.view_holder_custom_workout_exercise_card, parent, false);
+                .inflate(R.layout.view_holder_programs_exercise, parent, false);
         return new ProgramDetailsExercisesViewAdapter.ViewHolder(view);
     }
 
@@ -52,8 +51,8 @@ public class ProgramDetailsExercisesViewAdapter extends RecyclerView.Adapter<Pro
 
         ProgramExercise currentProgramExercise = exercises.get(position);
         viewHolder.exerciseName.setText(currentProgramExercise.getExerciseName());
-        viewHolder.reps.setText(String.valueOf(currentProgramExercise.getReps()));
-        viewHolder.sets.setText(String.valueOf(currentProgramExercise.getSets()));
+        viewHolder.textViewSetsValue.setText(String.valueOf(currentProgramExercise.getReps()));
+        viewHolder.textViewRepsValue.setText(String.valueOf(currentProgramExercise.getSets()));
 
     }
 

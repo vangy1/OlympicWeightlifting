@@ -122,6 +122,7 @@ public class Authenticator {
         try {
             firebaseAuthWithGoogle(completedTask.getResult(ApiException.class));
         } catch (ApiException e) {
+            e.printStackTrace();
         }
     }
 

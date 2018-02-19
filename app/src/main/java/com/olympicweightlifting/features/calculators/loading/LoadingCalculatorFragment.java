@@ -15,7 +15,7 @@ import android.widget.Toast;
 
 import com.olympicweightlifting.R;
 import com.olympicweightlifting.data.local.AppDatabase;
-import com.olympicweightlifting.features.calculators.CalculatorService;
+import com.olympicweightlifting.features.calculators.CalculatorsService;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,23 +31,23 @@ import io.reactivex.schedulers.Schedulers;
 
 public class LoadingCalculatorFragment extends DaggerFragment {
 
-    @BindView(R.id.weight_edit_text)
-    EditText weightEditText;
-    @BindView(R.id.weight_units)
-    TextView weightUnitsText;
-    @BindView(R.id.barbell_weight_radio_group)
-    RadioGroup barbellWeightRadioGroup;
-    @BindView(R.id.collars_checkbox)
-    CheckBox collarsCheckbox;
-    @BindView(R.id.calculate_button)
-    Button calculateButton;
-    @BindView(R.id.results_recycler_view)
-    RecyclerView resultsRecyclerView;
+    @BindView(R.id.edittext_weight)
+    EditText editTextWeight;
+    @BindView(R.id.text_weight_units)
+    TextView textViewWeightUnits;
+    @BindView(R.id.radiogroup_barbell_weight)
+    RadioGroup radioGroupBarbellWeight;
+    @BindView(R.id.checkbox_collars)
+    CheckBox checkboxCollars;
+    @BindView(R.id.button_calculate)
+    Button buttonCalculate;
+    @BindView(R.id.recyclerview_results)
+    RecyclerView recyclerViewResults;
 
     @Inject
     AppDatabase database;
     @Inject
-    CalculatorService calculatorService;
+    CalculatorsService calculatorsService;
 
     private List<LoadingCalculation> loadingCalculations = new ArrayList<>();
 
@@ -55,14 +55,14 @@ public class LoadingCalculatorFragment extends DaggerFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View fragmentView = inflater.inflate(R.layout.fragment_loading_calculator, container, false);
+        View fragmentView = inflater.inflate(R.layout.fragment_calculators_loading, container, false);
         ButterKnife.bind(this, fragmentView);
 
-        calculatorService.setUnitsForViews(weightUnitsText);
-        calculatorService.setupResultsRecyclerView(resultsRecyclerView, new LoadingResultsRecyclerViewAdapter(loadingCalculations, calculatorService));
-        calculatorService.populateRecyclerViewFromDatabase(database.loadingCalculationDao().get(calculatorService.HISTORY_MAX), loadingCalculations, resultsRecyclerView);
+        calculatorsService.setUnitsForViews(textViewWeightUnits);
+        calculatorsService.setupResultsRecyclerView(recyclerViewResults, new LoadingResultsRecyclerViewAdapter(loadingCalculations, calculatorsService));
+        calculatorsService.populateRecyclerViewFromDatabase(database.loadingCalculationDao().get(calculatorsService.HISTORY_MAX), loadingCalculations, recyclerViewResults);
 
-        calculateButton.setOnClickListener(view -> {
+        buttonCalculate.setOnClickListener(view -> {
             try {
                 LoadingCalculation loadingCalculation = calculateLoading();
                 saveCalculationInDatabase(loadingCalculation);
@@ -77,16 +77,16 @@ public class LoadingCalculatorFragment extends DaggerFragment {
     }
 
     private LoadingCalculation calculateLoading() throws WeightIsSmallerThanTheBarException {
-        int weight = Integer.parseInt(weightEditText.getText().toString());
+        int weight = Integer.parseInt(editTextWeight.getText().toString());
         int barbellWeight = getBarbellWeight();
-        boolean collars = collarsCheckbox.isChecked();
+        boolean collars = checkboxCollars.isChecked();
 
         int collarsWeight = collars ? 5 : 0;
         if (weight <= barbellWeight + collarsWeight) {
             throw new WeightIsSmallerThanTheBarException();
         }
 
-        List<Integer> results = calculatorService.calculateLoading(weight, barbellWeight, collars);
+        List<Integer> results = calculatorsService.calculateLoading(weight, barbellWeight, collars);
         return new LoadingCalculation(weight, barbellWeight, collars, results);
     }
 
@@ -94,17 +94,17 @@ public class LoadingCalculatorFragment extends DaggerFragment {
         Completable.fromAction(() -> {
             database.loadingCalculationDao().insert(loadingCalculation);
         }).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).doOnComplete(() -> {
-            calculatorService.insertCalculationIntoRecyclerView(loadingCalculation, loadingCalculations, resultsRecyclerView);
+            calculatorsService.insertCalculationIntoRecyclerView(loadingCalculation, loadingCalculations, recyclerViewResults);
         }).onErrorComplete().subscribe();
     }
 
     private int getBarbellWeight() {
-        switch (barbellWeightRadioGroup.getCheckedRadioButtonId()) {
-            case R.id.men_radio_button:
+        switch (radioGroupBarbellWeight.getCheckedRadioButtonId()) {
+            case R.id.radiobutton_men:
                 return 20;
-            case R.id.women_radio_button:
+            case R.id.radiobutton_women:
                 return 15;
-            case R.id.technique_radio_button:
+            case R.id.radiobutton_technique:
                 return 10;
             default:
                 return 20;
@@ -112,7 +112,7 @@ public class LoadingCalculatorFragment extends DaggerFragment {
     }
 
     private boolean weightToLoadDoesNotExceedWeightOfBar() {
-        int weightOfCollars = collarsCheckbox.isChecked() ? 5 : 0;
-        return Integer.parseInt(weightEditText.getText().toString()) >= getBarbellWeight() + weightOfCollars;
+        int weightOfCollars = checkboxCollars.isChecked() ? 5 : 0;
+        return Integer.parseInt(editTextWeight.getText().toString()) >= getBarbellWeight() + weightOfCollars;
     }
 }

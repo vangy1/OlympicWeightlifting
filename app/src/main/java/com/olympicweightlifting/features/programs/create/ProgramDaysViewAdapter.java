@@ -34,12 +34,12 @@ public class ProgramDaysViewAdapter extends RecyclerView.Adapter<ProgramDaysView
     }
 
     static class ShowItemViewHolder extends ViewHolder {
-        @BindView(R.id.item_layout)
-        ViewGroup itemLayout;
-        @BindView(R.id.day_title)
-        TextView dayTitle;
-        @BindView(R.id.execises_recycler_view)
-        RecyclerView exercisesRecyclerView;
+        @BindView(R.id.layout_item)
+        ViewGroup layoutItem;
+        @BindView(R.id.text_title_day)
+        TextView textViewTitleDay;
+        @BindView(R.id.recyclerview_exercises)
+        RecyclerView recyclerViewExercises;
 
         ShowItemViewHolder(View view) {
             super(view);
@@ -47,10 +47,10 @@ public class ProgramDaysViewAdapter extends RecyclerView.Adapter<ProgramDaysView
 
         @Override
         void bind(List<ProgramDay> days, List<String> exerciseList, ProgramDaysViewAdapter programDaysViewAdapter, Context context) {
-            dayTitle.setText(String.format("Day %s", String.valueOf(getAdapterPosition() + 1)));
-            setupRecyclerView(exercisesRecyclerView, days.get(getAdapterPosition()), exerciseList, context);
+            textViewTitleDay.setText(String.format("Day %s", String.valueOf(getAdapterPosition() + 1)));
+            setupRecyclerView(recyclerViewExercises, days.get(getAdapterPosition()), exerciseList, context);
 
-            itemLayout.setOnLongClickListener(view -> {
+            layoutItem.setOnLongClickListener(view -> {
                 days.remove(getAdapterPosition());
                 programDaysViewAdapter.notifyDataSetChanged();
                 return true;
@@ -65,8 +65,8 @@ public class ProgramDaysViewAdapter extends RecyclerView.Adapter<ProgramDaysView
     }
 
     static class AddItemViewHolder extends ViewHolder {
-        @BindView(R.id.add_day_button)
-        Button addDayButton;
+        @BindView(R.id.button_add_day)
+        Button buttonAddDay;
 
         AddItemViewHolder(View view) {
             super(view);
@@ -74,7 +74,7 @@ public class ProgramDaysViewAdapter extends RecyclerView.Adapter<ProgramDaysView
 
         @Override
         void bind(List<ProgramDay> days, List<String> exerciseList, ProgramDaysViewAdapter programDaysViewAdapter, Context context) {
-            addDayButton.setOnClickListener(view -> {
+            buttonAddDay.setOnClickListener(view -> {
                 if (days.size() < 7) {
                     ProgramDay programDay = new ProgramDay(new ArrayList<>());
                     days.add(programDay);
@@ -95,7 +95,7 @@ public class ProgramDaysViewAdapter extends RecyclerView.Adapter<ProgramDaysView
     @Override
     public ProgramDaysViewAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(viewType, parent, false);
-        if (viewType == R.layout.view_holder_custom_workout_day_add_card) {
+        if (viewType == R.layout.view_holder_programs_add_day) {
             return new ProgramDaysViewAdapter.AddItemViewHolder(view);
         } else {
             return new ProgramDaysViewAdapter.ShowItemViewHolder(view);
@@ -110,9 +110,9 @@ public class ProgramDaysViewAdapter extends RecyclerView.Adapter<ProgramDaysView
     @Override
     public int getItemViewType(int position) {
         if (position == days.size())
-            return R.layout.view_holder_custom_workout_day_add_card;
+            return R.layout.view_holder_programs_add_day;
         else
-            return R.layout.view_holder_custom_workout_day_card;
+            return R.layout.view_holder_programs_day;
     }
 
     @Override

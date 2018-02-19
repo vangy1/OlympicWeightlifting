@@ -7,7 +7,7 @@ import com.olympicweightlifting.features.calculators.repmax.RepmaxCalculatorFrag
 import com.olympicweightlifting.features.calculators.sinclair.SinclairCalculatorFragment;
 import com.olympicweightlifting.features.helpers.exercisemanager.ExerciseManagerDialog;
 import com.olympicweightlifting.features.programs.ProgramsActivity;
-import com.olympicweightlifting.features.programs.create.CreateProgramFragment;
+import com.olympicweightlifting.features.programs.create.ProgramCreateFragment;
 import com.olympicweightlifting.features.records.RecordsActivity;
 import com.olympicweightlifting.features.records.personal.RecordsPersonalFragment;
 import com.olympicweightlifting.features.tracking.TrackingActivity;
@@ -27,19 +27,7 @@ public abstract class BindingModule {
     abstract SettingsDialog bindSettingsDialog();
 
     @ContributesAndroidInjector
-    abstract RecordsActivity bindRecordsActivity();
-
-    @ContributesAndroidInjector
-    abstract TrackingActivity bindTrackingActivity();
-
-    @ContributesAndroidInjector
-    abstract RecordsPersonalFragment bindRecordsPersonalFragment();
-
-    @ContributesAndroidInjector
     abstract CalculatorsActivity bindCalculatorActivity();
-
-    @ContributesAndroidInjector
-    abstract ProgramsActivity bindProgramsActivity();
 
     @ContributesAndroidInjector
     abstract SinclairCalculatorFragment bindSinclairCalculatorFragment();
@@ -51,11 +39,23 @@ public abstract class BindingModule {
     abstract LoadingCalculatorFragment bindLoadingCalculatorFragment();
 
     @ContributesAndroidInjector
+    abstract ProgramsActivity bindProgramsActivity();
+
+    @ContributesAndroidInjector
+    abstract ProgramCreateFragment bindNewProgramFragment();
+
+    @ContributesAndroidInjector
+    abstract TrackingActivity bindTrackingActivity();
+
+    @ContributesAndroidInjector
     abstract TrackingNewFragment bindTrackingNewFragment();
 
     @ContributesAndroidInjector
-    abstract ExerciseManagerDialog bindExerciseManagerDialog();
+    abstract RecordsActivity bindRecordsActivity();
 
     @ContributesAndroidInjector
-    abstract CreateProgramFragment bindNewProgramFragment();
+    abstract RecordsPersonalFragment bindRecordsPersonalFragment();
+
+    @ContributesAndroidInjector
+    abstract ExerciseManagerDialog bindExerciseManagerDialog();
 }

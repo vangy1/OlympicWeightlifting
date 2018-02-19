@@ -26,12 +26,13 @@ import butterknife.ButterKnife;
 import static android.text.format.DateFormat.getDateFormat;
 
 public class TrackingWorkoutDetails extends Fragment {
-    @BindView(R.id.workout_date)
-    TextView workoutDate;
-    @BindView(R.id.workouts_recycler_view)
-    RecyclerView workoutsRecyclerView;
-    @BindView(R.id.delete_floating_button)
-    FloatingActionButton deleteWorkoutFloatingButton;
+    @BindView(R.id.text_workout_date)
+    TextView textViewWorkoutDate;
+    @BindView(R.id.recyclerview_workouts)
+    RecyclerView recyclerViewWorkouts;
+    @BindView(R.id.floatingbutton_remove_workout)
+    FloatingActionButton floatingButtonRemoveWorkout;
+
     private TrackedWorkoutData trackedWorkout;
 
     public static TrackingWorkoutDetails newInstance(Bundle fragmentArugments) {
@@ -49,10 +50,10 @@ public class TrackingWorkoutDetails extends Fragment {
 
         trackedWorkout = new Gson().fromJson(getArguments().getString("workoutDetails"), new TypeToken<TrackedWorkoutData>() {
         }.getType());
-        workoutDate.setText(getDateFormat(getActivity()).format(trackedWorkout.getDateOfWorkout()));
+        textViewWorkoutDate.setText(getDateFormat(getActivity()).format(trackedWorkout.getDateOfWorkout()));
         setupRecyclerView();
 
-        deleteWorkoutFloatingButton.setOnClickListener(view -> {
+        floatingButtonRemoveWorkout.setOnClickListener(view -> {
             removeWorkoutFromFirestore();
             getActivity().getFragmentManager().beginTransaction()
                     .remove(TrackingWorkoutDetails.this)
@@ -64,9 +65,9 @@ public class TrackingWorkoutDetails extends Fragment {
     }
 
     private void setupRecyclerView() {
-        workoutsRecyclerView.setHasFixedSize(true);
-        workoutsRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        workoutsRecyclerView.setAdapter(new TrackingWorkoutDetailsRecyclerViewAdapter(trackedWorkout.getTrackedExercises(), getActivity()));
+        recyclerViewWorkouts.setHasFixedSize(true);
+        recyclerViewWorkouts.setLayoutManager(new LinearLayoutManager(getActivity()));
+        recyclerViewWorkouts.setAdapter(new TrackingWorkoutDetailsRecyclerViewAdapter(trackedWorkout.getTrackedExercises(), getActivity()));
     }
 
     private void removeWorkoutFromFirestore() {
@@ -83,7 +84,7 @@ public class TrackingWorkoutDetails extends Fragment {
     }
 
     private void hideFragmentContainer() {
-        View workoutDetailsFragmentContainer = getActivity().findViewById(R.id.workout_details_fragment_container);
+        View workoutDetailsFragmentContainer = getActivity().findViewById(R.id.fragment_container_workouts);
         workoutDetailsFragmentContainer.setVisibility(View.GONE);
     }
 }

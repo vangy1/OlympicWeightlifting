@@ -21,14 +21,14 @@ public class SinclairResultsRecyclerViewAdapter extends RecyclerView.Adapter<Sin
     private List<SinclairCalculation> sinclairCalculations;
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        @BindView(R.id.total_value)
-        TextView totalValue;
-        @BindView(R.id.bodyweight_value)
-        TextView bodyweightValue;
-        @BindView(R.id.gender_text_view)
-        TextView gendervalue;
+        @BindView(R.id.text_total_value)
+        TextView textViewTotalValue;
+        @BindView(R.id.text_bodyweight_value)
+        TextView textViewBodyweightValue;
+        @BindView(R.id.text_gender)
+        TextView textViewGender;
         @BindView(R.id.sinclairscore_value)
-        TextView sinclairScore;
+        TextView textViewSinclairScore;
 
         public ViewHolder(CardView cardView) {
             super(cardView);
@@ -43,7 +43,7 @@ public class SinclairResultsRecyclerViewAdapter extends RecyclerView.Adapter<Sin
     @Override
     public SinclairResultsRecyclerViewAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         CardView cardView = (CardView) LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.view_holder_sinclair_calculator_result_card, parent, false);
+                .inflate(R.layout.view_holder_calculators_sinclair_result, parent, false);
         return new SinclairResultsRecyclerViewAdapter.ViewHolder(cardView);
     }
 
@@ -56,16 +56,16 @@ public class SinclairResultsRecyclerViewAdapter extends RecyclerView.Adapter<Sin
     }
 
     private void setCalculationInfoValues(ViewHolder viewHolder, SinclairCalculation currentSinclairCalculation) {
-        viewHolder.totalValue.setText(String.format("%s %s", currentSinclairCalculation.getTotalFormatted(), currentSinclairCalculation.getUnits()));
-        viewHolder.bodyweightValue.setText(String.format("%s %s", currentSinclairCalculation.getBodyweightFormatted(), currentSinclairCalculation.getUnits()));
-        viewHolder.gendervalue.setText(currentSinclairCalculation.getGender());
+        viewHolder.textViewTotalValue.setText(String.format("%s %s", currentSinclairCalculation.getTotalFormatted(), currentSinclairCalculation.getUnits()));
+        viewHolder.textViewBodyweightValue.setText(String.format("%s %s", currentSinclairCalculation.getBodyweightFormatted(), currentSinclairCalculation.getUnits()));
+        viewHolder.textViewGender.setText(currentSinclairCalculation.getGender());
     }
 
     private void setResultValue(ViewHolder viewHolder, SinclairCalculation currentSinclairCalculation) {
         Spannable sinclairScoreSpannable = new SpannableString(new DecimalFormat("##.00").format(currentSinclairCalculation.getSinclairScore()));
         sinclairScoreSpannable.setSpan(new android.text.style.StyleSpan(android.graphics.Typeface.BOLD), 0, sinclairScoreSpannable.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-        viewHolder.sinclairScore.setText(R.string.sinclair_score_result_text);
-        viewHolder.sinclairScore.append(sinclairScoreSpannable);
+        viewHolder.textViewSinclairScore.setText(R.string.sinclair_score_result_text);
+        viewHolder.textViewSinclairScore.append(sinclairScoreSpannable);
     }
 
     @Override

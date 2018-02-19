@@ -16,7 +16,7 @@
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
 
         <TextView
-            android:id="@+id/toolbar_title"
+            android:id="@+id/text_toolbar_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -26,7 +26,7 @@
     </android.support.v7.widget.Toolbar>
 
     <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/user_image"
+        android:id="@+id/image_circle_user"
         android:layout_width="@dimen/profile_activity_user_image_size"
         android:layout_height="@dimen/profile_activity_user_image_size"
         android:layout_gravity="center"
@@ -35,7 +35,7 @@
 
 
     <TextView
-        android:id="@+id/user_name"
+        android:id="@+id/text_username"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
@@ -43,7 +43,7 @@
         android:textSize="@dimen/profile_activity_account_info_text_text_size" />
 
     <TextView
-        android:id="@+id/user_account_status"
+        android:id="@+id/text_user_account_status"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"

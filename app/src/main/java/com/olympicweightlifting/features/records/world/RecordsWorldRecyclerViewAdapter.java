@@ -9,6 +9,8 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.olympicweightlifting.R;
+import com.olympicweightlifting.features.records.world.data.WorldCategoryRecordsData;
+import com.olympicweightlifting.features.records.world.data.WorldRecordData;
 
 import java.text.DateFormat;
 import java.util.List;
@@ -28,30 +30,30 @@ public class RecordsWorldRecyclerViewAdapter extends RecyclerView.Adapter<Record
     private DateFormat dateFormat;
 
     static class ViewHolder extends RecyclerView.ViewHolder {
-        @BindView(R.id.records_layout)
-        ConstraintLayout recordsLayout;
+        @BindView(R.id.layout_records)
+        ConstraintLayout layoutRecords;
 
-        @BindView(R.id.category_title)
-        TextView categoryTitle;
+        @BindView(R.id.text_category_title)
+        TextView textViewCategoryTitle;
 
-        @BindView(R.id.lifted_weight_snatch)
-        TextView liftedWeightSnatch;
-        @BindView(R.id.record_holder_snatch)
-        TextView recordHolderSnatch;
-        @BindView(R.id.date_of_record_snatch)
-        TextView dateOfRecordSnatch;
-        @BindView(R.id.lifted_weight_caj)
-        TextView liftedWeightCaj;
-        @BindView(R.id.record_holder_caj)
-        TextView recordHolderCaj;
-        @BindView(R.id.date_of_record_caj)
-        TextView dateOfRecordCaj;
-        @BindView(R.id.lifted_weight_total)
-        TextView liftedWeightTotal;
-        @BindView(R.id.record_holder_total)
-        TextView recordHolderTotal;
-        @BindView(R.id.date_of_record_total)
-        TextView dateOfRecordTotal;
+        @BindView(R.id.text_lifted_weight_snatch)
+        TextView textViewLiftedWeightSnatch;
+        @BindView(R.id.text_record_holder_snatch)
+        TextView textViewRecordHolderSnatch;
+        @BindView(R.id.text_date_of_record_snatch)
+        TextView textViewDateOfRecordSnatch;
+        @BindView(R.id.text_lifted_weight_caj)
+        TextView textViewLiftedWeightCaj;
+        @BindView(R.id.text_record_holder_caj)
+        TextView textViewRecordHolderCaj;
+        @BindView(R.id.text_date_of_record_caj)
+        TextView textViewDateOfRecordCaj;
+        @BindView(R.id.text_lifted_weight_total)
+        TextView textViewLiftedWeightTotal;
+        @BindView(R.id.text_record_holder_total)
+        TextView textViewRecordHolderTotal;
+        @BindView(R.id.text_date_of_record_total)
+        TextView textViewDateOfRecordTotal;
 
 
         ViewHolder(CardView cardView) {
@@ -68,7 +70,7 @@ public class RecordsWorldRecyclerViewAdapter extends RecyclerView.Adapter<Record
     @Override
     public RecordsWorldRecyclerViewAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         CardView cardView = (CardView) LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.view_holder_world_records_card, parent, false);
+                .inflate(R.layout.view_holder_records_world, parent, false);
         return new RecordsWorldRecyclerViewAdapter.ViewHolder(cardView);
     }
 
@@ -80,10 +82,10 @@ public class RecordsWorldRecyclerViewAdapter extends RecyclerView.Adapter<Record
         WorldRecordData cajRecordData = currentWorldCategoryRecordsData.getCajRecord();
         WorldRecordData totalRecordData = currentWorldCategoryRecordsData.getTotalRecord();
 
-        viewHolder.categoryTitle.setText(String.format("%s - %s", currentWorldCategoryRecordsData.getGender(), currentWorldCategoryRecordsData.getWeightCategory().toUpperCase()));
-        setRecords(snatchRecordData, viewHolder.liftedWeightSnatch, viewHolder.recordHolderSnatch, viewHolder.dateOfRecordSnatch);
-        setRecords(cajRecordData, viewHolder.liftedWeightCaj, viewHolder.recordHolderCaj, viewHolder.dateOfRecordCaj);
-        setRecords(totalRecordData, viewHolder.liftedWeightTotal, viewHolder.recordHolderTotal, viewHolder.dateOfRecordTotal);
+        viewHolder.textViewCategoryTitle.setText(String.format("%s - %s", currentWorldCategoryRecordsData.getGender(), currentWorldCategoryRecordsData.getWeightCategory().toUpperCase()));
+        setRecords(snatchRecordData, viewHolder.textViewLiftedWeightSnatch, viewHolder.textViewRecordHolderSnatch, viewHolder.textViewDateOfRecordSnatch);
+        setRecords(cajRecordData, viewHolder.textViewLiftedWeightCaj, viewHolder.textViewRecordHolderCaj, viewHolder.textViewDateOfRecordCaj);
+        setRecords(totalRecordData, viewHolder.textViewLiftedWeightTotal, viewHolder.textViewRecordHolderTotal, viewHolder.textViewDateOfRecordTotal);
     }
 
     private void setRecords(WorldRecordData recordData, TextView liftedWeight, TextView recordHolder, TextView dateOfRecord) {

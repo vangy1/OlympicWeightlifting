@@ -38,12 +38,12 @@ public class ProgramWeeksViewAdapter extends RecyclerView.Adapter<ProgramWeeksVi
     }
 
     static class ShowItemViewHolder extends ViewHolder {
-        @BindView(R.id.item_layout)
-        ViewGroup itemLayout;
-        @BindView(R.id.week_title)
-        TextView weekTitle;
-        @BindView(R.id.days_recycler_view)
-        RecyclerView daysRecyclerView;
+        @BindView(R.id.layout_item)
+        ViewGroup layoutItem;
+        @BindView(R.id.text_title_week)
+        TextView textViewTitleWeek;
+        @BindView(R.id.recyclerview_days)
+        RecyclerView recyclerViewDays;
 
         ShowItemViewHolder(View view) {
             super(view);
@@ -51,10 +51,10 @@ public class ProgramWeeksViewAdapter extends RecyclerView.Adapter<ProgramWeeksVi
 
         @Override
         void bind(List<ProgramWeek> weeks, List<String> exerciseList, ProgramWeeksViewAdapter programWeeksViewAdapter, LayoutManager layoutManager, Context context) {
-            weekTitle.setText(String.format("Week %s", String.valueOf(getAdapterPosition() + 1)));
-            setupRecyclerView(daysRecyclerView, weeks.get(getAdapterPosition()), context, exerciseList);
+            textViewTitleWeek.setText(String.format("Week %s", String.valueOf(getAdapterPosition() + 1)));
+            setupRecyclerView(recyclerViewDays, weeks.get(getAdapterPosition()), context, exerciseList);
 
-            itemLayout.setOnLongClickListener(view -> removeWeekAtPosition(weeks, getAdapterPosition(), programWeeksViewAdapter));
+            layoutItem.setOnLongClickListener(view -> removeWeekAtPosition(weeks, getAdapterPosition(), programWeeksViewAdapter));
         }
 
         private void setupRecyclerView(RecyclerView daysRecyclerView, ProgramWeek currentProgramWeek, Context context, List<String> exerciseList) {
@@ -72,8 +72,8 @@ public class ProgramWeeksViewAdapter extends RecyclerView.Adapter<ProgramWeeksVi
 
     static class AddItemViewHolder extends ViewHolder {
 
-        @BindView(R.id.add_week_button)
-        Button addWeekButton;
+        @BindView(R.id.button_add_week)
+        Button buttonAddWeek;
 
         AddItemViewHolder(View view) {
             super(view);
@@ -81,7 +81,7 @@ public class ProgramWeeksViewAdapter extends RecyclerView.Adapter<ProgramWeeksVi
 
         @Override
         void bind(List<ProgramWeek> weeks, List<String> userExercises, ProgramWeeksViewAdapter programWeeksViewAdapter, LayoutManager layoutManager, Context context) {
-            addWeekButton.setOnClickListener(view -> {
+            buttonAddWeek.setOnClickListener(view -> {
                 addEmptyWeek(weeks, programWeeksViewAdapter, layoutManager, context);
             });
         }
@@ -118,7 +118,7 @@ public class ProgramWeeksViewAdapter extends RecyclerView.Adapter<ProgramWeeksVi
     @Override
     public ProgramWeeksViewAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(viewType, parent, false);
-        if (viewType == R.layout.view_holder_custom_workout_week_add_card) {
+        if (viewType == R.layout.view_holder_programs_add_week) {
             return new ProgramWeeksViewAdapter.AddItemViewHolder(view);
         } else {
             return new ProgramWeeksViewAdapter.ShowItemViewHolder(view);
@@ -134,9 +134,9 @@ public class ProgramWeeksViewAdapter extends RecyclerView.Adapter<ProgramWeeksVi
     @Override
     public int getItemViewType(int position) {
         if (position == weeks.size())
-            return R.layout.view_holder_custom_workout_week_add_card;
+            return R.layout.view_holder_programs_add_week;
         else
-            return R.layout.view_holder_custom_workout_week_card;
+            return R.layout.view_holder_programs_week;
     }
 
     @Override

@@ -42,15 +42,15 @@ public class ProgramExercisesViewAdapter extends RecyclerView.Adapter<ProgramExe
     }
 
     static class ShowItemViewHolder extends ProgramExercisesViewAdapter.ViewHolder {
-        @BindView(R.id.item_layout)
-        ViewGroup itemLayout;
+        @BindView(R.id.layout_item)
+        ViewGroup layoutItem;
 
-        @BindView(R.id.exercise_name)
-        TextView exerciseName;
-        @BindView(R.id.reps_value)
-        TextView reps;
-        @BindView(R.id.sets_value)
-        TextView sets;
+        @BindView(R.id.text_exercise_name)
+        TextView textViewExerciseName;
+        @BindView(R.id.text_reps_value)
+        TextView textViewRepsValue;
+        @BindView(R.id.text_sets_value)
+        TextView textViewSets;
 
         ShowItemViewHolder(View view) {
             super(view);
@@ -59,11 +59,11 @@ public class ProgramExercisesViewAdapter extends RecyclerView.Adapter<ProgramExe
         @Override
         void bind(List<ProgramExercise> exercises, List<String> exerciseList, ArrayAdapter spinnerAdapter, ProgramExercisesViewAdapter programExercisesViewAdapter, Context context) {
             ProgramExercise currentProgramExercise = exercises.get(getAdapterPosition());
-            exerciseName.setText(currentProgramExercise.getExerciseName());
-            reps.setText(String.valueOf(currentProgramExercise.getReps()));
-            sets.setText(String.valueOf(currentProgramExercise.getSets()));
+            textViewExerciseName.setText(currentProgramExercise.getExerciseName());
+            textViewRepsValue.setText(String.valueOf(currentProgramExercise.getReps()));
+            textViewSets.setText(String.valueOf(currentProgramExercise.getSets()));
 
-            itemLayout.setOnLongClickListener(view -> {
+            layoutItem.setOnLongClickListener(view -> {
                 exercises.remove(getAdapterPosition());
                 programExercisesViewAdapter.notifyItemRemoved(getAdapterPosition());
                 return true;
@@ -73,14 +73,14 @@ public class ProgramExercisesViewAdapter extends RecyclerView.Adapter<ProgramExe
     }
 
     static class AddItemViewHolder extends ProgramExercisesViewAdapter.ViewHolder {
-        @BindView(R.id.exercise_spinner)
-        Spinner exerciseSpinner;
-        @BindView(R.id.reps_edit_text)
-        EditText repsEditText;
-        @BindView(R.id.sets_edit_text)
-        EditText setsEditText;
-        @BindView(R.id.add_exercise_button)
-        Button addExerciseButton;
+        @BindView(R.id.spinner_exercise)
+        Spinner spinnerExercise;
+        @BindView(R.id.edittext_reps)
+        EditText editTextReps;
+        @BindView(R.id.edittext_sets)
+        EditText editTextSets;
+        @BindView(R.id.button_add_exercise)
+        Button buttonAddExercise;
 
         AddItemViewHolder(View view) {
             super(view);
@@ -88,15 +88,15 @@ public class ProgramExercisesViewAdapter extends RecyclerView.Adapter<ProgramExe
 
         @Override
         void bind(List<ProgramExercise> exercises, List<String> exerciseList, ArrayAdapter spinnerAdapter, ProgramExercisesViewAdapter programExercisesViewAdapter, Context context) {
-            exerciseSpinner.setAdapter(spinnerAdapter);
-            setsEditText.setOnEditorActionListener((textView, actionId, keyEvent) -> {
+            spinnerExercise.setAdapter(spinnerAdapter);
+            editTextSets.setOnEditorActionListener((textView, actionId, keyEvent) -> {
                 if (actionId == EditorInfo.IME_ACTION_DONE) {
-                    addExerciseButton.performClick();
+                    buttonAddExercise.performClick();
                 }
                 return false;
             });
 
-            addExerciseButton.setOnClickListener(view -> {
+            buttonAddExercise.setOnClickListener(view -> {
                 try {
                     addExercise(exercises, programExercisesViewAdapter);
                     resetExerciseInputFields();
@@ -107,16 +107,16 @@ public class ProgramExercisesViewAdapter extends RecyclerView.Adapter<ProgramExe
         }
 
         private void addExercise(List<ProgramExercise> exercises, ProgramExercisesViewAdapter programExercisesViewAdapter) {
-            ProgramExercise programExercise = new ProgramExercise(exerciseSpinner.getSelectedItem().toString(), Integer.parseInt(repsEditText.getText().toString()), Integer.parseInt(setsEditText.getText().toString()));
+            ProgramExercise programExercise = new ProgramExercise(spinnerExercise.getSelectedItem().toString(), Integer.parseInt(editTextReps.getText().toString()), Integer.parseInt(editTextSets.getText().toString()));
             exercises.add(programExercise);
             programExercisesViewAdapter.notifyDataSetChanged();
         }
 
         private void resetExerciseInputFields() {
-            exerciseSpinner.setSelection(0);
-            repsEditText.setText("");
-            setsEditText.setText("");
-            repsEditText.requestFocus();
+            spinnerExercise.setSelection(0);
+            editTextReps.setText("");
+            editTextSets.setText("");
+            editTextReps.requestFocus();
         }
 
     }
@@ -131,7 +131,7 @@ public class ProgramExercisesViewAdapter extends RecyclerView.Adapter<ProgramExe
     @Override
     public ProgramExercisesViewAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(viewType, parent, false);
-        if (viewType == R.layout.view_holder_custom_workout_exercise_add_card) {
+        if (viewType == R.layout.view_holder_programs_add_exercise) {
             return new ProgramExercisesViewAdapter.AddItemViewHolder(view);
         } else {
             return new ProgramExercisesViewAdapter.ShowItemViewHolder(view);
@@ -147,9 +147,9 @@ public class ProgramExercisesViewAdapter extends RecyclerView.Adapter<ProgramExe
     @Override
     public int getItemViewType(int position) {
         if (position == exercises.size())
-            return R.layout.view_holder_custom_workout_exercise_add_card;
+            return R.layout.view_holder_programs_add_exercise;
         else
-            return R.layout.view_holder_custom_workout_exercise_card;
+            return R.layout.view_holder_programs_exercise;
     }
 
     @Override

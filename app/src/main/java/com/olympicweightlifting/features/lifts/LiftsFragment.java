@@ -26,8 +26,8 @@ public class LiftsFragment extends Fragment {
 
     @BindView(R.id.recycler_view)
     RecyclerView recyclerView;
-    @BindView(R.id.youtube_floating_button)
-    FloatingActionButton floatingActionButton;
+    @BindView(R.id.floatingbutton_youtube)
+    FloatingActionButton floatingActionButtonYoutube;
 
     public static LiftsFragment newInstance(Bundle fragmentArugments) {
         LiftsFragment liftsFragment = new LiftsFragment();
@@ -57,9 +57,9 @@ public class LiftsFragment extends Fragment {
     private void setupFloatingButton(ViewGroup fragmentView) {
         String videoUrl = getArguments().getString(getString(R.string.floating_button_video_url));
         if (videoUrl == null) {
-            fragmentView.removeView(floatingActionButton);
+            fragmentView.removeView(floatingActionButtonYoutube);
         } else {
-            floatingActionButton.setOnClickListener(view -> {
+            floatingActionButtonYoutube.setOnClickListener(view -> {
                 Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(videoUrl));
                 startActivity(intent);
             });

@@ -5,7 +5,7 @@
     android:orientation="vertical">
 
     <TextView
-        android:id="@+id/dialog_title"
+        android:id="@+id/text_dialog_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/colorPrimary"
@@ -34,7 +34,7 @@
             android:textSize="18sp"/>
 
         <RadioGroup xmlns:android="http://schemas.android.com/apk/res/android"
-            android:id="@+id/units_radio_group"
+            android:id="@+id/radiogroup_units"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
@@ -68,7 +68,7 @@
             android:textSize="18sp"/>
 
         <Switch
-            android:id="@+id/dark_theme_switch"
+            android:id="@+id/switch_dark_theme"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:clickable="false"

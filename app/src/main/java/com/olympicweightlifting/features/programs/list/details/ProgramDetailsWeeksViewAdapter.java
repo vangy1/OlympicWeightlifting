@@ -27,9 +27,9 @@ public class ProgramDetailsWeeksViewAdapter extends RecyclerView.Adapter<Program
 
     static class ViewHolder extends RecyclerView.ViewHolder {
 
-        @BindView(R.id.week_title)
+        @BindView(R.id.text_title_week)
         TextView weekTitle;
-        @BindView(R.id.days_recycler_view)
+        @BindView(R.id.recyclerview_days)
         RecyclerView daysRecyclerView;
 
         ViewHolder(View view) {
@@ -46,7 +46,7 @@ public class ProgramDetailsWeeksViewAdapter extends RecyclerView.Adapter<Program
     @Override
     public ProgramDetailsWeeksViewAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.view_holder_custom_workout_week_card, parent, false);
+                .inflate(R.layout.view_holder_programs_week, parent, false);
         return new ProgramDetailsWeeksViewAdapter.ViewHolder(view);
 
     }

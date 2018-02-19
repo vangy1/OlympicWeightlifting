@@ -10,7 +10,7 @@ import android.support.annotation.NonNull;
 import com.olympicweightlifting.App;
 import com.olympicweightlifting.R;
 import com.olympicweightlifting.data.local.AppDatabase;
-import com.olympicweightlifting.features.calculators.CalculatorService;
+import com.olympicweightlifting.features.calculators.CalculatorsService;
 import com.olympicweightlifting.features.helpers.exercisemanager.Exercise;
 
 import javax.inject.Named;
@@ -67,7 +67,7 @@ public abstract class ApplicationModule {
 
     @Provides
     @Singleton
-    static CalculatorService provideCalculatorService(Context context, @Named("settings") SharedPreferences sharedPreferences) {
-        return new CalculatorService(context, sharedPreferences);
+    static CalculatorsService provideCalculatorService(Context context, @Named("settings") SharedPreferences sharedPreferences) {
+        return new CalculatorsService(context, sharedPreferences);
     }
 }

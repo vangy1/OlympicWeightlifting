@@ -1,0 +1,162 @@
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".features.calculators.loading.LoadingCalculatorFragment">
+
+    <TextView
+        android:id="@+id/weight_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="12dp"
+        android:text="Weight"
+        android:textColor="@color/colorBlackText"
+        android:textSize="@dimen/sinclair_calculator_fragment_input_info_text_size"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/edittext_weight"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:background="@android:color/transparent"
+        android:gravity="end"
+        android:hint="@string/sinclair_calculator_fragment_total_input_hint"
+        android:inputType="number"
+        android:maxLength="6"
+        android:minEms="6"
+        android:textColor="@color/colorBlackText"
+        android:textSize="@dimen/sinclair_calculator_fragment_input_text_size"
+        app:layout_constraintBottom_toBottomOf="@+id/weight_text_view"
+        app:layout_constraintEnd_toStartOf="@+id/text_weight_units"
+        app:layout_constraintTop_toTopOf="@+id/weight_text_view" />
+
+    <TextView
+        android:id="@+id/text_weight_units"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginEnd="24dp"
+        android:gravity="center"
+        android:text="kg"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="@+id/weight_text_view"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/weight_text_view" />
+
+
+    <View
+        android:id="@+id/separator1"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/sinclair_calculator_fragment_row_separator_line_height"
+        android:layout_marginTop="12dp"
+        android:background="@color/separatorColor"
+        app:layout_constraintTop_toBottomOf="@id/weight_text_view" />
+
+    <TextView
+        android:id="@+id/barbell_weight_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:text="Barbell"
+        android:textColor="@color/colorBlackText"
+        android:textSize="@dimen/sinclair_calculator_fragment_input_info_text_size"
+        app:layout_constraintStart_toStartOf="@+id/weight_text_view"
+        app:layout_constraintTop_toBottomOf="@+id/separator1" />
+
+    <RadioGroup
+        android:id="@+id/radiogroup_barbell_weight"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:checkedButton="@id/radiobutton_men"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="@+id/barbell_weight_text_view"
+        app:layout_constraintEnd_toEndOf="@+id/text_weight_units"
+        app:layout_constraintTop_toTopOf="@+id/barbell_weight_text_view">
+
+        <RadioButton
+            android:id="@+id/radiobutton_technique"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="10 kg" />
+
+        <RadioButton
+            android:id="@+id/radiobutton_women"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="15 kg" />
+
+        <RadioButton
+            android:id="@+id/radiobutton_men"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="20 kg" />
+    </RadioGroup>
+
+    <View
+        android:id="@+id/separator2"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/sinclair_calculator_fragment_row_separator_line_height"
+        android:layout_marginTop="12dp"
+        android:background="@color/separatorColor"
+        app:layout_constraintTop_toBottomOf="@id/barbell_weight_text_view" />
+
+    <TextView
+        android:id="@+id/collars_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:text="Collars"
+        android:textColor="@color/colorBlackText"
+        android:textSize="@dimen/sinclair_calculator_fragment_input_info_text_size"
+        app:layout_constraintStart_toStartOf="@+id/weight_text_view"
+        app:layout_constraintTop_toBottomOf="@+id/separator2" />
+
+    <CheckBox
+        android:id="@+id/checkbox_collars"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="end"
+        app:layout_constraintBottom_toBottomOf="@+id/collars_text_view"
+        app:layout_constraintEnd_toEndOf="@+id/text_weight_units"
+        app:layout_constraintStart_toStartOf="@+id/text_weight_units"
+        app:layout_constraintTop_toTopOf="@+id/collars_text_view" />
+
+
+    <View
+        android:id="@+id/separator3"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/sinclair_calculator_fragment_row_separator_line_height"
+        android:layout_marginTop="12dp"
+        android:background="@color/separatorColor"
+        app:layout_constraintTop_toBottomOf="@id/collars_text_view" />
+
+
+    <Button
+        android:id="@+id/button_calculate"
+        style="@style/Widget.AppCompat.Button.Colored"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="6dp"
+        android:text="@string/sinclair_calculator_fragment_calculate_button_text"
+        app:layout_constraintTop_toBottomOf="@id/separator3" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recyclerview_results"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button_calculate" />
+
+
+</android.support.constraint.ConstraintLayout>
+
+
+
+
+

@@ -26,17 +26,17 @@ public class TrackingNewRecyclerViewAdapter extends RecyclerView.Adapter<Trackin
     private List<TrackedExerciseData> trackedExercisesList;
 
     static class ViewHolder extends RecyclerView.ViewHolder {
-        @BindView(R.id.records_layout)
-        ConstraintLayout recordsLayout;
+        @BindView(R.id.layout_workouts)
+        ConstraintLayout layoutWorkouts;
 
-        @BindView(R.id.exercise_name)
-        TextView exerciseName;
-        @BindView(R.id.lifted_weight)
-        TextView lifted_weight;
-        @BindView(R.id.reps)
-        TextView reps;
-        @BindView(R.id.sets)
-        TextView sets;
+        @BindView(R.id.text_exercise_name)
+        TextView textViewExerciseName;
+        @BindView(R.id.text_lifted_weight)
+        TextView textViewLiftedWeight;
+        @BindView(R.id.text_reps)
+        TextView textViewReps;
+        @BindView(R.id.text_sets)
+        TextView textViewSets;
 
         ViewHolder(CardView cardView) {
             super(cardView);
@@ -52,7 +52,7 @@ public class TrackingNewRecyclerViewAdapter extends RecyclerView.Adapter<Trackin
     @Override
     public TrackingNewRecyclerViewAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         CardView cardView = (CardView) LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.view_holder_tracking_exercise_card, parent, false);
+                .inflate(R.layout.view_holder_tracking_exercise, parent, false);
         return new TrackingNewRecyclerViewAdapter.ViewHolder(cardView);
     }
 
@@ -60,18 +60,18 @@ public class TrackingNewRecyclerViewAdapter extends RecyclerView.Adapter<Trackin
     public void onBindViewHolder(TrackingNewRecyclerViewAdapter.ViewHolder viewHolder, int position) {
         TrackedExerciseData currentTrackedExercise = trackedExercisesList.get(position);
 
-        viewHolder.recordsLayout.setOnLongClickListener(view -> {
+        viewHolder.layoutWorkouts.setOnLongClickListener(view -> {
             trackedExercisesList.remove(viewHolder.getAdapterPosition());
             notifyItemRemoved(viewHolder.getAdapterPosition());
             return true;
         });
 
-        viewHolder.exerciseName.setFilters(new InputFilter[]{new InputFilter.LengthFilter(21)});
-        viewHolder.exerciseName.setText(currentTrackedExercise.getExercise());
+        viewHolder.textViewExerciseName.setFilters(new InputFilter[]{new InputFilter.LengthFilter(21)});
+        viewHolder.textViewExerciseName.setText(currentTrackedExercise.getExercise());
 
-        viewHolder.lifted_weight.setText(String.format("%s %s", currentTrackedExercise.getWeightFormatted(), currentTrackedExercise.getUnits().toLowerCase()));
-        viewHolder.reps.setText(context.getResources().getQuantityString(R.plurals.repetitons, currentTrackedExercise.getReps(), currentTrackedExercise.getReps()));
-        viewHolder.sets.setText(context.getResources().getQuantityString(R.plurals.repetitons, currentTrackedExercise.getSets(), currentTrackedExercise.getSets()));
+        viewHolder.textViewLiftedWeight.setText(String.format("%s %s", currentTrackedExercise.getWeightFormatted(), currentTrackedExercise.getUnits().toLowerCase()));
+        viewHolder.textViewReps.setText(context.getResources().getQuantityString(R.plurals.repetitons, currentTrackedExercise.getReps(), currentTrackedExercise.getReps()));
+        viewHolder.textViewSets.setText(context.getResources().getQuantityString(R.plurals.repetitons, currentTrackedExercise.getSets(), currentTrackedExercise.getSets()));
     }
 
 

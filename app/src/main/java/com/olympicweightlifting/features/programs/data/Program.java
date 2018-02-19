@@ -35,19 +35,25 @@ public class Program {
         return documentId;
     }
 
-    public List<ProgramWeek> getWeeks() {
-        return weeks;
-    }
-
     public Date getDateAdded() {
         return dateAdded;
+    }
+
+    public boolean validateObject() {
+        return getProgramTitle() != null &&
+                getWeeks() != null;
     }
 
     public String getProgramTitle() {
         return programTitle;
     }
 
+    public List<ProgramWeek> getWeeks() {
+        return weeks;
+    }
+
     public void setProgramTitle(String programTitle) {
         this.programTitle = programTitle;
     }
+
 }

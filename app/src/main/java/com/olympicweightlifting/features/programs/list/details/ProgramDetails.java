@@ -24,12 +24,12 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class ProgramDetails extends Fragment {
-    @BindView(R.id.workout_date)
-    TextView workoutDate;
-    @BindView(R.id.workouts_recycler_view)
+    @BindView(R.id.text_program_title)
+    TextView textViewProgramTitle;
+    @BindView(R.id.recyclerview_details)
     RecyclerView workoutsRecyclerView;
-    @BindView(R.id.delete_floating_button)
-    FloatingActionButton deleteWorkoutFloatingButton;
+    @BindView(R.id.floatingbutton_program_remove)
+    FloatingActionButton floatingButtonProgramRemove;
 
     private Program program;
 
@@ -47,10 +47,10 @@ public class ProgramDetails extends Fragment {
 
         program = new Gson().fromJson(getArguments().getString("programDetails"), new TypeToken<Program>() {
         }.getType());
-        workoutDate.setText(program.getProgramTitle());
+        textViewProgramTitle.setText(program.getProgramTitle());
         setupRecyclerView();
 
-        deleteWorkoutFloatingButton.setOnClickListener(view -> {
+        floatingButtonProgramRemove.setOnClickListener(view -> {
             removeWorkoutFromFirestore();
             getActivity().getFragmentManager().beginTransaction()
                     .remove(ProgramDetails.this)
@@ -81,7 +81,7 @@ public class ProgramDetails extends Fragment {
     }
 
     private void hideFragmentContainer() {
-        View workoutDetailsFragmentContainer = getActivity().findViewById(R.id.workout_details_fragment_container);
+        View workoutDetailsFragmentContainer = getActivity().findViewById(R.id.fragment_container_programs);
         workoutDetailsFragmentContainer.setVisibility(View.GONE);
     }
 }

@@ -15,7 +15,7 @@ import android.widget.Toast;
 
 import com.olympicweightlifting.R;
 import com.olympicweightlifting.data.local.AppDatabase;
-import com.olympicweightlifting.features.calculators.CalculatorService;
+import com.olympicweightlifting.features.calculators.CalculatorsService;
 import com.olympicweightlifting.utilities.AppLevelConstants.Gender;
 
 import java.util.ArrayList;
@@ -33,24 +33,24 @@ import io.reactivex.schedulers.Schedulers;
 
 public class SinclairCalculatorFragment extends DaggerFragment {
     @BindView(R.id.total_edit_text)
-    EditText totalEditText;
+    EditText editTextTotal;
     @BindView(R.id.total_units)
-    TextView totalUnitsText;
-    @BindView(R.id.bodyweight_edit_text)
-    EditText bodyWeightEditText;
+    TextView textTotalUnits;
+    @BindView(R.id.edittext_bodyweight)
+    EditText editTextBodyweight;
     @BindView(R.id.bodyweight_units)
-    TextView bodyweightUnitsText;
-    @BindView(R.id.gender_radio_group)
-    RadioGroup genderRadioGroup;
-    @BindView(R.id.calculate_button)
-    Button calculateButton;
-    @BindView(R.id.results_recycler_view)
-    RecyclerView resultsRecyclerView;
+    TextView textBodyweightUnits;
+    @BindView(R.id.radiogroup_gender)
+    RadioGroup radioGroupGender;
+    @BindView(R.id.button_calculate)
+    Button buttonCalculate;
+    @BindView(R.id.recyclerview_results)
+    RecyclerView recyclerViewResults;
 
     @Inject
     AppDatabase database;
     @Inject
-    CalculatorService calculatorService;
+    CalculatorsService calculatorsService;
 
     private List<SinclairCalculation> sinclairCalculations = new ArrayList<>();
 
@@ -62,14 +62,14 @@ public class SinclairCalculatorFragment extends DaggerFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View fragmentView = inflater.inflate(R.layout.fragment_sinclair_calculator, container, false);
+        View fragmentView = inflater.inflate(R.layout.fragment_calculators_sinclair, container, false);
         ButterKnife.bind(this, fragmentView);
 
-        calculatorService.setUnitsForViews(totalUnitsText, bodyweightUnitsText);
-        calculatorService.setupResultsRecyclerView(resultsRecyclerView, new SinclairResultsRecyclerViewAdapter(sinclairCalculations));
-        calculatorService.populateRecyclerViewFromDatabase(database.sinclairCalculationDao().get(calculatorService.HISTORY_MAX), sinclairCalculations, resultsRecyclerView);
+        calculatorsService.setUnitsForViews(textTotalUnits, textBodyweightUnits);
+        calculatorsService.setupResultsRecyclerView(recyclerViewResults, new SinclairResultsRecyclerViewAdapter(sinclairCalculations));
+        calculatorsService.populateRecyclerViewFromDatabase(database.sinclairCalculationDao().get(calculatorsService.HISTORY_MAX), sinclairCalculations, recyclerViewResults);
 
-        calculateButton.setOnClickListener(view -> {
+        buttonCalculate.setOnClickListener(view -> {
             try {
                 SinclairCalculation sinclairCalculation = calculateSinclair();
                 saveCalculationIntoDatabase(sinclairCalculation);
@@ -83,11 +83,11 @@ public class SinclairCalculatorFragment extends DaggerFragment {
     }
 
     private SinclairCalculation calculateSinclair() {
-        double total = Double.parseDouble(totalEditText.getText().toString());
-        double bodyweight = Double.parseDouble(bodyWeightEditText.getText().toString());
-        Gender gender = genderRadioGroup.getCheckedRadioButtonId() == R.id.men_radio_button ? Gender.MEN : Gender.WOMEN;
-        String units = calculatorService.getUnits();
-        double sinclairScore = calculatorService.calculateSinclair(total, bodyweight, gender);
+        double total = Double.parseDouble(editTextTotal.getText().toString());
+        double bodyweight = Double.parseDouble(editTextBodyweight.getText().toString());
+        Gender gender = radioGroupGender.getCheckedRadioButtonId() == R.id.radiobutton_men ? Gender.MEN : Gender.WOMEN;
+        String units = calculatorsService.getUnits();
+        double sinclairScore = calculatorsService.calculateSinclair(total, bodyweight, gender);
         return new SinclairCalculation(total, bodyweight, gender.toString(), units, sinclairScore);
     }
 
@@ -96,7 +96,7 @@ public class SinclairCalculatorFragment extends DaggerFragment {
         Completable.fromAction(() -> {
             database.sinclairCalculationDao().insert(sinclairCalculation);
         }).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).doOnComplete(() -> {
-            calculatorService.insertCalculationIntoRecyclerView(sinclairCalculation, sinclairCalculations, resultsRecyclerView);
+            calculatorsService.insertCalculationIntoRecyclerView(sinclairCalculation, sinclairCalculations, recyclerViewResults);
         }).onErrorComplete().subscribe();
     }
 }

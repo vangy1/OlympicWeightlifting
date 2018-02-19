@@ -9,7 +9,7 @@
     tools:context=".features.calculators.CalculatorsActivity">
 
     <FrameLayout
-        android:id="@+id/workout_details_fragment_container"
+        android:id="@+id/fragment_container_workouts"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:animateLayoutChanges="true"

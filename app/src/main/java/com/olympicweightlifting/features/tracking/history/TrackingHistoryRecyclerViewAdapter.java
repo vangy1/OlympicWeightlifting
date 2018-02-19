@@ -30,10 +30,10 @@ public class TrackingHistoryRecyclerViewAdapter extends RecyclerView.Adapter<Tra
     private List<TrackedWorkoutData> trackedWorkoutsList;
 
     static class ViewHolder extends RecyclerView.ViewHolder {
-        @BindView(R.id.records_layout)
+        @BindView(R.id.layout_records)
         ConstraintLayout recordsLayout;
 
-        @BindView(R.id.workout_date)
+        @BindView(R.id.text_workout_date)
         TextView workoutDate;
 
         ViewHolder(CardView cardView) {
@@ -51,7 +51,7 @@ public class TrackingHistoryRecyclerViewAdapter extends RecyclerView.Adapter<Tra
     @Override
     public TrackingHistoryRecyclerViewAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         CardView cardView = (CardView) LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.view_holder_tracking_history_card, parent, false);
+                .inflate(R.layout.view_holder_tracking_history, parent, false);
         return new TrackingHistoryRecyclerViewAdapter.ViewHolder(cardView);
     }
 
@@ -70,11 +70,11 @@ public class TrackingHistoryRecyclerViewAdapter extends RecyclerView.Adapter<Tra
         bundle.putString("workoutDetails", new Gson().toJson(currentTrackedWorkout));
         TrackingWorkoutDetails trackingWorkoutDetails = TrackingWorkoutDetails.newInstance(bundle);
         activity.getFragmentManager().beginTransaction()
-                .add(R.id.workout_details_fragment_container, trackingWorkoutDetails, "workoutDetailsFragment")
+                .add(R.id.fragment_container_workouts, trackingWorkoutDetails, "workoutDetailsFragment")
                 .addToBackStack("workoutDetailsFragment")
                 .commit();
 
-        View workoutDetailsFragmentContainer = activity.findViewById(R.id.workout_details_fragment_container);
+        View workoutDetailsFragmentContainer = activity.findViewById(R.id.fragment_container_workouts);
         workoutDetailsFragmentContainer.setVisibility(View.VISIBLE);
     }
 

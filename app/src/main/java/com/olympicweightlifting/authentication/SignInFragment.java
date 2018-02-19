@@ -17,16 +17,16 @@ import butterknife.ButterKnife;
 
 public class SignInFragment extends Fragment {
 
-    @BindView(R.id.signin_button)
-    Button signInButton;
+    @BindView(R.id.button_signin)
+    Button buttonSignin;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View fragmentView = inflater.inflate(R.layout.fragment_sign_in, container, false);
+        View fragmentView = inflater.inflate(R.layout.fragment_signin, container, false);
         ButterKnife.bind(this, fragmentView);
 
-        signInButton.setOnClickListener(view -> {
+        buttonSignin.setOnClickListener(view -> {
             startSignInActivity();
         });
 
@@ -38,5 +38,4 @@ public class SignInFragment extends Fragment {
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
     }
-
 }

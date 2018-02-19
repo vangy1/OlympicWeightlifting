@@ -5,12 +5,12 @@
     tools:context="com.olympicweightlifting.features.tracking.history.TrackingHistoryFragment">
 
     <android.support.v7.widget.RecyclerView
-        android:id="@+id/workouts_recycler_view"
+        android:id="@+id/recyclerview_workouts"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
     <TextView
-        android:id="@+id/no_workouts"
+        android:id="@+id/text_no_workouts_saved"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center"

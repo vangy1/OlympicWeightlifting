@@ -19,12 +19,12 @@ import butterknife.ButterKnife;
 
 public class SignInDialog extends DialogFragment {
 
-    @BindView(R.id.dialog_title)
-    TextView dialogTitle;
-    @BindView(R.id.google_signin_button)
-    Button googleSigninButton;
-    @BindView(R.id.facebook_signin_button)
-    Button facebookSigninButton;
+    @BindView(R.id.text_dialog_title)
+    TextView textViewDialogTitle;
+    @BindView(R.id.button_google_signin)
+    Button buttonGoogleSignin;
+    @BindView(R.id.button_facebook_signin)
+    Button buttonFacebookSignin;
 
     private Authenticator authenticator;
 
@@ -35,15 +35,15 @@ public class SignInDialog extends DialogFragment {
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        View dialogView = this.getActivity().getLayoutInflater().inflate(R.layout.dialog_sign_in, null);
-        ButterKnife.bind(this, dialogView);
-        dialogTitle.setTypeface(Typeface.createFromAsset(getActivity().getAssets(), getString(R.string.font_path_montserrat_bold)));
+        View viewDialog = this.getActivity().getLayoutInflater().inflate(R.layout.dialog_signin, null);
+        ButterKnife.bind(this, viewDialog);
+        textViewDialogTitle.setTypeface(Typeface.createFromAsset(getActivity().getAssets(), getString(R.string.font_path_montserrat_bold)));
         authenticator = new Authenticator(getActivity());
 
-        googleSigninButton.setOnClickListener(view -> authenticator.startGoogleAuthentication());
-        facebookSigninButton.setOnClickListener(view -> authenticator.startFacebookAuthentication());
+        buttonGoogleSignin.setOnClickListener(view -> authenticator.startGoogleAuthentication());
+        buttonFacebookSignin.setOnClickListener(view -> authenticator.startFacebookAuthentication());
 
-        return new AlertDialog.Builder(getActivity()).setView(dialogView).create();
+        return new AlertDialog.Builder(getActivity()).setView(viewDialog).create();
     }
 
     @Override

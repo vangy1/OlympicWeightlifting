@@ -22,11 +22,11 @@ import static com.olympicweightlifting.utilities.AppLevelConstants.Units;
 
 
 public class SettingsDialog extends DaggerAppCompatDialogFragment {
-    @BindView(R.id.dialog_title)
+    @BindView(R.id.text_dialog_title)
     TextView dialogTitle;
-    //    @BindView(R.id.dark_theme_switch)
-//    Switch darkThemeSwitch;
-    @BindView(R.id.units_radio_group)
+    //    @BindView(R.id.switch_dark_theme)
+//    Switch switchDarkTheme;
+    @BindView(R.id.radiogroup_units)
     RadioGroup unitsRadioGroup;
 
     @Inject

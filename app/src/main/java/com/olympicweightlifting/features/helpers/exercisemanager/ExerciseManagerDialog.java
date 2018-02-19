@@ -28,16 +28,16 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
 public class ExerciseManagerDialog extends DaggerAppCompatDialogFragment {
-    @BindView(R.id.dialog_title)
-    TextView dialogTitle;
-    @BindView(R.id.exercise_to_add)
-    EditText exerciseToAdd;
-    @BindView(R.id.add_exercise)
-    Button addExerciseButton;
-    @BindView(R.id.exercise_to_delete)
-    Spinner exerciseToDelete;
-    @BindView(R.id.remove_exercise)
-    Button removeExerciseButton;
+    @BindView(R.id.text_dialog_title)
+    TextView textViewDialogTitle;
+    @BindView(R.id.edittext_exercise_to_add)
+    EditText editTextExerciseToAdd;
+    @BindView(R.id.button_add_exercise)
+    Button buttonAddExercise;
+    @BindView(R.id.spinner_exercise_to_delete)
+    Spinner spinnerExerciseToDelete;
+    @BindView(R.id.button_remove_exercise)
+    Button buttonRemoveExercise;
 
     ArrayAdapter spinnerAdapter;
     List<String> exerciseList = new ArrayList<>();
@@ -56,18 +56,18 @@ public class ExerciseManagerDialog extends DaggerAppCompatDialogFragment {
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        View dialogView = this.getActivity().getLayoutInflater().inflate(R.layout.dialog_exercises_manager, null);
+        View dialogView = this.getActivity().getLayoutInflater().inflate(R.layout.dialog_exercise_manager, null);
         ButterKnife.bind(this, dialogView);
 
-        dialogTitle.setTypeface(Typeface.createFromAsset(getActivity().getAssets(), getString(R.string.font_path_montserrat_bold)));
+        textViewDialogTitle.setTypeface(Typeface.createFromAsset(getActivity().getAssets(), getString(R.string.font_path_montserrat_bold)));
 
         setupExerciseSpinner();
         populateExerciseSpinner();
 
 
-        addExerciseButton.setOnClickListener(view -> {
-            if (!exerciseToAdd.getText().toString().isEmpty()) {
-                String exerciseName = Character.toUpperCase(exerciseToAdd.getText().toString().charAt(0)) + exerciseToAdd.getText().toString().substring(1);
+        buttonAddExercise.setOnClickListener(view -> {
+            if (!editTextExerciseToAdd.getText().toString().isEmpty()) {
+                String exerciseName = Character.toUpperCase(editTextExerciseToAdd.getText().toString().charAt(0)) + editTextExerciseToAdd.getText().toString().substring(1);
                 Exercise exercise = new Exercise(exerciseName);
                 Completable.fromAction(() -> {
                     database.exerciseDao().insert(exercise);
@@ -78,9 +78,9 @@ public class ExerciseManagerDialog extends DaggerAppCompatDialogFragment {
         });
 
 
-        removeExerciseButton.setOnClickListener(view -> {
-            if (exerciseToDelete.getSelectedItemPosition() != -1) {
-                String exerciseName = (String) spinnerAdapter.getItem(exerciseToDelete.getSelectedItemPosition());
+        buttonRemoveExercise.setOnClickListener(view -> {
+            if (spinnerExerciseToDelete.getSelectedItemPosition() != -1) {
+                String exerciseName = (String) spinnerAdapter.getItem(spinnerExerciseToDelete.getSelectedItemPosition());
                 Completable.fromAction(() -> {
                     database.exerciseDao().deleteByExerciseName(exerciseName);
                 }).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).doOnComplete(() -> {
@@ -95,7 +95,7 @@ public class ExerciseManagerDialog extends DaggerAppCompatDialogFragment {
 
     private void setupExerciseSpinner() {
         spinnerAdapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_spinner_dropdown_item, exerciseList);
-        exerciseToDelete.setAdapter(spinnerAdapter);
+        spinnerExerciseToDelete.setAdapter(spinnerAdapter);
     }
 
     private void populateExerciseSpinner() {
@@ -110,7 +110,7 @@ public class ExerciseManagerDialog extends DaggerAppCompatDialogFragment {
 
     private void addExercise(Exercise exercise) {
         exerciseList.add(exercise.getExerciseName());
-        exerciseToDelete.setSelection(exerciseList.size());
+        spinnerExerciseToDelete.setSelection(exerciseList.size());
         spinnerAdapter.notifyDataSetChanged();
         onExerciseListChangedListener.onExerciseAdded(exercise.getExerciseName());
     }

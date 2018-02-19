@@ -36,10 +36,11 @@ import dagger.android.support.DaggerAppCompatActivity;
 public class MainActivity extends DaggerAppCompatActivity implements AuthenticationActivity {
     @BindView(R.id.toolbar)
     Toolbar toolbar;
-    @BindView(R.id.toolbar_title)
-    TextView toolbarTitle;
+    @BindView(R.id.text_toolbar_title)
+    TextView textViewToolbarTitle;
     @BindView(R.id.features_recycler_view)
-    RecyclerView featuresRecyclerView;
+    RecyclerView recyclerViewFeatures;
+
     SignInDialog signInDialog;
 
     @Inject
@@ -61,12 +62,12 @@ public class MainActivity extends DaggerAppCompatActivity implements Authenticat
     private void setupToolbar() {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
-        toolbarTitle.setTypeface(Typeface.createFromAsset(getAssets(), getString(R.string.font_path_samsung_sans_bold)));
+        textViewToolbarTitle.setTypeface(Typeface.createFromAsset(getAssets(), getString(R.string.font_path_samsung_sans_bold)));
     }
 
     private void setupRecyclerView() {
-        featuresRecyclerView.setHasFixedSize(true);
-        featuresRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerViewFeatures.setHasFixedSize(true);
+        recyclerViewFeatures.setLayoutManager(new LinearLayoutManager(this));
 
         setupAndPopulateRecyclerAdapter();
     }
@@ -86,8 +87,8 @@ public class MainActivity extends DaggerAppCompatActivity implements Authenticat
         FeatureDataset trackingDataset = new FeatureDataset(resources.getString(R.string.tracking), resources.getStringArray(R.array.tracking_shortcuts), R.drawable.feature_image_tracking, TrackingActivity.class);
         FeatureDataset recordsDataset = new FeatureDataset(resources.getString(R.string.records), resources.getStringArray(R.array.records_shortcuts), R.drawable.feature_image_records, RecordsActivity.class);
 
-        RecyclerView.Adapter recyclerViewAdapter = new FeatureCardsRecyclerViewAdapter(new FeatureDataset[]{snatchDataset, cajDataset, calculatorsDataset, programsDataset, trackingDataset, recordsDataset}, this);
-        featuresRecyclerView.setAdapter(recyclerViewAdapter);
+        RecyclerView.Adapter recyclerViewAdapter = new FeaturesRecyclerViewAdapter(new FeatureDataset[]{snatchDataset, cajDataset, calculatorsDataset, programsDataset, trackingDataset, recordsDataset}, this);
+        recyclerViewFeatures.setAdapter(recyclerViewAdapter);
     }
 
     private Bundle getLiftsBundle(String activityDataSerialized, int activityHeaderImage) {
