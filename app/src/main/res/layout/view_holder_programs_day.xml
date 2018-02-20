@@ -20,7 +20,7 @@
             android:id="@+id/text_title_day"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="left"
+            android:gravity="start"
             android:textColor="@color/colorWhite"
             android:textSize="18sp"
             android:textStyle="bold" />
@@ -37,6 +37,6 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/sinclair_calculator_fragment_row_separator_line_height"
         android:background="@color/separatorColor"
-        app:layout_constraintTop_toBottomOf="@id/weight_text_view" />
+        app:layout_constraintTop_toBottomOf="@id/text_weight" />
 
 </LinearLayout>

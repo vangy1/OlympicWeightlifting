@@ -21,10 +21,6 @@ import java.util.Objects;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-/**
- * Created by vangor on 01/02/2018.
- */
-
 public class RepmaxResultsRecyclerViewAdapter extends RecyclerView.Adapter<RepmaxResultsRecyclerViewAdapter.ViewHolder> {
     private List<RepmaxCalculation> repmaxCalculations;
     private CalculatorsService calculatorsService;
@@ -93,19 +89,4 @@ public class RepmaxResultsRecyclerViewAdapter extends RecyclerView.Adapter<Repma
         return resultsTitles;
     }
 
-    private void getViewsFromLayout(ViewHolder viewHolder, List<TextView> resultsTitleTextViews, List<TextView> resultsTextViews) {
-        int childCount = viewHolder.layoutResults.getChildCount();
-        for (int i = 0; i < childCount; i++) {
-            View view = viewHolder.layoutResults.getChildAt(i);
-            if (view.getTag() == null) continue;
-            String viewTag = view.getTag().toString();
-            if (view instanceof TextView) {
-                if (Objects.equals(viewTag, "result_title")) {
-                    resultsTitleTextViews.add((TextView) view);
-                } else if (Objects.equals(viewTag, "result")) {
-                    resultsTextViews.add((TextView) view);
-                }
-            }
-        }
-    }
 }

@@ -19,11 +19,18 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.olympicweightlifting.R;
 import com.olympicweightlifting.features.programs.data.Program;
+import com.olympicweightlifting.features.programs.list.ProgramsListRecyclerViewAdapter;
+import com.olympicweightlifting.utilities.ApplicationConstants;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+import static com.olympicweightlifting.utilities.ApplicationConstants.FIREBASE_COLLECTION_PROGRAMS;
+import static com.olympicweightlifting.utilities.ApplicationConstants.FIREBASE_COLLECTION_USERS;
+
 public class ProgramDetails extends Fragment {
+    public static final String TAG = ProgramDetails.class.getCanonicalName();
+
     @BindView(R.id.text_program_title)
     TextView textViewProgramTitle;
     @BindView(R.id.recyclerview_details)
@@ -45,7 +52,7 @@ public class ProgramDetails extends Fragment {
         View fragmentView = inflater.inflate(R.layout.fragment_program_details, container, false);
         ButterKnife.bind(this, fragmentView);
 
-        program = new Gson().fromJson(getArguments().getString("programDetails"), new TypeToken<Program>() {
+        program = new Gson().fromJson(getArguments().getString(ProgramsListRecyclerViewAdapter.BUNDLE_PROGRAM_DETAILS), new TypeToken<Program>() {
         }.getType());
         textViewProgramTitle.setText(program.getProgramTitle());
         setupRecyclerView();
@@ -69,7 +76,7 @@ public class ProgramDetails extends Fragment {
 
     private void removeWorkoutFromFirestore() {
         FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
-        CollectionReference programs = FirebaseFirestore.getInstance().collection("users").document(currentUser.getUid()).collection("programs");
+        CollectionReference programs = FirebaseFirestore.getInstance().collection(FIREBASE_COLLECTION_USERS).document(currentUser.getUid()).collection(FIREBASE_COLLECTION_PROGRAMS);
         programs.document(program.getDocumentId()).delete();
     }
 

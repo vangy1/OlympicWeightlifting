@@ -17,13 +17,17 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.olympicweightlifting.R;
-import com.olympicweightlifting.features.tracking.TrackedWorkoutData;
+import com.olympicweightlifting.features.tracking.data.TrackedWorkoutData;
+import com.olympicweightlifting.utilities.ApplicationConstants;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+
+import static com.olympicweightlifting.utilities.ApplicationConstants.FIREBASE_COLLECTION_USERS;
+import static com.olympicweightlifting.utilities.ApplicationConstants.FIREBASE_COLLECTION_WORKOUTS_TRACKED;
 
 
 public class TrackingHistoryFragment extends Fragment {
@@ -58,7 +62,7 @@ public class TrackingHistoryFragment extends Fragment {
     private void populateRecyclerViewFromFirestore() {
         FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
 
-        CollectionReference workoutsCollection = FirebaseFirestore.getInstance().collection("users").document(currentUser.getUid()).collection("tracked_workouts");
+        CollectionReference workoutsCollection = FirebaseFirestore.getInstance().collection(FIREBASE_COLLECTION_USERS).document(currentUser.getUid()).collection(FIREBASE_COLLECTION_WORKOUTS_TRACKED);
         workoutsCollection.orderBy("dateOfWorkout", Query.Direction.DESCENDING).addSnapshotListener((documentSnapshots, e) -> {
             trackedWorkouts.clear();
             for (DocumentSnapshot documentSnapshot : documentSnapshots) {

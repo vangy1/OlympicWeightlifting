@@ -26,7 +26,7 @@ public class RecordsPersonalData {
     public RecordsPersonalData() {
     }
 
-    public RecordsPersonalData(double weight, String units, int reps, String exercise, Date date) {
+    RecordsPersonalData(double weight, String units, int reps, String exercise, Date date) {
         dateAdded = new Date();
 
         this.weight = weight;
@@ -36,13 +36,13 @@ public class RecordsPersonalData {
         this.date = date;
     }
 
-    public <T extends RecordsPersonalData> T withId(String documentId) {
+    <T extends RecordsPersonalData> T withId(String documentId) {
         this.documentId = documentId;
         return (T) this;
     }
 
     @Exclude
-    public String getDocumentId() {
+    String getDocumentId() {
         return documentId;
     }
 
@@ -54,7 +54,7 @@ public class RecordsPersonalData {
         return weight;
     }
 
-    public String getWeightFormatted() {
+    String getWeightFormatted() {
         return new DecimalFormat("##.##").format(weight);
     }
 
@@ -62,7 +62,7 @@ public class RecordsPersonalData {
         return reps;
     }
 
-    public boolean validateObject() {
+    boolean validateObject() {
         return getUnits() != null &&
                 getExercise() != null &&
                 getDate() != null;

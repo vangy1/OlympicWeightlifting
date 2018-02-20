@@ -9,12 +9,12 @@ public class LiftsContentData {
     private String description;
     private String videoUrl;
 
-    public LiftsContentData(String title, String description, String videoUrl) {
+    LiftsContentData(String title, String description, String videoUrl) {
         this(title, description);
         this.videoUrl = videoUrl;
     }
 
-    public LiftsContentData(String title, String description) {
+    LiftsContentData(String title, String description) {
         this.title = title;
         this.description = description;
     }
@@ -23,11 +23,11 @@ public class LiftsContentData {
         return title;
     }
 
-    public String getDescription() {
+    String getDescription() {
         return description;
     }
 
-    public String getVideoUrl() {
+    String getVideoUrl() {
         return videoUrl;
     }
 }

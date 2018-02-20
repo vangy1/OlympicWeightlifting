@@ -26,7 +26,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:text="Weight"
+                android:text="@string/all_weight"
                 android:textSize="16sp" />
 
             <TextView
@@ -34,7 +34,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:text="Barbell"
+                android:text="@string/calculators_barbell"
                 android:textSize="16sp" />
 
             <TextView
@@ -42,7 +42,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:text="Collars"
+                android:text="@string/calculators_collars"
                 android:textSize="16sp" />
         </LinearLayout>
 

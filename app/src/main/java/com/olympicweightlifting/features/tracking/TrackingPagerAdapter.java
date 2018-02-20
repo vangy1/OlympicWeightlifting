@@ -15,7 +15,7 @@ public class TrackingPagerAdapter extends FragmentStatePagerAdapter {
     private Fragment trackingNew = FirebaseAuth.getInstance().getCurrentUser() != null ? new TrackingNewFragment() : new SignInFragment();
     private Fragment trackingHistory = FirebaseAuth.getInstance().getCurrentUser() != null ? new TrackingHistoryFragment() : new SignInFragment();
 
-    public TrackingPagerAdapter(FragmentManager fragmentManager) {
+    TrackingPagerAdapter(FragmentManager fragmentManager) {
         super(fragmentManager);
     }
 

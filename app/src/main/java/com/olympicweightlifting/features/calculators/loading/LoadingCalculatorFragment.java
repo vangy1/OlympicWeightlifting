@@ -58,7 +58,6 @@ public class LoadingCalculatorFragment extends DaggerFragment {
         View fragmentView = inflater.inflate(R.layout.fragment_calculators_loading, container, false);
         ButterKnife.bind(this, fragmentView);
 
-        calculatorsService.setUnitsForViews(textViewWeightUnits);
         calculatorsService.setupResultsRecyclerView(recyclerViewResults, new LoadingResultsRecyclerViewAdapter(loadingCalculations, calculatorsService));
         calculatorsService.populateRecyclerViewFromDatabase(database.loadingCalculationDao().get(calculatorsService.HISTORY_MAX), loadingCalculations, recyclerViewResults);
 
@@ -67,9 +66,9 @@ public class LoadingCalculatorFragment extends DaggerFragment {
                 LoadingCalculation loadingCalculation = calculateLoading();
                 saveCalculationInDatabase(loadingCalculation);
             } catch (WeightIsSmallerThanTheBarException e) {
-                Toast.makeText(getActivity(), "Make sure that weight is bigger than the weight of barbell and collars!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), R.string.calculators_loading_error_weight_smaller_than_bar, Toast.LENGTH_SHORT).show();
             } catch (Exception exception) {
-                Toast.makeText(getActivity(), "Fill out all information!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), R.string.all_insufficient_input, Toast.LENGTH_SHORT).show();
             }
         });
 

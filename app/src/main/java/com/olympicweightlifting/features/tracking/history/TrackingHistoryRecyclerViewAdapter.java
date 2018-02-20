@@ -12,7 +12,7 @@ import android.widget.TextView;
 
 import com.google.gson.Gson;
 import com.olympicweightlifting.R;
-import com.olympicweightlifting.features.tracking.TrackedWorkoutData;
+import com.olympicweightlifting.features.tracking.data.TrackedWorkoutData;
 import com.olympicweightlifting.features.tracking.history.details.TrackingWorkoutDetails;
 
 import java.text.DateFormat;
@@ -24,6 +24,8 @@ import butterknife.ButterKnife;
 import static android.text.format.DateFormat.getDateFormat;
 
 public class TrackingHistoryRecyclerViewAdapter extends RecyclerView.Adapter<TrackingHistoryRecyclerViewAdapter.ViewHolder> {
+    public static final String BUNDLE_WORKOUT_DETAILS = "BUNDLE_WORKOUT_DETAILS";
+
     private Activity activity;
     private DateFormat dateFormat;
 
@@ -34,7 +36,7 @@ public class TrackingHistoryRecyclerViewAdapter extends RecyclerView.Adapter<Tra
         ConstraintLayout recordsLayout;
 
         @BindView(R.id.text_workout_date)
-        TextView workoutDate;
+        TextView textViewWorkoutDate;
 
         ViewHolder(CardView cardView) {
             super(cardView);
@@ -59,7 +61,7 @@ public class TrackingHistoryRecyclerViewAdapter extends RecyclerView.Adapter<Tra
     public void onBindViewHolder(TrackingHistoryRecyclerViewAdapter.ViewHolder viewHolder, int position) {
         TrackedWorkoutData currentTrackedWorkout = trackedWorkoutsList.get(position);
 
-        viewHolder.workoutDate.setText(dateFormat.format(currentTrackedWorkout.getDateOfWorkout()));
+        viewHolder.textViewWorkoutDate.setText(dateFormat.format(currentTrackedWorkout.getDateOfWorkout()));
         viewHolder.recordsLayout.setOnClickListener(view -> {
             showWorkoutDetails(currentTrackedWorkout);
         });
@@ -67,11 +69,11 @@ public class TrackingHistoryRecyclerViewAdapter extends RecyclerView.Adapter<Tra
 
     private void showWorkoutDetails(TrackedWorkoutData currentTrackedWorkout) {
         Bundle bundle = new Bundle();
-        bundle.putString("workoutDetails", new Gson().toJson(currentTrackedWorkout));
+        bundle.putString(BUNDLE_WORKOUT_DETAILS, new Gson().toJson(currentTrackedWorkout));
         TrackingWorkoutDetails trackingWorkoutDetails = TrackingWorkoutDetails.newInstance(bundle);
         activity.getFragmentManager().beginTransaction()
-                .add(R.id.fragment_container_workouts, trackingWorkoutDetails, "workoutDetailsFragment")
-                .addToBackStack("workoutDetailsFragment")
+                .add(R.id.fragment_container_workouts, trackingWorkoutDetails, TrackingWorkoutDetails.TAG)
+                .addToBackStack(TrackingWorkoutDetails.TAG)
                 .commit();
 
         View workoutDetailsFragmentContainer = activity.findViewById(R.id.fragment_container_workouts);

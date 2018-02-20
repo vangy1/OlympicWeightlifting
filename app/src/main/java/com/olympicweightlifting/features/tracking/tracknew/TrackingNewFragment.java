@@ -25,8 +25,8 @@ import com.olympicweightlifting.R;
 import com.olympicweightlifting.data.local.AppDatabase;
 import com.olympicweightlifting.features.helpers.exercisemanager.Exercise;
 import com.olympicweightlifting.features.helpers.exercisemanager.ExerciseManagerDialog;
-import com.olympicweightlifting.features.tracking.TrackedExerciseData;
-import com.olympicweightlifting.features.tracking.TrackedWorkoutData;
+import com.olympicweightlifting.features.tracking.data.TrackedExerciseData;
+import com.olympicweightlifting.features.tracking.data.TrackedWorkoutData;
 
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -46,7 +46,8 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
 import static android.text.format.DateFormat.getDateFormat;
-import static com.olympicweightlifting.utilities.AppLevelConstants.Units;
+import static com.olympicweightlifting.utilities.ApplicationConstants.*;
+import static com.olympicweightlifting.utilities.ApplicationConstants.Units;
 
 public class TrackingNewFragment extends DaggerFragment implements DatePickerDialog.OnDateSetListener, ExerciseManagerDialog.OnExerciseListChangedListener {
 
@@ -54,23 +55,23 @@ public class TrackingNewFragment extends DaggerFragment implements DatePickerDia
     RecyclerView exercisesRecyclerView;
 
     @BindView(R.id.edittext_weight)
-    EditText weightEditText;
+    EditText editTextWeight;
     @BindView(R.id.text_weight_units)
-    TextView weightUnits;
+    TextView textWeightUnits;
     @BindView(R.id.edittext_sets)
-    EditText repsEditText;
+    EditText editTextReps;
     @BindView(R.id.edittext_reps)
-    EditText setsEditText;
+    EditText editTextSets;
     @BindView(R.id.spinner_exercise)
-    Spinner exerciseSpinner;
+    Spinner spinnerExercise;
     @BindView(R.id.button_exercise_manager)
-    ImageButton exerciseManagerButton;
-    @BindView(R.id.add_button)
-    Button addButton;
+    ImageButton buttonExerciseManager;
+    @BindView(R.id.button_add)
+    Button buttonAdd;
     @BindView(R.id.button_date_picker)
-    Button datePickerButton;
+    Button buttonDatePicker;
     @BindView(R.id.button_save)
-    Button saveButton;
+    Button buttonSave;
 
 
     List<String> exerciseList = new ArrayList<>();
@@ -91,32 +92,33 @@ public class TrackingNewFragment extends DaggerFragment implements DatePickerDia
         View fragmentView = inflater.inflate(R.layout.fragment_tracking_new, container, false);
         ButterKnife.bind(this, fragmentView);
         dateFormat = getDateFormat(getActivity());
+        textWeightUnits.setText(sharedPreferences.getString(PREF_UNITS, Units.KG.toString()).toLowerCase());
 
         setupDatePicker();
         setupSpinner();
         setupRecyclerView();
 
-        exerciseManagerButton.setOnClickListener(view -> {
+        buttonExerciseManager.setOnClickListener(view -> {
             ExerciseManagerDialog exerciseManagerDialog = new ExerciseManagerDialog();
             exerciseManagerDialog.setTargetFragment(this, 0);
-            exerciseManagerDialog.show(getFragmentManager(), "exerciseManagerDialog");
+            exerciseManagerDialog.show(getFragmentManager(), ExerciseManagerDialog.TAG);
         });
 
-        addButton.setOnClickListener(view -> {
+        buttonAdd.setOnClickListener(view -> {
             try {
-                trackedExerciseData.add(0, new TrackedExerciseData(Double.parseDouble(weightEditText.getText().toString()), Units.KG.toString(),
-                        Integer.parseInt(repsEditText.getText().toString()), Integer.parseInt(setsEditText.getText().toString()), exerciseSpinner.getSelectedItem().toString()));
+                trackedExerciseData.add(0, new TrackedExerciseData(Double.parseDouble(editTextWeight.getText().toString()), Units.KG.toString(),
+                        Integer.parseInt(editTextReps.getText().toString()), Integer.parseInt(editTextSets.getText().toString()), spinnerExercise.getSelectedItem().toString()));
                 exercisesRecyclerView.getAdapter().notifyItemInserted(0);
                 exercisesRecyclerView.scrollToPosition(0);
             } catch (Exception exception) {
-                Toast.makeText(getActivity(), "Fill out all information!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), getActivity().getString(R.string.all_insufficient_input), Toast.LENGTH_SHORT).show();
             }
 
         });
 
-        saveButton.setOnClickListener(view -> {
+        buttonSave.setOnClickListener(view -> {
             saveWorkoutToFirestore();
-            Toast.makeText(getActivity(), "Program has been saved!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(), getActivity().getString(R.string.tracking_workout_saved), Toast.LENGTH_SHORT).show();
             clearInputData();
         });
 
@@ -126,8 +128,8 @@ public class TrackingNewFragment extends DaggerFragment implements DatePickerDia
     private void setupDatePicker() {
         Calendar calendar = Calendar.getInstance();
         currentDate = calendar.getTime();
-        datePickerButton.setText(dateFormat.format(calendar.getTime()));
-        datePickerButton.setOnClickListener(view -> {
+        buttonDatePicker.setText(dateFormat.format(calendar.getTime()));
+        buttonDatePicker.setOnClickListener(view -> {
             DatePickerDialog datePickerDialog = new DatePickerDialog(
                     getActivity(), this, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
             datePickerDialog.show();
@@ -136,7 +138,7 @@ public class TrackingNewFragment extends DaggerFragment implements DatePickerDia
 
     private void setupSpinner() {
         spinnerAdapter = new ArrayAdapter<>(getActivity(), R.layout.spinner_item_exercise, exerciseList);
-        exerciseSpinner.setAdapter(spinnerAdapter);
+        spinnerExercise.setAdapter(spinnerAdapter);
 
         database.exerciseDao().getAll().subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe((queriedExercises) -> {
             for (Exercise queriedExercise : queriedExercises) {
@@ -155,7 +157,7 @@ public class TrackingNewFragment extends DaggerFragment implements DatePickerDia
     private void saveWorkoutToFirestore() {
         TrackedWorkoutData trackedWorkoutData = new TrackedWorkoutData(trackedExerciseData, currentDate);
         FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
-        FirebaseFirestore.getInstance().collection("users").document(currentUser.getUid()).collection("tracked_workouts").add(trackedWorkoutData);
+        FirebaseFirestore.getInstance().collection(FIREBASE_COLLECTION_USERS).document(currentUser.getUid()).collection(FIREBASE_COLLECTION_WORKOUTS_TRACKED).add(trackedWorkoutData);
     }
 
     private void clearInputData() {
@@ -169,7 +171,7 @@ public class TrackingNewFragment extends DaggerFragment implements DatePickerDia
         try {
             Date date = new SimpleDateFormat("dd/MM/yyyy").parse(day + "/" + month + "/" + year);
             currentDate = date;
-            datePickerButton.setText(dateFormat.format(date));
+            buttonDatePicker.setText(dateFormat.format(date));
         } catch (ParseException e) {
             e.printStackTrace();
         }
@@ -179,7 +181,7 @@ public class TrackingNewFragment extends DaggerFragment implements DatePickerDia
     public void onExerciseAdded(String exercise) {
         this.exerciseList.add(exercise);
         spinnerAdapter.notifyDataSetChanged();
-        exerciseSpinner.setSelection(exerciseList.size());
+        spinnerExercise.setSelection(exerciseList.size());
 
     }
 

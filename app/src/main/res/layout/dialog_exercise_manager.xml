@@ -16,7 +16,7 @@
         android:gravity="center"
         android:paddingBottom="12dp"
         android:paddingTop="12dp"
-        android:text="Manage exercises"
+        android:text="@string/all_manage_exercises"
         android:textColor="#FFFFFF"
         android:textSize="24sp" />
 
@@ -36,7 +36,6 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="12dp"
             android:layout_weight="1"
-            android:focusedByDefault="false"
             android:inputType="textPersonName"
             android:maxLength="21" />
 
@@ -44,7 +43,7 @@
             android:id="@+id/button_add_exercise"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Add" />
+            android:text="@string/all_add" />
 
     </LinearLayout>
 
@@ -77,7 +76,7 @@
             android:id="@+id/button_remove_exercise"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Remove" />
+            android:text="@string/all_remove" />
     </LinearLayout>
 
 

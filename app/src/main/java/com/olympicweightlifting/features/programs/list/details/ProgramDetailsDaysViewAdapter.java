@@ -52,7 +52,7 @@ public class ProgramDetailsDaysViewAdapter extends RecyclerView.Adapter<ProgramD
     @Override
     public void onBindViewHolder(ProgramDetailsDaysViewAdapter.ViewHolder viewHolder, int position) {
         ProgramDay currentProgramDay = days.get(position);
-        viewHolder.textViewDayTitle.setText(String.format("Day %s", String.valueOf(position + 1)));
+        viewHolder.textViewDayTitle.setText(String.format(context.getString(R.string.all_day) + " %s", String.valueOf(position + 1)));
         setupRecyclerView(viewHolder.recyclerViewExercises, currentProgramDay);
         if (viewHolder.getAdapterPosition() == days.size() - 1) {
             viewHolder.viewSeparator.setVisibility(View.GONE);

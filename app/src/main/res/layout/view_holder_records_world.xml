@@ -31,7 +31,6 @@
             android:orientation="vertical"
             app:layout_constraintGuide_percent="0.666" />
 
-
         <TextView
             android:id="@+id/text_category_title"
             android:layout_width="wrap_content"
@@ -45,11 +44,11 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/record_type_snatch"
+            android:id="@+id/text_record_type_snatch"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:text="@string/world_records_exercise_name_snatch"
+            android:text="@string/all_snatch"
             android:textAlignment="center"
             android:textSize="16sp"
             android:textStyle="bold"
@@ -65,20 +64,20 @@
             android:textAlignment="center"
             android:textColor="@color/colorAccent"
             android:textSize="16sp"
-            app:layout_constraintBottom_toBottomOf="@+id/record_type_snatch"
+            app:layout_constraintBottom_toBottomOf="@+id/text_record_type_snatch"
             app:layout_constraintEnd_toStartOf="@+id/guideline2"
             app:layout_constraintStart_toStartOf="@+id/guideline"
-            app:layout_constraintTop_toTopOf="@+id/record_type_snatch" />
+            app:layout_constraintTop_toTopOf="@+id/text_record_type_snatch" />
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
             android:orientation="vertical"
-            app:layout_constraintBottom_toBottomOf="@id/record_type_snatch"
+            app:layout_constraintBottom_toBottomOf="@id/text_record_type_snatch"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@id/guideline2"
-            app:layout_constraintTop_toTopOf="@id/record_type_snatch">
+            app:layout_constraintTop_toTopOf="@id/text_record_type_snatch">
 
             <TextView
                 android:id="@+id/text_record_holder_snatch"
@@ -97,17 +96,17 @@
         </LinearLayout>
 
         <TextView
-            android:id="@+id/exercise_name_caj"
+            android:id="@+id/text_exercise_name_caj"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:text="@string/world_records_exercise_name_caj"
+            android:text="@string/all_caj"
             android:textAlignment="center"
             android:textSize="16sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toStartOf="@+id/guideline"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/record_type_snatch" />
+            app:layout_constraintTop_toBottomOf="@+id/text_record_type_snatch" />
 
         <TextView
             android:id="@+id/text_lifted_weight_caj"
@@ -117,20 +116,20 @@
             android:textAlignment="center"
             android:textColor="@color/colorAccent"
             android:textSize="16sp"
-            app:layout_constraintBottom_toBottomOf="@+id/exercise_name_caj"
+            app:layout_constraintBottom_toBottomOf="@+id/text_exercise_name_caj"
             app:layout_constraintEnd_toStartOf="@+id/guideline2"
             app:layout_constraintStart_toStartOf="@+id/guideline"
-            app:layout_constraintTop_toTopOf="@+id/exercise_name_caj" />
+            app:layout_constraintTop_toTopOf="@+id/text_exercise_name_caj" />
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
             android:orientation="vertical"
-            app:layout_constraintBottom_toBottomOf="@id/exercise_name_caj"
+            app:layout_constraintBottom_toBottomOf="@id/text_exercise_name_caj"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@id/guideline2"
-            app:layout_constraintTop_toTopOf="@id/exercise_name_caj">
+            app:layout_constraintTop_toTopOf="@id/text_exercise_name_caj">
 
             <TextView
                 android:id="@+id/text_record_holder_caj"
@@ -149,11 +148,11 @@
         </LinearLayout>
 
         <TextView
-            android:id="@+id/record_type_total"
+            android:id="@+id/text_record_type_total"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:text="@string/world_records_exercise_name_total"
+            android:text="@string/all_total"
             android:textAlignment="center"
             android:textSize="16sp"
             android:textStyle="bold"
@@ -169,20 +168,20 @@
             android:textAlignment="center"
             android:textColor="@color/colorAccent"
             android:textSize="16sp"
-            app:layout_constraintBottom_toBottomOf="@+id/record_type_total"
+            app:layout_constraintBottom_toBottomOf="@+id/text_record_type_total"
             app:layout_constraintEnd_toStartOf="@+id/guideline2"
             app:layout_constraintStart_toStartOf="@+id/guideline"
-            app:layout_constraintTop_toTopOf="@+id/record_type_total" />
+            app:layout_constraintTop_toTopOf="@+id/text_record_type_total" />
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
             android:orientation="vertical"
-            app:layout_constraintBottom_toBottomOf="@id/record_type_total"
+            app:layout_constraintBottom_toBottomOf="@id/text_record_type_total"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@id/guideline2"
-            app:layout_constraintTop_toTopOf="@id/record_type_total">
+            app:layout_constraintTop_toTopOf="@id/text_record_type_total">
 
             <TextView
                 android:id="@+id/text_record_holder_total"

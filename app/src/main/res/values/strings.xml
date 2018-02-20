@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">Olympic Weightlifting</string>
 
+    <string name="google_client_id">966264089520-mhe4q88i5945m81nvcn6jk2gint2ubc3.apps.googleusercontent.com</string>
     <string name="facebook_app_id">2074456829502538</string>
     <string name="fb_login_protocol_scheme">fb2074456829502538</string>
 
@@ -8,44 +9,97 @@
     <string name="font_path_montserrat_medium">Montserrat-Medium.ttf</string>
     <string name="font_path_montserrat_bold">Montserrat-Bold.ttf</string>
 
-    <string name="snatch">Snatch</string>
-    <string name="caj">Clean and Jerk</string>
-    <string name="calculators">Calculators</string>
-    <string name="programs">Programs</string>
-    <string name="tracking">Tracking</string>
-    <string name="records">Records</string>22
 
-    <string name="settings_dialog_fragment_tag">settings</string>
-    <string name="settings_dark_theme">dark_theme</string>
-    <string name="settings_units">units</string>
-    <string name="settings_shared_preferences_id">settings</string>
-    <string name="settings_positive_button_text">Save</string>
 
-    <string name="sinclair_score_result_text">Sinclair score is\u0020</string>
 
-    <string name="web_client_id">966264089520-mhe4q88i5945m81nvcn6jk2gint2ubc3.apps.googleusercontent.com</string>
-    <string name="facebook_collision_message">Use Google account associated with this email address.</string>
-    <string name="facebook_signin_button_text">Sign in with Facebook</string>
-    <string name="google_signin_button_text">Sign in with Google</string>
-    <string name="anonymous_signin_button_text">Continue as a guest</string>
-    <string name="signin_buttons_separator_text">OR</string>
-    <string name="signin_activity_header_text">Welcome!</string>
-    <string name="signin_dialog_fragment_tag">signin</string>
-    <string name="main_activity_toolbar_title">Olympic Weightlifting</string>
-    <string name="profile_activity_toolbar_title">User profile</string>
-    <string name="profile_activity_upgrade_button_text">Upgrade to Premium</string>
-    <string name="signout_button_text">Sign out</string>
-    <string name="database_name">database</string>
-    <string name="sinclair_calculator_fragment_total_text">Total</string>
-    <string name="sinclair_calculator_fragment_total_input_hint">0</string>
-    <string name="sinclair_calculator_fragment_bodyweight_input_hint">0</string>
-    <string name="sinclair_calculator_fragment_bodyweight_text">Bodyweight</string>
-    <string name="sinclair_calculator_fragment_calculate_button_text">Calculate</string>
-    <string name="gender_women">Women</string>
-    <string name="gender_men">Men</string>
-    <string name="sinclair_calculator_fragment_gender_text">Gender</string>
-    <string name="extra_fragment_index">fragmentIndex</string>
+    <string name="all_snatch">Snatch</string>
+    <string name="all_caj"><![CDATA[Clean & Jerk]]></string>
+    <string name="all_calculators">Calculators</string>
+    <string name="all_programs">Programs</string>
+    <string name="all_tracking">Tracking</string>
+    <string name="all_records">Records</string>
+    <string name="all_save">Save</string>
+    <string name="all_gender_women">Women</string>
+    <string name="all_gender_men">Men</string>
+    <string name="all_gender">Gender</string>
+    <string name="all_total">Total</string>
+    <string name="all_settings">Settings</string>
+    <string name="all_units">Units</string>
+    <string name="all_unit_kg">kg</string>
+    <string name="all_unit_lb">lb</string>
+    <string name="all_dark_theme">Dark theme</string>
+    <string name="all_reps">Reps</string>
+    <string name="all_day">Day</string>
+    <string name="all_week">Week</string>
+    <string name="all_exercise">Exercise</string>
+    <string name="all_exercise_manager_button_content_description">Exercise manager</string>
+    <string name="all_date">Date</string>
+    <string name="all_weight">Weight</string>
+    <string name="all_insufficient_input">Fill out all information!</string>
+    <string name="all_add">Add</string>
+    <string name="all_remove">Remove</string>
+    <string name="all_manage_exercises">Manage exercises</string>
 
+    <string name="authentication_feature_unavailable">This feature is only available when you are signed in</string>
+    <string name="authentication_continue_to_signin">Continue to sign in</string>
+    <string name="signin_facebook_collision_message">Use Google account associated with this email address.</string>
+    <string name="signin_facebook_prompt">Sign in with Facebook</string>
+    <string name="signin_google_prompt">Sign in with Google</string>
+    <string name="signin_anonymous_prompt">Continue as a guest</string>
+    <string name="signin_logo_content_description">Logo</string>
+    <string name="signin_separator_or">OR</string>
+    <string name="signin_profile_identification">Signed in as\u0020</string>
+    <string name="signout_prompt">Sign out</string>
+    <string name="profile_toolbar_title">User profile</string>
+    <string name="profile_upgrade_prompt">Upgrade to Premium</string>
+
+    <string name="lifts_technique">Technique</string>
+    <string name="lifts_mistakes">Mistakes</string>
+    <string name="lifts_exercises">Exercises</string>
+    <string name="lifts_snatch_content_description">Snatch lift picture</string>
+    <string name="lifts_caj_content_description">Clean and Jerk lift picture</string>
+    <string name="lifts_watch_video">Watch video</string>
+
+    <string name="calculators_tab_sinclair">Sinclair</string>
+    <string name="calculators_tab_repmax">Rep Max</string>
+    <string name="calculators_tab_loading">Loading</string>
+    <string name="calculators_bodyweight">Bodyweight</string>
+    <string name="calculators_barbell">Barbell</string>
+    <string name="calculators_barbell_men_weight">10 kg</string>
+    <string name="calculators_barbell_women_weight">15 kg</string>
+    <string name="calculators_barbell_technique_weight">20 kg</string>
+    <string name="calculators_collars">Collars</string>
+    <string name="calculators_sinclair_result">Sinclair score is\u0020</string>
+    <string name="calculators_calculate">Calculate</string>
+    <string name="calculators_loading_reps_limit">(1–10)</string>
+    <string name="calculators_type">Type</string>
+    <string name="calculators_percentage">Percentage</string>
+    <string name="calculators_loading_error_weight_smaller_than_bar">Make sure that weight is bigger than the weight of barbell and collars!</string>
+
+    <string name="programs_tab_list">List</string>
+    <string name="programs_tab_create">Create</string>
+    <string name="programs_name">Name</string>
+    <string name="programs_save">Save program</string>
+    <string name="programs_error_while_saving">Something went wrong while saving your program!</string>
+    <string name="programs_name_error_input">Fill out program name!</string>
+    <string name="programs_saved">\u0020program was saved</string>
+    <string name="programs_error_too_many_days">There are only 7 days in a week.</string>
+    <string name="programs_add_day">Add day</string>
+    <string name="programs_reps_title">Reps:</string>
+    <string name="programs_sets_title">Sets:</string>
+    <string name="programs_add_exercise">Add exercise</string>
+    <string name="programs_add_week">Add week</string>
+    <string name="programs_empty_history">No programs created yet!</string>
+
+    <string name="tracking_tab_new">Track new</string>
+    <string name="tracking_tab_history">History</string>
+    <string name="tracking_empty_history">No workouts tracked yet!</string>
+    <string name="tracking_workout_saved">Workout has been saved!</string>
+    <string name="tracking_sets">Sets</string>
+    <string name="tracking_workout_save">Save workout</string>
+
+    <string name="records_tab_personal">Personal</string>
+    <string name="records_tab_world">World</string>
 
     <string name="starting_position_title">Starting Position</string>
     <string name="first_step_title">First Step</string>
@@ -135,17 +189,4 @@
     <string name="snatch_pull_video_url">https://youtu.be/ozFjbwIOjU4?t=9s</string>
     <string name="floating_button_video_url_snatch">https://youtu.be/BqWYvGDIRwE?t=9s</string>
     <string name="floating_button_video_url_caj">https://youtu.be/q9HbsciMSJU?t=8s</string>
-    <string name="lifts_header_image">liftsHeaderImage</string>
-    <string name="lifts_activity_data">liftsActivityData</string>
-    <string name="floating_button_video_url">floatingButtonVideoUrl</string>
-    <string name="lifts_content_data_list">liftsContentDataList</string>
-
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="world_records_exercise_name_caj"><![CDATA[Clean & Jerk]]></string>
-    <string name="world_records_exercise_name_snatch">Snatch</string>
-    <string name="world_records_exercise_name_total">Total</string>
-    <string name="firestore_collection_world_records">world_records</string>
-    <string name="firestore_collection_world_records_id_column">id</string>
-
 </resources>

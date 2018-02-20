@@ -21,6 +21,8 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class FeaturesRecyclerViewAdapter extends RecyclerView.Adapter<FeaturesRecyclerViewAdapter.ViewHolder> {
+    public static final String BUNDLE_FRAGMENT_INDEX = "FRAGMENT_INDEX";
+
     private FeatureDataset[] featureDatasets;
     private Context activityContext;
     private Typeface montserratBoldTypeface;
@@ -77,7 +79,7 @@ public class FeaturesRecyclerViewAdapter extends RecyclerView.Adapter<FeaturesRe
 
             Intent intent = new Intent(activityContext, featureDataset.getActivityToStart());
             Bundle activityArguments = featureDataset.getActivityArguments() == null ? new Bundle() : featureDataset.getActivityArguments();
-            activityArguments.putInt(activityContext.getString(R.string.extra_fragment_index), i);
+            activityArguments.putInt(BUNDLE_FRAGMENT_INDEX, i);
             intent.putExtras(activityArguments);
             featureShortcutButton.setOnClickListener(view -> activityContext.startActivity(intent));
 

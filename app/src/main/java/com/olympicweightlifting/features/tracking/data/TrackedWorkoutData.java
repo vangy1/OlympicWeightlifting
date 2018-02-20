@@ -1,4 +1,4 @@
-package com.olympicweightlifting.features.tracking;
+package com.olympicweightlifting.features.tracking.data;
 
 import com.google.firebase.firestore.Exclude;
 import com.google.firebase.firestore.IgnoreExtraProperties;
@@ -8,8 +8,8 @@ import java.util.List;
 
 @IgnoreExtraProperties
 public class TrackedWorkoutData {
-    List<TrackedExerciseData> trackedExercises;
-    Date dateOfWorkout;
+    private List<TrackedExerciseData> trackedExercises;
+    private Date dateOfWorkout;
     @Exclude
     private String documentId;
     private Date dateAdded;

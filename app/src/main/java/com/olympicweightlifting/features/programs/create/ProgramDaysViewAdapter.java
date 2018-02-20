@@ -47,7 +47,7 @@ public class ProgramDaysViewAdapter extends RecyclerView.Adapter<ProgramDaysView
 
         @Override
         void bind(List<ProgramDay> days, List<String> exerciseList, ProgramDaysViewAdapter programDaysViewAdapter, Context context) {
-            textViewTitleDay.setText(String.format("Day %s", String.valueOf(getAdapterPosition() + 1)));
+            textViewTitleDay.setText(String.format(context.getString(R.string.all_day) + " %s", String.valueOf(getAdapterPosition() + 1)));
             setupRecyclerView(recyclerViewExercises, days.get(getAdapterPosition()), exerciseList, context);
 
             layoutItem.setOnLongClickListener(view -> {
@@ -80,7 +80,7 @@ public class ProgramDaysViewAdapter extends RecyclerView.Adapter<ProgramDaysView
                     days.add(programDay);
                     programDaysViewAdapter.notifyDataSetChanged();
                 } else {
-                    Toast.makeText(context, "There are only 7 days in a week", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, R.string.programs_error_too_many_days, Toast.LENGTH_SHORT).show();
                 }
             });
         }

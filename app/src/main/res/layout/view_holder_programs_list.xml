@@ -23,7 +23,6 @@
             android:layout_height="wrap_content"
             android:ellipsize="end"
             android:fontFamily="sans-serif-black"
-            android:text="25.01.2019"
             android:textAlignment="center"
             android:textSize="22sp"
             app:layout_constraintBottom_toBottomOf="parent"

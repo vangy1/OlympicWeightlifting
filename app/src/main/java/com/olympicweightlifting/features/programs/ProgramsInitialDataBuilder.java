@@ -13,7 +13,7 @@ import java.util.List;
  * Created by vangor on 18/02/2018.
  */
 
-public class ProgramsInitialData {
+public class ProgramsInitialDataBuilder {
 
     public static List<Program> getInitialPrograms() {
         List<Program> programs = new ArrayList<>();

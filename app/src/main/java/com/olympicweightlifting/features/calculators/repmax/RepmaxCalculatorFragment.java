@@ -37,9 +37,9 @@ public class RepmaxCalculatorFragment extends DaggerFragment {
     EditText editTextWeight;
     @BindView(R.id.text_weight_units)
     TextView textViewWeightUnits;
-    @BindView(R.id.edittext_sets)
+    @BindView(R.id.edittext_reps)
     EditText editTextReps;
-    @BindView(R.id.calculation_type_radio_group)
+    @BindView(R.id.radiogroup_calculation_type)
     RadioGroup calculationTypeRadioGroup;
     @BindView(R.id.button_calculate)
     Button buttonCalculate;
@@ -70,7 +70,7 @@ public class RepmaxCalculatorFragment extends DaggerFragment {
                 RepmaxCalculation repmaxCalculation = calculateRepmax();
                 saveCalculationInDatabase(repmaxCalculation);
             } catch (Exception e) {
-                Toast.makeText(getActivity(), "Fill out all information!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), getString(R.string.all_insufficient_input), Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -79,7 +79,7 @@ public class RepmaxCalculatorFragment extends DaggerFragment {
     private RepmaxCalculation calculateRepmax() {
         double weight = Double.parseDouble(editTextWeight.getText().toString());
         int reps = Integer.parseInt(editTextReps.getText().toString());
-        RepmaxType repmaxType = calculationTypeRadioGroup.getCheckedRadioButtonId() == R.id.reps_radio_button ? RepmaxType.REPS : RepmaxType.PERCENTAGE;
+        RepmaxType repmaxType = calculationTypeRadioGroup.getCheckedRadioButtonId() == R.id.radiobutton_reps ? RepmaxType.REPS : RepmaxType.PERCENTAGE;
         String units = calculatorsService.getUnits();
         List<Integer> repmaxResults = calculatorsService.calculateRepmax(weight, reps, repmaxType);
         return new RepmaxCalculation(repmaxResults, repmaxType.toString(), units);

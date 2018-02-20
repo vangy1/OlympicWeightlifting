@@ -12,26 +12,21 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:paddingLeft="10dp"
-        android:text="Clean and Jerk"
+        android:paddingStart="10dp"
         android:textAlignment="center"
         android:textColor="@color/colorWhite"
         android:textSize="14sp"
-        app:layout_constraintBottom_toBottomOf="@+id/spinner_exercise"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/spinner_exercise" />
+        app:layout_constraintStart_toStartOf="parent" />
 
 
     <TextView
-        android:id="@+id/reps_text_view"
+        android:id="@+id/text_reps"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Reps:"
+        android:text="@string/programs_reps_title"
         android:textColor="@color/colorWhite"
         android:textSize="14sp"
-        app:layout_constraintBottom_toBottomOf="@+id/spinner_exercise"
-        app:layout_constraintEnd_toStartOf="@+id/text_reps_value"
-        app:layout_constraintTop_toTopOf="@+id/spinner_exercise" />
+        app:layout_constraintEnd_toStartOf="@+id/text_reps_value"/>
 
     <TextView
         android:id="@+id/text_reps_value"
@@ -39,23 +34,18 @@
         android:layout_height="wrap_content"
         android:ems="2"
         android:gravity="center"
-        android:text="12"
         android:textColor="@color/colorWhite"
         android:textSize="14sp"
-        app:layout_constraintBottom_toBottomOf="@+id/spinner_exercise"
-        app:layout_constraintEnd_toStartOf="@+id/sets_text_view"
-        app:layout_constraintTop_toTopOf="@+id/spinner_exercise" />
+        app:layout_constraintEnd_toStartOf="@+id/text_sets" />
 
     <TextView
-        android:id="@+id/sets_text_view"
+        android:id="@+id/text_sets"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Sets:"
+        android:text="@string/programs_sets_title"
         android:textColor="@color/colorWhite"
         android:textSize="14sp"
-        app:layout_constraintBottom_toBottomOf="@+id/spinner_exercise"
-        app:layout_constraintEnd_toStartOf="@+id/text_sets_value"
-        app:layout_constraintTop_toTopOf="@+id/spinner_exercise" />
+        app:layout_constraintEnd_toStartOf="@+id/text_sets_value" />
 
     <TextView
         android:id="@+id/text_sets_value"
@@ -64,10 +54,7 @@
         android:layout_marginEnd="8dp"
         android:ems="2"
         android:gravity="center"
-        android:text="12"
         android:textColor="@color/colorWhite"
         android:textSize="14sp"
-        app:layout_constraintBottom_toBottomOf="@+id/spinner_exercise"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/spinner_exercise" />
+        app:layout_constraintEnd_toEndOf="parent" />
 </android.support.constraint.ConstraintLayout>

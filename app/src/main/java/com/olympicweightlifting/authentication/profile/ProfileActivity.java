@@ -27,8 +27,8 @@ public class ProfileActivity extends AppCompatActivity {
     TextView textViewUsername;
     @BindView(R.id.text_user_account_status)
     TextView textViewAccountStatus;
-    @BindView(R.id.signout_button)
-    Button signoutButton;
+    @BindView(R.id.button_signout)
+    Button buttonSignout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,7 +42,7 @@ public class ProfileActivity extends AppCompatActivity {
         setFonts();
 
         setUserDetails(currentUser);
-        signoutButton.setOnClickListener(view -> signOut());
+        buttonSignout.setOnClickListener(view -> signOut());
 
     }
 

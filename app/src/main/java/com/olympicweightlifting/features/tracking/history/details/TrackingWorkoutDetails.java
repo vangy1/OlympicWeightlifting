@@ -18,14 +18,20 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.olympicweightlifting.R;
-import com.olympicweightlifting.features.tracking.TrackedWorkoutData;
+import com.olympicweightlifting.features.tracking.data.TrackedWorkoutData;
+import com.olympicweightlifting.features.tracking.history.TrackingHistoryRecyclerViewAdapter;
+import com.olympicweightlifting.utilities.ApplicationConstants;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 import static android.text.format.DateFormat.getDateFormat;
+import static com.olympicweightlifting.utilities.ApplicationConstants.FIREBASE_COLLECTION_USERS;
+import static com.olympicweightlifting.utilities.ApplicationConstants.FIREBASE_COLLECTION_WORKOUTS_TRACKED;
 
 public class TrackingWorkoutDetails extends Fragment {
+    public static final String TAG = TrackingWorkoutDetails.class.getCanonicalName();
+
     @BindView(R.id.text_workout_date)
     TextView textViewWorkoutDate;
     @BindView(R.id.recyclerview_workouts)
@@ -48,7 +54,7 @@ public class TrackingWorkoutDetails extends Fragment {
         View fragmentView = inflater.inflate(R.layout.fragment_tracking_workout_details, container, false);
         ButterKnife.bind(this, fragmentView);
 
-        trackedWorkout = new Gson().fromJson(getArguments().getString("workoutDetails"), new TypeToken<TrackedWorkoutData>() {
+        trackedWorkout = new Gson().fromJson(getArguments().getString(TrackingHistoryRecyclerViewAdapter.BUNDLE_WORKOUT_DETAILS), new TypeToken<TrackedWorkoutData>() {
         }.getType());
         textViewWorkoutDate.setText(getDateFormat(getActivity()).format(trackedWorkout.getDateOfWorkout()));
         setupRecyclerView();
@@ -72,7 +78,7 @@ public class TrackingWorkoutDetails extends Fragment {
 
     private void removeWorkoutFromFirestore() {
         FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
-        CollectionReference trackedWorkouts = FirebaseFirestore.getInstance().collection("users").document(currentUser.getUid()).collection("tracked_workouts");
+        CollectionReference trackedWorkouts = FirebaseFirestore.getInstance().collection(FIREBASE_COLLECTION_USERS).document(currentUser.getUid()).collection(FIREBASE_COLLECTION_WORKOUTS_TRACKED);
         trackedWorkouts.document(trackedWorkout.getDocumentId()).delete();
     }
 

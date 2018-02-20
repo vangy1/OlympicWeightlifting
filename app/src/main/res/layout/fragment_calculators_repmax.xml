@@ -6,12 +6,12 @@
     tools:context=".features.calculators.repmax.RepmaxCalculatorFragment">
 
     <TextView
-        android:id="@+id/weight_text_view"
+        android:id="@+id/text_weight"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
         android:layout_marginTop="12dp"
-        android:text="Weight"
+        android:text="@string/all_weight"
         android:textColor="@color/colorBlackText"
         android:textSize="@dimen/sinclair_calculator_fragment_input_info_text_size"
         app:layout_constraintStart_toStartOf="parent"
@@ -24,15 +24,15 @@
         android:layout_marginEnd="16dp"
         android:background="@android:color/transparent"
         android:gravity="end"
-        android:hint="@string/sinclair_calculator_fragment_total_input_hint"
+        android:hint="0"
         android:inputType="numberDecimal"
         android:maxLength="6"
         android:minEms="6"
         android:textColor="@color/colorBlackText"
         android:textSize="@dimen/sinclair_calculator_fragment_input_text_size"
-        app:layout_constraintBottom_toBottomOf="@+id/weight_text_view"
+        app:layout_constraintBottom_toBottomOf="@+id/text_weight"
         app:layout_constraintEnd_toStartOf="@+id/text_weight_units"
-        app:layout_constraintTop_toTopOf="@+id/weight_text_view" />
+        app:layout_constraintTop_toTopOf="@+id/text_weight" />
 
     <TextView
         android:id="@+id/text_weight_units"
@@ -41,11 +41,10 @@
         android:layout_gravity="center"
         android:layout_marginEnd="24dp"
         android:gravity="center"
-        android:text="kg"
         android:textSize="12sp"
-        app:layout_constraintBottom_toBottomOf="@+id/weight_text_view"
+        app:layout_constraintBottom_toBottomOf="@+id/text_weight"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/weight_text_view" />
+        app:layout_constraintTop_toTopOf="@+id/text_weight" />
 
     <View
         android:id="@+id/separator1"
@@ -53,46 +52,46 @@
         android:layout_height="@dimen/sinclair_calculator_fragment_row_separator_line_height"
         android:layout_marginTop="12dp"
         android:background="@color/separatorColor"
-        app:layout_constraintTop_toBottomOf="@id/weight_text_view" />
+        app:layout_constraintTop_toBottomOf="@id/text_weight" />
 
     <TextView
-        android:id="@+id/sets_text_view"
+        android:id="@+id/text_reps"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="12dp"
-        android:text="Reps"
+        android:text="@string/all_reps"
         android:textColor="@color/colorBlackText"
         android:textSize="@dimen/sinclair_calculator_fragment_input_info_text_size"
-        app:layout_constraintStart_toStartOf="@+id/weight_text_view"
+        app:layout_constraintStart_toStartOf="@+id/text_weight"
         app:layout_constraintTop_toBottomOf="@+id/separator1" />
 
     <EditText
-        android:id="@+id/edittext_sets"
+        android:id="@+id/edittext_reps"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@android:color/transparent"
         android:gravity="end"
-        android:hint="@string/sinclair_calculator_fragment_bodyweight_input_hint"
+        android:hint="0"
         android:inputType="numberDecimal"
         android:maxLength="6"
         android:minEms="6"
         android:textColor="@color/colorBlackText"
         android:textSize="@dimen/sinclair_calculator_fragment_input_text_size"
-        app:layout_constraintBottom_toBottomOf="@+id/sets_text_view"
+        app:layout_constraintBottom_toBottomOf="@+id/text_reps"
         app:layout_constraintEnd_toEndOf="@+id/edittext_weight"
-        app:layout_constraintTop_toTopOf="@+id/sets_text_view" />
+        app:layout_constraintTop_toTopOf="@+id/text_reps" />
 
     <TextView
-        android:id="@+id/reps_limit"
+        android:id="@+id/text_reps_limit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:text="(1-10)"
+        android:text="@string/calculators_loading_reps_limit"
         android:textSize="11sp"
-        app:layout_constraintBottom_toBottomOf="@+id/sets_text_view"
+        app:layout_constraintBottom_toBottomOf="@+id/text_reps"
         app:layout_constraintEnd_toEndOf="@+id/text_weight_units"
         app:layout_constraintStart_toStartOf="@+id/text_weight_units"
-        app:layout_constraintTop_toTopOf="@+id/sets_text_view" />
+        app:layout_constraintTop_toTopOf="@+id/text_reps" />
 
     <View
         android:id="@+id/separator2"
@@ -100,40 +99,40 @@
         android:layout_height="@dimen/sinclair_calculator_fragment_row_separator_line_height"
         android:layout_marginTop="12dp"
         android:background="@color/separatorColor"
-        app:layout_constraintTop_toBottomOf="@id/sets_text_view" />
+        app:layout_constraintTop_toBottomOf="@id/text_reps" />
 
     <TextView
-        android:id="@+id/type_text_view"
+        android:id="@+id/text_type"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="12dp"
-        android:text="Type"
+        android:text="@string/calculators_type"
         android:textColor="@color/colorBlackText"
         android:textSize="@dimen/sinclair_calculator_fragment_input_info_text_size"
-        app:layout_constraintStart_toStartOf="@+id/weight_text_view"
+        app:layout_constraintStart_toStartOf="@+id/text_weight"
         app:layout_constraintTop_toBottomOf="@+id/separator2" />
 
     <RadioGroup
-        android:id="@+id/calculation_type_radio_group"
+        android:id="@+id/radiogroup_calculation_type"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:checkedButton="@id/reps_radio_button"
+        android:checkedButton="@id/radiobutton_reps"
         android:orientation="horizontal"
-        app:layout_constraintBottom_toBottomOf="@+id/type_text_view"
+        app:layout_constraintBottom_toBottomOf="@+id/text_type"
         app:layout_constraintEnd_toEndOf="@+id/text_weight_units"
-        app:layout_constraintTop_toTopOf="@+id/type_text_view">
+        app:layout_constraintTop_toTopOf="@+id/text_type">
 
         <RadioButton
-            android:id="@+id/percentage_radio_button"
+            android:id="@+id/radiobutton_percentage"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Percentage" />
+            android:text="@string/calculators_percentage" />
 
         <RadioButton
-            android:id="@+id/reps_radio_button"
+            android:id="@+id/radiobutton_reps"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Reps" />
+            android:text="@string/all_reps" />
     </RadioGroup>
 
     <View
@@ -142,7 +141,7 @@
         android:layout_height="@dimen/sinclair_calculator_fragment_row_separator_line_height"
         android:layout_marginTop="12dp"
         android:background="@color/separatorColor"
-        app:layout_constraintTop_toBottomOf="@id/type_text_view" />
+        app:layout_constraintTop_toBottomOf="@id/text_type" />
 
 
     <Button
@@ -150,7 +149,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="6dp"
-        android:text="@string/sinclair_calculator_fragment_calculate_button_text"
+        android:text="@string/calculators_calculate"
         app:layout_constraintTop_toBottomOf="@id/separator3" />
 
     <android.support.v7.widget.RecyclerView

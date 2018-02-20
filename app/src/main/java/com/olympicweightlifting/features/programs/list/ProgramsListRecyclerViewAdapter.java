@@ -21,6 +21,8 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class ProgramsListRecyclerViewAdapter extends RecyclerView.Adapter<ProgramsListRecyclerViewAdapter.ViewHolder> {
+    public static final String BUNDLE_PROGRAM_DETAILS = "BUNDLE_PROGRAM_DETAILS";
+
     private Activity activity;
 
     private List<Program> programList;
@@ -38,7 +40,7 @@ public class ProgramsListRecyclerViewAdapter extends RecyclerView.Adapter<Progra
         }
     }
 
-    public ProgramsListRecyclerViewAdapter(List<Program> programList, Activity actvitiy) {
+    ProgramsListRecyclerViewAdapter(List<Program> programList, Activity actvitiy) {
         this.programList = programList;
         this.activity = actvitiy;
 
@@ -64,11 +66,11 @@ public class ProgramsListRecyclerViewAdapter extends RecyclerView.Adapter<Progra
 
     private void showWorkoutDetails(Program program) {
         Bundle bundle = new Bundle();
-        bundle.putString("programDetails", new Gson().toJson(program));
+        bundle.putString(BUNDLE_PROGRAM_DETAILS, new Gson().toJson(program));
         ProgramDetails programDetails = ProgramDetails.newInstance(bundle);
         activity.getFragmentManager().beginTransaction()
                 .replace(R.id.fragment_container_programs, programDetails)
-                .addToBackStack("programDetailsFragment")
+                .addToBackStack(ProgramDetails.TAG)
                 .commit();
 
         View workoutDetailsFragmentContainer = activity.findViewById(R.id.fragment_container_programs);

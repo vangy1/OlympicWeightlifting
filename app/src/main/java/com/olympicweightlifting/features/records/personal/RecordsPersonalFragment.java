@@ -28,7 +28,6 @@ import com.olympicweightlifting.R;
 import com.olympicweightlifting.data.local.AppDatabase;
 import com.olympicweightlifting.features.helpers.exercisemanager.Exercise;
 import com.olympicweightlifting.features.helpers.exercisemanager.ExerciseManagerDialog;
-import com.olympicweightlifting.utilities.AppLevelConstants;
 
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -48,10 +47,11 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
 import static android.text.format.DateFormat.getDateFormat;
+import static com.olympicweightlifting.utilities.ApplicationConstants.*;
 
 
 public class RecordsPersonalFragment extends DaggerFragment implements DatePickerDialog.OnDateSetListener, ExerciseManagerDialog.OnExerciseListChangedListener {
-    @BindView(R.id.records_recycler_view)
+    @BindView(R.id.recyclerview_records)
     RecyclerView recordsRecyclerView;
 
     @BindView(R.id.edittext_weight)
@@ -88,7 +88,7 @@ public class RecordsPersonalFragment extends DaggerFragment implements DatePicke
         View fragmentView = inflater.inflate(R.layout.fragment_records_personal, container, false);
         ButterKnife.bind(this, fragmentView);
         dateFormat = getDateFormat(getActivity());
-        String units = sharedPreferences.getString(getString(R.string.settings_units), AppLevelConstants.Units.KG.toString());
+        String units = sharedPreferences.getString(PREF_UNITS, Units.KG.toString());
 
         textWeightUnits.setText(units.toLowerCase());
         setupSpinner();
@@ -99,16 +99,16 @@ public class RecordsPersonalFragment extends DaggerFragment implements DatePicke
         buttonExerciseManager.setOnClickListener(view -> {
             ExerciseManagerDialog exerciseManagerDialog = new ExerciseManagerDialog();
             exerciseManagerDialog.setTargetFragment(this, 0);
-            exerciseManagerDialog.show(getFragmentManager(), "exerciseManagerDialog");
+            exerciseManagerDialog.show(getFragmentManager(), ExerciseManagerDialog.TAG);
         });
 
         buttonSave.setOnClickListener(view -> {
             try {
                 RecordsPersonalData recordsPersonalData = new RecordsPersonalData(Double.parseDouble(editTextWeight.getText().toString()), units,
                         Integer.parseInt(editTextReps.getText().toString()), spinnerExercise.getSelectedItem().toString(), currentDate);
-                FirebaseFirestore.getInstance().collection("users").document(currentUser.getUid()).collection("personal_records").add(recordsPersonalData);
+                FirebaseFirestore.getInstance().collection(FIREBASE_COLLECTION_USERS).document(currentUser.getUid()).collection(FIREBASE_COLLECTION_RECORDS_PERSONAL).add(recordsPersonalData);
             } catch (Exception exception) {
-                Toast.makeText(getActivity(), "Fill out all information!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), getString(R.string.all_insufficient_input), Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -145,7 +145,7 @@ public class RecordsPersonalFragment extends DaggerFragment implements DatePicke
     }
 
     private void populateRecyclerViewFromFirestore() {
-        CollectionReference personalRecordsCollection = FirebaseFirestore.getInstance().collection("users").document(currentUser.getUid()).collection("personal_records");
+        CollectionReference personalRecordsCollection = FirebaseFirestore.getInstance().collection(FIREBASE_COLLECTION_USERS).document(currentUser.getUid()).collection(FIREBASE_COLLECTION_RECORDS_PERSONAL);
         personalRecordsCollection.orderBy("dateAdded", Query.Direction.DESCENDING).addSnapshotListener((documentSnapshots, e) -> {
             recordsPersonalDataList.clear();
             for (DocumentSnapshot documentSnapshot : documentSnapshots) {

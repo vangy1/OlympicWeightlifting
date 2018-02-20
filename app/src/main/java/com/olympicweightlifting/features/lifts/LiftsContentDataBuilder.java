@@ -8,11 +8,11 @@ import com.olympicweightlifting.R;
 import java.util.ArrayList;
 import java.util.List;
 
-public class LiftsContentDataUtility {
+public class LiftsContentDataBuilder {
 
     private final Context context;
 
-    public LiftsContentDataUtility(Context context) {
+    public LiftsContentDataBuilder(Context context) {
         this.context = context;
     }
 

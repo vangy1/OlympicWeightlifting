@@ -28,6 +28,8 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
 public class ExerciseManagerDialog extends DaggerAppCompatDialogFragment {
+    public static final String TAG = ExerciseManagerDialog.class.getCanonicalName();
+
     @BindView(R.id.text_dialog_title)
     TextView textViewDialogTitle;
     @BindView(R.id.edittext_exercise_to_add)

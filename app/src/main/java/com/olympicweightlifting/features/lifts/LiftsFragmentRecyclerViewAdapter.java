@@ -26,7 +26,6 @@ public class LiftsFragmentRecyclerViewAdapter extends RecyclerView.Adapter<Lifts
 
     private Set<Integer> expandedCards = new HashSet<>();
 
-
     static class ViewHolder extends RecyclerView.ViewHolder {
         @BindView(R.id.text_title)
         TextView textViewTitle;

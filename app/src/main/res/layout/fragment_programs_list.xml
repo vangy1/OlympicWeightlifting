@@ -14,8 +14,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center"
-        android:text="No programs created yet!"
+        android:text="@string/programs_empty_history"
         android:textColor="@color/colorGreyText"
         android:textSize="22sp" />
-
 </FrameLayout>

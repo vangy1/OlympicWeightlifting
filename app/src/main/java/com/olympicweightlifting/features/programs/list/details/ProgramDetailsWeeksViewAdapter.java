@@ -54,7 +54,7 @@ public class ProgramDetailsWeeksViewAdapter extends RecyclerView.Adapter<Program
     @Override
     public void onBindViewHolder(ProgramDetailsWeeksViewAdapter.ViewHolder viewHolder, int position) {
         ProgramWeek currentProgramWeek = weeks.get(position);
-        viewHolder.weekTitle.setText(String.format("Week %s", String.valueOf(position + 1)));
+        viewHolder.weekTitle.setText(String.format(context.getString(R.string.all_week) + " %s", String.valueOf(position + 1)));
         setupRecyclerView(viewHolder.daysRecyclerView, currentProgramWeek);
     }
 

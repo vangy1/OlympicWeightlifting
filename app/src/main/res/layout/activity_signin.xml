@@ -11,7 +11,8 @@
         android:layout_height="0dp"
         android:layout_gravity="center"
         android:layout_weight="1"
-        android:src="@drawable/logo" />
+        android:src="@drawable/logo"
+        android:contentDescription="@string/signin_logo_content_description" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -30,7 +31,7 @@
             android:layout_margin="@dimen/signin_activity_button_margin"
             android:backgroundTint="#FFFFFF"
             android:drawableStart="@drawable/ic_google"
-            android:text="@string/google_signin_button_text"
+            android:text="@string/signin_google_prompt"
             android:textColor="#000000" />
 
         <Button
@@ -41,7 +42,7 @@
             android:layout_margin="@dimen/signin_activity_button_margin"
             android:backgroundTint="#3C5A96"
             android:drawableStart="@drawable/ic_facebook"
-            android:text="@string/facebook_signin_button_text" />
+            android:text="@string/signin_facebook_prompt" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -59,7 +60,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="@dimen/signin_buttons_separator_text_margin_right"
                 android:layout_marginStart="@dimen/signin_buttons_separator_text_margin_left"
-                android:text="@string/signin_buttons_separator_text" />
+                android:text="@string/signin_separator_or" />
 
             <View
                 android:layout_width="0dp"
@@ -75,6 +76,6 @@
             android:layout_gravity="center"
             android:layout_margin="@dimen/signin_activity_button_margin"
             android:drawableStart="@drawable/ic_user"
-            android:text="@string/anonymous_signin_button_text" />
+            android:text="@string/signin_anonymous_prompt" />
     </LinearLayout>
 </LinearLayout>

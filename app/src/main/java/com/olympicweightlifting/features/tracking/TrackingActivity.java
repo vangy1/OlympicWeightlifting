@@ -6,6 +6,7 @@ import android.support.v4.view.ViewPager;
 import android.widget.FrameLayout;
 
 import com.olympicweightlifting.R;
+import com.olympicweightlifting.mainpage.FeaturesRecyclerViewAdapter;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -13,9 +14,9 @@ import dagger.android.support.DaggerAppCompatActivity;
 
 public class TrackingActivity extends DaggerAppCompatActivity {
 
-    @BindView(R.id.tab_layout)
+    @BindView(R.id.tablayout)
     TabLayout tabLayout;
-    @BindView(R.id.view_pager)
+    @BindView(R.id.viewpager)
     ViewPager viewPager;
 
     @BindView(R.id.fragment_container_workouts)
@@ -32,8 +33,8 @@ public class TrackingActivity extends DaggerAppCompatActivity {
     }
 
     private void setupTabLayout() {
-        tabLayout.addTab(tabLayout.newTab().setText("Track new"));
-        tabLayout.addTab(tabLayout.newTab().setText("History"));
+        tabLayout.addTab(tabLayout.newTab().setText(R.string.tracking_tab_new));
+        tabLayout.addTab(tabLayout.newTab().setText(R.string.tracking_tab_history));
         tabLayout.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(viewPager) {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
@@ -45,7 +46,7 @@ public class TrackingActivity extends DaggerAppCompatActivity {
     private void setupViewPager() {
         viewPager.setAdapter(new TrackingPagerAdapter(getSupportFragmentManager()));
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
-        int fragmentIndex = getIntent().getIntExtra(getString(R.string.extra_fragment_index), 0);
+        int fragmentIndex = getIntent().getIntExtra(FeaturesRecyclerViewAdapter.BUNDLE_FRAGMENT_INDEX, 0);
         viewPager.setCurrentItem(fragmentIndex);
     }
 }

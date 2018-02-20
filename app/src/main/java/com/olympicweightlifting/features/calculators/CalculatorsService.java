@@ -10,8 +10,9 @@ import android.widget.TextView;
 
 import com.mikepenz.itemanimators.SlideRightAlphaAnimator;
 import com.olympicweightlifting.R;
-import com.olympicweightlifting.utilities.AppLevelConstants.Gender;
-import com.olympicweightlifting.utilities.AppLevelConstants.Units;
+import com.olympicweightlifting.utilities.ApplicationConstants;
+import com.olympicweightlifting.utilities.ApplicationConstants.Gender;
+import com.olympicweightlifting.utilities.ApplicationConstants.Units;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,6 +24,7 @@ import io.reactivex.Maybe;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
+import static com.olympicweightlifting.utilities.ApplicationConstants.PREF_UNITS;
 import static java.lang.Math.log10;
 import static java.lang.Math.pow;
 
@@ -45,7 +47,7 @@ public class CalculatorsService {
     }
 
     public void setUnitsForViews(TextView... textViews) {
-        String units = sharedPreferences.getString(context.getString(R.string.settings_units), Units.KG.toString()).toLowerCase();
+        String units = sharedPreferences.getString(PREF_UNITS, Units.KG.toString()).toLowerCase();
         for (TextView textView : textViews) {
             textView.setText(units);
         }
@@ -92,7 +94,7 @@ public class CalculatorsService {
     }
 
     public double calculateSinclair(double total, double bodyweight, Gender gender) {
-        Units units = Units.valueOf(sharedPreferences.getString(context.getString(R.string.settings_units), Units.KG.toString()));
+        Units units = Units.valueOf(sharedPreferences.getString(PREF_UNITS, Units.KG.toString()));
         if (units == Units.LB) {
             total /= 2.268;
             bodyweight /= 2.268;
@@ -168,6 +170,6 @@ public class CalculatorsService {
 
 
     public String getUnits() {
-        return sharedPreferences.getString(context.getString(R.string.settings_units), Units.KG.toString()).toLowerCase();
+        return sharedPreferences.getString(PREF_UNITS, Units.KG.toString()).toLowerCase();
     }
 }

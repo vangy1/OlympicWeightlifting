@@ -41,7 +41,7 @@ public class LiftsFragment extends Fragment {
         View fragmentView = inflater.inflate(R.layout.fragment_lifts, container, false);
         ButterKnife.bind(this, fragmentView);
 
-        setupRecyclerView(new Gson().fromJson(getArguments().getString(getString(R.string.lifts_content_data_list)), new TypeToken<List<LiftsContentData>>() {
+        setupRecyclerView(new Gson().fromJson(getArguments().getString(LiftsPagerAdapter.BUNDLE_LIFTS_FRAGMENT_DATA), new TypeToken<List<LiftsContentData>>() {
         }.getType()));
         setupFloatingButton((ViewGroup) fragmentView);
 
@@ -55,7 +55,7 @@ public class LiftsFragment extends Fragment {
     }
 
     private void setupFloatingButton(ViewGroup fragmentView) {
-        String videoUrl = getArguments().getString(getString(R.string.floating_button_video_url));
+        String videoUrl = getArguments().getString(LiftsPagerAdapter.BUNDLE_LIFTS_VIDEO_URL);
         if (videoUrl == null) {
             fragmentView.removeView(floatingActionButtonYoutube);
         } else {

@@ -5,7 +5,7 @@
     tools:context="com.olympicweightlifting.features.records.world.RecordsWorldFragment">
 
     <android.support.v7.widget.RecyclerView
-        android:id="@+id/records_recycler_view"
+        android:id="@+id/recyclerview_records"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 

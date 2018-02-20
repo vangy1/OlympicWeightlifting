@@ -14,6 +14,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.olympicweightlifting.R;
+import com.olympicweightlifting.utilities.ApplicationConstants;
 
 import java.text.DateFormat;
 import java.util.List;
@@ -22,6 +23,8 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 import static android.text.format.DateFormat.getDateFormat;
+import static com.olympicweightlifting.utilities.ApplicationConstants.FIREBASE_COLLECTION_RECORDS_PERSONAL;
+import static com.olympicweightlifting.utilities.ApplicationConstants.FIREBASE_COLLECTION_USERS;
 
 /**
  * Created by vangor on 01/02/2018.
@@ -35,7 +38,7 @@ public class RecordsPersonalRecyclerViewAdapter extends RecyclerView.Adapter<Rec
 
     static class ViewHolder extends RecyclerView.ViewHolder {
         @BindView(R.id.layout_records)
-        ConstraintLayout recordsLayout;
+        ConstraintLayout layoutRecords;
 
         @BindView(R.id.text_exercise_name)
         TextView textViewExerciseName;
@@ -68,9 +71,9 @@ public class RecordsPersonalRecyclerViewAdapter extends RecyclerView.Adapter<Rec
     @Override
     public void onBindViewHolder(RecordsPersonalRecyclerViewAdapter.ViewHolder viewHolder, int position) {
         RecordsPersonalData currentRecordsPersonalData = recordsPersonalDataList.get(position);
-        viewHolder.recordsLayout.setOnLongClickListener(view -> {
+        viewHolder.layoutRecords.setOnLongClickListener(view -> {
             FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
-            CollectionReference personalRecords = FirebaseFirestore.getInstance().collection("users").document(currentUser.getUid()).collection("personal_records");
+            CollectionReference personalRecords = FirebaseFirestore.getInstance().collection(FIREBASE_COLLECTION_USERS).document(currentUser.getUid()).collection(FIREBASE_COLLECTION_RECORDS_PERSONAL);
             personalRecords.document(recordsPersonalDataList.get(viewHolder.getAdapterPosition()).getDocumentId()).delete();
             return true;
         });

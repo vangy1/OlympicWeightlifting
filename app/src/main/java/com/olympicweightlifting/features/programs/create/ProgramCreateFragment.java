@@ -21,6 +21,7 @@ import com.olympicweightlifting.features.helpers.exercisemanager.ExerciseManager
 import com.olympicweightlifting.features.programs.data.Program;
 import com.olympicweightlifting.features.programs.data.ProgramDay;
 import com.olympicweightlifting.features.programs.data.ProgramWeek;
+import com.olympicweightlifting.utilities.ApplicationConstants;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -33,6 +34,9 @@ import butterknife.ButterKnife;
 import dagger.android.support.DaggerFragment;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
+
+import static com.olympicweightlifting.utilities.ApplicationConstants.FIREBASE_COLLECTION_PROGRAMS;
+import static com.olympicweightlifting.utilities.ApplicationConstants.FIREBASE_COLLECTION_USERS;
 
 
 public class ProgramCreateFragment extends DaggerFragment implements ExerciseManagerDialog.OnExerciseListChangedListener {
@@ -65,7 +69,7 @@ public class ProgramCreateFragment extends DaggerFragment implements ExerciseMan
         buttonExerciseManager.setOnClickListener(view -> {
             ExerciseManagerDialog exerciseManagerDialog = new ExerciseManagerDialog();
             exerciseManagerDialog.setTargetFragment(ProgramCreateFragment.this, 0);
-            exerciseManagerDialog.show(ProgramCreateFragment.this.getFragmentManager(), "exerciseManagerDialog");
+            exerciseManagerDialog.show(ProgramCreateFragment.this.getFragmentManager(), ExerciseManagerDialog.TAG);
         });
 
         database.exerciseDao().getAll().subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe((queriedExercises) -> {
@@ -80,14 +84,14 @@ public class ProgramCreateFragment extends DaggerFragment implements ExerciseMan
                 program.setProgramTitle(editTextProgramName.getText().toString());
                 try {
                     saveProgramToFirestore();
-                    Toast.makeText(getActivity(), editTextProgramName.getText().toString() + " program was saved", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), editTextProgramName.getText().toString() + getString(R.string.programs_saved), Toast.LENGTH_SHORT).show();
                     clearOldProgram();
                 } catch (Exception exception) {
                     exception.printStackTrace();
-                    Toast.makeText(getActivity(), "Something went wrong while saving your program!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), R.string.programs_error_while_saving, Toast.LENGTH_SHORT).show();
                 }
             } else {
-                Toast.makeText(getActivity(), "Fill out program name!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), R.string.programs_name_error_input, Toast.LENGTH_SHORT).show();
             }
 
         });
@@ -105,7 +109,7 @@ public class ProgramCreateFragment extends DaggerFragment implements ExerciseMan
 
     private void saveProgramToFirestore() {
         FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
-        FirebaseFirestore.getInstance().collection("users").document(currentUser.getUid()).collection("programs").add(program);
+        FirebaseFirestore.getInstance().collection(FIREBASE_COLLECTION_USERS).document(currentUser.getUid()).collection(FIREBASE_COLLECTION_PROGRAMS).add(program);
     }
 
     private void clearOldProgram() {

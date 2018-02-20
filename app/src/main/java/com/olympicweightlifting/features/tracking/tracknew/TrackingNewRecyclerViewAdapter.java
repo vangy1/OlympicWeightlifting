@@ -10,7 +10,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.olympicweightlifting.R;
-import com.olympicweightlifting.features.tracking.TrackedExerciseData;
+import com.olympicweightlifting.features.tracking.data.TrackedExerciseData;
 
 import java.util.List;
 
@@ -44,7 +44,7 @@ public class TrackingNewRecyclerViewAdapter extends RecyclerView.Adapter<Trackin
         }
     }
 
-    public TrackingNewRecyclerViewAdapter(List<TrackedExerciseData> trackedExerciseData, Context context) {
+    TrackingNewRecyclerViewAdapter(List<TrackedExerciseData> trackedExerciseData, Context context) {
         this.trackedExercisesList = trackedExerciseData;
         this.context = context;
     }

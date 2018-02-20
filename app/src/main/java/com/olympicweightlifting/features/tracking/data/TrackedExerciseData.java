@@ -1,4 +1,4 @@
-package com.olympicweightlifting.features.tracking;
+package com.olympicweightlifting.features.tracking.data;
 
 import java.text.DecimalFormat;
 

@@ -15,10 +15,10 @@
 
 
     <TextView
-        android:id="@+id/reps_text_view"
+        android:id="@+id/text_reps"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Reps:"
+        android:text="@string/programs_reps_title"
         android:textColor="@color/colorGreyText"
         android:textSize="14sp"
         app:layout_constraintBottom_toBottomOf="@+id/spinner_exercise"
@@ -32,21 +32,21 @@
         android:background="@android:color/transparent"
         android:ems="2"
         android:gravity="center"
-        android:hint="@string/sinclair_calculator_fragment_bodyweight_input_hint"
+        android:hint="0"
         android:inputType="number"
         android:maxLength="2"
         android:nextFocusDown="@id/edittext_sets"
         android:textColor="#444444"
         android:textSize="14sp"
         app:layout_constraintBottom_toBottomOf="@+id/spinner_exercise"
-        app:layout_constraintEnd_toStartOf="@+id/sets_text_view"
+        app:layout_constraintEnd_toStartOf="@+id/text_sets"
         app:layout_constraintTop_toTopOf="@+id/spinner_exercise" />
 
     <TextView
-        android:id="@+id/sets_text_view"
+        android:id="@+id/text_sets"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Sets:"
+        android:text="@string/programs_sets_title"
         android:textColor="@color/colorGreyText"
         android:textSize="14sp"
         app:layout_constraintBottom_toBottomOf="@+id/spinner_exercise"
@@ -61,7 +61,7 @@
         android:background="@android:color/transparent"
         android:ems="2"
         android:gravity="center"
-        android:hint="@string/sinclair_calculator_fragment_bodyweight_input_hint"
+        android:hint="0"
         android:imeOptions="actionDone"
         android:inputType="number"
         android:maxLength="2"
@@ -75,9 +75,8 @@
         android:id="@+id/button_add_exercise"
         android:layout_width="wrap_content"
         android:layout_height="42dp"
-        android:text="Add exercise"
+        android:text="@string/programs_add_exercise"
         android:textColor="@color/colorWhite"
-        app:layout_constraintEnd_toStartOf="@+id/button_exercise_manager"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintStart_toStartOf="@+id/spinner_exercise"
         app:layout_constraintTop_toBottomOf="@+id/spinner_exercise" />

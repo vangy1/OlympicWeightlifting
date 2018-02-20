@@ -22,7 +22,7 @@ import com.olympicweightlifting.authentication.profile.ProfileActivity;
 import com.olympicweightlifting.data.local.AppDatabase;
 import com.olympicweightlifting.features.calculators.CalculatorsActivity;
 import com.olympicweightlifting.features.lifts.LiftsActivity;
-import com.olympicweightlifting.features.lifts.LiftsContentDataUtility;
+import com.olympicweightlifting.features.lifts.LiftsContentDataBuilder;
 import com.olympicweightlifting.features.programs.ProgramsActivity;
 import com.olympicweightlifting.features.records.RecordsActivity;
 import com.olympicweightlifting.features.tracking.TrackingActivity;
@@ -34,6 +34,9 @@ import butterknife.ButterKnife;
 import dagger.android.support.DaggerAppCompatActivity;
 
 public class MainActivity extends DaggerAppCompatActivity implements AuthenticationActivity {
+    public static final String BUNDLE_LIFTS_ACTIVITY_DATA = "LIFTS_ACTIVITY_DATA";
+    public static final String BUNDLE_LIFTS_HEADER_IMAGE = "BUNDLE_LIFTS_HEADER_IMAGE";
+
     @BindView(R.id.toolbar)
     Toolbar toolbar;
     @BindView(R.id.text_toolbar_title)
@@ -74,18 +77,18 @@ public class MainActivity extends DaggerAppCompatActivity implements Authenticat
 
     private void setupAndPopulateRecyclerAdapter() {
         Resources resources = getResources();
-        LiftsContentDataUtility liftsContentDataUtility = new LiftsContentDataUtility(getApplicationContext());
+        LiftsContentDataBuilder liftsContentDataBuilder = new LiftsContentDataBuilder(getApplicationContext());
 
-        Bundle snatchActivityBundle = getLiftsBundle(new Gson().toJson(liftsContentDataUtility.getContentDataSnatch()), R.drawable.lifts_image_snatch);
-        FeatureDataset snatchDataset = new FeatureDataset(resources.getString(R.string.snatch), resources.getStringArray(R.array.snatch_shortcuts), R.drawable.feature_image_snatch, LiftsActivity.class, snatchActivityBundle);
+        Bundle snatchActivityBundle = getLiftsBundle(new Gson().toJson(liftsContentDataBuilder.getContentDataSnatch()), R.drawable.lifts_image_snatch);
+        FeatureDataset snatchDataset = new FeatureDataset(resources.getString(R.string.all_snatch), resources.getStringArray(R.array.snatch_shortcuts), R.drawable.feature_image_snatch, LiftsActivity.class, snatchActivityBundle);
 
-        Bundle cajActivityBundle = getLiftsBundle(new Gson().toJson(liftsContentDataUtility.getContentDataCaj()), R.drawable.lifts_image_caj);
-        FeatureDataset cajDataset = new FeatureDataset(resources.getString(R.string.caj), resources.getStringArray(R.array.caj_shortcuts), R.drawable.feature_image_caj, LiftsActivity.class, cajActivityBundle);
+        Bundle cajActivityBundle = getLiftsBundle(new Gson().toJson(liftsContentDataBuilder.getContentDataCaj()), R.drawable.lifts_image_caj);
+        FeatureDataset cajDataset = new FeatureDataset(resources.getString(R.string.all_caj), resources.getStringArray(R.array.caj_shortcuts), R.drawable.feature_image_caj, LiftsActivity.class, cajActivityBundle);
 
-        FeatureDataset calculatorsDataset = new FeatureDataset(resources.getString(R.string.calculators), resources.getStringArray(R.array.calculators_shortcuts), R.drawable.feature_image_calculators, CalculatorsActivity.class);
-        FeatureDataset programsDataset = new FeatureDataset(resources.getString(R.string.programs), resources.getStringArray(R.array.programs_shortcuts), R.drawable.feature_image_programs, ProgramsActivity.class);
-        FeatureDataset trackingDataset = new FeatureDataset(resources.getString(R.string.tracking), resources.getStringArray(R.array.tracking_shortcuts), R.drawable.feature_image_tracking, TrackingActivity.class);
-        FeatureDataset recordsDataset = new FeatureDataset(resources.getString(R.string.records), resources.getStringArray(R.array.records_shortcuts), R.drawable.feature_image_records, RecordsActivity.class);
+        FeatureDataset calculatorsDataset = new FeatureDataset(resources.getString(R.string.all_calculators), resources.getStringArray(R.array.calculators_shortcuts), R.drawable.feature_image_calculators, CalculatorsActivity.class);
+        FeatureDataset programsDataset = new FeatureDataset(resources.getString(R.string.all_programs), resources.getStringArray(R.array.programs_shortcuts), R.drawable.feature_image_programs, ProgramsActivity.class);
+        FeatureDataset trackingDataset = new FeatureDataset(resources.getString(R.string.all_tracking), resources.getStringArray(R.array.tracking_shortcuts), R.drawable.feature_image_tracking, TrackingActivity.class);
+        FeatureDataset recordsDataset = new FeatureDataset(resources.getString(R.string.all_records), resources.getStringArray(R.array.records_shortcuts), R.drawable.feature_image_records, RecordsActivity.class);
 
         RecyclerView.Adapter recyclerViewAdapter = new FeaturesRecyclerViewAdapter(new FeatureDataset[]{snatchDataset, cajDataset, calculatorsDataset, programsDataset, trackingDataset, recordsDataset}, this);
         recyclerViewFeatures.setAdapter(recyclerViewAdapter);
@@ -93,8 +96,8 @@ public class MainActivity extends DaggerAppCompatActivity implements Authenticat
 
     private Bundle getLiftsBundle(String activityDataSerialized, int activityHeaderImage) {
         Bundle bundle = new Bundle();
-        bundle.putInt(getString(R.string.lifts_header_image), activityHeaderImage);
-        bundle.putString(getString(R.string.lifts_activity_data), activityDataSerialized);
+        bundle.putInt(BUNDLE_LIFTS_HEADER_IMAGE, activityHeaderImage);
+        bundle.putString(BUNDLE_LIFTS_ACTIVITY_DATA, activityDataSerialized);
         return bundle;
     }
 
@@ -125,7 +128,7 @@ public class MainActivity extends DaggerAppCompatActivity implements Authenticat
             startActivity(new Intent(this, ProfileActivity.class));
         } else if (item.getItemId() == R.id.signin) {
             signInDialog = new SignInDialog();
-            signInDialog.show(getSupportFragmentManager(), getString(R.string.signin_dialog_fragment_tag));
+            signInDialog.show(getSupportFragmentManager(), SignInDialog.TAG);
         }
 
         return super.onOptionsItemSelected(item);
@@ -133,7 +136,7 @@ public class MainActivity extends DaggerAppCompatActivity implements Authenticat
 
     private void showSettingsDialog() {
         SettingsDialog settingsDialog = new SettingsDialog();
-        settingsDialog.show(getSupportFragmentManager(), getString(R.string.settings_dialog_fragment_tag));
+        settingsDialog.show(getSupportFragmentManager(), SettingsDialog.TAG);
     }
 
     @Override
@@ -150,6 +153,6 @@ public class MainActivity extends DaggerAppCompatActivity implements Authenticat
     @Override
     public void authenticationSuccess(FirebaseUser user) {
         signInDialog.dismiss();
-        Toast.makeText(this, "Signed in as " + user.getDisplayName(), Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, getString(R.string.signin_profile_identification) + user.getDisplayName(), Toast.LENGTH_SHORT).show();
     }
 }

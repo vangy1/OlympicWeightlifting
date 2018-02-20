@@ -61,6 +61,6 @@ public class SignInActivity extends AppCompatActivity implements AuthenticationA
     @Override
     public void authenticationSuccess(FirebaseUser user) {
         moveToMainActivity();
-        Toast.makeText(this, "Signed in as " + user.getDisplayName(), Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, getString(R.string.signin_profile_identification) + user.getDisplayName(), Toast.LENGTH_SHORT).show();
     }
 }

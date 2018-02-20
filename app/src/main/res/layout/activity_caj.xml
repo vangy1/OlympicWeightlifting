@@ -19,7 +19,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:adjustViewBounds="true"
-                android:contentDescription="Clean and Jerk lift picture"
+                android:contentDescription="@string/lifts_caj_content_description"
                 android:scaleType="centerCrop"
                 android:src="@drawable/lifts_image_caj" />
 

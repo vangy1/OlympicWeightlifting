@@ -16,7 +16,7 @@ import android.widget.Toast;
 import com.olympicweightlifting.R;
 import com.olympicweightlifting.data.local.AppDatabase;
 import com.olympicweightlifting.features.calculators.CalculatorsService;
-import com.olympicweightlifting.utilities.AppLevelConstants.Gender;
+import com.olympicweightlifting.utilities.ApplicationConstants.Gender;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,13 +32,13 @@ import io.reactivex.schedulers.Schedulers;
 
 
 public class SinclairCalculatorFragment extends DaggerFragment {
-    @BindView(R.id.total_edit_text)
+    @BindView(R.id.edittext_total)
     EditText editTextTotal;
-    @BindView(R.id.total_units)
+    @BindView(R.id.text_total_units)
     TextView textTotalUnits;
     @BindView(R.id.edittext_bodyweight)
     EditText editTextBodyweight;
-    @BindView(R.id.bodyweight_units)
+    @BindView(R.id.text_bodyweight_units)
     TextView textBodyweightUnits;
     @BindView(R.id.radiogroup_gender)
     RadioGroup radioGroupGender;

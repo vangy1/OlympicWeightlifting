@@ -51,7 +51,7 @@ public class ProgramWeeksViewAdapter extends RecyclerView.Adapter<ProgramWeeksVi
 
         @Override
         void bind(List<ProgramWeek> weeks, List<String> exerciseList, ProgramWeeksViewAdapter programWeeksViewAdapter, LayoutManager layoutManager, Context context) {
-            textViewTitleWeek.setText(String.format("Week %s", String.valueOf(getAdapterPosition() + 1)));
+            textViewTitleWeek.setText(String.format(context.getString(R.string.all_week) + " %s", String.valueOf(getAdapterPosition() + 1)));
             setupRecyclerView(recyclerViewDays, weeks.get(getAdapterPosition()), context, exerciseList);
 
             layoutItem.setOnLongClickListener(view -> removeWeekAtPosition(weeks, getAdapterPosition(), programWeeksViewAdapter));

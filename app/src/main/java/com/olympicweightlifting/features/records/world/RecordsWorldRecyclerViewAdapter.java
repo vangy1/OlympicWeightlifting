@@ -26,8 +26,8 @@ import static android.text.format.DateFormat.getDateFormat;
 
 public class RecordsWorldRecyclerViewAdapter extends RecyclerView.Adapter<RecordsWorldRecyclerViewAdapter.ViewHolder> {
     private List<WorldCategoryRecordsData> worldCategoryRecordsDataList;
-
     private DateFormat dateFormat;
+    private Context context;
 
     static class ViewHolder extends RecyclerView.ViewHolder {
         @BindView(R.id.layout_records)
@@ -64,6 +64,7 @@ public class RecordsWorldRecyclerViewAdapter extends RecyclerView.Adapter<Record
 
     public RecordsWorldRecyclerViewAdapter(List<WorldCategoryRecordsData> worldCategoryRecordsDataList, Context context) {
         this.worldCategoryRecordsDataList = worldCategoryRecordsDataList;
+        this.context = context;
         dateFormat = getDateFormat(context);
     }
 
@@ -89,7 +90,7 @@ public class RecordsWorldRecyclerViewAdapter extends RecyclerView.Adapter<Record
     }
 
     private void setRecords(WorldRecordData recordData, TextView liftedWeight, TextView recordHolder, TextView dateOfRecord) {
-        liftedWeight.setText(String.valueOf(recordData.getWeightLiftedInKg() + " kg"));
+        liftedWeight.setText(String.valueOf(String.format("%d " + context.getString(R.string.all_unit_kg), recordData.getWeightLiftedInKg())));
         recordHolder.setText(recordData.getRecordHolderName());
         dateOfRecord.setText(dateFormat.format(recordData.getDateOfRecord()));
     }

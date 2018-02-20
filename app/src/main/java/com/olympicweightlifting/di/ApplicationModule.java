@@ -12,6 +12,7 @@ import com.olympicweightlifting.R;
 import com.olympicweightlifting.data.local.AppDatabase;
 import com.olympicweightlifting.features.calculators.CalculatorsService;
 import com.olympicweightlifting.features.helpers.exercisemanager.Exercise;
+import com.olympicweightlifting.utilities.ApplicationConstants;
 
 import javax.inject.Named;
 import javax.inject.Singleton;
@@ -21,6 +22,9 @@ import dagger.Provides;
 import io.reactivex.Completable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
+
+import static com.olympicweightlifting.utilities.ApplicationConstants.DATBASE_NAME;
+import static com.olympicweightlifting.utilities.ApplicationConstants.PREF_UNITS;
 
 @Module
 public abstract class ApplicationModule {
@@ -34,14 +38,14 @@ public abstract class ApplicationModule {
     @Singleton
     @Named("settings")
     static SharedPreferences provideSettingsSharedPreferences(Context context) {
-        return context.getSharedPreferences(context.getString(R.string.settings_shared_preferences_id), Context.MODE_PRIVATE);
+        return context.getSharedPreferences(PREF_UNITS, Context.MODE_PRIVATE);
     }
 
     @Provides
     @Singleton
     static AppDatabase provideDatabase(Context context) {
         return Room.databaseBuilder(context,
-                AppDatabase.class, context.getString(R.string.database_name))
+                AppDatabase.class, DATBASE_NAME)
                 .addCallback(new RoomDatabase.Callback() {
                     @Override
                     public void onCreate(@NonNull SupportSQLiteDatabase db) {

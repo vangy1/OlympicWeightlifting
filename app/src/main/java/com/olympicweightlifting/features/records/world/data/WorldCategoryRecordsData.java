@@ -1,6 +1,6 @@
 package com.olympicweightlifting.features.records.world.data;
 
-import com.olympicweightlifting.utilities.AppLevelConstants.Gender;
+import com.olympicweightlifting.utilities.ApplicationConstants.Gender;
 
 /**
  * Created by vangor on 07/02/2018.

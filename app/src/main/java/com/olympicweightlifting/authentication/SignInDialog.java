@@ -18,6 +18,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class SignInDialog extends DialogFragment {
+    public static final String TAG = SignInDialog.class.getCanonicalName();
 
     @BindView(R.id.text_dialog_title)
     TextView textViewDialogTitle;

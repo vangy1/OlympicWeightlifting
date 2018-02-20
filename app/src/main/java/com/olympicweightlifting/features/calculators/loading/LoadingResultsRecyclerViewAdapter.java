@@ -11,7 +11,7 @@ import android.widget.TextView;
 
 import com.olympicweightlifting.R;
 import com.olympicweightlifting.features.calculators.CalculatorsService;
-import com.olympicweightlifting.utilities.AppLevelConstants.Units;
+import com.olympicweightlifting.utilities.ApplicationConstants.Units;
 
 import java.util.ArrayList;
 import java.util.Arrays;

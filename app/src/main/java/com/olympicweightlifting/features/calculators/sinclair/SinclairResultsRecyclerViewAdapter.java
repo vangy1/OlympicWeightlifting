@@ -27,7 +27,7 @@ public class SinclairResultsRecyclerViewAdapter extends RecyclerView.Adapter<Sin
         TextView textViewBodyweightValue;
         @BindView(R.id.text_gender)
         TextView textViewGender;
-        @BindView(R.id.sinclairscore_value)
+        @BindView(R.id.text_sinclairscore)
         TextView textViewSinclairScore;
 
         public ViewHolder(CardView cardView) {
@@ -64,7 +64,7 @@ public class SinclairResultsRecyclerViewAdapter extends RecyclerView.Adapter<Sin
     private void setResultValue(ViewHolder viewHolder, SinclairCalculation currentSinclairCalculation) {
         Spannable sinclairScoreSpannable = new SpannableString(new DecimalFormat("##.00").format(currentSinclairCalculation.getSinclairScore()));
         sinclairScoreSpannable.setSpan(new android.text.style.StyleSpan(android.graphics.Typeface.BOLD), 0, sinclairScoreSpannable.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-        viewHolder.textViewSinclairScore.setText(R.string.sinclair_score_result_text);
+        viewHolder.textViewSinclairScore.setText(R.string.calculators_sinclair_result);
         viewHolder.textViewSinclairScore.append(sinclairScoreSpannable);
     }
 

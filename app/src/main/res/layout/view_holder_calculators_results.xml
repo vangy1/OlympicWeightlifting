@@ -29,7 +29,7 @@
         app:layout_constraintGuide_percent="0.75" />
 
     <TextView
-        android:id="@+id/repmax_result_1_title"
+        android:id="@+id/text_title_repmax_result_1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
@@ -38,47 +38,47 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/repmax_result_2_title"
+        android:id="@+id/text_title_repmax_result_2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginTop="4dp"
         android:tag="result_title"
         app:layout_constraintEnd_toStartOf="@+id/guideline_left"
-        app:layout_constraintTop_toBottomOf="@+id/repmax_result_1" />
+        app:layout_constraintTop_toBottomOf="@+id/text_repmax_result_1" />
 
     <TextView
-        android:id="@+id/repmax_result_3_title"
+        android:id="@+id/text_title_repmax_result_3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginTop="4dp"
         android:tag="result_title"
         app:layout_constraintEnd_toStartOf="@+id/guideline_left"
-        app:layout_constraintTop_toBottomOf="@+id/repmax_result_2" />
+        app:layout_constraintTop_toBottomOf="@+id/text_repmax_result_2" />
 
     <TextView
-        android:id="@+id/repmax_result_4_title"
+        android:id="@+id/text_title_repmax_result_4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginTop="4dp"
         android:tag="result_title"
         app:layout_constraintEnd_toStartOf="@+id/guideline_left"
-        app:layout_constraintTop_toBottomOf="@+id/repmax_result_3" />
+        app:layout_constraintTop_toBottomOf="@+id/text_repmax_result_3" />
 
     <TextView
-        android:id="@+id/repmax_result_5_title"
+        android:id="@+id/text_title_repmax_result_5"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginTop="4dp"
         android:tag="result_title"
         app:layout_constraintEnd_toStartOf="@+id/guideline_left"
-        app:layout_constraintTop_toBottomOf="@+id/repmax_result_4" />
+        app:layout_constraintTop_toBottomOf="@+id/text_repmax_result_4" />
 
     <TextView
-        android:id="@+id/repmax_result_6_title"
+        android:id="@+id/text_title_repmax_result_6"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
@@ -87,47 +87,47 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/repmax_result_7_title"
+        android:id="@+id/text_title_repmax_result_7"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginTop="4dp"
         android:tag="result_title"
         app:layout_constraintEnd_toStartOf="@+id/guideline_right"
-        app:layout_constraintTop_toBottomOf="@+id/repmax_result_6" />
+        app:layout_constraintTop_toBottomOf="@+id/text_repmax_result_6" />
 
     <TextView
-        android:id="@+id/repmax_result_8_title"
+        android:id="@+id/text_title_repmax_result_8"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginTop="4dp"
         android:tag="result_title"
         app:layout_constraintEnd_toStartOf="@+id/guideline_right"
-        app:layout_constraintTop_toBottomOf="@+id/repmax_result_7" />
+        app:layout_constraintTop_toBottomOf="@+id/text_repmax_result_7" />
 
     <TextView
-        android:id="@+id/repmax_result_9_title"
+        android:id="@+id/text_title_repmax_result_9"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginTop="4dp"
         android:tag="result_title"
         app:layout_constraintEnd_toStartOf="@+id/guideline_right"
-        app:layout_constraintTop_toBottomOf="@+id/repmax_result_8" />
+        app:layout_constraintTop_toBottomOf="@+id/text_repmax_result_8" />
 
     <TextView
-        android:id="@+id/repmax_result_10_title"
+        android:id="@+id/text_title_repmax_result_10"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginTop="4dp"
         android:tag="result_title"
         app:layout_constraintEnd_toStartOf="@+id/guideline_right"
-        app:layout_constraintTop_toBottomOf="@+id/repmax_result_9" />
+        app:layout_constraintTop_toBottomOf="@+id/text_repmax_result_9" />
 
     <TextView
-        android:id="@+id/repmax_result_1"
+        android:id="@+id/text_repmax_result_1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -138,51 +138,51 @@
 
 
     <TextView
-        android:id="@+id/repmax_result_2"
+        android:id="@+id/text_repmax_result_2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:tag="result"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="@+id/guideline_left"
-        app:layout_constraintTop_toTopOf="@+id/repmax_result_2_title" />
+        app:layout_constraintTop_toTopOf="@+id/text_title_repmax_result_2" />
 
 
     <TextView
-        android:id="@+id/repmax_result_3"
+        android:id="@+id/text_repmax_result_3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:tag="result"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="@+id/guideline_left"
-        app:layout_constraintTop_toTopOf="@+id/repmax_result_3_title" />
+        app:layout_constraintTop_toTopOf="@+id/text_title_repmax_result_3" />
 
 
     <TextView
-        android:id="@+id/repmax_result_4"
+        android:id="@+id/text_repmax_result_4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:tag="result"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="@+id/guideline_left"
-        app:layout_constraintTop_toTopOf="@+id/repmax_result_4_title" />
+        app:layout_constraintTop_toTopOf="@+id/text_title_repmax_result_4" />
 
 
     <TextView
-        android:id="@+id/repmax_result_5"
+        android:id="@+id/text_repmax_result_5"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:tag="result"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="@+id/guideline_left"
-        app:layout_constraintTop_toTopOf="@+id/repmax_result_5_title" />
+        app:layout_constraintTop_toTopOf="@+id/text_title_repmax_result_5" />
 
 
     <TextView
-        android:id="@+id/repmax_result_6"
+        android:id="@+id/text_repmax_result_6"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -193,45 +193,45 @@
 
 
     <TextView
-        android:id="@+id/repmax_result_7"
+        android:id="@+id/text_repmax_result_7"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:tag="result"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="@+id/guideline_right"
-        app:layout_constraintTop_toTopOf="@+id/repmax_result_7_title" />
+        app:layout_constraintTop_toTopOf="@+id/text_title_repmax_result_7" />
 
 
     <TextView
-        android:id="@+id/repmax_result_8"
+        android:id="@+id/text_repmax_result_8"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:tag="result"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="@+id/guideline_right"
-        app:layout_constraintTop_toTopOf="@+id/repmax_result_8_title" />
+        app:layout_constraintTop_toTopOf="@+id/text_title_repmax_result_8" />
 
 
     <TextView
-        android:id="@+id/repmax_result_9"
+        android:id="@+id/text_repmax_result_9"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:tag="result"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="@+id/guideline_right"
-        app:layout_constraintTop_toTopOf="@+id/repmax_result_9_title" />
+        app:layout_constraintTop_toTopOf="@+id/text_title_repmax_result_9" />
 
 
     <TextView
-        android:id="@+id/repmax_result_10"
+        android:id="@+id/text_repmax_result_10"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:tag="result"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="@+id/guideline_right"
-        app:layout_constraintTop_toTopOf="@+id/repmax_result_10_title" />
+        app:layout_constraintTop_toTopOf="@+id/text_title_repmax_result_10" />
 </android.support.constraint.ConstraintLayout>

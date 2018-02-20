@@ -14,6 +14,7 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.olympicweightlifting.R;
 import com.olympicweightlifting.features.records.world.data.WorldCategoryRecordsData;
+import com.olympicweightlifting.utilities.ApplicationConstants;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,8 +22,10 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+import static com.olympicweightlifting.utilities.ApplicationConstants.FIREBASE_COLLECTION_RECORDS_WORLD;
+
 public class RecordsWorldFragment extends Fragment {
-    @BindView(R.id.records_recycler_view)
+    @BindView(R.id.recyclerview_records)
     RecyclerView recordsRecyclerView;
 
     private List<WorldCategoryRecordsData> worldCategoryRecordsDataList = new ArrayList<>();
@@ -45,8 +48,8 @@ public class RecordsWorldFragment extends Fragment {
     }
 
     private void populateRecyclerViewWithTheNewestDataFromFirestore() {
-        CollectionReference worldRecords = FirebaseFirestore.getInstance().collection(getString(R.string.firestore_collection_world_records));
-        worldRecords.orderBy(getString(R.string.firestore_collection_world_records_id_column)).addSnapshotListener((documentSnapshots, e) -> {
+        CollectionReference worldRecords = FirebaseFirestore.getInstance().collection(FIREBASE_COLLECTION_RECORDS_WORLD);
+        worldRecords.orderBy("id").addSnapshotListener((documentSnapshots, e) -> {
             worldCategoryRecordsDataList.clear();
             for (DocumentSnapshot documentSnapshot : documentSnapshots) {
                 WorldCategoryRecordsData queriedObject = documentSnapshot.toObject(WorldCategoryRecordsData.class);

@@ -25,7 +25,7 @@ import com.google.firebase.auth.GoogleAuthProvider;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.olympicweightlifting.R;
-import com.olympicweightlifting.features.programs.ProgramsInitialData;
+import com.olympicweightlifting.features.programs.ProgramsInitialDataBuilder;
 import com.olympicweightlifting.features.programs.data.Program;
 
 import java.util.Arrays;
@@ -55,7 +55,7 @@ public class Authenticator {
 
     private void setupGoogleAuthentication() {
         GoogleSignInOptions googleSignInOptions = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                .requestIdToken(activity.getString(R.string.web_client_id))
+                .requestIdToken(activity.getString(R.string.google_client_id))
                 .requestEmail()
                 .build();
 
@@ -91,7 +91,7 @@ public class Authenticator {
                         ((AuthenticationActivity) activity).authenticationSuccess(currentUser);
                     } else {
                         if (task.getException() instanceof FirebaseAuthUserCollisionException) {
-                            Toast.makeText(activity, R.string.facebook_collision_message,
+                            Toast.makeText(activity, R.string.signin_facebook_collision_message,
                                     Toast.LENGTH_LONG).show();
                         }
                     }
@@ -101,7 +101,7 @@ public class Authenticator {
 
     private void insertInitialDataToDatabase(FirebaseUser currentUser) {
         CollectionReference programsCollection = FirebaseFirestore.getInstance().collection("users").document(currentUser.getUid()).collection("programs");
-        List<Program> initialPrograms = ProgramsInitialData.getInitialPrograms();
+        List<Program> initialPrograms = ProgramsInitialDataBuilder.getInitialPrograms();
         for (Program program : initialPrograms) {
             programsCollection.add(program);
         }

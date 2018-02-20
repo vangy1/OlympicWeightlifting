@@ -101,7 +101,7 @@ public class ProgramExercisesViewAdapter extends RecyclerView.Adapter<ProgramExe
                     addExercise(exercises, programExercisesViewAdapter);
                     resetExerciseInputFields();
                 } catch (Exception exception) {
-                    Toast.makeText(context, "Fill out all information!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, context.getString(R.string.all_insufficient_input), Toast.LENGTH_SHORT).show();
                 }
             });
         }
