@@ -50,7 +50,6 @@ public class BillingManager implements PurchasesUpdatedListener {
                     }
                 }
             }
-
             @Override
             public void onBillingServiceDisconnected() {
                 isServiceConnected = false;
@@ -115,12 +114,6 @@ public class BillingManager implements PurchasesUpdatedListener {
         executeServiceRequest(purchaseFlowRequest);
     }
 
-    public void consumeAsync(final String purchaseToken) {
-        Runnable consumeRequest = () -> billingClient.consumeAsync(purchaseToken, (responseCode, purchaseToken1) -> {
-        });
-
-        executeServiceRequest(consumeRequest);
-    }
 
     public boolean isUserPremium(List<Purchase> purchases) {
         for (Purchase purchase : purchases) {

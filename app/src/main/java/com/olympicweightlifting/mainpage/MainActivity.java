@@ -127,8 +127,9 @@ public class MainActivity extends DaggerAppCompatActivity implements Authenticat
         } else if (item.getItemId() == R.id.profile) {
             startActivity(new Intent(this, ProfileActivity.class));
         } else if (item.getItemId() == R.id.signin) {
-            signInDialog = new SignInDialog();
-            signInDialog.show(getSupportFragmentManager(), SignInDialog.TAG);
+            new SignInDialog().show(getSupportFragmentManager(), SignInDialog.TAG);
+        } else if (item.getItemId() == R.id.contact) {
+            sendContactEmail();
         }
 
         return super.onOptionsItemSelected(item);
@@ -137,6 +138,22 @@ public class MainActivity extends DaggerAppCompatActivity implements Authenticat
     private void showSettingsDialog() {
         SettingsDialog settingsDialog = new SettingsDialog();
         settingsDialog.show(getSupportFragmentManager(), SettingsDialog.TAG);
+    }
+
+    private void sendContactEmail() {
+        String deviceInfo = "Device Info:";
+        deviceInfo += "\n OS API Level: " + android.os.Build.VERSION.SDK_INT;
+        deviceInfo += "\n Model and Product: " + android.os.Build.MODEL + " (" + android.os.Build.PRODUCT + ")";
+        Intent i = new Intent(Intent.ACTION_SEND);
+        i.setType("message/rfc822");
+        i.putExtra(Intent.EXTRA_EMAIL, new String[]{getString(R.string.contact_email_recipient)});
+        i.putExtra(Intent.EXTRA_SUBJECT, getString(R.string.contact_email_subject));
+        i.putExtra(Intent.EXTRA_TEXT, deviceInfo);
+        try {
+            startActivity(Intent.createChooser(i, getString(R.string.contact_intent_chooser_title)));
+        } catch (android.content.ActivityNotFoundException ex) {
+            Toast.makeText(this, R.string.contact_no_email_client, Toast.LENGTH_SHORT).show();
+        }
     }
 
     @Override

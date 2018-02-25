@@ -38,6 +38,16 @@
     <string name="all_remove">Remove</string>
     <string name="all_manage_exercises">Manage exercises</string>
 
+    <string name="menu_profile">Profile</string>
+    <string name="menu_sign_in">Sign in</string>
+    <string name="menu_settings">Settings</string>
+    <string name="menu_contact">Contact us</string>
+
+    <string name="contact_email_subject">Weightlifting</string>
+    <string name="contact_email_recipient">contact.weightlifting@gmail.com</string>
+    <string name="contact_intent_chooser_title">Contact us through email</string>
+    <string name="contact_no_email_client">There are no email clients installed.</string>
+
     <string name="authentication_feature_unavailable">This feature is only available when you are signed in</string>
     <string name="authentication_continue_to_signin">Continue to sign in</string>
     <string name="signin_facebook_collision_message">Use Google account associated with this email address.</string>
@@ -48,8 +58,16 @@
     <string name="signin_separator_or">OR</string>
     <string name="signin_profile_identification">Signed in as\u0020</string>
     <string name="signout_prompt">Sign out</string>
+
     <string name="profile_toolbar_title">User profile</string>
     <string name="profile_upgrade_prompt">Upgrade to get rid of limits</string>
+    <string name="profile_limits_header">Limits for free users</string>
+    <string name="profile_upgrade_info_message">Upgrade will be associated with your Google Play account, so you can use as many profiles as you want.</string>
+    <string name="profile_reached_free_limit">You have reached your free limit.</string>
+    <string name="profile_upgrade">Upgrade</string>
+    <string name="profile_records_tracked_info">Personal records tracked:</string>
+    <string name="profile_workouts_tracked_info">Workouts tracked:</string>
+    <string name="profile_programs_created_info">Programs created:</string>
 
     <string name="lifts_technique">Technique</string>
     <string name="lifts_mistakes">Mistakes</string>
@@ -99,12 +117,4 @@
 
     <string name="records_tab_personal">Personal</string>
     <string name="records_tab_world">World</string>
-
-    <string name="profile_limits_header">Limits for free users</string>
-    <string name="profile_upgrade_info_message">Upgrade will be associated with your Google Play account, so you can use as many profiles as you want.</string>
-    <string name="profile_reached_free_limit">You have reached your free limit.</string>
-    <string name="profile_upgrade">Upgrade</string>
-    <string name="profile_records_tracked_info">Personal records tracked:</string>
-    <string name="profile_workouts_tracked_info">Workouts tracked:</string>
-    <string name="profile_programs_created_info">Programs created:</string>
 </resources>
