@@ -1,6 +1,7 @@
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/layout_fragment"
     android:layout_width="wrap_content"
     android:layout_height="match_parent"
     tools:context=".features.calculators.repmax.RepmaxCalculatorFragment">
@@ -116,13 +117,13 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:background="?android:selectableItemBackground"
+        android:contentDescription="@string/all_exercise_manager_button_content_description"
         android:src="@drawable/ic_modify"
         android:tint="@color/colorGreyText"
         app:layout_constraintBottom_toBottomOf="@+id/text_exercise"
         app:layout_constraintEnd_toEndOf="@+id/text_weight_units"
         app:layout_constraintStart_toStartOf="@+id/text_weight_units"
-        app:layout_constraintTop_toTopOf="@+id/text_exercise"
-        android:contentDescription="@string/all_exercise_manager_button_content_description" />
+        app:layout_constraintTop_toTopOf="@+id/text_exercise" />
 
 
     <View

@@ -27,8 +27,6 @@ public class RecordsPersonalData {
     }
 
     RecordsPersonalData(double weight, String units, int reps, String exercise, Date date) {
-        dateAdded = new Date();
-
         this.weight = weight;
         this.units = units;
         this.reps = reps;
@@ -62,7 +60,7 @@ public class RecordsPersonalData {
         return reps;
     }
 
-    boolean validateObject() {
+    public boolean validateObject() {
         return getUnits() != null &&
                 getExercise() != null &&
                 getDate() != null;
@@ -78,5 +76,9 @@ public class RecordsPersonalData {
 
     public Date getDate() {
         return date;
+    }
+
+    public void setDateAdded() {
+        dateAdded = new Date();
     }
 }

@@ -4,6 +4,7 @@ package com.olympicweightlifting.features.tracking.tracknew;
 import android.app.DatePickerDialog;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.support.constraint.ConstraintLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -18,15 +19,20 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.billingclient.api.Purchase;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.ListenerRegistration;
 import com.olympicweightlifting.R;
+import com.olympicweightlifting.billing.BillingListener;
+import com.olympicweightlifting.billing.BillingManager;
 import com.olympicweightlifting.data.local.AppDatabase;
 import com.olympicweightlifting.features.helpers.exercisemanager.Exercise;
 import com.olympicweightlifting.features.helpers.exercisemanager.ExerciseManagerDialog;
 import com.olympicweightlifting.features.tracking.data.TrackedExerciseData;
 import com.olympicweightlifting.features.tracking.data.TrackedWorkoutData;
+import com.olympicweightlifting.utilities.ApplicationHelpers;
 
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -46,11 +52,16 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
 import static android.text.format.DateFormat.getDateFormat;
-import static com.olympicweightlifting.utilities.ApplicationConstants.*;
+import static com.olympicweightlifting.utilities.ApplicationConstants.FIREBASE_COLLECTION_USERS;
+import static com.olympicweightlifting.utilities.ApplicationConstants.FIREBASE_COLLECTION_WORKOUTS;
+import static com.olympicweightlifting.utilities.ApplicationConstants.PREF_UNITS;
 import static com.olympicweightlifting.utilities.ApplicationConstants.Units;
+import static com.olympicweightlifting.utilities.ApplicationConstants.UserProfileStatus;
+import static com.olympicweightlifting.utilities.ApplicationConstants.WORKOUTS_LIMIT;
 
 public class TrackingNewFragment extends DaggerFragment implements DatePickerDialog.OnDateSetListener, ExerciseManagerDialog.OnExerciseListChangedListener {
-
+    @BindView(R.id.layout_fragment)
+    ConstraintLayout layoutFragment;
     @BindView(R.id.exercises_recycler_view)
     RecyclerView exercisesRecyclerView;
 
@@ -73,8 +84,6 @@ public class TrackingNewFragment extends DaggerFragment implements DatePickerDia
     @BindView(R.id.button_save)
     Button buttonSave;
 
-
-    List<String> exerciseList = new ArrayList<>();
     ArrayAdapter spinnerAdapter;
     @Inject
     AppDatabase database;
@@ -82,26 +91,32 @@ public class TrackingNewFragment extends DaggerFragment implements DatePickerDia
     @Named("settings")
     SharedPreferences sharedPreferences;
 
+    List<String> exerciseList = new ArrayList<>();
     private DateFormat dateFormat;
     private Date currentDate;
     private List<TrackedExerciseData> trackedExerciseData = new ArrayList<>();
+
+    private BillingManager billingManager;
+    private UserProfileStatus userProfileStatus = UserProfileStatus.UNDEFINED;
+    private int workoutsTracked = -1;
+    private ListenerRegistration workoutsRealtimeListener;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View fragmentView = inflater.inflate(R.layout.fragment_tracking_new, container, false);
         ButterKnife.bind(this, fragmentView);
+        getUserProfileStatus();
+        getNumberOfTrackedWorkouts();
+
         dateFormat = getDateFormat(getActivity());
         textWeightUnits.setText(sharedPreferences.getString(PREF_UNITS, Units.KG.toString()).toLowerCase());
-
         setupDatePicker();
         setupSpinner();
         setupRecyclerView();
 
         buttonExerciseManager.setOnClickListener(view -> {
-            ExerciseManagerDialog exerciseManagerDialog = new ExerciseManagerDialog();
-            exerciseManagerDialog.setTargetFragment(this, 0);
-            exerciseManagerDialog.show(getFragmentManager(), ExerciseManagerDialog.TAG);
+            openExerciseManagerDialog();
         });
 
         buttonAdd.setOnClickListener(view -> {
@@ -117,12 +132,58 @@ public class TrackingNewFragment extends DaggerFragment implements DatePickerDia
         });
 
         buttonSave.setOnClickListener(view -> {
-            saveWorkoutToFirestore();
-            Toast.makeText(getActivity(), getActivity().getString(R.string.tracking_workout_saved), Toast.LENGTH_SHORT).show();
-            clearInputData();
+            if (checkIfUserReachedTheLimit()) {
+                try {
+                    saveWorkoutToFirestore();
+                    Toast.makeText(getActivity(), getActivity().getString(R.string.tracking_workout_saved), Toast.LENGTH_SHORT).show();
+                    clearInputData();
+                } catch (Exception exception) {
+                    Toast.makeText(getActivity(), getString(R.string.all_insufficient_input), Toast.LENGTH_SHORT).show();
+                }
+            } else {
+                ApplicationHelpers.hideKeyboard(getActivity(), view);
+                billingManager.promptUserToUpgrade(getActivity(), layoutFragment);
+            }
         });
 
         return fragmentView;
+    }
+
+    private void getUserProfileStatus() {
+        billingManager = new BillingManager(getActivity(), new BillingListener() {
+
+            @Override
+            public void onPurchasesQueried(List<Purchase> purchases) {
+                if (billingManager.isUserPremium(purchases)) {
+                    userProfileStatus = UserProfileStatus.PREMIUM;
+                } else {
+                    userProfileStatus = UserProfileStatus.FREE;
+                }
+            }
+
+            @Override
+            public void onPurchasesUpdated(List<Purchase> purchases) {
+                onPurchasesQueried(purchases);
+            }
+        });
+    }
+
+    private void getNumberOfTrackedWorkouts() {
+
+        workoutsRealtimeListener = FirebaseFirestore.getInstance()
+                .collection(FIREBASE_COLLECTION_USERS)
+                .document(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                .collection(FIREBASE_COLLECTION_WORKOUTS)
+                .addSnapshotListener((documentSnapshots, e) -> {
+                            int validWorkouts = 0;
+                            for (DocumentSnapshot documentSnapshot : documentSnapshots) {
+                                if (documentSnapshot.toObject(TrackedWorkoutData.class).withId(documentSnapshot.getId()).validateObject()) {
+                                    validWorkouts += 1;
+                                }
+                            }
+                            workoutsTracked = validWorkouts;
+                        }
+                );
     }
 
     private void setupDatePicker() {
@@ -154,15 +215,32 @@ public class TrackingNewFragment extends DaggerFragment implements DatePickerDia
         exercisesRecyclerView.setAdapter(new TrackingNewRecyclerViewAdapter(trackedExerciseData, getActivity()));
     }
 
+    private void openExerciseManagerDialog() {
+        ExerciseManagerDialog exerciseManagerDialog = new ExerciseManagerDialog();
+        exerciseManagerDialog.setTargetFragment(this, 0);
+        exerciseManagerDialog.show(getFragmentManager(), ExerciseManagerDialog.TAG);
+    }
+
+    private boolean checkIfUserReachedTheLimit() {
+        return workoutsTracked != -1 && workoutsTracked < (userProfileStatus == UserProfileStatus.PREMIUM ? Integer.MAX_VALUE : WORKOUTS_LIMIT);
+    }
+
     private void saveWorkoutToFirestore() {
         TrackedWorkoutData trackedWorkoutData = new TrackedWorkoutData(trackedExerciseData, currentDate);
-        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
-        FirebaseFirestore.getInstance().collection(FIREBASE_COLLECTION_USERS).document(currentUser.getUid()).collection(FIREBASE_COLLECTION_WORKOUTS_TRACKED).add(trackedWorkoutData);
+        trackedWorkoutData.setDateAdded();
+        FirebaseFirestore.getInstance().collection(FIREBASE_COLLECTION_USERS).document(FirebaseAuth.getInstance().getCurrentUser().getUid()).collection(FIREBASE_COLLECTION_WORKOUTS).add(trackedWorkoutData);
     }
 
     private void clearInputData() {
         trackedExerciseData.clear();
         exercisesRecyclerView.getAdapter().notifyDataSetChanged();
+    }
+
+    @Override
+    public void onDestroyView() {
+        if (billingManager != null) billingManager.destroy();
+        if (workoutsRealtimeListener != null) workoutsRealtimeListener.remove();
+        super.onDestroyView();
     }
 
     @Override

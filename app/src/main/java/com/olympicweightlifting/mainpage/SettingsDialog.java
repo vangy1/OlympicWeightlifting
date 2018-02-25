@@ -29,7 +29,7 @@ public class SettingsDialog extends DaggerAppCompatDialogFragment {
     @BindView(R.id.text_dialog_title)
     TextView dialogTitle;
     //    @BindView(R.id.switch_dark_theme)
-//    Switch switchDarkTheme;
+    //    Switch switchDarkTheme;
     @BindView(R.id.radiogroup_units)
     RadioGroup unitsRadioGroup;
 

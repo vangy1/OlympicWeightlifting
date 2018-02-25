@@ -14,7 +14,6 @@ import java.util.List;
  */
 
 public class ProgramsInitialDataBuilder {
-
     public static List<Program> getInitialPrograms() {
         List<Program> programs = new ArrayList<>();
 

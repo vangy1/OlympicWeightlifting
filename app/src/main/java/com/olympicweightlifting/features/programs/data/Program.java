@@ -20,8 +20,6 @@ public class Program {
     }
 
     public Program(List<ProgramWeek> weeks) {
-        dateAdded = new Date();
-
         this.weeks = weeks;
     }
 
@@ -56,4 +54,7 @@ public class Program {
         this.programTitle = programTitle;
     }
 
+    public void setDateAdded() {
+        this.dateAdded = new Date();
+    }
 }

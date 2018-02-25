@@ -9,7 +9,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class LiftsContentDataBuilder {
-
     private final Context context;
 
     public LiftsContentDataBuilder(Context context) {

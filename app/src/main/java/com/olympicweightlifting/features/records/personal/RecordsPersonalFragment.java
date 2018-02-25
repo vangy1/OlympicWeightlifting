@@ -4,6 +4,7 @@ package com.olympicweightlifting.features.records.personal;
 import android.app.DatePickerDialog;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.support.constraint.ConstraintLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -18,16 +19,20 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.billingclient.api.Purchase;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.ListenerRegistration;
 import com.google.firebase.firestore.Query;
 import com.olympicweightlifting.R;
+import com.olympicweightlifting.billing.BillingListener;
+import com.olympicweightlifting.billing.BillingManager;
 import com.olympicweightlifting.data.local.AppDatabase;
 import com.olympicweightlifting.features.helpers.exercisemanager.Exercise;
 import com.olympicweightlifting.features.helpers.exercisemanager.ExerciseManagerDialog;
+import com.olympicweightlifting.utilities.ApplicationHelpers;
 
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -47,10 +52,17 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
 import static android.text.format.DateFormat.getDateFormat;
-import static com.olympicweightlifting.utilities.ApplicationConstants.*;
+import static com.olympicweightlifting.utilities.ApplicationConstants.FIREBASE_COLLECTION_RECORDS_PERSONAL;
+import static com.olympicweightlifting.utilities.ApplicationConstants.FIREBASE_COLLECTION_USERS;
+import static com.olympicweightlifting.utilities.ApplicationConstants.PREF_UNITS;
+import static com.olympicweightlifting.utilities.ApplicationConstants.RECORDS_LIMIT;
+import static com.olympicweightlifting.utilities.ApplicationConstants.Units;
+import static com.olympicweightlifting.utilities.ApplicationConstants.UserProfileStatus;
 
 
 public class RecordsPersonalFragment extends DaggerFragment implements DatePickerDialog.OnDateSetListener, ExerciseManagerDialog.OnExerciseListChangedListener {
+    @BindView(R.id.layout_fragment)
+    ConstraintLayout layoutFragment;
     @BindView(R.id.recyclerview_records)
     RecyclerView recordsRecyclerView;
 
@@ -75,44 +87,75 @@ public class RecordsPersonalFragment extends DaggerFragment implements DatePicke
     @Named("settings")
     SharedPreferences sharedPreferences;
 
-    FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
-    List<String> exerciseList = new ArrayList<>();
-    ArrayAdapter spinnerAdapter;
+
+    private ArrayAdapter spinnerAdapter;
+    private String units;
     private DateFormat dateFormat;
-    private List<RecordsPersonalData> recordsPersonalDataList = new ArrayList<>();
     private Date currentDate;
+    private List<String> exerciseList = new ArrayList<>();
+    private List<RecordsPersonalData> recordsPersonalDataList = new ArrayList<>();
+
+
+    private FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+    private BillingManager billingManager;
+    private UserProfileStatus userProfileStatus = UserProfileStatus.UNDEFINED;
+    private int recordsTracked = -1;
+    private ListenerRegistration recordsRealtimeListener;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View fragmentView = inflater.inflate(R.layout.fragment_records_personal, container, false);
         ButterKnife.bind(this, fragmentView);
-        dateFormat = getDateFormat(getActivity());
-        String units = sharedPreferences.getString(PREF_UNITS, Units.KG.toString());
+        getUserProfileStatus();
 
+        units = sharedPreferences.getString(PREF_UNITS, Units.KG.toString());
+        dateFormat = getDateFormat(getActivity());
         textWeightUnits.setText(units.toLowerCase());
+
         setupSpinner();
         setupDatePicker();
         setupRecyclerView();
         populateRecyclerViewFromFirestore();
 
         buttonExerciseManager.setOnClickListener(view -> {
-            ExerciseManagerDialog exerciseManagerDialog = new ExerciseManagerDialog();
-            exerciseManagerDialog.setTargetFragment(this, 0);
-            exerciseManagerDialog.show(getFragmentManager(), ExerciseManagerDialog.TAG);
+            openExerciseManagerDialog();
         });
 
         buttonSave.setOnClickListener(view -> {
-            try {
-                RecordsPersonalData recordsPersonalData = new RecordsPersonalData(Double.parseDouble(editTextWeight.getText().toString()), units,
-                        Integer.parseInt(editTextReps.getText().toString()), spinnerExercise.getSelectedItem().toString(), currentDate);
-                FirebaseFirestore.getInstance().collection(FIREBASE_COLLECTION_USERS).document(currentUser.getUid()).collection(FIREBASE_COLLECTION_RECORDS_PERSONAL).add(recordsPersonalData);
-            } catch (Exception exception) {
-                Toast.makeText(getActivity(), getString(R.string.all_insufficient_input), Toast.LENGTH_SHORT).show();
+            if (checkIfUserReachedTheLimit()) {
+                try {
+                    saveRecordToFirestore();
+                } catch (Exception exception) {
+                    Toast.makeText(getActivity(), getString(R.string.all_insufficient_input), Toast.LENGTH_SHORT).show();
+                }
+            } else {
+                ApplicationHelpers.hideKeyboard(getActivity(), view);
+                billingManager.promptUserToUpgrade(getActivity(), layoutFragment);
             }
         });
 
         return fragmentView;
+    }
+
+    private void getUserProfileStatus() {
+        billingManager = new BillingManager(getActivity(), new BillingListener() {
+
+            @Override
+            public void onPurchasesQueried(List<Purchase> purchases) {
+                if (billingManager.isUserPremium(purchases)) {
+                    userProfileStatus = UserProfileStatus.PREMIUM;
+                } else {
+                    userProfileStatus = UserProfileStatus.FREE;
+                }
+            }
+
+            @Override
+            public void onPurchasesUpdated(List<Purchase> purchases) {
+                onPurchasesQueried(purchases);
+            }
+        });
     }
 
     private void setupSpinner() {
@@ -145,21 +188,50 @@ public class RecordsPersonalFragment extends DaggerFragment implements DatePicke
     }
 
     private void populateRecyclerViewFromFirestore() {
-        CollectionReference personalRecordsCollection = FirebaseFirestore.getInstance().collection(FIREBASE_COLLECTION_USERS).document(currentUser.getUid()).collection(FIREBASE_COLLECTION_RECORDS_PERSONAL);
-        personalRecordsCollection.orderBy("dateAdded", Query.Direction.DESCENDING).addSnapshotListener((documentSnapshots, e) -> {
-            recordsPersonalDataList.clear();
-            for (DocumentSnapshot documentSnapshot : documentSnapshots) {
-                try {
-                    RecordsPersonalData queriedObject = documentSnapshot.toObject(RecordsPersonalData.class).withId(documentSnapshot.getId());
-                    if (queriedObject.validateObject()) {
-                        recordsPersonalDataList.add(queriedObject);
+        recordsRealtimeListener = FirebaseFirestore.getInstance()
+                .collection(FIREBASE_COLLECTION_USERS)
+                .document(currentUser.getUid())
+                .collection(FIREBASE_COLLECTION_RECORDS_PERSONAL)
+                .orderBy("dateAdded", Query.Direction.DESCENDING)
+                .addSnapshotListener((documentSnapshots, e) -> {
+                    recordsPersonalDataList.clear();
+                    for (DocumentSnapshot documentSnapshot : documentSnapshots) {
+                        try {
+                            RecordsPersonalData queriedObject = documentSnapshot.toObject(RecordsPersonalData.class).withId(documentSnapshot.getId());
+                            if (queriedObject.validateObject()) {
+                                recordsPersonalDataList.add(queriedObject);
+                            }
+                        } catch (Exception exception) {
+                            exception.printStackTrace();
+                        }
                     }
-                } catch (Exception exception) {
-                    exception.printStackTrace();
-                }
-            }
-            recordsRecyclerView.getAdapter().notifyDataSetChanged();
-        });
+                    recordsTracked = recordsPersonalDataList.size();
+                    recordsRecyclerView.getAdapter().notifyDataSetChanged();
+                });
+    }
+
+    private void openExerciseManagerDialog() {
+        ExerciseManagerDialog exerciseManagerDialog = new ExerciseManagerDialog();
+        exerciseManagerDialog.setTargetFragment(this, 0);
+        exerciseManagerDialog.show(getFragmentManager(), ExerciseManagerDialog.TAG);
+    }
+
+    private boolean checkIfUserReachedTheLimit() {
+        return recordsTracked != -1 && recordsTracked < (userProfileStatus == UserProfileStatus.PREMIUM ? Integer.MAX_VALUE : RECORDS_LIMIT);
+    }
+
+    private void saveRecordToFirestore() {
+        RecordsPersonalData recordsPersonalData = new RecordsPersonalData(Double.parseDouble(editTextWeight.getText().toString()), units,
+                Integer.parseInt(editTextReps.getText().toString()), spinnerExercise.getSelectedItem().toString(), currentDate);
+        recordsPersonalData.setDateAdded();
+        FirebaseFirestore.getInstance().collection(FIREBASE_COLLECTION_USERS).document(currentUser.getUid()).collection(FIREBASE_COLLECTION_RECORDS_PERSONAL).add(recordsPersonalData);
+    }
+
+    @Override
+    public void onDestroyView() {
+        if (billingManager != null) billingManager.destroy();
+        if (recordsRealtimeListener != null) recordsRealtimeListener.remove();
+        super.onDestroyView();
     }
 
     @Override

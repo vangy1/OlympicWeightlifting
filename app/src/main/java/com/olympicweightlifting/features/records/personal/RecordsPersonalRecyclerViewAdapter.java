@@ -11,10 +11,8 @@ import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.olympicweightlifting.R;
-import com.olympicweightlifting.utilities.ApplicationConstants;
 
 import java.text.DateFormat;
 import java.util.List;
@@ -73,8 +71,11 @@ public class RecordsPersonalRecyclerViewAdapter extends RecyclerView.Adapter<Rec
         RecordsPersonalData currentRecordsPersonalData = recordsPersonalDataList.get(position);
         viewHolder.layoutRecords.setOnLongClickListener(view -> {
             FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
-            CollectionReference personalRecords = FirebaseFirestore.getInstance().collection(FIREBASE_COLLECTION_USERS).document(currentUser.getUid()).collection(FIREBASE_COLLECTION_RECORDS_PERSONAL);
-            personalRecords.document(recordsPersonalDataList.get(viewHolder.getAdapterPosition()).getDocumentId()).delete();
+            FirebaseFirestore.getInstance()
+                    .collection(FIREBASE_COLLECTION_USERS)
+                    .document(currentUser.getUid())
+                    .collection(FIREBASE_COLLECTION_RECORDS_PERSONAL)
+                    .document(recordsPersonalDataList.get(viewHolder.getAdapterPosition()).getDocumentId()).delete();
             return true;
         });
 

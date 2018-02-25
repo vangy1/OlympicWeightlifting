@@ -11,14 +11,12 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.ListenerRegistration;
 import com.google.firebase.firestore.Query;
 import com.olympicweightlifting.R;
 import com.olympicweightlifting.features.tracking.data.TrackedWorkoutData;
-import com.olympicweightlifting.utilities.ApplicationConstants;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,18 +25,17 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 import static com.olympicweightlifting.utilities.ApplicationConstants.FIREBASE_COLLECTION_USERS;
-import static com.olympicweightlifting.utilities.ApplicationConstants.FIREBASE_COLLECTION_WORKOUTS_TRACKED;
+import static com.olympicweightlifting.utilities.ApplicationConstants.FIREBASE_COLLECTION_WORKOUTS;
 
 
 public class TrackingHistoryFragment extends Fragment {
-
-
     @BindView(R.id.recyclerview_workouts)
     RecyclerView recyclerViewWorkouts;
     @BindView(R.id.text_no_workouts_saved)
     TextView textViewNoWorkoutsSaved;
 
     private List<TrackedWorkoutData> trackedWorkouts = new ArrayList<>();
+    private ListenerRegistration workoutsRealtimeListener;
 
 
     @Override
@@ -60,24 +57,26 @@ public class TrackingHistoryFragment extends Fragment {
     }
 
     private void populateRecyclerViewFromFirestore() {
-        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
-
-        CollectionReference workoutsCollection = FirebaseFirestore.getInstance().collection(FIREBASE_COLLECTION_USERS).document(currentUser.getUid()).collection(FIREBASE_COLLECTION_WORKOUTS_TRACKED);
-        workoutsCollection.orderBy("dateOfWorkout", Query.Direction.DESCENDING).addSnapshotListener((documentSnapshots, e) -> {
-            trackedWorkouts.clear();
-            for (DocumentSnapshot documentSnapshot : documentSnapshots) {
-                try {
-                    TrackedWorkoutData queriedObject = documentSnapshot.toObject(TrackedWorkoutData.class).withId(documentSnapshot.getId());
-                    if (queriedObject.validateObject()) {
-                        trackedWorkouts.add(queriedObject);
+        workoutsRealtimeListener = FirebaseFirestore.getInstance()
+                .collection(FIREBASE_COLLECTION_USERS)
+                .document(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                .collection(FIREBASE_COLLECTION_WORKOUTS)
+                .orderBy("dateOfWorkout", Query.Direction.DESCENDING)
+                .addSnapshotListener((documentSnapshots, e) -> {
+                    trackedWorkouts.clear();
+                    for (DocumentSnapshot documentSnapshot : documentSnapshots) {
+                        try {
+                            TrackedWorkoutData queriedObject = documentSnapshot.toObject(TrackedWorkoutData.class).withId(documentSnapshot.getId());
+                            if (queriedObject.validateObject()) {
+                                trackedWorkouts.add(queriedObject);
+                            }
+                        } catch (Exception exception) {
+                            exception.printStackTrace();
+                        }
                     }
-                } catch (Exception exception) {
-                    exception.printStackTrace();
-                }
-            }
-            recyclerViewWorkouts.getAdapter().notifyDataSetChanged();
-            handleNoWorkoutTracked();
-        });
+                    recyclerViewWorkouts.getAdapter().notifyDataSetChanged();
+                    handleNoWorkoutTracked();
+                });
     }
 
     private void handleNoWorkoutTracked() {
@@ -90,4 +89,9 @@ public class TrackingHistoryFragment extends Fragment {
         }
     }
 
+    @Override
+    public void onDestroyView() {
+        if (workoutsRealtimeListener != null) workoutsRealtimeListener.remove();
+        super.onDestroyView();
+    }
 }

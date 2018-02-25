@@ -21,3 +21,7 @@
 #-renamesourcefileattribute SourceFile
 -keepattributes Signature
 -keepattributes *Annotation*
+-ignorewarnings
+-keep class * {
+    public private *;
+}

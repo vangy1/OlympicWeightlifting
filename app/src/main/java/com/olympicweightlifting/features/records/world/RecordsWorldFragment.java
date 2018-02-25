@@ -9,12 +9,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.ListenerRegistration;
 import com.olympicweightlifting.R;
 import com.olympicweightlifting.features.records.world.data.WorldCategoryRecordsData;
-import com.olympicweightlifting.utilities.ApplicationConstants;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,6 +28,7 @@ public class RecordsWorldFragment extends Fragment {
     RecyclerView recordsRecyclerView;
 
     private List<WorldCategoryRecordsData> worldCategoryRecordsDataList = new ArrayList<>();
+    private ListenerRegistration worldRecordsRealtimeListener;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -48,21 +48,28 @@ public class RecordsWorldFragment extends Fragment {
     }
 
     private void populateRecyclerViewWithTheNewestDataFromFirestore() {
-        CollectionReference worldRecords = FirebaseFirestore.getInstance().collection(FIREBASE_COLLECTION_RECORDS_WORLD);
-        worldRecords.orderBy("id").addSnapshotListener((documentSnapshots, e) -> {
-            worldCategoryRecordsDataList.clear();
-            for (DocumentSnapshot documentSnapshot : documentSnapshots) {
-                WorldCategoryRecordsData queriedObject = documentSnapshot.toObject(WorldCategoryRecordsData.class);
+        worldRecordsRealtimeListener = FirebaseFirestore.getInstance()
+                .collection(FIREBASE_COLLECTION_RECORDS_WORLD)
+                .orderBy("id")
+                .addSnapshotListener((documentSnapshots, e) -> {
+                    worldCategoryRecordsDataList.clear();
+                    for (DocumentSnapshot documentSnapshot : documentSnapshots) {
+                        WorldCategoryRecordsData queriedObject = documentSnapshot.toObject(WorldCategoryRecordsData.class);
 
-                if (queriedObject.validateObject()) {
-                    WorldCategoryRecordsData worldCategoryRecordsData = documentSnapshot.toObject(WorldCategoryRecordsData.class);
-                    worldCategoryRecordsDataList.add(worldCategoryRecordsData);
-                }
-                recordsRecyclerView.getAdapter().notifyDataSetChanged();
-            }
-        });
+                        if (queriedObject.validateObject()) {
+                            WorldCategoryRecordsData worldCategoryRecordsData = documentSnapshot.toObject(WorldCategoryRecordsData.class);
+                            worldCategoryRecordsDataList.add(worldCategoryRecordsData);
+                        }
+                        recordsRecyclerView.getAdapter().notifyDataSetChanged();
+                    }
+                });
     }
 
+    @Override
+    public void onDestroyView() {
+        if (worldRecordsRealtimeListener != null) worldRecordsRealtimeListener.remove();
+        super.onDestroyView();
+    }
 }
 
 

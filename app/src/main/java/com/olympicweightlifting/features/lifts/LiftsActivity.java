@@ -19,8 +19,6 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class LiftsActivity extends AppCompatActivity {
-
-
     @BindView(R.id.tablayout)
     TabLayout tabLayout;
     @BindView(R.id.image_header)
@@ -55,6 +53,10 @@ public class LiftsActivity extends AppCompatActivity {
         });
     }
 
+    private void setImageHeader(int liftsHeaderImage) {
+        imageHeader.setImageResource(liftsHeaderImage);
+    }
+
     private void setupViewPager(List<LiftsFragmentData> liftsActivityData) {
         LiftsPagerAdapter liftsPagerAdapter = new LiftsPagerAdapterBuilder(getSupportFragmentManager())
                 .addFragment(liftsActivityData.get(0))
@@ -65,9 +67,5 @@ public class LiftsActivity extends AppCompatActivity {
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
         int fragmentIndex = getIntent().getIntExtra(FeaturesRecyclerViewAdapter.BUNDLE_FRAGMENT_INDEX, 0);
         viewPager.setCurrentItem(fragmentIndex);
-    }
-
-    private void setImageHeader(int liftsHeaderImage) {
-        imageHeader.setImageResource(liftsHeaderImage);
     }
 }

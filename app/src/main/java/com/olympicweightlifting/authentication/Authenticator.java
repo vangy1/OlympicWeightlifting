@@ -22,14 +22,9 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
-import com.google.firebase.firestore.CollectionReference;
-import com.google.firebase.firestore.FirebaseFirestore;
 import com.olympicweightlifting.R;
-import com.olympicweightlifting.features.programs.ProgramsInitialDataBuilder;
-import com.olympicweightlifting.features.programs.data.Program;
 
 import java.util.Arrays;
-import java.util.List;
 
 
 public class Authenticator {
@@ -85,9 +80,6 @@ public class Authenticator {
         firebaseAuth.signInWithCredential(facebookAuthCredential).addOnCompleteListener(activity, task -> {
                     if (task.isSuccessful()) {
                         FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
-                        if (task.getResult().getAdditionalUserInfo().isNewUser()) {
-                            insertInitialDataToDatabase(currentUser);
-                        }
                         ((AuthenticationActivity) activity).authenticationSuccess(currentUser);
                     } else {
                         if (task.getException() instanceof FirebaseAuthUserCollisionException) {
@@ -97,15 +89,6 @@ public class Authenticator {
                     }
                 }
         );
-    }
-
-    private void insertInitialDataToDatabase(FirebaseUser currentUser) {
-        CollectionReference programsCollection = FirebaseFirestore.getInstance().collection("users").document(currentUser.getUid()).collection("programs");
-        List<Program> initialPrograms = ProgramsInitialDataBuilder.getInitialPrograms();
-        for (Program program : initialPrograms) {
-            programsCollection.add(program);
-        }
-
     }
 
     void checkIfAlreadySignedIn() {
@@ -133,9 +116,6 @@ public class Authenticator {
                 FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
                 if (facebookAuthCredential != null) {
                     currentUser.linkWithCredential(facebookAuthCredential);
-                }
-                if (task.getResult().getAdditionalUserInfo().isNewUser()) {
-                    insertInitialDataToDatabase(currentUser);
                 }
                 ((AuthenticationActivity) activity).authenticationSuccess(currentUser);
             }

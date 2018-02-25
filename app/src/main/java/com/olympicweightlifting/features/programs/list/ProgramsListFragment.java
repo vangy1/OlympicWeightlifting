@@ -11,14 +11,12 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.ListenerRegistration;
 import com.google.firebase.firestore.Query;
 import com.olympicweightlifting.R;
 import com.olympicweightlifting.features.programs.data.Program;
-import com.olympicweightlifting.utilities.ApplicationConstants;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,6 +34,7 @@ public class ProgramsListFragment extends Fragment {
     TextView textViewNoProgramsSaved;
 
     private List<Program> programsList = new ArrayList<>();
+    private ListenerRegistration programsRealtimeListener;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -45,7 +44,6 @@ public class ProgramsListFragment extends Fragment {
 
         setupRecyclerView();
         populateRecyclerViewFromFirestore();
-
 
         return fragmentView;
     }
@@ -58,24 +56,27 @@ public class ProgramsListFragment extends Fragment {
     }
 
     private void populateRecyclerViewFromFirestore() {
-        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
 
-        CollectionReference workoutsCollection = FirebaseFirestore.getInstance().collection(FIREBASE_COLLECTION_USERS).document(currentUser.getUid()).collection(FIREBASE_COLLECTION_PROGRAMS);
-        workoutsCollection.orderBy("dateAdded", Query.Direction.ASCENDING).addSnapshotListener((documentSnapshots, e) -> {
-            programsList.clear();
-            for (DocumentSnapshot documentSnapshot : documentSnapshots) {
-                try {
-                    Program queriedObject = documentSnapshot.toObject(Program.class).withId(documentSnapshot.getId());
-                    if (queriedObject.validateObject()) {
-                        programsList.add(queriedObject);
+        programsRealtimeListener = FirebaseFirestore.getInstance()
+                .collection(FIREBASE_COLLECTION_USERS)
+                .document(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                .collection(FIREBASE_COLLECTION_PROGRAMS)
+                .orderBy("dateAdded", Query.Direction.DESCENDING)
+                .addSnapshotListener((documentSnapshots, e) -> {
+                    programsList.clear();
+                    for (DocumentSnapshot documentSnapshot : documentSnapshots) {
+                        try {
+                            Program queriedObject = documentSnapshot.toObject(Program.class).withId(documentSnapshot.getId());
+                            if (queriedObject.validateObject()) {
+                                programsList.add(queriedObject);
+                            }
+                        } catch (Exception exception) {
+                            exception.printStackTrace();
+                        }
                     }
-                } catch (Exception exception) {
-                    exception.printStackTrace();
-                }
-            }
-            recyclerViewWorkouts.getAdapter().notifyDataSetChanged();
-            handleNoWorkoutTracked();
-        });
+                    recyclerViewWorkouts.getAdapter().notifyDataSetChanged();
+                    handleNoWorkoutTracked();
+                });
     }
 
     private void handleNoWorkoutTracked() {
@@ -88,4 +89,9 @@ public class ProgramsListFragment extends Fragment {
         }
     }
 
+    @Override
+    public void onDestroyView() {
+        if (programsRealtimeListener != null) programsRealtimeListener.remove();
+        super.onDestroyView();
+    }
 }

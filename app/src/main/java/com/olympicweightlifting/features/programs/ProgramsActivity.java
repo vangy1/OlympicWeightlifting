@@ -12,7 +12,6 @@ import butterknife.ButterKnife;
 import dagger.android.support.DaggerAppCompatActivity;
 
 public class ProgramsActivity extends DaggerAppCompatActivity {
-
     @BindView(R.id.tablayout)
     TabLayout tabLayout;
     @BindView(R.id.viewpager)

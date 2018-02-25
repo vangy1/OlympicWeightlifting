@@ -13,21 +13,19 @@ import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.olympicweightlifting.R;
 import com.olympicweightlifting.features.tracking.data.TrackedWorkoutData;
 import com.olympicweightlifting.features.tracking.history.TrackingHistoryRecyclerViewAdapter;
-import com.olympicweightlifting.utilities.ApplicationConstants;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 import static android.text.format.DateFormat.getDateFormat;
 import static com.olympicweightlifting.utilities.ApplicationConstants.FIREBASE_COLLECTION_USERS;
-import static com.olympicweightlifting.utilities.ApplicationConstants.FIREBASE_COLLECTION_WORKOUTS_TRACKED;
+import static com.olympicweightlifting.utilities.ApplicationConstants.FIREBASE_COLLECTION_WORKOUTS;
 
 public class TrackingWorkoutDetails extends Fragment {
     public static final String TAG = TrackingWorkoutDetails.class.getCanonicalName();
@@ -78,8 +76,11 @@ public class TrackingWorkoutDetails extends Fragment {
 
     private void removeWorkoutFromFirestore() {
         FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
-        CollectionReference trackedWorkouts = FirebaseFirestore.getInstance().collection(FIREBASE_COLLECTION_USERS).document(currentUser.getUid()).collection(FIREBASE_COLLECTION_WORKOUTS_TRACKED);
-        trackedWorkouts.document(trackedWorkout.getDocumentId()).delete();
+        FirebaseFirestore.getInstance()
+                .collection(FIREBASE_COLLECTION_USERS)
+                .document(currentUser.getUid())
+                .collection(FIREBASE_COLLECTION_WORKOUTS)
+                .document(trackedWorkout.getDocumentId()).delete();
     }
 
     @Override

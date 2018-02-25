@@ -13,14 +13,12 @@ import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.olympicweightlifting.R;
 import com.olympicweightlifting.features.programs.data.Program;
 import com.olympicweightlifting.features.programs.list.ProgramsListRecyclerViewAdapter;
-import com.olympicweightlifting.utilities.ApplicationConstants;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -76,8 +74,11 @@ public class ProgramDetails extends Fragment {
 
     private void removeWorkoutFromFirestore() {
         FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
-        CollectionReference programs = FirebaseFirestore.getInstance().collection(FIREBASE_COLLECTION_USERS).document(currentUser.getUid()).collection(FIREBASE_COLLECTION_PROGRAMS);
-        programs.document(program.getDocumentId()).delete();
+        FirebaseFirestore.getInstance()
+                .collection(FIREBASE_COLLECTION_USERS)
+                .document(currentUser.getUid())
+                .collection(FIREBASE_COLLECTION_PROGRAMS)
+                .document(program.getDocumentId()).delete();
     }
 
     @Override

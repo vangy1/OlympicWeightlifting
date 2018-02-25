@@ -18,8 +18,6 @@ public class TrackedWorkoutData {
     }
 
     public TrackedWorkoutData(List<TrackedExerciseData> trackedExercises, Date dateOfWorkout) {
-        dateAdded = new Date();
-
         this.trackedExercises = trackedExercises;
         this.dateOfWorkout = dateOfWorkout;
     }
@@ -52,4 +50,7 @@ public class TrackedWorkoutData {
         return dateAdded;
     }
 
+    public void setDateAdded() {
+        this.dateAdded = new Date();
+    }
 }

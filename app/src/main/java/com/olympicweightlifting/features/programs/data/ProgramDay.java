@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ProgramDay {
-
     private List<ProgramExercise> exercises = new ArrayList<>();
 
     public ProgramDay() {

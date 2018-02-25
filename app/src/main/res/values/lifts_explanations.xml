@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="starting_position_title">Starting Position</string>
+    <string name="first_step_title">First Step</string>
+    <string name="second_step_title">Second Step</string>
+    <string name="third_step_title">Third Step</string>
+    <string name="fourth_step_title">Fourth Step</string>
+    <string name="fifth_step_title">Fifth Step</string>
+
+    <string name="starting_position_description_caj">Place the feet to the hip width position and turn the toes slightly. Your back should be straight and your thighs approximately parallel to the ground. Grip the bar with clean grip. Use hook grip if you can.</string>
+    <string name="first_step_description_caj">Start lifting bar and keep it close to your legs. Your back angle should stay the same and your arms should remain straight.</string>
+    <string name="second_step_description_caj">As the bar approaches the mid-thigh position, start extending through the hips. Accelerate with help of your knees, ankles and hips, using speed to move the bar upward. At the end of this phase, the body should be fully extended, leaning slightly back.</string>
+    <string name="third_step_description_caj">Start aggressively shrugging and flexing the arms with the elbows up and out. While you rotate your elbows under the bar, pull yourself under it. Receive the bar in the front squat position and continue to descend to the bottom squat position. Raise to the standing position.</string>
+    <string name="fourth_step_description_caj">Standing with the bar on the front of your shoulders, slightly bend your knees and do a jerk as powerfully as possible. As the bar leaves the shoulders be sure to put head out of the way, so you won\'t get hit.</string>
+    <string name="fifth_step_description_caj">As your feet leaves the floor, place them into receiving position very quickly. Split your feet, with one foot forward and one foot back. Receive the bar with the arms locked out overhead and return to the standing position.</string>
+
+    <string name="snatch_starting_position">Place the feet at hip width position and turn the toes slightly. Your back should be straight and your thighs approximately parallel to the ground. Grip the bar with wide snatch grip (barbell should have an approximate point of where this is). Use hook grip if you can.</string>
+    <string name="snatch_first_step">Start lifting the bar and keep it close to your legs. As the bar reaches the middle of your thighs, lift your body to a complete extension in an explosive motion.</string>
+    <string name="snatch_second_step">Lift your shoulders back in a shrugging movement as you bring the bar up while putting your elbows out to the side and keeping them above the bar.</string>
+    <string name="snatch_third_step">When the bar is high enough, quickly put your body under it. Lock your arms when the bar is in overhead position as you assume a squat position. When your body is stabilized, stand up with your arms still locked.</string>
+
+    <string name="power_clean_title">Power Clean</string>
+    <string name="hang_clean_title">Hang Clean</string>
+    <string name="overhead_press_title">Overhead Press</string>
+    <string name="behind_the_neck_press_title">Behind the Neck Press</string>
+    <string name="push_press_title">Push Press</string>
+    <string name="clean_deadlift_title">Clean Deadlift</string>
+    <string name="clean_pull_title">Clean Pull</string>
+
+    <string name="power_clean_description">Power clean is almost the same as clean. Only difference is that you are not doing full-depth squat. All downward movement should be stopped with your thighs above horizontal position. Aim for the maximum of 4 reps for best technique improvement.</string>
+    <string name="hang_clean_description">Grip the bar with clean grip and lift it to the standing position. Lower the bar to the hang position and initiate the clean. Aim for maximum of 4 reps for best technique improvement.</string>
+    <string name="overhead_press_description">Stand in the jerk position with bar resting on your shoulders. Using arms, drive the bar aggressively of your shoulder, while pulling the head out of the way. Lock the bar as you reach the overhead position. Aim for the maximum of 10 reps for best technique improvement.</string>
+    <string name="behind_the_neck_press_description">Stand with barbell behind your neck with jerk grip. Squeeze your shoulders tightly and press the bar into jerk overhead position. Aim for the maximum of 8 reps.</string>
+    <string name="push_press_description">Stand in the jerk position with bar resting on your shoulders. Bend your knees slightly and accelerate the bar aggressively using your legs, while you pull the head out of the way. Lock the bar as you reach the overhead position. Aim for the maximum of 6 reps for best technique improvement.</string>
+    <string name="clean_deadlift_description">Stand in the clean position and grip the bar using clean grip. Initiate the lift by pushing with the legs against the floor. While you are keeping your whole body tight, lift the bar into the standing position. Use straps if you need to. Aim for the maximum of 6 reps.</string>
+    <string name="clean_pull_description">Stand in the clean position and grip the bar using clean grip. Initiate the lift by pushing with the legs against the floor. While you are keeping your whole body tight, start lifting the bar. When you reach the middle of your thigh, aggressively accelerate the bar, while keeping it close to your body. Use straps if you need to. Aim for the maximum of 5 reps.</string>
+
+    <string name="power_snatch_title">Power Snatch</string>
+    <string name="hang_snatch_title">Hang Snatch</string>
+    <string name="snatch_press_title">Snatch Press</string>
+    <string name="overhead_squat_title">Overhead Squat</string>
+    <string name="snatch_deadlift_title">Snatch Deadlift</string>
+    <string name="snatch_pull_title">Snatch Pull</string>
+
+    <string name="power_snatch_description">Power snatch is almost same as the snatch. Only difference is that you are not doing full-depth squat. All downward movement should be stopped with your thighs above horizontal position. Aim for the maximum of 4 reps for best technique improvement.</string>
+    <string name="hang_snatch_description">Grip the bar with snatch grip and lift it to the standing position. Then lower the bar to the hang position and initiate the snatch. Aim for the maximum of 4 reps for best technique improvement. Use straps if you need to.</string>
+    <string name="snatch_press_description">Stand with the barbell behind your neck and grip the bar using snatch grip.  Squeeze your shoulders tightly and press the bar into snatch overhead position.Aim for the maximum of 8 reps.</string>
+    <string name="overhead_squat_description">Secure the bar in the snatch overhead position. Do a full depth squat and stand up while you control your speed. Your arms should stay locked throughout the whole lift. Aim for the maximum of 6 reps.</string>
+    <string name="snatch_deadlift_description">Stand in the snatch position and grip the bar using snatch grip. Initiate the lift by pushing with the legs against the floor. While you are keeping your whole body tight, lift the bar into the standing position. Aim for the maximum of 6 reps. Use straps if you need to.</string>
+    <string name="snatch_pull_description">Stand in the snatch position and grip the bar using snatch grip. Initiate the lift by pushing with legs against the floor. While you are keeping your whole body tight, start lifting the bar. When you reach the middle of your thighs, accelerate the bar aggressively while keeping it close to your body. Aim for maximum of 5 reps. Use straps if you need to.</string>
+
+    <string name="bar_too_far_title_caj">Bar is too far from the body</string>
+    <string name="swinging_bar_title_caj">Swinging the bar</string>
+    <string name="pushing_away_title_caj">Pushing the bar away from body</string>
+    <string name="going_forward_title_caj">Going forward in the dip</string>
+
+    <string name="bar_too_far_description_caj">Keep the bar tight to your body. The bar must be always as close to the body as possible, or you may miss the lift.</string>
+    <string name="swinging_bar_description_caj">Bar shouldn\'t be swinging forward during the pull. Instead of swinging the bar, keep it close to your body.</string>
+    <string name="pushing_away_description_caj">When jerking, try to avoid pushing the bar away from your body. Instead, push the bar straight up over your head.</string>
+    <string name="going_forward_description_caj">You should avoid going or falling forward while doing the dip. Go straight up.</string>
+
+    <string name="butt_high_title_snatch">Butt is too high</string>
+    <string name="bar_too_far_title_snatch">Bar is too far from the body</string>
+    <string name="back_angle_title_snatch">Not maintaining the back angle</string>
+    <string name="bending_early_title_snatch">Bending arms early</string>
+    <string name="jumping_forward_title_snatch">Jumping forward</string>
+    <string name="swinging_bar_title_snatch">Swinging the bar</string>
+
+    <string name="butt_high_description_snatch">In the proper starting position, you should be in a 90 degree squat or lower, so you can use your lower body effectively.</string>
+    <string name="bar_too_far_description_snatch">Keep the bar tight to your body. The bar must be always as close to the body as possible, or you may miss the lift.</string>
+    <string name="back_angle_description_snatch">Your back angle should stay the same during the first pull, until you get to the knees.</string>
+    <string name="bending_early_description_snatch">One of the most common mistake while doing snatch is bending your arms before it reaches your hips.</string>
+    <string name="jumping_forward_description_snatch">When jumping forward, your weight is not being distributed throughout the heels properly.</string>
+    <string name="swinging_bar_description_snatch">This is the mistake that many lifters do. Swinging the bar is inefficient and will result in many missed lift. Instead of swinging the bar, keep it close to your body.</string>
+
+    <string name="power_clean_video_url">https://youtu.be/-RX9YvX8ZOg?t=9s</string>
+    <string name="hang_clean_video_url">https://youtu.be/-sHj0HmRIBY?t=9s</string>
+    <string name="overhead_press_video_url">https://youtu.be/Cjq9wf9XnX0?t=9s</string>
+    <string name="behind_the_neck_press_video_url">https://youtu.be/wk6At7SDB3c?t=9s</string>
+    <string name="push_press_video_url">https://youtu.be/tmf3bvsoiG8?t=9s</string>
+    <string name="clean_deadlift_video_url">https://youtu.be/up4l1B0GE9c?t=9s</string>
+    <string name="clean_pull_video_url">https://youtu.be/VF-hqxyLly4?t=9s</string>
+    <string name="power_snatch_video_url">https://youtu.be/lAIqwzxS3pc?t=8s</string>
+    <string name="hang_snatch_video_url">https://youtu.be/QZU7URo6HME?t=9s</string>
+    <string name="snatch_press_video_url">https://youtu.be/Dmv3Ukb17_A?t=9s</string>
+    <string name="overhead_squat_video_url">https://youtu.be/3AjEKNKLFME?t=9s</string>
+    <string name="snatch_deadlift_video_url">https://youtu.be/5XTD4PPV3_8?t=9s</string>
+    <string name="snatch_pull_video_url">https://youtu.be/ozFjbwIOjU4?t=9s</string>
+    <string name="floating_button_video_url_snatch">https://youtu.be/BqWYvGDIRwE?t=9s</string>
+    <string name="floating_button_video_url_caj">https://youtu.be/q9HbsciMSJU?t=8s</string>
+</resources>
