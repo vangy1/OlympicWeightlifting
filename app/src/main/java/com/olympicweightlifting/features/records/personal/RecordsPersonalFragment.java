@@ -119,9 +119,7 @@ public class RecordsPersonalFragment extends DaggerFragment implements DatePicke
         setupRecyclerView();
         populateRecyclerViewFromFirestore();
 
-        buttonExerciseManager.setOnClickListener(view -> {
-            openExerciseManagerDialog();
-        });
+        buttonExerciseManager.setOnClickListener(view -> openExerciseManagerDialog());
 
         buttonSave.setOnClickListener(view -> {
             if (checkIfUserReachedTheLimit()) {

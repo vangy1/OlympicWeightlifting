@@ -87,7 +87,7 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:text="@string/calculators_loading_reps_limit"
-        android:textSize="11sp"
+        android:textSize="12sp"
         app:layout_constraintBottom_toBottomOf="@+id/text_reps"
         app:layout_constraintEnd_toEndOf="@+id/text_weight_units"
         app:layout_constraintStart_toStartOf="@+id/text_weight_units"

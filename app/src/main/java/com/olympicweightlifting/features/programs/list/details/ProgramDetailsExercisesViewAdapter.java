@@ -17,7 +17,6 @@ import butterknife.ButterKnife;
 
 
 public class ProgramDetailsExercisesViewAdapter extends RecyclerView.Adapter<ProgramDetailsExercisesViewAdapter.ViewHolder> {
-    private final Context context;
     private List<ProgramExercise> exercises;
 
     static class ViewHolder extends RecyclerView.ViewHolder {
@@ -36,7 +35,6 @@ public class ProgramDetailsExercisesViewAdapter extends RecyclerView.Adapter<Pro
 
     public ProgramDetailsExercisesViewAdapter(List<ProgramExercise> exercises, Context context) {
         this.exercises = exercises;
-        this.context = context;
     }
 
     @Override

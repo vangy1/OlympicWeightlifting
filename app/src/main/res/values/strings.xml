@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">Olympic Weightlifting</string>
-    <string name="welcome_message">Thank you for downloading the app. We are constantly trying to make it better, so if you\'ll find a bug or a feature that you would like here, please contact us.
+    <string name="welcome_message">Thank you for downloading our app. We are constantly trying to make it better, so if you\'ll find a bug or a feature that you would like here, please contact us.
         \n\nBy upgrading to premium, you\'ll not only support us, but you\'ll also get:\n  • rid of all limits\n  • 3 training programs\n  • guarantee of no ads</string>
 
     <string name="google_client_id">966264089520-mhe4q88i5945m81nvcn6jk2gint2ubc3.apps.googleusercontent.com</string>
@@ -41,10 +41,9 @@
     <string name="all_manage_exercises">Manage exercises</string>
     <string name="all_upgrade">Upgrade</string>
     <string name="all_cancel">Cancel</string>
-
+    <string name="all_sign_in">Sign in</string>
 
     <string name="menu_profile">Profile</string>
-    <string name="menu_sign_in">Sign in</string>
     <string name="menu_settings">Settings</string>
     <string name="menu_contact">Contact us</string>
 
@@ -76,8 +75,7 @@
     <string name="lifts_technique">Technique</string>
     <string name="lifts_mistakes">Mistakes</string>
     <string name="lifts_exercises">Exercises</string>
-    <string name="lifts_snatch_content_description">Snatch lift picture</string>
-    <string name="lifts_caj_content_description">Clean and Jerk lift picture</string>
+    <string name="lifts_image_content_description">Lift image picture</string>
     <string name="lifts_watch_video">Watch video</string>
 
     <string name="calculators_tab_sinclair">Sinclair</string>
@@ -121,4 +119,7 @@
 
     <string name="records_tab_personal">Personal</string>
     <string name="records_tab_world">World</string>
+    <string name="main_activity_feature_content_descriptior">Image of feature</string>
+    <string name="exercise_manager_exercise_to_add_label">Exercise name</string>
+    <string name="purchase_user_is_premium_message">Thank you for supporting the app! Enjoy using it without limits!</string>
 </resources>

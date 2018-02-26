@@ -34,9 +34,7 @@ public class BillingManager implements PurchasesUpdatedListener {
         billingListener = updatesListener;
         billingClient = BillingClient.newBuilder(activity).setListener(this).build();
 
-        startServiceConnection(() -> {
-            queryPurchases();
-        });
+        startServiceConnection(this::queryPurchases);
     }
 
     public void startServiceConnection(final Runnable executeOnSuccess) {
@@ -114,12 +112,6 @@ public class BillingManager implements PurchasesUpdatedListener {
         executeServiceRequest(purchaseFlowRequest);
     }
 
-    public void consumeAsync(final String purchaseToken) {
-        Runnable consumeRequest = () -> billingClient.consumeAsync(purchaseToken, (responseCode, purchaseToken1) -> {
-        });
-
-        executeServiceRequest(consumeRequest);
-    }
     public boolean isUserPremium(List<Purchase> purchases) {
         for (Purchase purchase : purchases) {
             if (Objects.equals(purchase.getSku(), SKU_TYPE_PREMIUM)) {

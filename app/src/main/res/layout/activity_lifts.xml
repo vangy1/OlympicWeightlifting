@@ -19,9 +19,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:adjustViewBounds="true"
-                android:contentDescription="@string/lifts_snatch_content_description"
-                android:scaleType="centerCrop"
-                android:src="@drawable/lifts_image_caj" />
+                android:contentDescription="@string/lifts_image_content_description"
+                android:scaleType="centerCrop" />
 
             <android.support.design.widget.TabLayout
                 android:id="@+id/tablayout"

@@ -83,9 +83,7 @@ public class ProgramCreateFragment extends DaggerFragment implements ExerciseMan
 
         setupRecyclerView();
 
-        buttonExerciseManager.setOnClickListener(view -> {
-            openExerciseManagerDialog();
-        });
+        buttonExerciseManager.setOnClickListener(view -> openExerciseManagerDialog());
 
         database.exerciseDao().getAll().subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe((queriedExercises) -> {
             for (Exercise queriedExercise : queriedExercises) {

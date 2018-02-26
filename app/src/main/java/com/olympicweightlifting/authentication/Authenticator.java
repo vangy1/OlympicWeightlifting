@@ -33,8 +33,6 @@ public class Authenticator {
 
     private Activity activity;
 
-    private FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
-
     private CallbackManager facebookCallbackManager;
     private AuthCredential facebookAuthCredential;
 
@@ -77,7 +75,7 @@ public class Authenticator {
 
     private void firebaseAuthWithFacebook(AccessToken accessToken) {
         facebookAuthCredential = FacebookAuthProvider.getCredential(accessToken.getToken());
-        firebaseAuth.signInWithCredential(facebookAuthCredential).addOnCompleteListener(activity, task -> {
+        FirebaseAuth.getInstance().signInWithCredential(facebookAuthCredential).addOnCompleteListener(activity, task -> {
                     if (task.isSuccessful()) {
                         FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
                         ((AuthenticationActivity) activity).authenticationSuccess(currentUser);
@@ -111,7 +109,7 @@ public class Authenticator {
 
     private void firebaseAuthWithGoogle(GoogleSignInAccount googleSignInAccount) {
         AuthCredential credential = GoogleAuthProvider.getCredential(googleSignInAccount.getIdToken(), null);
-        firebaseAuth.signInWithCredential(credential).addOnCompleteListener(activity, task -> {
+        FirebaseAuth.getInstance().signInWithCredential(credential).addOnCompleteListener(activity, task -> {
             if (task.isSuccessful()) {
                 FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
                 if (facebookAuthCredential != null) {

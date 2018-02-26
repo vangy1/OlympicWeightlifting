@@ -1,9 +1,5 @@
 package com.olympicweightlifting.utilities;
 
-/**
- * Created by vangor on 07/02/2018.
- */
-
 public class ApplicationConstants {
     public static final String DATBASE_NAME = "DATABASE";
     public static final String PREF_SETTINGS = "PREF_SETTINGS";

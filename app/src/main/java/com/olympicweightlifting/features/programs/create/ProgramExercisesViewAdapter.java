@@ -22,10 +22,6 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-/**
- * Created by vangor on 01/02/2018.
- */
-
 public class ProgramExercisesViewAdapter extends RecyclerView.Adapter<ProgramExercisesViewAdapter.ViewHolder> {
     private final Context context;
     private List<ProgramExercise> exercises;

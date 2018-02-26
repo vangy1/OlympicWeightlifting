@@ -92,16 +92,9 @@ public class ProfileActivity extends AppCompatActivity {
                     purchase.getSku();
                 }
                 if (billingManager.isUserPremium(purchases)) {
-                    handlePremiumUser(purchases);
-                    textViewPremiumPurchasedMessage.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-                            billingManager.consumeAsync(purchases.get(0).getPurchaseToken());
-                        }
-                    });
+                    handlePremiumUser();
                 } else {
                     handleFreeUser();
-
                 }
             }
 
@@ -144,7 +137,7 @@ public class ProfileActivity extends AppCompatActivity {
         finish();
     }
 
-    private void handlePremiumUser(List<Purchase> purchases) {
+    private void handlePremiumUser() {
         layoutLimits.setVisibility(View.GONE);
         textViewPremiumPurchasedMessage.setVisibility(View.VISIBLE);
     }

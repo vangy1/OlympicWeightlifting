@@ -26,6 +26,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
+                android:contentDescription="@string/main_activity_feature_content_descriptior"
                 android:scaleType="centerCrop" />
 
             <TextView

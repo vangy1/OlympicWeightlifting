@@ -24,10 +24,6 @@ import static android.text.format.DateFormat.getDateFormat;
 import static com.olympicweightlifting.utilities.ApplicationConstants.FIREBASE_COLLECTION_RECORDS_PERSONAL;
 import static com.olympicweightlifting.utilities.ApplicationConstants.FIREBASE_COLLECTION_USERS;
 
-/**
- * Created by vangor on 01/02/2018.
- */
-
 public class RecordsPersonalRecyclerViewAdapter extends RecyclerView.Adapter<RecordsPersonalRecyclerViewAdapter.ViewHolder> {
     private List<RecordsPersonalData> recordsPersonalDataList;
 

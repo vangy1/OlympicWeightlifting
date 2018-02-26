@@ -17,10 +17,6 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-/**
- * Created by vangor on 01/02/2018.
- */
-
 public class ProgramDetailsWeeksViewAdapter extends RecyclerView.Adapter<ProgramDetailsWeeksViewAdapter.ViewHolder> {
     private final Context context;
     private List<ProgramWeek> weeks;

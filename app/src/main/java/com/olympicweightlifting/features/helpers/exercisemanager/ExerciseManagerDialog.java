@@ -71,11 +71,7 @@ public class ExerciseManagerDialog extends DaggerAppCompatDialogFragment {
             if (!editTextExerciseToAdd.getText().toString().isEmpty()) {
                 String exerciseName = Character.toUpperCase(editTextExerciseToAdd.getText().toString().charAt(0)) + editTextExerciseToAdd.getText().toString().substring(1);
                 Exercise exercise = new Exercise(exerciseName);
-                Completable.fromAction(() -> {
-                    database.exerciseDao().insert(exercise);
-                }).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).doOnComplete(() -> {
-                    addExercise(exercise);
-                }).onErrorComplete().subscribe();
+                Completable.fromAction(() -> database.exerciseDao().insert(exercise)).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).doOnComplete(() -> addExercise(exercise)).onErrorComplete().subscribe();
             }
         });
 
@@ -83,11 +79,7 @@ public class ExerciseManagerDialog extends DaggerAppCompatDialogFragment {
         buttonRemoveExercise.setOnClickListener(view -> {
             if (spinnerExerciseToDelete.getSelectedItemPosition() != -1) {
                 String exerciseName = (String) spinnerAdapter.getItem(spinnerExerciseToDelete.getSelectedItemPosition());
-                Completable.fromAction(() -> {
-                    database.exerciseDao().deleteByExerciseName(exerciseName);
-                }).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).doOnComplete(() -> {
-                    removeExercise(exerciseName);
-                }).onErrorComplete().subscribe();
+                Completable.fromAction(() -> database.exerciseDao().deleteByExerciseName(exerciseName)).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).doOnComplete(() -> removeExercise(exerciseName)).onErrorComplete().subscribe();
             }
         });
 

@@ -59,9 +59,7 @@ public class ProgramsListRecyclerViewAdapter extends RecyclerView.Adapter<Progra
 
         viewHolder.textViewProgramTitle.setText(currentProgram.getProgramTitle());
 
-        viewHolder.layoutRecords.setOnClickListener(view -> {
-            showWorkoutDetails(currentProgram);
-        });
+        viewHolder.layoutRecords.setOnClickListener(view -> showWorkoutDetails(currentProgram));
     }
 
     private void showWorkoutDetails(Program program) {

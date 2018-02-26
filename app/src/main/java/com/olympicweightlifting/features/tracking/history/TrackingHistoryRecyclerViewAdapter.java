@@ -62,9 +62,7 @@ public class TrackingHistoryRecyclerViewAdapter extends RecyclerView.Adapter<Tra
         TrackedWorkoutData currentTrackedWorkout = trackedWorkoutsList.get(position);
 
         viewHolder.textViewWorkoutDate.setText(dateFormat.format(currentTrackedWorkout.getDateOfWorkout()));
-        viewHolder.recordsLayout.setOnClickListener(view -> {
-            showWorkoutDetails(currentTrackedWorkout);
-        });
+        viewHolder.recordsLayout.setOnClickListener(view -> showWorkoutDetails(currentTrackedWorkout));
     }
 
     private void showWorkoutDetails(TrackedWorkoutData currentTrackedWorkout) {

@@ -1,9 +1,5 @@
 package com.olympicweightlifting.features.lifts;
 
-/**
- * Created by vangor on 04/02/2018.
- */
-
 public class LiftsContentData {
     private String title;
     private String description;

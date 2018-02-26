@@ -8,10 +8,6 @@ import org.json.JSONException;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by vangor on 01/02/2018.
- */
-
 public class Converters {
 
     @TypeConverter

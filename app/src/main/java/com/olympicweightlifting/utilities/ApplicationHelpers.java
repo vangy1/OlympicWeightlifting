@@ -5,10 +5,6 @@ import android.content.Context;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 
-/**
- * Created by vangor on 23/02/2018.
- */
-
 public class ApplicationHelpers {
     public static void hideKeyboard(Activity activity, View view) {
         if (view != null) {

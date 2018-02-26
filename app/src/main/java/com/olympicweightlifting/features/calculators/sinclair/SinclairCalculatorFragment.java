@@ -93,10 +93,7 @@ public class SinclairCalculatorFragment extends DaggerFragment {
 
 
     private void saveCalculationIntoDatabase(SinclairCalculation sinclairCalculation) {
-        Completable.fromAction(() -> {
-            database.sinclairCalculationDao().insert(sinclairCalculation);
-        }).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).doOnComplete(() -> {
-            calculatorsService.insertCalculationIntoRecyclerView(sinclairCalculation, sinclairCalculations, recyclerViewResults);
-        }).onErrorComplete().subscribe();
+        Completable.fromAction(() -> database.sinclairCalculationDao().insert(sinclairCalculation)).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).doOnComplete(() ->
+                calculatorsService.insertCalculationIntoRecyclerView(sinclairCalculation, sinclairCalculations, recyclerViewResults)).onErrorComplete().subscribe();
     }
 }

@@ -2,10 +2,6 @@ package com.olympicweightlifting.features.tracking.data;
 
 import java.text.DecimalFormat;
 
-/**
- * Created by vangor on 13/02/2018.
- */
-
 public class TrackedExerciseData {
     private double weight;
     private String units;

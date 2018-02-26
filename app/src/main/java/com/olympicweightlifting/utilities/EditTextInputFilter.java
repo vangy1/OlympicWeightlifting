@@ -3,10 +3,6 @@ package com.olympicweightlifting.utilities;
 import android.text.InputFilter;
 import android.text.Spanned;
 
-/**
- * Created by vangor on 01/02/2018.
- */
-
 public class EditTextInputFilter implements InputFilter {
     private int min, max;
 

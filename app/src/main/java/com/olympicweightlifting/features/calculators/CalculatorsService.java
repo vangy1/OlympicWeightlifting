@@ -1,6 +1,5 @@
 package com.olympicweightlifting.features.calculators;
 
-import android.content.Context;
 import android.content.SharedPreferences;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -29,7 +28,6 @@ import static java.lang.Math.pow;
 public class CalculatorsService {
 
     public final int HISTORY_MAX = 10;
-    private final Context context;
     private final SharedPreferences sharedPreferences;
 
     public enum RepmaxType {
@@ -39,8 +37,7 @@ public class CalculatorsService {
     // TODO: move database dependency from individual calculator fragments into this service once Android Room allows generics in @Query
     // TODO: abstract all calculations so they implement Calculation interface
     @Inject
-    public CalculatorsService(Context context, SharedPreferences sharedPreferences) {
-        this.context = context;
+    public CalculatorsService(SharedPreferences sharedPreferences) {
         this.sharedPreferences = sharedPreferences;
     }
 

@@ -77,7 +77,7 @@ public abstract class ApplicationModule {
 
     @Provides
     @Singleton
-    static CalculatorsService provideCalculatorService(Context context, @Named("settings") SharedPreferences sharedPreferences) {
-        return new CalculatorsService(context, sharedPreferences);
+    static CalculatorsService provideCalculatorService(@Named("settings") SharedPreferences sharedPreferences) {
+        return new CalculatorsService(sharedPreferences);
     }
 }

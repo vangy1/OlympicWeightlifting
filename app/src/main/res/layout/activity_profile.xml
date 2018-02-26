@@ -155,7 +155,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
         android:gravity="center"
-        android:text="Thank you for supporting the app! Enjoy using it without limits!"
+        android:text="@string/purchase_user_is_premium_message"
         android:textColor="@color/colorBlackText"
         android:textSize="22sp"
         android:textStyle="bold"

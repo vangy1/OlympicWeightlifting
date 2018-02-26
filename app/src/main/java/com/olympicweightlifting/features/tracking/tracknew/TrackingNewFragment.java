@@ -115,16 +115,13 @@ public class TrackingNewFragment extends DaggerFragment implements DatePickerDia
         setupSpinner();
         setupRecyclerView();
 
-        buttonExerciseManager.setOnClickListener(view -> {
-            openExerciseManagerDialog();
-        });
+        buttonExerciseManager.setOnClickListener(view -> openExerciseManagerDialog());
 
         buttonAdd.setOnClickListener(view -> {
             try {
-                trackedExerciseData.add(0, new TrackedExerciseData(Double.parseDouble(editTextWeight.getText().toString()), Units.KG.toString(),
+                trackedExerciseData.add(new TrackedExerciseData(Double.parseDouble(editTextWeight.getText().toString()), Units.KG.toString(),
                         Integer.parseInt(editTextReps.getText().toString()), Integer.parseInt(editTextSets.getText().toString()), spinnerExercise.getSelectedItem().toString()));
-                exercisesRecyclerView.getAdapter().notifyItemInserted(0);
-                exercisesRecyclerView.scrollToPosition(0);
+                exercisesRecyclerView.getAdapter().notifyItemInserted(trackedExerciseData.size());
             } catch (Exception exception) {
                 Toast.makeText(getActivity(), getActivity().getString(R.string.all_insufficient_input), Toast.LENGTH_SHORT).show();
             }

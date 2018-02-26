@@ -26,9 +26,7 @@ public class SignInFragment extends Fragment {
         View fragmentView = inflater.inflate(R.layout.fragment_signin, container, false);
         ButterKnife.bind(this, fragmentView);
 
-        buttonSignin.setOnClickListener(view -> {
-            startSignInActivity();
-        });
+        buttonSignin.setOnClickListener(view -> startSignInActivity());
 
         return fragmentView;
     }

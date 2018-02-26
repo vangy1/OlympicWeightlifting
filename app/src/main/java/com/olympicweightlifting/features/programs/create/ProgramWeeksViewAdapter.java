@@ -81,9 +81,7 @@ public class ProgramWeeksViewAdapter extends RecyclerView.Adapter<ProgramWeeksVi
 
         @Override
         void bind(List<ProgramWeek> weeks, List<String> userExercises, ProgramWeeksViewAdapter programWeeksViewAdapter, LayoutManager layoutManager, Context context) {
-            buttonAddWeek.setOnClickListener(view -> {
-                addEmptyWeek(weeks, programWeeksViewAdapter, layoutManager, context);
-            });
+            buttonAddWeek.setOnClickListener(view -> addEmptyWeek(weeks, programWeeksViewAdapter, layoutManager, context));
         }
 
         private void addEmptyWeek(List<ProgramWeek> weeks, ProgramWeeksViewAdapter programWeeksViewAdapter, LayoutManager layoutManager, Context context) {

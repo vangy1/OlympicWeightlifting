@@ -90,11 +90,8 @@ public class LoadingCalculatorFragment extends DaggerFragment {
     }
 
     private void saveCalculationInDatabase(LoadingCalculation loadingCalculation) {
-        Completable.fromAction(() -> {
-            database.loadingCalculationDao().insert(loadingCalculation);
-        }).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).doOnComplete(() -> {
-            calculatorsService.insertCalculationIntoRecyclerView(loadingCalculation, loadingCalculations, recyclerViewResults);
-        }).onErrorComplete().subscribe();
+        Completable.fromAction(() -> database.loadingCalculationDao().insert(loadingCalculation)).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).doOnComplete(() ->
+                calculatorsService.insertCalculationIntoRecyclerView(loadingCalculation, loadingCalculations, recyclerViewResults)).onErrorComplete().subscribe();
     }
 
     private int getBarbellWeight() {
@@ -110,8 +107,4 @@ public class LoadingCalculatorFragment extends DaggerFragment {
         }
     }
 
-    private boolean weightToLoadDoesNotExceedWeightOfBar() {
-        int weightOfCollars = checkboxCollars.isChecked() ? 5 : 0;
-        return Integer.parseInt(editTextWeight.getText().toString()) >= getBarbellWeight() + weightOfCollars;
-    }
 }

@@ -5,10 +5,6 @@ import android.arch.persistence.room.PrimaryKey;
 
 import java.text.DecimalFormat;
 
-/**
- * Created by vangor on 25/01/2018.
- */
-
 @Entity
 public class SinclairCalculation {
     @PrimaryKey(autoGenerate = true)

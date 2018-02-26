@@ -6,10 +6,6 @@ import com.google.firebase.firestore.IgnoreExtraProperties;
 import java.text.DecimalFormat;
 import java.util.Date;
 
-/**
- * Created by vangor on 11/02/2018.
- */
-
 @IgnoreExtraProperties
 public class RecordsPersonalData {
     @Exclude

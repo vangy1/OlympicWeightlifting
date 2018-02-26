@@ -71,11 +71,11 @@ public class LoadingResultsRecyclerViewAdapter extends RecyclerView.Adapter<Load
         List<TextView> resultsTextViews = new ArrayList<>();
 
         calculatorsService.getResultViewsFromLayout(viewHolder.layoutResults, resultsTitleTextViews, resultsTextViews);
-        populateResultTitlesTextViews(viewHolder.layoutResults.getContext(), currentLoadingCalculation, resultsTitleTextViews);
+        populateResultTitlesTextViews(viewHolder.layoutResults.getContext(), resultsTitleTextViews);
         populateResultsTextViews(currentLoadingCalculation, resultsTextViews);
     }
 
-    private void populateResultTitlesTextViews(Context context, LoadingCalculation currentRepmaxCalculation, List<TextView> resultsTitleTextViews) {
+    private void populateResultTitlesTextViews(Context context, List<TextView> resultsTitleTextViews) {
 
         List<String> loadingWeights = Arrays.asList(context.getResources().getStringArray(R.array.calculators_loading_weights));
         List<String> loadingWeightColors = Arrays.asList(context.getResources().getStringArray(R.array.calculators_loading_weight_colors));

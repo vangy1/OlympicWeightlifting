@@ -16,10 +16,6 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-/**
- * Created by vangor on 01/02/2018.
- */
-
 public class TrackingWorkoutDetailsRecyclerViewAdapter extends RecyclerView.Adapter<TrackingWorkoutDetailsRecyclerViewAdapter.ViewHolder> {
     private final Context context;
     private List<TrackedExerciseData> trackedExercisesList;
@@ -60,7 +56,7 @@ public class TrackingWorkoutDetailsRecyclerViewAdapter extends RecyclerView.Adap
         viewHolder.textViewExerciseName.setText(currentTrackedExercise.getExercise());
         viewHolder.textViewLiftedWeight.setText(String.format("%s %s", currentTrackedExercise.getWeightFormatted(), currentTrackedExercise.getUnits().toLowerCase()));
         viewHolder.textViewReps.setText(context.getResources().getQuantityString(R.plurals.repetitons, currentTrackedExercise.getReps(), currentTrackedExercise.getReps()));
-        viewHolder.textViewSets.setText(context.getResources().getQuantityString(R.plurals.repetitons, currentTrackedExercise.getSets(), currentTrackedExercise.getSets()));
+        viewHolder.textViewSets.setText(context.getResources().getQuantityString(R.plurals.sets, currentTrackedExercise.getSets(), currentTrackedExercise.getSets()));
     }
 
     @Override

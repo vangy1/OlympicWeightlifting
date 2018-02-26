@@ -70,9 +70,8 @@ public class MainActivity extends DaggerAppCompatActivity implements Authenticat
     }
 
     private void runWelcomeDialogOnFirstStart() {
-        if (appInfoSharedPreferences.getBoolean(ApplicationConstants.PREF_APP_INFO_IS_FIRST_RUN, true)) {
+        if (FirebaseAuth.getInstance().getCurrentUser() != null && appInfoSharedPreferences.getBoolean(ApplicationConstants.PREF_APP_INFO_IS_FIRST_RUN, true)) {
             new WelcomeDialog().show(getSupportFragmentManager(), WelcomeDialog.TAG);
-
         }
     }
 
@@ -118,7 +117,7 @@ public class MainActivity extends DaggerAppCompatActivity implements Authenticat
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_home, menu);
-        return super.onCreateOptionsMenu(menu);
+        return true;
     }
 
     @Override

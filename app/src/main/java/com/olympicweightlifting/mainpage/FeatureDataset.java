@@ -2,10 +2,6 @@ package com.olympicweightlifting.mainpage;
 
 import android.os.Bundle;
 
-/**
- * Created by vangor on 16/01/2018.
- */
-
 public class FeatureDataset {
     private String featureName;
     private String[] featureShortcuts;

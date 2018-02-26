@@ -20,10 +20,6 @@ import butterknife.ButterKnife;
 
 import static android.text.format.DateFormat.getDateFormat;
 
-/**
- * Created by vangor on 01/02/2018.
- */
-
 public class RecordsWorldRecyclerViewAdapter extends RecyclerView.Adapter<RecordsWorldRecyclerViewAdapter.ViewHolder> {
     private List<WorldCategoryRecordsData> worldCategoryRecordsDataList;
     private DateFormat dateFormat;

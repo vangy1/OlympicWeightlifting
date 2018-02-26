@@ -9,10 +9,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-/**
- * Created by vangor on 18/02/2018.
- */
-
 public class ProgramsInitialDataBuilder {
     public static List<Program> getInitialPrograms() {
         List<Program> programs = new ArrayList<>();

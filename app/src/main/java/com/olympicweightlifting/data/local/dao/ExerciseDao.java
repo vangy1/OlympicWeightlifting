@@ -10,10 +10,6 @@ import java.util.List;
 
 import io.reactivex.Maybe;
 
-/**
- * Created by vangor on 09/02/2018.
- */
-
 @Dao
 public interface ExerciseDao {
 

@@ -86,10 +86,7 @@ public class RepmaxCalculatorFragment extends DaggerFragment {
     }
 
     private void saveCalculationInDatabase(RepmaxCalculation repmaxCalculation) {
-        Completable.fromAction(() -> {
-            database.repmaxCalculationDao().insert(repmaxCalculation);
-        }).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).doOnComplete(() -> {
-            calculatorsService.insertCalculationIntoRecyclerView(repmaxCalculation, calculationsRepmax, recyclerViewResults);
-        }).onErrorComplete().subscribe();
+        Completable.fromAction(() -> database.repmaxCalculationDao().insert(repmaxCalculation)).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).doOnComplete(() ->
+                calculatorsService.insertCalculationIntoRecyclerView(repmaxCalculation, calculationsRepmax, recyclerViewResults)).onErrorComplete().subscribe();
     }
 }
