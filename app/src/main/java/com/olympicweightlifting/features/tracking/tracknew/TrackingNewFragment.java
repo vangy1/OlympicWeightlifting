@@ -54,7 +54,7 @@ import io.reactivex.schedulers.Schedulers;
 import static android.text.format.DateFormat.getDateFormat;
 import static com.olympicweightlifting.utilities.ApplicationConstants.FIREBASE_COLLECTION_USERS;
 import static com.olympicweightlifting.utilities.ApplicationConstants.FIREBASE_COLLECTION_WORKOUTS;
-import static com.olympicweightlifting.utilities.ApplicationConstants.PREF_UNITS;
+import static com.olympicweightlifting.utilities.ApplicationConstants.PREF_SETTINGS_UNITS;
 import static com.olympicweightlifting.utilities.ApplicationConstants.Units;
 import static com.olympicweightlifting.utilities.ApplicationConstants.UserProfileStatus;
 import static com.olympicweightlifting.utilities.ApplicationConstants.WORKOUTS_LIMIT;
@@ -110,7 +110,7 @@ public class TrackingNewFragment extends DaggerFragment implements DatePickerDia
         getNumberOfTrackedWorkouts();
 
         dateFormat = getDateFormat(getActivity());
-        textWeightUnits.setText(sharedPreferences.getString(PREF_UNITS, Units.KG.toString()).toLowerCase());
+        textWeightUnits.setText(sharedPreferences.getString(PREF_SETTINGS_UNITS, Units.KG.toString()).toLowerCase());
         setupDatePicker();
         setupSpinner();
         setupRecyclerView();

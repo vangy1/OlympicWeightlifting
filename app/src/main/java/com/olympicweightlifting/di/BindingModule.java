@@ -14,6 +14,7 @@ import com.olympicweightlifting.features.tracking.TrackingActivity;
 import com.olympicweightlifting.features.tracking.tracknew.TrackingNewFragment;
 import com.olympicweightlifting.mainpage.MainActivity;
 import com.olympicweightlifting.mainpage.SettingsDialog;
+import com.olympicweightlifting.mainpage.WelcomeDialog;
 
 import dagger.Module;
 import dagger.android.ContributesAndroidInjector;
@@ -22,6 +23,9 @@ import dagger.android.ContributesAndroidInjector;
 public abstract class BindingModule {
     @ContributesAndroidInjector
     abstract MainActivity bindMainActivity();
+
+    @ContributesAndroidInjector
+    abstract WelcomeDialog bindWelcomeDialog();
 
     @ContributesAndroidInjector
     abstract SettingsDialog bindSettingsDialog();

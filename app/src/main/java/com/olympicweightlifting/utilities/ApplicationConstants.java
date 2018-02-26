@@ -6,7 +6,10 @@ package com.olympicweightlifting.utilities;
 
 public class ApplicationConstants {
     public static final String DATBASE_NAME = "DATABASE";
-    public static final String PREF_UNITS = "PREF_UNITS";
+    public static final String PREF_SETTINGS = "PREF_SETTINGS";
+    public static final String PREF_SETTINGS_UNITS = "UNITS";
+    public static final String PREF_APP_INFO = "PREF_APP_INFO";
+    public static final String PREF_APP_INFO_IS_FIRST_RUN = "PREF_APP_INFO";
 
     public static final String FIREBASE_COLLECTION_USERS = "users";
     public static final String FIREBASE_COLLECTION_PROGRAMS = "programs";

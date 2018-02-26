@@ -8,11 +8,9 @@ import android.content.SharedPreferences;
 import android.support.annotation.NonNull;
 
 import com.olympicweightlifting.App;
-import com.olympicweightlifting.R;
 import com.olympicweightlifting.data.local.AppDatabase;
 import com.olympicweightlifting.features.calculators.CalculatorsService;
 import com.olympicweightlifting.features.helpers.exercisemanager.Exercise;
-import com.olympicweightlifting.utilities.ApplicationConstants;
 
 import javax.inject.Named;
 import javax.inject.Singleton;
@@ -24,7 +22,8 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
 import static com.olympicweightlifting.utilities.ApplicationConstants.DATBASE_NAME;
-import static com.olympicweightlifting.utilities.ApplicationConstants.PREF_UNITS;
+import static com.olympicweightlifting.utilities.ApplicationConstants.PREF_APP_INFO;
+import static com.olympicweightlifting.utilities.ApplicationConstants.PREF_SETTINGS;
 
 @Module
 public abstract class ApplicationModule {
@@ -36,9 +35,16 @@ public abstract class ApplicationModule {
 
     @Provides
     @Singleton
+    @Named("app-info")
+    static SharedPreferences provideAppInfoSharedPreferences(Context context) {
+        return context.getSharedPreferences(PREF_APP_INFO, Context.MODE_PRIVATE);
+    }
+
+    @Provides
+    @Singleton
     @Named("settings")
     static SharedPreferences provideSettingsSharedPreferences(Context context) {
-        return context.getSharedPreferences(PREF_UNITS, Context.MODE_PRIVATE);
+        return context.getSharedPreferences(PREF_SETTINGS, Context.MODE_PRIVATE);
     }
 
     @Provides

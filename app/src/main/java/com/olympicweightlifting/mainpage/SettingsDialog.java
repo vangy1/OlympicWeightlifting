@@ -19,7 +19,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import dagger.android.support.DaggerAppCompatDialogFragment;
 
-import static com.olympicweightlifting.utilities.ApplicationConstants.PREF_UNITS;
+import static com.olympicweightlifting.utilities.ApplicationConstants.PREF_SETTINGS_UNITS;
 import static com.olympicweightlifting.utilities.ApplicationConstants.Units;
 
 
@@ -51,7 +51,7 @@ public class SettingsDialog extends DaggerAppCompatDialogFragment {
 
     private void displayCurrentSettings() {
 //        darkThemeSwitch.setChecked(settingsSharedPreferences.getBoolean(getString(R.string.settings_dark_theme), false));
-        Units units = Units.valueOf(settingsSharedPreferences.getString(PREF_UNITS, Units.KG.toString()));
+        Units units = Units.valueOf(settingsSharedPreferences.getString(PREF_SETTINGS_UNITS, Units.KG.toString()));
         if (units == Units.KG) {
             unitsRadioGroup.check(R.id.kg_radio_button);
         } else if (units == Units.LB) {
@@ -63,9 +63,9 @@ public class SettingsDialog extends DaggerAppCompatDialogFragment {
         SharedPreferences.Editor sharedPreferencesEditor = settingsSharedPreferences.edit();
 //        sharedPreferencesEditor.putBoolean(getString(R.string.settings_dark_theme), darkThemeSwitch.isChecked());
         if (unitsRadioGroup.getCheckedRadioButtonId() == R.id.kg_radio_button) {
-            sharedPreferencesEditor.putString(PREF_UNITS, Units.KG.toString());
+            sharedPreferencesEditor.putString(PREF_SETTINGS_UNITS, Units.KG.toString());
         } else if (unitsRadioGroup.getCheckedRadioButtonId() == R.id.lb_radio_button) {
-            sharedPreferencesEditor.putString(PREF_UNITS, Units.LB.toString());
+            sharedPreferencesEditor.putString(PREF_SETTINGS_UNITS, Units.LB.toString());
         }
         sharedPreferencesEditor.apply();
     }

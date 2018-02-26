@@ -93,8 +93,15 @@ public class ProfileActivity extends AppCompatActivity {
                 }
                 if (billingManager.isUserPremium(purchases)) {
                     handlePremiumUser(purchases);
+                    textViewPremiumPurchasedMessage.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            billingManager.consumeAsync(purchases.get(0).getPurchaseToken());
+                        }
+                    });
                 } else {
                     handleFreeUser();
+
                 }
             }
 

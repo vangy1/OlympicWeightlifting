@@ -1,6 +1,7 @@
 package com.olympicweightlifting.mainpage;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.graphics.Typeface;
 import android.os.Bundle;
@@ -26,8 +27,10 @@ import com.olympicweightlifting.features.lifts.LiftsContentDataBuilder;
 import com.olympicweightlifting.features.programs.ProgramsActivity;
 import com.olympicweightlifting.features.records.RecordsActivity;
 import com.olympicweightlifting.features.tracking.TrackingActivity;
+import com.olympicweightlifting.utilities.ApplicationConstants;
 
 import javax.inject.Inject;
+import javax.inject.Named;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -49,6 +52,9 @@ public class MainActivity extends DaggerAppCompatActivity implements Authenticat
     @Inject
     AppDatabase database;
 
+    @Inject
+    @Named("app-info")
+    SharedPreferences appInfoSharedPreferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,9 +63,17 @@ public class MainActivity extends DaggerAppCompatActivity implements Authenticat
         ButterKnife.bind(this);
         // to make sure that database object will be constructed before next activities
         database.getOpenHelper().getWritableDatabase();
+        runWelcomeDialogOnFirstStart();
 
         setupToolbar();
         setupRecyclerView();
+    }
+
+    private void runWelcomeDialogOnFirstStart() {
+        if (appInfoSharedPreferences.getBoolean(ApplicationConstants.PREF_APP_INFO_IS_FIRST_RUN, true)) {
+            new WelcomeDialog().show(getSupportFragmentManager(), WelcomeDialog.TAG);
+
+        }
     }
 
     private void setupToolbar() {
@@ -123,21 +137,17 @@ public class MainActivity extends DaggerAppCompatActivity implements Authenticat
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.settings) {
-            showSettingsDialog();
+            new SettingsDialog().show(getSupportFragmentManager(), SettingsDialog.TAG);
         } else if (item.getItemId() == R.id.profile) {
             startActivity(new Intent(this, ProfileActivity.class));
         } else if (item.getItemId() == R.id.signin) {
-            new SignInDialog().show(getSupportFragmentManager(), SignInDialog.TAG);
+            signInDialog = new SignInDialog();
+            signInDialog.show(getSupportFragmentManager(), SignInDialog.TAG);
         } else if (item.getItemId() == R.id.contact) {
             sendContactEmail();
         }
 
         return super.onOptionsItemSelected(item);
-    }
-
-    private void showSettingsDialog() {
-        SettingsDialog settingsDialog = new SettingsDialog();
-        settingsDialog.show(getSupportFragmentManager(), SettingsDialog.TAG);
     }
 
     private void sendContactEmail() {

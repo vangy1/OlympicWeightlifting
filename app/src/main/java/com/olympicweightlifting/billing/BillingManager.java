@@ -114,7 +114,12 @@ public class BillingManager implements PurchasesUpdatedListener {
         executeServiceRequest(purchaseFlowRequest);
     }
 
+    public void consumeAsync(final String purchaseToken) {
+        Runnable consumeRequest = () -> billingClient.consumeAsync(purchaseToken, (responseCode, purchaseToken1) -> {
+        });
 
+        executeServiceRequest(consumeRequest);
+    }
     public boolean isUserPremium(List<Purchase> purchases) {
         for (Purchase purchase : purchases) {
             if (Objects.equals(purchase.getSku(), SKU_TYPE_PREMIUM)) {
@@ -127,9 +132,10 @@ public class BillingManager implements PurchasesUpdatedListener {
     public void promptUserToUpgrade(Activity activity, ViewGroup layout) {
         Snackbar mySnackbar = Snackbar.make(layout,
                 R.string.profile_reached_free_limit, Snackbar.LENGTH_LONG);
-        mySnackbar.setAction(R.string.profile_upgrade, snackbarView -> activity.startActivity(new Intent(activity, ProfileActivity.class)));
+        mySnackbar.setAction(R.string.all_upgrade, snackbarView -> activity.startActivity(new Intent(activity, ProfileActivity.class)));
         mySnackbar.show();
     }
+
 
     public void destroy() {
         if (billingClient != null && billingClient.isReady()) {

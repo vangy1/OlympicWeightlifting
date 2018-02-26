@@ -1,5 +1,7 @@
 <resources>
     <string name="app_name">Olympic Weightlifting</string>
+    <string name="welcome_message">Thank you for downloading the app. We are constantly trying to make it better, so if you\'ll find a bug or a feature that you would like here, please contact us.
+        \n\nBy upgrading to premium, you\'ll not only support us, but you\'ll also get:\n  • rid of all limits\n  • 3 training programs\n  • guarantee of no ads</string>
 
     <string name="google_client_id">966264089520-mhe4q88i5945m81nvcn6jk2gint2ubc3.apps.googleusercontent.com</string>
     <string name="facebook_app_id">2074456829502538</string>
@@ -37,6 +39,9 @@
     <string name="all_add">Add</string>
     <string name="all_remove">Remove</string>
     <string name="all_manage_exercises">Manage exercises</string>
+    <string name="all_upgrade">Upgrade</string>
+    <string name="all_cancel">Cancel</string>
+
 
     <string name="menu_profile">Profile</string>
     <string name="menu_sign_in">Sign in</string>
@@ -64,7 +69,6 @@
     <string name="profile_limits_header">Limits for free users</string>
     <string name="profile_upgrade_info_message">Upgrade will be associated with your Google Play account, so you can use as many profiles as you want.</string>
     <string name="profile_reached_free_limit">You have reached your free limit.</string>
-    <string name="profile_upgrade">Upgrade</string>
     <string name="profile_records_tracked_info">Personal records tracked:</string>
     <string name="profile_workouts_tracked_info">Workouts tracked:</string>
     <string name="profile_programs_created_info">Programs created:</string>

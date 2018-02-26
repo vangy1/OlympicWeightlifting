@@ -54,7 +54,7 @@ import io.reactivex.schedulers.Schedulers;
 import static android.text.format.DateFormat.getDateFormat;
 import static com.olympicweightlifting.utilities.ApplicationConstants.FIREBASE_COLLECTION_RECORDS_PERSONAL;
 import static com.olympicweightlifting.utilities.ApplicationConstants.FIREBASE_COLLECTION_USERS;
-import static com.olympicweightlifting.utilities.ApplicationConstants.PREF_UNITS;
+import static com.olympicweightlifting.utilities.ApplicationConstants.PREF_SETTINGS_UNITS;
 import static com.olympicweightlifting.utilities.ApplicationConstants.RECORDS_LIMIT;
 import static com.olympicweightlifting.utilities.ApplicationConstants.Units;
 import static com.olympicweightlifting.utilities.ApplicationConstants.UserProfileStatus;
@@ -110,7 +110,7 @@ public class RecordsPersonalFragment extends DaggerFragment implements DatePicke
         ButterKnife.bind(this, fragmentView);
         getUserProfileStatus();
 
-        units = sharedPreferences.getString(PREF_UNITS, Units.KG.toString());
+        units = sharedPreferences.getString(PREF_SETTINGS_UNITS, Units.KG.toString());
         dateFormat = getDateFormat(getActivity());
         textWeightUnits.setText(units.toLowerCase());
 
