@@ -16,6 +16,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.olympicweightlifting.App;
 import com.olympicweightlifting.R;
 import com.olympicweightlifting.features.tracking.data.TrackedWorkoutData;
 import com.olympicweightlifting.features.tracking.history.TrackingHistoryRecyclerViewAdapter;
@@ -81,6 +82,7 @@ public class TrackingWorkoutDetails extends Fragment {
                 .document(currentUser.getUid())
                 .collection(FIREBASE_COLLECTION_WORKOUTS)
                 .document(trackedWorkout.getDocumentId()).delete();
+        ((App) getActivity().getApplication()).getAnalyticsTracker().sendEvent("Tracking Activity", "Delete workout");
     }
 
     @Override

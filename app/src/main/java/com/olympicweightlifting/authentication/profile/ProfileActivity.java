@@ -15,6 +15,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.ListenerRegistration;
+import com.olympicweightlifting.App;
 import com.olympicweightlifting.R;
 import com.olympicweightlifting.billing.BillingListener;
 import com.olympicweightlifting.billing.BillingManager;
@@ -22,6 +23,7 @@ import com.olympicweightlifting.features.programs.ProgramsInitialDataBuilder;
 import com.olympicweightlifting.features.programs.data.Program;
 import com.olympicweightlifting.features.records.personal.RecordsPersonalData;
 import com.olympicweightlifting.features.tracking.data.TrackedWorkoutData;
+import com.olympicweightlifting.utilities.AnalyticsTracker;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -67,11 +69,11 @@ public class ProfileActivity extends DaggerAppCompatActivity {
     Button buttonUpgradePremium;
     @BindView(R.id.layout_limits)
     ViewGroup layoutLimits;
-
-    BillingManager billingManager;
     @Inject
     @Named("settings")
     SharedPreferences settingsSharedPreferences;
+    private BillingManager billingManager;
+    private AnalyticsTracker analyticsTracker;
     private ListenerRegistration programsRealtimeListener;
     private ListenerRegistration workoutsRealtimeListener;
     private ListenerRegistration recordsRealtimeListener;
@@ -84,12 +86,18 @@ public class ProfileActivity extends DaggerAppCompatActivity {
         }
         setContentView(R.layout.activity_profile);
         ButterKnife.bind(this);
+        analyticsTracker = ((App) getApplication()).getAnalyticsTracker();
+        analyticsTracker.sendScreenName("Profile Activity");
+
         getUserProfileStatus();
 
         setupToolbar();
         setFonts();
         setUserDetails();
-        buttonSignout.setOnClickListener(view -> signOut());
+        buttonSignout.setOnClickListener(view -> {
+            analyticsTracker.sendEvent("Profile Activity", "Sign-out");
+            signOut();
+        });
     }
 
 
@@ -155,7 +163,10 @@ public class ProfileActivity extends DaggerAppCompatActivity {
     private void handleFreeUser() {
         layoutLimits.setVisibility(View.VISIBLE);
         textViewPremiumPurchasedMessage.setVisibility(View.GONE);
-        buttonUpgradePremium.setOnClickListener(view -> billingManager.initiatePurchaseFlow());
+        buttonUpgradePremium.setOnClickListener(view -> {
+            analyticsTracker.sendEvent("Profile Activity", "Premium prompt", "Premium");
+            billingManager.initiatePurchaseFlow();
+        });
         setListenersToGetLimitsInfo();
     }
 

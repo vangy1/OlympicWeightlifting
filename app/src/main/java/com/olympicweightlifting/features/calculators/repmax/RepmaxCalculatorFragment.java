@@ -13,6 +13,7 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.olympicweightlifting.App;
 import com.olympicweightlifting.R;
 import com.olympicweightlifting.data.local.AppDatabase;
 import com.olympicweightlifting.features.calculators.CalculatorsService;
@@ -69,6 +70,7 @@ public class RepmaxCalculatorFragment extends DaggerFragment {
             try {
                 RepmaxCalculation repmaxCalculation = calculateRepmax();
                 saveCalculationInDatabase(repmaxCalculation);
+                ((App) getActivity().getApplication()).getAnalyticsTracker().sendEvent("Calculator Activity", "Calculate repmax");
             } catch (Exception e) {
                 Toast.makeText(getActivity(), getString(R.string.all_insufficient_input), Toast.LENGTH_SHORT).show();
             }

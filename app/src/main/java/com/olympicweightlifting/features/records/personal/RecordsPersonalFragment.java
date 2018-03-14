@@ -26,6 +26,7 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.ListenerRegistration;
 import com.google.firebase.firestore.Query;
+import com.olympicweightlifting.App;
 import com.olympicweightlifting.R;
 import com.olympicweightlifting.billing.BillingListener;
 import com.olympicweightlifting.billing.BillingManager;
@@ -223,6 +224,7 @@ public class RecordsPersonalFragment extends DaggerFragment implements DatePicke
                 Integer.parseInt(editTextReps.getText().toString()), spinnerExercise.getSelectedItem().toString(), currentDate);
         recordsPersonalData.setDateAdded();
         FirebaseFirestore.getInstance().collection(FIREBASE_COLLECTION_USERS).document(currentUser.getUid()).collection(FIREBASE_COLLECTION_RECORDS_PERSONAL).add(recordsPersonalData);
+        ((App) getActivity().getApplication()).getAnalyticsTracker().sendEvent("Records Activity", "Save personal record");
     }
 
     @Override

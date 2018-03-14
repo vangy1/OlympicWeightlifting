@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Olympic Weightlifting</string>
     <string name="welcome_message">Thank you for downloading our app. We are constantly trying to make it better, so if you\'ll find a bug or a feature that you would like here, please contact us.
-        \n\nBy upgrading to premium, you\'ll not only support us, but you\'ll also get:\n  • rid of all limits\n  • 3 training programs\n  • guarantee of no ads</string>
+        \n\nBy upgrading to premium, you\'ll not only support us, but you\'ll also get:\n\n   -   rid of all limits\n   -   3 training programs\n   -   guarantee of no ads</string>
 
     <string name="google_client_id">966264089520-mhe4q88i5945m81nvcn6jk2gint2ubc3.apps.googleusercontent.com</string>
     <string name="facebook_app_id">2074456829502538</string>
@@ -42,6 +42,8 @@
     <string name="all_upgrade">Upgrade</string>
     <string name="all_cancel">Cancel</string>
     <string name="all_sign_in">Sign in</string>
+    <string name="all_done">Done</string>
+    <string name="all_welcome">Welcome</string>
 
     <string name="menu_profile">Profile</string>
     <string name="menu_settings">Settings</string>
@@ -122,5 +124,4 @@
     <string name="main_activity_feature_content_descriptior">Image of feature</string>
     <string name="exercise_manager_exercise_to_add_label">Exercise name</string>
     <string name="purchase_user_is_premium_message">Thank you for supporting the app! Enjoy using it without limits!</string>
-    <string name="all_done">Done</string>
 </resources>

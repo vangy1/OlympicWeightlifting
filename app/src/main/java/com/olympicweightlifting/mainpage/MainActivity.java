@@ -16,6 +16,7 @@ import android.widget.Toast;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.gson.Gson;
+import com.olympicweightlifting.App;
 import com.olympicweightlifting.R;
 import com.olympicweightlifting.authentication.AuthenticationActivity;
 import com.olympicweightlifting.authentication.SignInDialog;
@@ -67,6 +68,7 @@ public class MainActivity extends DaggerAppCompatActivity implements Authenticat
         }
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
+        ((App) getApplication()).getAnalyticsTracker().sendScreenName("Main Activity");
 
         // to make sure that database object will be constructed before next activities
         database.getOpenHelper().getWritableDatabase();

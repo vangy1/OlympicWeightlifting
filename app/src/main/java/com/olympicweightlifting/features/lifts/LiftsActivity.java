@@ -8,6 +8,7 @@ import android.widget.ImageView;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.olympicweightlifting.App;
 import com.olympicweightlifting.R;
 import com.olympicweightlifting.features.lifts.LiftsPagerAdapter.LiftsPagerAdapterBuilder;
 import com.olympicweightlifting.mainpage.FeaturesRecyclerViewAdapter;
@@ -42,6 +43,7 @@ public class LiftsActivity extends DaggerAppCompatActivity {
         }
         setContentView(R.layout.activity_lifts);
         ButterKnife.bind(this);
+        ((App) getApplication()).getAnalyticsTracker().sendScreenName("Lifts Activity");
 
         setupTabLayout();
 

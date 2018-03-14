@@ -16,6 +16,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.olympicweightlifting.App;
 import com.olympicweightlifting.R;
 import com.olympicweightlifting.features.programs.data.Program;
 import com.olympicweightlifting.features.programs.list.ProgramsListRecyclerViewAdapter;
@@ -79,6 +80,7 @@ public class ProgramDetails extends Fragment {
                 .document(currentUser.getUid())
                 .collection(FIREBASE_COLLECTION_PROGRAMS)
                 .document(program.getDocumentId()).delete();
+        ((App) getActivity().getApplication()).getAnalyticsTracker().sendEvent("Programs Activity", "Delete program");
     }
 
     @Override

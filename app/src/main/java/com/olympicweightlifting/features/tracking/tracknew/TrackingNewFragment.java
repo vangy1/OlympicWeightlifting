@@ -24,6 +24,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.ListenerRegistration;
+import com.olympicweightlifting.App;
 import com.olympicweightlifting.R;
 import com.olympicweightlifting.billing.BillingListener;
 import com.olympicweightlifting.billing.BillingManager;
@@ -134,6 +135,7 @@ public class TrackingNewFragment extends DaggerFragment implements DatePickerDia
                     saveWorkoutToFirestore();
                     Toast.makeText(getActivity(), getActivity().getString(R.string.tracking_workout_saved), Toast.LENGTH_SHORT).show();
                     clearInputData();
+                    ((App) getActivity().getApplication()).getAnalyticsTracker().sendEvent("Tracking Activity", "Save workout");
                 } catch (Exception exception) {
                     Toast.makeText(getActivity(), getString(R.string.all_insufficient_input), Toast.LENGTH_SHORT).show();
                 }

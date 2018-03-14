@@ -17,6 +17,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.ListenerRegistration;
+import com.olympicweightlifting.App;
 import com.olympicweightlifting.R;
 import com.olympicweightlifting.billing.BillingListener;
 import com.olympicweightlifting.billing.BillingManager;
@@ -100,6 +101,7 @@ public class ProgramCreateFragment extends DaggerFragment implements ExerciseMan
                         saveProgramToFirestore();
                         Toast.makeText(getActivity(), editTextProgramName.getText().toString() + getString(R.string.programs_saved), Toast.LENGTH_SHORT).show();
                         clearInputData();
+                        ((App) getActivity().getApplication()).getAnalyticsTracker().sendEvent("Programs Activity", "Save program");
                     } catch (Exception exception) {
                         Toast.makeText(getActivity(), R.string.programs_error_while_saving, Toast.LENGTH_SHORT).show();
                     }

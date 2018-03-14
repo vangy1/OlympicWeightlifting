@@ -13,6 +13,7 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.olympicweightlifting.App;
 import com.olympicweightlifting.R;
 import com.olympicweightlifting.data.local.AppDatabase;
 import com.olympicweightlifting.features.calculators.CalculatorsService;
@@ -73,6 +74,7 @@ public class SinclairCalculatorFragment extends DaggerFragment {
             try {
                 SinclairCalculation sinclairCalculation = calculateSinclair();
                 saveCalculationIntoDatabase(sinclairCalculation);
+                ((App) getActivity().getApplication()).getAnalyticsTracker().sendEvent("Calculator Activity", "Calculate sinclair");
             } catch (Exception e) {
                 Toast.makeText(getActivity(), "Fill out all information!", Toast.LENGTH_SHORT).show();
             }

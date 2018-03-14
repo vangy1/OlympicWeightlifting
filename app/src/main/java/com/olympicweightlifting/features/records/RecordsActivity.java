@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 
+import com.olympicweightlifting.App;
 import com.olympicweightlifting.R;
 import com.olympicweightlifting.mainpage.FeaturesRecyclerViewAdapter;
 
@@ -33,6 +34,7 @@ public class RecordsActivity extends DaggerAppCompatActivity {
         }
         setContentView(R.layout.activity_records);
         ButterKnife.bind(this);
+        ((App) getApplication()).getAnalyticsTracker().sendScreenName("Records Activity");
 
         setupTabLayout();
         setupViewPager();

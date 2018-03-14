@@ -8,6 +8,7 @@ import android.widget.Toast;
 
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.firebase.auth.FirebaseUser;
+import com.olympicweightlifting.App;
 import com.olympicweightlifting.R;
 import com.olympicweightlifting.mainpage.MainActivity;
 
@@ -38,6 +39,8 @@ public class SignInActivity extends DaggerAppCompatActivity implements Authentic
         }
         setContentView(R.layout.activity_signin);
         ButterKnife.bind(this);
+        ((App) getApplication()).getAnalyticsTracker().sendScreenName("SignIn Activity");
+
         authenticator = new Authenticator(this);
 
         authenticator.checkIfAlreadySignedIn();

@@ -12,7 +12,9 @@ import android.widget.RadioGroup;
 import android.widget.Switch;
 import android.widget.TextView;
 
+import com.olympicweightlifting.App;
 import com.olympicweightlifting.R;
+import com.olympicweightlifting.utilities.AnalyticsTracker;
 
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -36,15 +38,16 @@ public class SettingsDialog extends DaggerAppCompatDialogFragment {
     RadioGroup unitsRadioGroup;
     @BindView(R.id.button_settings_save)
     Button buttonSettingsSave;
-
     @Inject
     @Named("settings")
     SharedPreferences settingsSharedPreferences;
+    private AnalyticsTracker analyticsTracker;
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         View dialogView = this.getActivity().getLayoutInflater().inflate(R.layout.dialog_settings, null);
         ButterKnife.bind(this, dialogView);
+        analyticsTracker = ((App) getActivity().getApplication()).getAnalyticsTracker();
         dialogTitle.setTypeface(Typeface.createFromAsset(getActivity().getAssets(), getString(R.string.font_path_montserrat_bold)));
 
         displayCurrentSettings();
@@ -70,12 +73,15 @@ public class SettingsDialog extends DaggerAppCompatDialogFragment {
         SharedPreferences.Editor sharedPreferencesEditor = settingsSharedPreferences.edit();
         if (settingsSharedPreferences.getBoolean(getString(R.string.all_dark_theme), false) != switchDarkTheme.isChecked()) {
             sharedPreferencesEditor.putBoolean(getString(R.string.all_dark_theme), switchDarkTheme.isChecked());
+            analyticsTracker.sendEvent("Settings Dialog", "Dark theme: " + String.valueOf(switchDarkTheme.isChecked()));
             getActivity().recreate();
         }
         if (unitsRadioGroup.getCheckedRadioButtonId() == R.id.kg_radio_button) {
             sharedPreferencesEditor.putString(PREF_SETTINGS_UNITS, Units.KG.toString());
+            analyticsTracker.sendEvent("Settings Dialog", "Units: kg");
         } else if (unitsRadioGroup.getCheckedRadioButtonId() == R.id.lb_radio_button) {
             sharedPreferencesEditor.putString(PREF_SETTINGS_UNITS, Units.LB.toString());
+            analyticsTracker.sendEvent("Settings Dialog", "Units: lb");
         }
         sharedPreferencesEditor.apply();
     }

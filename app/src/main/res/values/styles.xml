@@ -38,7 +38,7 @@
         <item name="controls">@style/ControlsLight</item>
     </style>
 
-    <style name="DarkAppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+    <style name="DarkAppTheme" parent="LightAppTheme">
         <item name="android:windowBackground">@color/colorBackgroundDarker</item>
         <item name="android:statusBarColor">@color/colorBackgroundDarker</item>
         <item name="android:colorBackground">@color/colorBackgroundDarker</item>

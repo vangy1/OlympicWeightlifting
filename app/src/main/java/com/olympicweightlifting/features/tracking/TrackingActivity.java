@@ -6,6 +6,7 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.widget.FrameLayout;
 
+import com.olympicweightlifting.App;
 import com.olympicweightlifting.R;
 import com.olympicweightlifting.mainpage.FeaturesRecyclerViewAdapter;
 
@@ -37,6 +38,7 @@ public class TrackingActivity extends DaggerAppCompatActivity {
         }
         setContentView(R.layout.activity_tracking);
         ButterKnife.bind(this);
+        ((App) getApplication()).getAnalyticsTracker().sendScreenName("Tracking Activity");
 
         setupTabLayout();
         setupViewPager();
