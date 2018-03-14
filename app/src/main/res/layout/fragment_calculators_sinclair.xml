@@ -13,13 +13,13 @@
         android:layout_marginStart="24dp"
         android:layout_marginTop="12dp"
         android:text="@string/all_total"
-        android:textColor="@color/colorBlackText"
         android:textSize="@dimen/sinclair_calculator_fragment_input_info_text_size"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
         android:id="@+id/edittext_total"
+        style="?attr/styleText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
@@ -29,7 +29,6 @@
         android:inputType="numberDecimal"
         android:maxLength="6"
         android:minEms="6"
-        android:textColor="@color/colorBlackText"
         android:textSize="@dimen/sinclair_calculator_fragment_input_text_size"
         app:layout_constraintBottom_toBottomOf="@+id/text_total"
         app:layout_constraintEnd_toStartOf="@+id/text_total_units"
@@ -41,6 +40,7 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="24dp"
         android:gravity="center"
+        android:textColor="@color/colorSecondaryText"
         android:textSize="12sp"
         app:layout_constraintBottom_toBottomOf="@+id/text_total"
         app:layout_constraintEnd_toEndOf="parent"
@@ -61,13 +61,13 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="12dp"
         android:text="@string/calculators_bodyweight"
-        android:textColor="@color/colorBlackText"
         android:textSize="@dimen/sinclair_calculator_fragment_input_info_text_size"
         app:layout_constraintStart_toStartOf="@+id/text_total"
         app:layout_constraintTop_toBottomOf="@+id/separator1" />
 
     <EditText
         android:id="@+id/edittext_bodyweight"
+        style="?attr/styleText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@android:color/transparent"
@@ -76,7 +76,6 @@
         android:inputType="numberDecimal"
         android:maxLength="6"
         android:minEms="6"
-        android:textColor="@color/colorBlackText"
         android:textSize="@dimen/sinclair_calculator_fragment_input_text_size"
         app:layout_constraintBottom_toBottomOf="@+id/text_bodyweight"
         app:layout_constraintEnd_toEndOf="@+id/edittext_total"
@@ -87,6 +86,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="center"
+        android:textColor="@color/colorSecondaryText"
         android:textSize="12sp"
         app:layout_constraintBottom_toBottomOf="@+id/text_bodyweight"
         app:layout_constraintEnd_toEndOf="@+id/text_total_units"
@@ -107,7 +107,6 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="12dp"
         android:text="@string/all_gender"
-        android:textColor="@color/colorBlackText"
         android:textSize="@dimen/sinclair_calculator_fragment_input_info_text_size"
         app:layout_constraintStart_toStartOf="@+id/text_total"
         app:layout_constraintTop_toBottomOf="@+id/separator2" />
@@ -118,18 +117,21 @@
         android:layout_height="wrap_content"
         android:checkedButton="@id/radiobutton_men"
         android:orientation="horizontal"
+        android:theme="?attr/controls"
         app:layout_constraintBottom_toBottomOf="@+id/text_gender"
         app:layout_constraintEnd_toEndOf="@+id/text_total_units"
         app:layout_constraintTop_toTopOf="@+id/text_gender">
 
         <RadioButton
             android:id="@+id/radiobutton_women"
+            style="?attr/styleText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/all_gender_women" />
 
         <RadioButton
             android:id="@+id/radiobutton_men"
+            style="?attr/styleText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/all_gender_men" />

@@ -122,4 +122,5 @@
     <string name="main_activity_feature_content_descriptior">Image of feature</string>
     <string name="exercise_manager_exercise_to_add_label">Exercise name</string>
     <string name="purchase_user_is_premium_message">Thank you for supporting the app! Enjoy using it without limits!</string>
+    <string name="all_done">Done</string>
 </resources>

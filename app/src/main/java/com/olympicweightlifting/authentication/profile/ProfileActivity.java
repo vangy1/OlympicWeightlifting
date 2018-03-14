@@ -1,8 +1,8 @@
 package com.olympicweightlifting.authentication.profile;
 
+import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,8 +26,12 @@ import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
+import javax.inject.Inject;
+import javax.inject.Named;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import dagger.android.support.DaggerAppCompatActivity;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 import static com.olympicweightlifting.utilities.ApplicationConstants.FIREBASE_COLLECTION_PROGRAMS;
@@ -38,7 +42,7 @@ import static com.olympicweightlifting.utilities.ApplicationConstants.PROGRAMS_L
 import static com.olympicweightlifting.utilities.ApplicationConstants.RECORDS_LIMIT;
 import static com.olympicweightlifting.utilities.ApplicationConstants.WORKOUTS_LIMIT;
 
-public class ProfileActivity extends AppCompatActivity {
+public class ProfileActivity extends DaggerAppCompatActivity {
     @BindView(R.id.toolbar)
     Toolbar toolbar;
     @BindView(R.id.text_toolbar_title)
@@ -65,6 +69,9 @@ public class ProfileActivity extends AppCompatActivity {
     ViewGroup layoutLimits;
 
     BillingManager billingManager;
+    @Inject
+    @Named("settings")
+    SharedPreferences settingsSharedPreferences;
     private ListenerRegistration programsRealtimeListener;
     private ListenerRegistration workoutsRealtimeListener;
     private ListenerRegistration recordsRealtimeListener;
@@ -72,6 +79,9 @@ public class ProfileActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if (settingsSharedPreferences.getBoolean(getString(R.string.all_dark_theme), false)) {
+            setTheme(R.style.AppTheme_Dark);
+        }
         setContentView(R.layout.activity_profile);
         ButterKnife.bind(this);
         getUserProfileStatus();

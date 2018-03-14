@@ -1,9 +1,9 @@
 package com.olympicweightlifting.features.lifts;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
 import android.widget.ImageView;
 
 import com.google.gson.Gson;
@@ -15,10 +15,14 @@ import com.olympicweightlifting.mainpage.MainActivity;
 
 import java.util.List;
 
+import javax.inject.Inject;
+import javax.inject.Named;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import dagger.android.support.DaggerAppCompatActivity;
 
-public class LiftsActivity extends AppCompatActivity {
+public class LiftsActivity extends DaggerAppCompatActivity {
     @BindView(R.id.tablayout)
     TabLayout tabLayout;
     @BindView(R.id.image_header)
@@ -26,9 +30,16 @@ public class LiftsActivity extends AppCompatActivity {
     @BindView(R.id.viewpager)
     ViewPager viewPager;
 
+    @Inject
+    @Named("settings")
+    SharedPreferences settingsSharedPreferences;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if (settingsSharedPreferences.getBoolean(getString(R.string.all_dark_theme), false)) {
+            setTheme(R.style.AppTheme_Dark);
+        }
         setContentView(R.layout.activity_lifts);
         ButterKnife.bind(this);
 

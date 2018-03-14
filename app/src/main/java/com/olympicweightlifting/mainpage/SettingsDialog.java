@@ -7,7 +7,9 @@ import android.os.Bundle;
 import android.provider.Settings;
 import android.support.v7.app.AlertDialog;
 import android.view.View;
+import android.widget.Button;
 import android.widget.RadioGroup;
+import android.widget.Switch;
 import android.widget.TextView;
 
 import com.olympicweightlifting.R;
@@ -28,10 +30,12 @@ public class SettingsDialog extends DaggerAppCompatDialogFragment {
 
     @BindView(R.id.text_dialog_title)
     TextView dialogTitle;
-    //    @BindView(R.id.switch_dark_theme)
-    //    Switch switchDarkTheme;
+    @BindView(R.id.switch_dark_theme)
+    Switch switchDarkTheme;
     @BindView(R.id.radiogroup_units)
     RadioGroup unitsRadioGroup;
+    @BindView(R.id.button_settings_save)
+    Button buttonSettingsSave;
 
     @Inject
     @Named("settings")
@@ -44,13 +48,16 @@ public class SettingsDialog extends DaggerAppCompatDialogFragment {
         dialogTitle.setTypeface(Typeface.createFromAsset(getActivity().getAssets(), getString(R.string.font_path_montserrat_bold)));
 
         displayCurrentSettings();
+        buttonSettingsSave.setOnClickListener(view -> {
+            saveSettingsToSharedPreferences();
+            this.dismiss();
+        });
 
-        return new AlertDialog.Builder(getActivity()).setView(dialogView)
-                .setPositiveButton(R.string.all_save, (dialog, id) -> saveSettingsToSharedPreferences()).create();
+        return new AlertDialog.Builder(getActivity()).setView(dialogView).create();
     }
 
     private void displayCurrentSettings() {
-//        darkThemeSwitch.setChecked(settingsSharedPreferences.getBoolean(getString(R.string.settings_dark_theme), false));
+        switchDarkTheme.setChecked(settingsSharedPreferences.getBoolean(getString(R.string.all_dark_theme), false));
         Units units = Units.valueOf(settingsSharedPreferences.getString(PREF_SETTINGS_UNITS, Units.KG.toString()));
         if (units == Units.KG) {
             unitsRadioGroup.check(R.id.kg_radio_button);
@@ -61,7 +68,10 @@ public class SettingsDialog extends DaggerAppCompatDialogFragment {
 
     private void saveSettingsToSharedPreferences() {
         SharedPreferences.Editor sharedPreferencesEditor = settingsSharedPreferences.edit();
-//        sharedPreferencesEditor.putBoolean(getString(R.string.settings_dark_theme), darkThemeSwitch.isChecked());
+        if (settingsSharedPreferences.getBoolean(getString(R.string.all_dark_theme), false) != switchDarkTheme.isChecked()) {
+            sharedPreferencesEditor.putBoolean(getString(R.string.all_dark_theme), switchDarkTheme.isChecked());
+            getActivity().recreate();
+        }
         if (unitsRadioGroup.getCheckedRadioButtonId() == R.id.kg_radio_button) {
             sharedPreferencesEditor.putString(PREF_SETTINGS_UNITS, Units.KG.toString());
         } else if (unitsRadioGroup.getCheckedRadioButtonId() == R.id.lb_radio_button) {

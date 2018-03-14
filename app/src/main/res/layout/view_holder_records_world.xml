@@ -8,7 +8,7 @@
     android:layout_marginRight="8dp"
     android:layout_marginTop="6dp"
     android:theme="@style/DarkBackgroundTheme"
-    app:cardBackgroundColor="@color/colorPrimary">
+    app:cardBackgroundColor="?attr/colorPrimary">
 
     <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/layout_records"
@@ -62,7 +62,7 @@
             android:layout_height="wrap_content"
             android:fontFamily="sans-serif-black"
             android:textAlignment="center"
-            android:textColor="@color/colorAccent"
+            android:textColor="?attr/colorAccent"
             android:textSize="16sp"
             app:layout_constraintBottom_toBottomOf="@+id/text_record_type_snatch"
             app:layout_constraintEnd_toStartOf="@+id/guideline2"
@@ -114,7 +114,7 @@
             android:layout_height="wrap_content"
             android:fontFamily="sans-serif-black"
             android:textAlignment="center"
-            android:textColor="@color/colorAccent"
+            android:textColor="?attr/colorAccent"
             android:textSize="16sp"
             app:layout_constraintBottom_toBottomOf="@+id/text_exercise_name_caj"
             app:layout_constraintEnd_toStartOf="@+id/guideline2"
@@ -166,7 +166,7 @@
             android:layout_height="wrap_content"
             android:fontFamily="sans-serif-black"
             android:textAlignment="center"
-            android:textColor="@color/colorAccent"
+            android:textColor="?attr/colorAccent"
             android:textSize="16sp"
             app:layout_constraintBottom_toBottomOf="@+id/text_record_type_total"
             app:layout_constraintEnd_toStartOf="@+id/guideline2"

@@ -7,7 +7,7 @@
     android:layout_marginRight="12dp"
     android:layout_marginTop="4dp"
     android:theme="@style/DarkBackgroundTheme"
-    app:cardBackgroundColor="@color/colorPrimary">
+    app:cardBackgroundColor="?attr/colorPrimary">
 
     <include
         layout="@layout/view_holder_calculators_results"

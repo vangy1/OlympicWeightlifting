@@ -69,9 +69,9 @@ public class TrackingNewFragment extends DaggerFragment implements DatePickerDia
     EditText editTextWeight;
     @BindView(R.id.text_weight_units)
     TextView textWeightUnits;
-    @BindView(R.id.edittext_sets)
-    EditText editTextReps;
     @BindView(R.id.edittext_reps)
+    EditText editTextReps;
+    @BindView(R.id.edittext_sets)
     EditText editTextSets;
     @BindView(R.id.spinner_exercise)
     Spinner spinnerExercise;

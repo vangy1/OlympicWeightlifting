@@ -5,5 +5,5 @@
     android:padding="10dp"
     android:singleLine="true"
     android:textAlignment="textStart"
-    android:textColor="@color/colorGreyText"
+    android:textColor="?attr/colorSecondary"
     android:textSize="14sp" />

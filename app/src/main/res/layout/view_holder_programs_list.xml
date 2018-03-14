@@ -8,7 +8,7 @@
     android:layout_marginRight="8dp"
     android:layout_marginTop="3dp"
     android:theme="@style/DarkBackgroundTheme"
-    app:cardBackgroundColor="@color/colorPrimary">
+    app:cardBackgroundColor="?attr/colorPrimary">
 
     <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/layout_records"

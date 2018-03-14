@@ -15,6 +15,5 @@
         android:layout_height="match_parent"
         android:gravity="center"
         android:text="@string/programs_empty_history"
-        android:textColor="@color/colorGreyText"
         android:textSize="22sp" />
 </FrameLayout>

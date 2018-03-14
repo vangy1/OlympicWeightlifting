@@ -7,7 +7,7 @@
     android:layout_marginRight="12dp"
     android:orientation="vertical"
     android:theme="@style/DarkBackgroundTheme"
-    app:cardBackgroundColor="@color/colorPrimary">
+    app:cardBackgroundColor="?attr/colorPrimary">
 
     <LinearLayout
         android:layout_width="match_parent"

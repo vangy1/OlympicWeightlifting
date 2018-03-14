@@ -12,13 +12,13 @@
         android:layout_marginStart="24dp"
         android:layout_marginTop="12dp"
         android:text="@string/all_weight"
-        android:textColor="@color/colorBlackText"
         android:textSize="@dimen/sinclair_calculator_fragment_input_info_text_size"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
         android:id="@+id/edittext_weight"
+        style="?attr/styleText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
@@ -28,7 +28,6 @@
         android:inputType="numberDecimal"
         android:maxLength="6"
         android:minEms="6"
-        android:textColor="@color/colorBlackText"
         android:textSize="@dimen/sinclair_calculator_fragment_input_text_size"
         app:layout_constraintBottom_toBottomOf="@+id/text_weight"
         app:layout_constraintEnd_toStartOf="@+id/text_weight_units"
@@ -41,6 +40,7 @@
         android:layout_gravity="center"
         android:layout_marginEnd="24dp"
         android:gravity="center"
+        android:textColor="@color/colorSecondaryText"
         android:textSize="12sp"
         app:layout_constraintBottom_toBottomOf="@+id/text_weight"
         app:layout_constraintEnd_toEndOf="parent"
@@ -60,13 +60,13 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="12dp"
         android:text="@string/all_reps"
-        android:textColor="@color/colorBlackText"
         android:textSize="@dimen/sinclair_calculator_fragment_input_info_text_size"
         app:layout_constraintStart_toStartOf="@+id/text_weight"
         app:layout_constraintTop_toBottomOf="@+id/separator1" />
 
     <EditText
         android:id="@+id/edittext_reps"
+        style="?attr/styleText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@android:color/transparent"
@@ -75,7 +75,6 @@
         android:inputType="numberDecimal"
         android:maxLength="6"
         android:minEms="6"
-        android:textColor="@color/colorBlackText"
         android:textSize="@dimen/sinclair_calculator_fragment_input_text_size"
         app:layout_constraintBottom_toBottomOf="@+id/text_reps"
         app:layout_constraintEnd_toEndOf="@+id/edittext_weight"
@@ -87,6 +86,8 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:text="@string/calculators_loading_reps_limit"
+        android:textColor="@color/colorSecondaryText"
+
         android:textSize="12sp"
         app:layout_constraintBottom_toBottomOf="@+id/text_reps"
         app:layout_constraintEnd_toEndOf="@+id/text_weight_units"
@@ -107,7 +108,6 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="12dp"
         android:text="@string/calculators_type"
-        android:textColor="@color/colorBlackText"
         android:textSize="@dimen/sinclair_calculator_fragment_input_info_text_size"
         app:layout_constraintStart_toStartOf="@+id/text_weight"
         app:layout_constraintTop_toBottomOf="@+id/separator2" />
@@ -118,18 +118,21 @@
         android:layout_height="wrap_content"
         android:checkedButton="@id/radiobutton_reps"
         android:orientation="horizontal"
+        android:theme="?attr/controls"
         app:layout_constraintBottom_toBottomOf="@+id/text_type"
         app:layout_constraintEnd_toEndOf="@+id/text_weight_units"
         app:layout_constraintTop_toTopOf="@+id/text_type">
 
         <RadioButton
             android:id="@+id/radiobutton_percentage"
+            style="?attr/styleText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/calculators_percentage" />
 
         <RadioButton
             android:id="@+id/radiobutton_reps"
+            style="?attr/styleText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/all_reps" />

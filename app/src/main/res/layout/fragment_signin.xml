@@ -23,7 +23,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/authentication_feature_unavailable"
-            android:textColor="@color/colorBlackText"
+            android:textColor="@color/colorBackgroundDarker"
             android:textSize="14sp" />
 
         <Button

@@ -40,6 +40,8 @@ public class ExerciseManagerDialog extends DaggerAppCompatDialogFragment {
     Spinner spinnerExerciseToDelete;
     @BindView(R.id.button_remove_exercise)
     Button buttonRemoveExercise;
+    @BindView(R.id.button_done)
+    Button buttonDone;
 
     ArrayAdapter spinnerAdapter;
     List<String> exerciseList = new ArrayList<>();
@@ -83,8 +85,12 @@ public class ExerciseManagerDialog extends DaggerAppCompatDialogFragment {
             }
         });
 
+        buttonDone.setOnClickListener(view -> {
+            this.dismiss();
+        });
 
-        return new AlertDialog.Builder(getActivity()).setView(dialogView).setPositiveButton("Done", null).create();
+
+        return new AlertDialog.Builder(getActivity()).setView(dialogView).create();
     }
 
     private void setupExerciseSpinner() {
@@ -113,6 +119,14 @@ public class ExerciseManagerDialog extends DaggerAppCompatDialogFragment {
         exerciseList.remove(exerciseName);
         spinnerAdapter.notifyDataSetChanged();
         onExerciseListChangedListener.onExerciseRemoved(exerciseName);
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        if (getActivity() != null) {
+            getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
+        }
     }
 
 

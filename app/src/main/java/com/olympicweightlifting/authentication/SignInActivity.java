@@ -1,8 +1,8 @@
 package com.olympicweightlifting.authentication;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.widget.Button;
 import android.widget.Toast;
 
@@ -11,22 +11,31 @@ import com.google.firebase.auth.FirebaseUser;
 import com.olympicweightlifting.R;
 import com.olympicweightlifting.mainpage.MainActivity;
 
+import javax.inject.Inject;
+import javax.inject.Named;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import dagger.android.support.DaggerAppCompatActivity;
 
-public class SignInActivity extends AppCompatActivity implements AuthenticationActivity {
+public class SignInActivity extends DaggerAppCompatActivity implements AuthenticationActivity {
     @BindView(R.id.button_google_signin)
     Button buttonGoogleSignin;
     @BindView(R.id.button_facebook_signin)
     Button buttonFacebookSignin;
     @BindView(R.id.button_guest)
     Button buttonGuest;
-
+    @Inject
+    @Named("settings")
+    SharedPreferences settingsSharedPreferences;
     private Authenticator authenticator;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if (settingsSharedPreferences.getBoolean(getString(R.string.all_dark_theme), false)) {
+            setTheme(R.style.AppTheme_Dark);
+        }
         setContentView(R.layout.activity_signin);
         ButterKnife.bind(this);
         authenticator = new Authenticator(this);

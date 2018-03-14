@@ -55,12 +55,19 @@ public class MainActivity extends DaggerAppCompatActivity implements Authenticat
     @Inject
     @Named("app-info")
     SharedPreferences appInfoSharedPreferences;
+    @Inject
+    @Named("settings")
+    SharedPreferences settingsSharedPreferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if (settingsSharedPreferences.getBoolean(getString(R.string.all_dark_theme), false)) {
+            setTheme(R.style.AppTheme_Dark);
+        }
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
+
         // to make sure that database object will be constructed before next activities
         database.getOpenHelper().getWritableDatabase();
         runWelcomeDialogOnFirstStart();

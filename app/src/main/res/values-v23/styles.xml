@@ -1,14 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
-        <item name="android:statusBarColor">@color/colorBackground</item>
+    <style name="AppTheme" parent="LightAppTheme">
+        <item name="android:statusBarColor">@color/colorBackgroundLighter</item>
         <item name="android:windowLightStatusBar">true</item>
-        <item name="android:windowBackground">@color/colorBackground</item>
-        <item name="android:buttonStyle">@style/Widget.AppCompat.Button.Colored</item>
+    </style>
+
+    <style name="AppTheme.Dark" parent="DarkAppTheme">
+        <item name="android:windowLightStatusBar">false</item>
+    </style>
+
+    <style name="Widget.AppCompat.Button.Colored.Custom" parent="Widget.AppCompat.Button.Colored">
+        <item name="android:textColor">@color/colorWhite</item>
+    </style>
+
+    <style name="Widget.AppCompat.Button.Borderless.Colored" parent="Widget.AppCompat.Button.Borderless">
+        <item name="android:textColor">@color/colorAccent</item>
     </style>
 
 </resources>

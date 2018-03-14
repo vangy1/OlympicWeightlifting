@@ -49,8 +49,8 @@ public class ProgramDetailsExercisesViewAdapter extends RecyclerView.Adapter<Pro
 
         ProgramExercise currentProgramExercise = exercises.get(position);
         viewHolder.exerciseName.setText(currentProgramExercise.getExerciseName());
-        viewHolder.textViewSetsValue.setText(String.valueOf(currentProgramExercise.getReps()));
-        viewHolder.textViewRepsValue.setText(String.valueOf(currentProgramExercise.getSets()));
+        viewHolder.textViewRepsValue.setText(String.valueOf(currentProgramExercise.getReps()));
+        viewHolder.textViewSetsValue.setText(String.valueOf(currentProgramExercise.getSets()));
 
     }
 

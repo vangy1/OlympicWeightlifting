@@ -3,10 +3,23 @@
     <color name="colorPrimary">#487CCE</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#B78331</color>
-    <color name="colorBackground">#FFFAFAFA</color>
-    <color name="colorBackgroundDark">#ffe0e0e0</color>
-    <color name="colorBlackText">#000000</color>
-    <color name="colorGreyText">#050505</color>
+    <color name="colorSecondaryText">#6A6A6A</color>
+    <color name="colorHintText">#ABABAB</color>
+
+    <color name="colorBackgroundLighter">#FFFAFAFA</color>
+    <color name="colorBackgroundLight">#ffe0e0e0</color>
+
+    <color name="colorBackgroundDarker">#000000</color>
+    <color name="colorBackgroundDark">#222222</color>
+
+    <color name="colorGrey">#050505</color>
+
+    <color name="colorBlack">#000000</color>
     <color name="colorWhite">#FFFFFF</color>
+
+    <color name="colorSecondaryLight">#BCBCBC</color>
+    <color name="colorSecondaryDark">#343434</color>
+
+
     <color name="separatorColor">#AAAAAA</color>
 </resources>

@@ -13,13 +13,13 @@
         android:layout_marginStart="24dp"
         android:layout_marginTop="12dp"
         android:text="@string/all_weight"
-        android:textColor="@color/colorBlackText"
         android:textSize="@dimen/sinclair_calculator_fragment_input_info_text_size"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
         android:id="@+id/edittext_weight"
+        style="?attr/styleText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
@@ -29,7 +29,6 @@
         android:inputType="numberDecimal"
         android:maxLength="6"
         android:minEms="6"
-        android:textColor="@color/colorBlackText"
         android:textSize="@dimen/sinclair_calculator_fragment_input_text_size"
         app:layout_constraintBottom_toBottomOf="@+id/text_weight"
         app:layout_constraintEnd_toStartOf="@+id/text_weight_units"
@@ -61,13 +60,13 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="12dp"
         android:text="@string/all_reps"
-        android:textColor="@color/colorBlackText"
         android:textSize="@dimen/sinclair_calculator_fragment_input_info_text_size"
         app:layout_constraintStart_toStartOf="@+id/text_weight"
         app:layout_constraintTop_toBottomOf="@+id/separator1" />
 
     <EditText
         android:id="@+id/edittext_reps"
+        style="?attr/styleText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@android:color/transparent"
@@ -76,7 +75,6 @@
         android:inputType="number"
         android:maxLength="3"
         android:minEms="6"
-        android:textColor="@color/colorBlackText"
         android:textSize="@dimen/sinclair_calculator_fragment_input_text_size"
         app:layout_constraintBottom_toBottomOf="@+id/text_reps"
         app:layout_constraintEnd_toEndOf="@+id/text_weight_units"
@@ -99,13 +97,13 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="12dp"
         android:text="@string/tracking_sets"
-        android:textColor="@color/colorBlackText"
         android:textSize="@dimen/sinclair_calculator_fragment_input_info_text_size"
         app:layout_constraintStart_toStartOf="@+id/text_weight"
         app:layout_constraintTop_toTopOf="@+id/separator2" />
 
     <EditText
         android:id="@+id/edittext_sets"
+        style="?attr/styleText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@android:color/transparent"
@@ -114,7 +112,6 @@
         android:inputType="number"
         android:maxLength="3"
         android:minEms="6"
-        android:textColor="@color/colorBlackText"
         android:textSize="@dimen/sinclair_calculator_fragment_input_text_size"
         app:layout_constraintBottom_toBottomOf="@+id/text_sets"
         app:layout_constraintEnd_toEndOf="@+id/edittext_reps"
@@ -134,7 +131,6 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="12dp"
         android:text="@string/all_exercise"
-        android:textColor="@color/colorBlackText"
         android:textSize="@dimen/sinclair_calculator_fragment_input_info_text_size"
         app:layout_constraintStart_toStartOf="@+id/text_weight"
         app:layout_constraintTop_toBottomOf="@+id/separator3" />
@@ -143,6 +139,7 @@
         android:id="@+id/spinner_exercise"
         android:layout_width="172dp"
         android:layout_height="wrap_content"
+        android:backgroundTint="?attr/colorText"
         app:layout_constraintBottom_toBottomOf="@+id/text_exercise"
         app:layout_constraintEnd_toStartOf="@+id/button_exercise_manager"
         app:layout_constraintTop_toTopOf="@+id/text_exercise" />
@@ -154,8 +151,9 @@
         android:layout_marginEnd="8dp"
         android:background="?android:selectableItemBackground"
         android:contentDescription="@string/all_exercise_manager_button_content_description"
+        android:paddingStart="8dp"
         android:src="@drawable/ic_modify"
-        android:tint="@color/colorGreyText"
+        android:tint="@color/colorAccent"
         app:layout_constraintBottom_toBottomOf="@+id/text_exercise"
         app:layout_constraintEnd_toEndOf="@+id/text_weight_units"
         app:layout_constraintStart_toStartOf="@+id/text_weight_units"
@@ -189,7 +187,6 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
         android:text="@string/all_date"
-        android:textColor="@color/colorBlackText"
         android:textSize="@dimen/sinclair_calculator_fragment_input_info_text_size"
         app:layout_constraintBottom_toBottomOf="@+id/button_save"
         app:layout_constraintStart_toStartOf="parent"

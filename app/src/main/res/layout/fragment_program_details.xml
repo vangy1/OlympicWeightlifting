@@ -17,7 +17,6 @@
             android:gravity="center"
             android:paddingBottom="4dp"
             android:paddingTop="4dp"
-            android:textColor="@color/colorBlackText"
             android:textSize="@dimen/toolbar_title_text_size"
             android:textStyle="bold" />
 
@@ -37,5 +36,5 @@
         android:clickable="true"
         android:focusable="true"
         android:src="@drawable/ic_delete"
-        app:backgroundTint="@color/colorAccent" />
+        app:backgroundTint="?attr/colorAccent" />
 </FrameLayout>

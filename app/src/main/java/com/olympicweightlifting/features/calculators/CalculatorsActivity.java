@@ -1,11 +1,15 @@
 package com.olympicweightlifting.features.calculators;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 
 import com.olympicweightlifting.R;
 import com.olympicweightlifting.mainpage.FeaturesRecyclerViewAdapter;
+
+import javax.inject.Inject;
+import javax.inject.Named;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -17,9 +21,16 @@ public class CalculatorsActivity extends DaggerAppCompatActivity {
     @BindView(R.id.viewpager)
     ViewPager viewPager;
 
+    @Inject
+    @Named("settings")
+    SharedPreferences settingsSharedPreferences;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if (settingsSharedPreferences.getBoolean(getString(R.string.all_dark_theme), false)) {
+            setTheme(R.style.AppTheme_Dark);
+        }
         setContentView(R.layout.activity_calculator);
         ButterKnife.bind(this);
 

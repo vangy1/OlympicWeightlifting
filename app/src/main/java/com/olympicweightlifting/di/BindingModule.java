@@ -1,11 +1,14 @@
 package com.olympicweightlifting.di;
 
 
+import com.olympicweightlifting.authentication.SignInActivity;
+import com.olympicweightlifting.authentication.profile.ProfileActivity;
 import com.olympicweightlifting.features.calculators.CalculatorsActivity;
 import com.olympicweightlifting.features.calculators.loading.LoadingCalculatorFragment;
 import com.olympicweightlifting.features.calculators.repmax.RepmaxCalculatorFragment;
 import com.olympicweightlifting.features.calculators.sinclair.SinclairCalculatorFragment;
 import com.olympicweightlifting.features.helpers.exercisemanager.ExerciseManagerDialog;
+import com.olympicweightlifting.features.lifts.LiftsActivity;
 import com.olympicweightlifting.features.programs.ProgramsActivity;
 import com.olympicweightlifting.features.programs.create.ProgramCreateFragment;
 import com.olympicweightlifting.features.records.RecordsActivity;
@@ -28,7 +31,16 @@ public abstract class BindingModule {
     abstract WelcomeDialog bindWelcomeDialog();
 
     @ContributesAndroidInjector
+    abstract SignInActivity bindSignInActivity();
+
+    @ContributesAndroidInjector
     abstract SettingsDialog bindSettingsDialog();
+
+    @ContributesAndroidInjector
+    abstract ProfileActivity bindProfileActivity();
+
+    @ContributesAndroidInjector
+    abstract LiftsActivity bindLiftsActivity();
 
     @ContributesAndroidInjector
     abstract CalculatorsActivity bindCalculatorActivity();

@@ -68,15 +68,15 @@
     </string-array>
 
     <string-array name="calculators_loading_weight_colors">
-        <item>#f44336</item>
-        <item>#0d47a1</item>
-        <item>#ffeb3b</item>
-        <item>#4caf50</item>
+        <item>#792930</item>
+        <item>#183D76</item>
+        <item>#C8B048</item>
+        <item>#186D41</item>
         <item>#FFFFFF</item>
-        <item>#f44336</item>
-        <item>#0d47a1</item>
-        <item>#ffeb3b</item>
-        <item>#4caf50</item>
+        <item>#792930</item>
+        <item>#183D76</item>
+        <item>#C8B048</item>
+        <item>#186D41</item>
         <item>#FFFFFF</item>
     </string-array>
 </resources>

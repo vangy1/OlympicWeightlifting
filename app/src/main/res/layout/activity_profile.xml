@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:theme="?attr/styleText"
     tools:context="com.olympicweightlifting.authentication.profile.ProfileActivity">
 
     <android.support.v7.widget.Toolbar
@@ -12,12 +13,10 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/toolbar_height"
         android:layout_marginTop="8dp"
-        android:background="@color/colorBackground"
-        android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
+        android:theme="?attr/toolbar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
+        app:layout_constraintTop_toTopOf="parent">
 
         <TextView
             android:id="@+id/text_toolbar_title"
@@ -25,7 +24,6 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:text="@string/profile_toolbar_title"
-            android:textColor="@color/colorBlackText"
             android:textSize="@dimen/toolbar_title_text_size" />
     </android.support.v7.widget.Toolbar>
 
@@ -48,7 +46,6 @@
         android:layout_height="35dp"
         android:layout_marginTop="8dp"
         android:gravity="center"
-        android:textColor="@color/colorBlackText"
         android:textSize="@dimen/profile_activity_account_info_text_text_size"
         android:textStyle="bold"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -93,7 +90,6 @@
             android:layout_marginEnd="8dp"
             android:layout_marginStart="8dp"
             android:text="@string/profile_limits_header"
-            android:textColor="@color/colorBlackText"
             android:textSize="22sp"
             android:textStyle="bold" />
 
@@ -102,7 +98,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
-            android:textColor="@color/colorBlackText"
             android:textSize="18sp" />
 
         <TextView
@@ -110,7 +105,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
-            android:textColor="@color/colorBlackText"
             android:textSize="18sp" />
 
         <TextView
@@ -120,7 +114,6 @@
             android:layout_marginBottom="8dp"
             android:layout_marginEnd="8dp"
             android:layout_marginStart="8dp"
-            android:textColor="@color/colorBlackText"
             android:textSize="18sp" />
 
         <Button
@@ -131,7 +124,6 @@
             android:layout_marginEnd="8dp"
             android:layout_marginStart="8dp"
             android:text="@string/profile_upgrade_prompt"
-            android:textColor="@color/colorWhite"
             app:layout_constraintBottom_toTopOf="@+id/text_purchase_info_message" />
 
         <TextView
@@ -156,7 +148,6 @@
         android:layout_marginTop="8dp"
         android:gravity="center"
         android:text="@string/purchase_user_is_premium_message"
-        android:textColor="@color/colorBlackText"
         android:textSize="22sp"
         android:textStyle="bold"
         android:visibility="gone"
