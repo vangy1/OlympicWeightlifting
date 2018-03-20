@@ -5,7 +5,10 @@ public class ApplicationConstants {
     public static final String PREF_SETTINGS = "PREF_SETTINGS";
     public static final String PREF_SETTINGS_UNITS = "UNITS";
     public static final String PREF_APP_INFO = "PREF_APP_INFO";
-    public static final String PREF_APP_INFO_IS_FIRST_RUN = "PREF_APP_INFO";
+    public static final String PREF_APP_INFO_IS_FIRST_RUN = "PREF_IS_FIRST_RUN";
+    public static final String PREF_APP_INFO_IS_FIRST_ADDED_RECORD = "PREF_IS_FIRST_ADDED_RECORD";
+    public static final String PREF_APP_INFO_IS_FIRST_ADDED_TRACKING_EXERCISE = "PREF_IS_FIRST_ADDED_TRACKING_EXERCISE";
+    public static final String PREF_APP_INFO_IS_FIRST_ADDED_PROGRAM_EXERCISE = "PREF_IS_FIRST_ADDED_PROGRAM_EXERCISE";
 
     public static final String FIREBASE_COLLECTION_USERS = "users";
     public static final String FIREBASE_COLLECTION_PROGRAMS = "programs";

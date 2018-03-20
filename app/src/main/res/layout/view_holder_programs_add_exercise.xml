@@ -6,7 +6,7 @@
 
     <Spinner
         android:id="@+id/spinner_exercise"
-        android:layout_width="172dp"
+        android:layout_width="@dimen/programs_exercise_spinner_width"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         app:layout_constraintLeft_toLeftOf="parent"

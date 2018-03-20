@@ -35,7 +35,7 @@
     <View
         android:id="@+id/separator"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/sinclair_calculator_fragment_row_separator_line_height"
+        android:layout_height="1dp"
         android:background="@color/separatorColor"
         app:layout_constraintTop_toBottomOf="@id/text_weight" />
 

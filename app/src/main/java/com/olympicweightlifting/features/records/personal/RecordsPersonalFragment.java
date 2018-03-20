@@ -3,8 +3,10 @@ package com.olympicweightlifting.features.records.personal;
 
 import android.app.DatePickerDialog;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.constraint.ConstraintLayout;
+import android.support.design.widget.Snackbar;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -33,6 +35,7 @@ import com.olympicweightlifting.billing.BillingManager;
 import com.olympicweightlifting.data.local.AppDatabase;
 import com.olympicweightlifting.features.helpers.exercisemanager.Exercise;
 import com.olympicweightlifting.features.helpers.exercisemanager.ExerciseManagerDialog;
+import com.olympicweightlifting.utilities.ApplicationConstants;
 import com.olympicweightlifting.utilities.ApplicationHelpers;
 
 import java.text.DateFormat;
@@ -86,7 +89,10 @@ public class RecordsPersonalFragment extends DaggerFragment implements DatePicke
     AppDatabase database;
     @Inject
     @Named("settings")
-    SharedPreferences sharedPreferences;
+    SharedPreferences settingsSharedPreferences;
+    @Inject
+    @Named("app-info")
+    SharedPreferences appInfoSharedPreferences;
 
 
     private ArrayAdapter spinnerAdapter;
@@ -111,7 +117,7 @@ public class RecordsPersonalFragment extends DaggerFragment implements DatePicke
         ButterKnife.bind(this, fragmentView);
         getUserProfileStatus();
 
-        units = sharedPreferences.getString(PREF_SETTINGS_UNITS, Units.KG.toString());
+        units = settingsSharedPreferences.getString(PREF_SETTINGS_UNITS, Units.KG.toString());
         dateFormat = getDateFormat(getActivity());
         textWeightUnits.setText(units.toLowerCase());
 
@@ -126,6 +132,7 @@ public class RecordsPersonalFragment extends DaggerFragment implements DatePicke
             if (checkIfUserReachedTheLimit()) {
                 try {
                     saveRecordToFirestore();
+                    displayHowToRemoveItemSnackbar(view);
                 } catch (Exception exception) {
                     Toast.makeText(getActivity(), getString(R.string.all_insufficient_input), Toast.LENGTH_SHORT).show();
                 }
@@ -225,6 +232,17 @@ public class RecordsPersonalFragment extends DaggerFragment implements DatePicke
         recordsPersonalData.setDateAdded();
         FirebaseFirestore.getInstance().collection(FIREBASE_COLLECTION_USERS).document(currentUser.getUid()).collection(FIREBASE_COLLECTION_RECORDS_PERSONAL).add(recordsPersonalData);
         ((App) getActivity().getApplication()).getAnalyticsTracker().sendEvent("Records Activity", "Save personal record");
+    }
+
+    private void displayHowToRemoveItemSnackbar(View view) {
+        if (appInfoSharedPreferences.getBoolean(ApplicationConstants.PREF_APP_INFO_IS_FIRST_ADDED_RECORD, true)) {
+            Snackbar snackbar = Snackbar.make(getActivity().findViewById(android.R.id.content),
+                    R.string.records_how_to_remove, Snackbar.LENGTH_LONG);
+            ((TextView) snackbar.getView().findViewById(android.support.design.R.id.snackbar_text)).setTextColor(Color.WHITE);
+            snackbar.show();
+            ApplicationHelpers.hideKeyboard(getActivity(), view);
+            appInfoSharedPreferences.edit().putBoolean(ApplicationConstants.PREF_APP_INFO_IS_FIRST_ADDED_RECORD, false).apply();
+        }
     }
 
     @Override

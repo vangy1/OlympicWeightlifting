@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.provider.Settings;
 import android.support.v7.app.AlertDialog;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.olympicweightlifting.App;
@@ -32,8 +33,10 @@ public class WelcomeDialog extends DaggerAppCompatDialogFragment {
 
     @BindView(R.id.text_dialog_title)
     TextView dialogTitle;
-    @BindView(R.id.dialog_message)
-    TextView dialogMessage;
+    @BindView(R.id.button_cancel)
+    Button buttonCancel;
+    @BindView(R.id.button_upgrade)
+    Button buttonUpgrade;
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -42,17 +45,17 @@ public class WelcomeDialog extends DaggerAppCompatDialogFragment {
         ((App) getActivity().getApplication()).getAnalyticsTracker().sendEvent("Welcome Dialog", "Prompt", "Premium");
 
         dialogTitle.setTypeface(Typeface.createFromAsset(getActivity().getAssets(), getString(R.string.font_path_montserrat_bold)));
-        dialogMessage.setText(R.string.welcome_message);
+        buttonCancel.setOnClickListener(view -> {
+            this.dismiss();
+            ((App) getActivity().getApplication()).getAnalyticsTracker().sendEvent("Welcome Dialog", "Prompt - Cancel click", "Premium");
+        });
+        buttonUpgrade.setOnClickListener(view -> {
+            this.dismiss();
+            getActivity().startActivity(new Intent(getActivity(), ProfileActivity.class));
+            ((App) getActivity().getApplication()).getAnalyticsTracker().sendEvent("Welcome Dialog", "Prompt - Upgrade click", "Premium");
+        });
 
-        return new AlertDialog.Builder(getActivity()).setView(dialogView)
-                .setNegativeButton(R.string.all_cancel, (dialog, i) -> {
-                    dialog.dismiss();
-                    ((App) getActivity().getApplication()).getAnalyticsTracker().sendEvent("Welcome Dialog", "Prompt - Cancel click", "Premium");
-                })
-                .setPositiveButton(R.string.all_upgrade, (dialog, id) -> {
-                    getActivity().startActivity(new Intent(getActivity(), ProfileActivity.class));
-                    ((App) getActivity().getApplication()).getAnalyticsTracker().sendEvent("Welcome Dialog", "Prompt - Upgrade click", "Premium");
-                }).create();
+        return new AlertDialog.Builder(getActivity()).setView(dialogView).create();
     }
 
     @Override

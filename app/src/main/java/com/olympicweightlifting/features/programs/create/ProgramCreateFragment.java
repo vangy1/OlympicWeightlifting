@@ -1,8 +1,11 @@
 package com.olympicweightlifting.features.programs.create;
 
 
+import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.constraint.ConstraintLayout;
+import android.support.design.widget.Snackbar;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -10,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.billingclient.api.Purchase;
@@ -27,6 +31,7 @@ import com.olympicweightlifting.features.helpers.exercisemanager.ExerciseManager
 import com.olympicweightlifting.features.programs.data.Program;
 import com.olympicweightlifting.features.programs.data.ProgramDay;
 import com.olympicweightlifting.features.programs.data.ProgramWeek;
+import com.olympicweightlifting.utilities.ApplicationConstants;
 import com.olympicweightlifting.utilities.ApplicationHelpers;
 
 import java.util.ArrayList;
@@ -34,6 +39,7 @@ import java.util.Collections;
 import java.util.List;
 
 import javax.inject.Inject;
+import javax.inject.Named;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -62,6 +68,9 @@ public class ProgramCreateFragment extends DaggerFragment implements ExerciseMan
 
     @Inject
     AppDatabase database;
+    @Inject
+    @Named("app-info")
+    SharedPreferences appInfoSharedPreferences;
 
     private List<String> userExercises = new ArrayList<>();
     private Program program;
@@ -77,10 +86,12 @@ public class ProgramCreateFragment extends DaggerFragment implements ExerciseMan
                              Bundle savedInstanceState) {
         View fragmentView = inflater.inflate(R.layout.fragment_programs_create, container, false);
         ButterKnife.bind(this, fragmentView);
+        displayHowToRemoveItemSnackbar(fragmentView);
         getUserProfileStatus();
         getNumberOfTrackedPrograms();
 
-        program = new Program(new ArrayList<>(Collections.singletonList(new ProgramWeek(new ArrayList<>(Collections.singletonList(new ProgramDay()))))));
+        program = new Program();
+        program.addInitialWeek();
 
         setupRecyclerView();
 
@@ -95,7 +106,7 @@ public class ProgramCreateFragment extends DaggerFragment implements ExerciseMan
 
         buttonSave.setOnClickListener(view -> {
             if (checkIfUserReachedTheLimit()) {
-                if (!editTextProgramName.getText().toString().isEmpty()) {
+                if (!editTextProgramName.getText().toString().isEmpty() && program.hasAtLeastOneExercise()) {
                     program.setProgramTitle(editTextProgramName.getText().toString());
                     try {
                         saveProgramToFirestore();
@@ -116,6 +127,17 @@ public class ProgramCreateFragment extends DaggerFragment implements ExerciseMan
 
         return fragmentView;
 
+    }
+
+    private void displayHowToRemoveItemSnackbar(View view) {
+        if (appInfoSharedPreferences.getBoolean(ApplicationConstants.PREF_APP_INFO_IS_FIRST_ADDED_PROGRAM_EXERCISE, true)) {
+            Snackbar snackbar = Snackbar.make(getActivity().findViewById(android.R.id.content),
+                    R.string.programs_how_to_remove, Snackbar.LENGTH_LONG);
+            ((TextView) snackbar.getView().findViewById(android.support.design.R.id.snackbar_text)).setTextColor(Color.WHITE);
+            snackbar.show();
+            ApplicationHelpers.hideKeyboard(getActivity(), view);
+            appInfoSharedPreferences.edit().putBoolean(ApplicationConstants.PREF_APP_INFO_IS_FIRST_ADDED_PROGRAM_EXERCISE, false).apply();
+        }
     }
 
     private void getUserProfileStatus() {
@@ -173,6 +195,7 @@ public class ProgramCreateFragment extends DaggerFragment implements ExerciseMan
         program.setDateAdded();
         FirebaseFirestore.getInstance().collection(FIREBASE_COLLECTION_USERS).document(FirebaseAuth.getInstance().getCurrentUser().getUid()).collection(FIREBASE_COLLECTION_PROGRAMS).add(program);
     }
+
 
     private void clearInputData() {
         program.getWeeks().clear();

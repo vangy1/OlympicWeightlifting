@@ -78,7 +78,7 @@ public class ProgramDaysViewAdapter extends RecyclerView.Adapter<ProgramDaysView
                 if (days.size() < 7) {
                     ProgramDay programDay = new ProgramDay(new ArrayList<>());
                     days.add(programDay);
-                    programDaysViewAdapter.notifyDataSetChanged();
+                    programDaysViewAdapter.notifyItemInserted(days.size());
                 } else {
                     Toast.makeText(context, R.string.programs_error_too_many_days, Toast.LENGTH_SHORT).show();
                 }

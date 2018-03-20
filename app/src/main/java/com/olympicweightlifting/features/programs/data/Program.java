@@ -3,6 +3,8 @@ package com.olympicweightlifting.features.programs.data;
 import com.google.firebase.firestore.Exclude;
 import com.google.firebase.firestore.IgnoreExtraProperties;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
@@ -13,7 +15,7 @@ public class Program {
     private Date dateAdded;
 
     private String programTitle;
-    private List<ProgramWeek> weeks;
+    private List<ProgramWeek> weeks = new ArrayList<>();
 
 
     public Program() {
@@ -56,5 +58,38 @@ public class Program {
 
     public void setDateAdded() {
         this.dateAdded = new Date();
+    }
+
+    public void cleanOfEmptyDaysAndWeeks() {
+        List<ProgramWeek> weeks = getWeeks();
+        for (int i = 0; i < weeks.size(); i++) {
+            List<ProgramDay> days = weeks.get(i).getDays();
+            for (int j = 0; j < days.size(); j++) {
+                if (days.get(j).getExercises().size() == 0) {
+                    days.remove(j);
+                    j--;
+                }
+            }
+            if (days.size() == 0) {
+                weeks.remove(i);
+                i--;
+            }
+        }
+        System.out.println(weeks.size());
+    }
+
+    public boolean hasAtLeastOneExercise() {
+        for (ProgramWeek programWeek : getWeeks()) {
+            for (ProgramDay programDay : programWeek.getDays()) {
+                for (ProgramExercise userExercise : programDay.getExercises()) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    public void addInitialWeek() {
+        weeks.add(new ProgramWeek(new ArrayList<>(Collections.singletonList(new ProgramDay()))));
     }
 }

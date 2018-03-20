@@ -3,8 +3,10 @@ package com.olympicweightlifting.features.tracking.tracknew;
 
 import android.app.DatePickerDialog;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.constraint.ConstraintLayout;
+import android.support.design.widget.Snackbar;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -33,6 +35,7 @@ import com.olympicweightlifting.features.helpers.exercisemanager.Exercise;
 import com.olympicweightlifting.features.helpers.exercisemanager.ExerciseManagerDialog;
 import com.olympicweightlifting.features.tracking.data.TrackedExerciseData;
 import com.olympicweightlifting.features.tracking.data.TrackedWorkoutData;
+import com.olympicweightlifting.utilities.ApplicationConstants;
 import com.olympicweightlifting.utilities.ApplicationHelpers;
 
 import java.text.DateFormat;
@@ -91,6 +94,10 @@ public class TrackingNewFragment extends DaggerFragment implements DatePickerDia
     @Inject
     @Named("settings")
     SharedPreferences sharedPreferences;
+    @Inject
+    @Named("app-info")
+    SharedPreferences appInfoSharedPreferences;
+
 
     List<String> exerciseList = new ArrayList<>();
     private DateFormat dateFormat;
@@ -123,6 +130,7 @@ public class TrackingNewFragment extends DaggerFragment implements DatePickerDia
                 trackedExerciseData.add(new TrackedExerciseData(Double.parseDouble(editTextWeight.getText().toString()), Units.KG.toString(),
                         Integer.parseInt(editTextReps.getText().toString()), Integer.parseInt(editTextSets.getText().toString()), spinnerExercise.getSelectedItem().toString()));
                 exercisesRecyclerView.getAdapter().notifyItemInserted(trackedExerciseData.size());
+                displayHowToRemoveItemSnackbar(fragmentView);
             } catch (Exception exception) {
                 Toast.makeText(getActivity(), getActivity().getString(R.string.all_insufficient_input), Toast.LENGTH_SHORT).show();
             }
@@ -218,6 +226,17 @@ public class TrackingNewFragment extends DaggerFragment implements DatePickerDia
         ExerciseManagerDialog exerciseManagerDialog = new ExerciseManagerDialog();
         exerciseManagerDialog.setTargetFragment(this, 0);
         exerciseManagerDialog.show(getFragmentManager(), ExerciseManagerDialog.TAG);
+    }
+
+    private void displayHowToRemoveItemSnackbar(View view) {
+        if (appInfoSharedPreferences.getBoolean(ApplicationConstants.PREF_APP_INFO_IS_FIRST_ADDED_TRACKING_EXERCISE, true)) {
+            Snackbar snackbar = Snackbar.make(getActivity().findViewById(android.R.id.content),
+                    R.string.tracking_how_to_remove, Snackbar.LENGTH_LONG);
+            ((TextView) snackbar.getView().findViewById(android.support.design.R.id.snackbar_text)).setTextColor(Color.WHITE);
+            snackbar.show();
+            ApplicationHelpers.hideKeyboard(getActivity(), view);
+            appInfoSharedPreferences.edit().putBoolean(ApplicationConstants.PREF_APP_INFO_IS_FIRST_ADDED_TRACKING_EXERCISE, false).apply();
+        }
     }
 
     private boolean checkIfUserReachedTheLimit() {

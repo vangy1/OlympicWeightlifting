@@ -13,7 +13,7 @@
         android:layout_marginStart="24dp"
         android:layout_marginTop="12dp"
         android:text="@string/all_total"
-        android:textSize="@dimen/sinclair_calculator_fragment_input_info_text_size"
+        android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -29,7 +29,7 @@
         android:inputType="numberDecimal"
         android:maxLength="6"
         android:minEms="6"
-        android:textSize="@dimen/sinclair_calculator_fragment_input_text_size"
+        android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="@+id/text_total"
         app:layout_constraintEnd_toStartOf="@+id/text_total_units"
         app:layout_constraintTop_toTopOf="@+id/text_total" />
@@ -49,7 +49,7 @@
     <View
         android:id="@+id/separator1"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/sinclair_calculator_fragment_row_separator_line_height"
+        android:layout_height="1dp"
         android:layout_marginTop="12dp"
         android:background="@color/separatorColor"
         app:layout_constraintTop_toBottomOf="@id/text_total" />
@@ -61,7 +61,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="12dp"
         android:text="@string/calculators_bodyweight"
-        android:textSize="@dimen/sinclair_calculator_fragment_input_info_text_size"
+        android:textSize="18sp"
         app:layout_constraintStart_toStartOf="@+id/text_total"
         app:layout_constraintTop_toBottomOf="@+id/separator1" />
 
@@ -76,7 +76,7 @@
         android:inputType="numberDecimal"
         android:maxLength="6"
         android:minEms="6"
-        android:textSize="@dimen/sinclair_calculator_fragment_input_text_size"
+        android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="@+id/text_bodyweight"
         app:layout_constraintEnd_toEndOf="@+id/edittext_total"
         app:layout_constraintTop_toTopOf="@+id/text_bodyweight" />
@@ -96,7 +96,7 @@
     <View
         android:id="@+id/separator2"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/sinclair_calculator_fragment_row_separator_line_height"
+        android:layout_height="1dp"
         android:layout_marginTop="12dp"
         android:background="@color/separatorColor"
         app:layout_constraintTop_toBottomOf="@id/text_bodyweight" />
@@ -107,7 +107,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="12dp"
         android:text="@string/all_gender"
-        android:textSize="@dimen/sinclair_calculator_fragment_input_info_text_size"
+        android:textSize="18sp"
         app:layout_constraintStart_toStartOf="@+id/text_total"
         app:layout_constraintTop_toBottomOf="@+id/separator2" />
 
@@ -141,7 +141,7 @@
     <View
         android:id="@+id/separator3"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/sinclair_calculator_fragment_row_separator_line_height"
+        android:layout_height="1dp"
         android:layout_marginTop="12dp"
         android:background="@color/separatorColor"
         app:layout_constraintTop_toBottomOf="@id/text_gender" />

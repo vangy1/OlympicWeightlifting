@@ -1,7 +1,9 @@
 <resources>
-    <string name="app_name">Olympic Weightlifting</string>
-    <string name="welcome_message">Thank you for downloading our app. We are constantly trying to make it better, so if you\'ll find a bug or a feature that you would like here, please contact us.
-        \n\nBy upgrading to premium, you\'ll not only support us, but you\'ll also get:\n\n   -   rid of all limits\n   -   3 training programs\n   -   guarantee of no ads</string>
+    <string name="app_name">Weightlifting</string>
+    <string name="app_name_title">Olympic Weightlifting</string>
+
+    <string name="welcome_message">Thank you for downloading our app. We are constantly trying to make it better, so if you\'ll find a bug or would like us to add some feature, please contact us. If you want to support the development of the app, you can also upgrade to premium.</string>
+    <string name="welcom_cancel">Continue with Free version</string>
 
     <string name="google_client_id">966264089520-mhe4q88i5945m81nvcn6jk2gint2ubc3.apps.googleusercontent.com</string>
     <string name="facebook_app_id">2074456829502538</string>
@@ -109,7 +111,7 @@
     <string name="programs_add_exercise">Add exercise</string>
     <string name="programs_add_week">Add week</string>
     <string name="programs_empty_history">No programs created yet!</string>
-    <string name="programs_empty_name">Fill out program name!</string>
+    <string name="programs_empty_name">Fill out program name and add at least one exercise!</string>
 
 
     <string name="tracking_tab_new">Track new</string>
@@ -124,4 +126,11 @@
     <string name="main_activity_feature_content_descriptior">Image of feature</string>
     <string name="exercise_manager_exercise_to_add_label">Exercise name</string>
     <string name="purchase_user_is_premium_message">Thank you for supporting the app! Enjoy using it without limits!</string>
+    <string name="records_how_to_remove">You can remove a record by holding it.</string>
+    <string name="tracking_how_to_remove">You can remove an exercise by holding it.</string>
+    <string name="programs_how_to_remove">You can remove an exercise, a day or a week by holding it.</string>
+    <string name="welcome_no_tracking_limits">NO TRACKING LIMITS</string>
+    <string name="welcom_weightlifting_programs">3 WEIGHTLIFTING PROGRAMS</string>
+    <string name="welcome_ad_guarantee">GUARANTEE OF NO ADS</string>
+    <string name="welcome_premium_features">Premium features</string>
 </resources>

@@ -12,7 +12,7 @@
         android:layout_marginStart="24dp"
         android:layout_marginTop="12dp"
         android:text="@string/all_weight"
-        android:textSize="@dimen/sinclair_calculator_fragment_input_info_text_size"
+        android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -28,7 +28,7 @@
         android:inputType="number"
         android:maxLength="6"
         android:minEms="6"
-        android:textSize="@dimen/sinclair_calculator_fragment_input_text_size"
+        android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="@+id/text_weight"
         app:layout_constraintEnd_toStartOf="@+id/text_weight_units"
         app:layout_constraintTop_toTopOf="@+id/text_weight" />
@@ -51,7 +51,7 @@
     <View
         android:id="@+id/separator1"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/sinclair_calculator_fragment_row_separator_line_height"
+        android:layout_height="1dp"
         android:layout_marginTop="12dp"
         android:background="@color/separatorColor"
         app:layout_constraintTop_toBottomOf="@id/text_weight" />
@@ -62,7 +62,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="12dp"
         android:text="@string/calculators_barbell"
-        android:textSize="@dimen/sinclair_calculator_fragment_input_info_text_size"
+        android:textSize="18sp"
         app:layout_constraintStart_toStartOf="@+id/text_weight"
         app:layout_constraintTop_toBottomOf="@+id/separator1" />
 
@@ -102,7 +102,7 @@
     <View
         android:id="@+id/separator2"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/sinclair_calculator_fragment_row_separator_line_height"
+        android:layout_height="1dp"
         android:layout_marginTop="12dp"
         android:background="@color/separatorColor"
         app:layout_constraintTop_toBottomOf="@id/text_barbell_weight" />
@@ -113,7 +113,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="12dp"
         android:text="@string/calculators_collars"
-        android:textSize="@dimen/sinclair_calculator_fragment_input_info_text_size"
+        android:textSize="18sp"
         app:layout_constraintStart_toStartOf="@+id/text_weight"
         app:layout_constraintTop_toBottomOf="@+id/separator2" />
 
@@ -132,7 +132,7 @@
     <View
         android:id="@+id/separator3"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/sinclair_calculator_fragment_row_separator_line_height"
+        android:layout_height="1dp"
         android:layout_marginTop="12dp"
         android:background="@color/separatorColor"
         app:layout_constraintTop_toBottomOf="@id/text_collars" />

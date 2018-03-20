@@ -2,8 +2,10 @@ package com.olympicweightlifting.billing;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Color;
 import android.support.design.widget.Snackbar;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.android.billingclient.api.BillingClient;
 import com.android.billingclient.api.BillingClientStateListener;
@@ -122,10 +124,11 @@ public class BillingManager implements PurchasesUpdatedListener {
     }
 
     public void promptUserToUpgrade(Activity activity, ViewGroup layout) {
-        Snackbar mySnackbar = Snackbar.make(layout,
+        Snackbar snackbar = Snackbar.make(layout,
                 R.string.profile_reached_free_limit, Snackbar.LENGTH_LONG);
-        mySnackbar.setAction(R.string.all_upgrade, snackbarView -> activity.startActivity(new Intent(activity, ProfileActivity.class)));
-        mySnackbar.show();
+        ((TextView) snackbar.getView().findViewById(android.support.design.R.id.snackbar_text)).setTextColor(Color.WHITE);
+        snackbar.setAction(R.string.all_upgrade, snackbarView -> activity.startActivity(new Intent(activity, ProfileActivity.class)));
+        snackbar.show();
     }
 
 
