@@ -2,8 +2,8 @@
     <string name="app_name">Weightlifting</string>
     <string name="app_name_title">Olympic Weightlifting</string>
 
-    <string name="welcome_message">Thank you for downloading our app. We are constantly trying to make it better, so if you\'ll find a bug or would like us to add some feature, please contact us. If you want to support the development of the app, you can also upgrade to premium.</string>
-    <string name="welcom_cancel">Continue with Free version</string>
+    <string name="welcome_message">Thank you for downloading our app. We are constantly trying to make it better, so if you\'ll find a bug or are missing some feature, please reach out to us. You can also support us by upgrading to premium.</string>
+    <string name="welcome_cancel">Use Free version</string>
 
     <string name="google_client_id">966264089520-mhe4q88i5945m81nvcn6jk2gint2ubc3.apps.googleusercontent.com</string>
     <string name="facebook_app_id">2074456829502538</string>

@@ -101,7 +101,7 @@
             style="@style/Widget.AppCompat.Button.Borderless.Colored"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/all_cancel" />
+            android:text="@string/welcome_cancel" />
 
         <Button
             android:id="@+id/button_upgrade"
