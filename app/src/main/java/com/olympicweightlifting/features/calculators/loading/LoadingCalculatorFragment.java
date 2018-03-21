@@ -66,6 +66,7 @@ public class LoadingCalculatorFragment extends DaggerFragment {
             try {
                 LoadingCalculation loadingCalculation = calculateLoading();
                 saveCalculationInDatabase(loadingCalculation);
+                clearInputData();
                 ((App) getActivity().getApplication()).getAnalyticsTracker().sendEvent("Calculator Activity", "Calculate loading");
             } catch (WeightIsSmallerThanTheBarException e) {
                 Toast.makeText(getActivity(), R.string.calculators_loading_error_weight_smaller_than_bar, Toast.LENGTH_SHORT).show();
@@ -94,6 +95,11 @@ public class LoadingCalculatorFragment extends DaggerFragment {
     private void saveCalculationInDatabase(LoadingCalculation loadingCalculation) {
         Completable.fromAction(() -> database.loadingCalculationDao().insert(loadingCalculation)).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).doOnComplete(() ->
                 calculatorsService.insertCalculationIntoRecyclerView(loadingCalculation, loadingCalculations, recyclerViewResults)).onErrorComplete().subscribe();
+    }
+
+    private void clearInputData() {
+        editTextWeight.setText("");
+        editTextWeight.requestFocus();
     }
 
     private int getBarbellWeight() {

@@ -131,6 +131,7 @@ public class TrackingNewFragment extends DaggerFragment implements DatePickerDia
                         Integer.parseInt(editTextReps.getText().toString()), Integer.parseInt(editTextSets.getText().toString()), spinnerExercise.getSelectedItem().toString()));
                 exercisesRecyclerView.getAdapter().notifyItemInserted(trackedExerciseData.size());
                 displayHowToRemoveItemSnackbar(fragmentView);
+                clearInputData();
             } catch (Exception exception) {
                 Toast.makeText(getActivity(), getActivity().getString(R.string.all_insufficient_input), Toast.LENGTH_SHORT).show();
             }
@@ -142,7 +143,7 @@ public class TrackingNewFragment extends DaggerFragment implements DatePickerDia
                 try {
                     saveWorkoutToFirestore();
                     Toast.makeText(getActivity(), getActivity().getString(R.string.tracking_workout_saved), Toast.LENGTH_SHORT).show();
-                    clearInputData();
+                    clearData();
                     ((App) getActivity().getApplication()).getAnalyticsTracker().sendEvent("Tracking Activity", "Save workout");
                 } catch (Exception exception) {
                     Toast.makeText(getActivity(), getString(R.string.all_insufficient_input), Toast.LENGTH_SHORT).show();
@@ -239,6 +240,13 @@ public class TrackingNewFragment extends DaggerFragment implements DatePickerDia
         }
     }
 
+    private void clearInputData() {
+        editTextWeight.setText("");
+        editTextReps.setText("");
+        editTextSets.setText("");
+        editTextWeight.requestFocus();
+    }
+
     private boolean checkIfUserReachedTheLimit() {
         return workoutsTracked != -1 && workoutsTracked < (userProfileStatus == UserProfileStatus.PREMIUM ? Integer.MAX_VALUE : WORKOUTS_LIMIT);
     }
@@ -249,7 +257,7 @@ public class TrackingNewFragment extends DaggerFragment implements DatePickerDia
         FirebaseFirestore.getInstance().collection(FIREBASE_COLLECTION_USERS).document(FirebaseAuth.getInstance().getCurrentUser().getUid()).collection(FIREBASE_COLLECTION_WORKOUTS).add(trackedWorkoutData);
     }
 
-    private void clearInputData() {
+    private void clearData() {
         trackedExerciseData.clear();
         exercisesRecyclerView.getAdapter().notifyDataSetChanged();
     }

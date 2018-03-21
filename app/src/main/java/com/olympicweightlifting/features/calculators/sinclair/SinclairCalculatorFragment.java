@@ -74,6 +74,7 @@ public class SinclairCalculatorFragment extends DaggerFragment {
             try {
                 SinclairCalculation sinclairCalculation = calculateSinclair();
                 saveCalculationIntoDatabase(sinclairCalculation);
+                clearInputData();
                 ((App) getActivity().getApplication()).getAnalyticsTracker().sendEvent("Calculator Activity", "Calculate sinclair");
             } catch (Exception e) {
                 Toast.makeText(getActivity(), "Fill out all information!", Toast.LENGTH_SHORT).show();
@@ -93,9 +94,14 @@ public class SinclairCalculatorFragment extends DaggerFragment {
         return new SinclairCalculation(total, bodyweight, gender.toString(), units, sinclairScore);
     }
 
-
     private void saveCalculationIntoDatabase(SinclairCalculation sinclairCalculation) {
         Completable.fromAction(() -> database.sinclairCalculationDao().insert(sinclairCalculation)).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).doOnComplete(() ->
                 calculatorsService.insertCalculationIntoRecyclerView(sinclairCalculation, sinclairCalculations, recyclerViewResults)).onErrorComplete().subscribe();
+    }
+
+    private void clearInputData() {
+        editTextTotal.setText("");
+        editTextBodyweight.setText("");
+        editTextTotal.requestFocus();
     }
 }

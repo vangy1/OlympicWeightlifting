@@ -70,6 +70,7 @@ public class RepmaxCalculatorFragment extends DaggerFragment {
             try {
                 RepmaxCalculation repmaxCalculation = calculateRepmax();
                 saveCalculationInDatabase(repmaxCalculation);
+                clearInputData();
                 ((App) getActivity().getApplication()).getAnalyticsTracker().sendEvent("Calculator Activity", "Calculate repmax");
             } catch (Exception e) {
                 Toast.makeText(getActivity(), getString(R.string.all_insufficient_input), Toast.LENGTH_SHORT).show();
@@ -78,6 +79,7 @@ public class RepmaxCalculatorFragment extends DaggerFragment {
 
         return fragmentView;
     }
+
     private RepmaxCalculation calculateRepmax() {
         double weight = Double.parseDouble(editTextWeight.getText().toString());
         int reps = Integer.parseInt(editTextReps.getText().toString());
@@ -90,5 +92,11 @@ public class RepmaxCalculatorFragment extends DaggerFragment {
     private void saveCalculationInDatabase(RepmaxCalculation repmaxCalculation) {
         Completable.fromAction(() -> database.repmaxCalculationDao().insert(repmaxCalculation)).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).doOnComplete(() ->
                 calculatorsService.insertCalculationIntoRecyclerView(repmaxCalculation, calculationsRepmax, recyclerViewResults)).onErrorComplete().subscribe();
+    }
+
+    private void clearInputData() {
+        editTextWeight.setText("");
+        editTextReps.setText("");
+        editTextWeight.requestFocus();
     }
 }

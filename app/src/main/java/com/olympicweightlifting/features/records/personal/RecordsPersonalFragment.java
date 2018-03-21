@@ -133,6 +133,7 @@ public class RecordsPersonalFragment extends DaggerFragment implements DatePicke
                 try {
                     saveRecordToFirestore();
                     displayHowToRemoveItemSnackbar(view);
+                    clearInputData();
                 } catch (Exception exception) {
                     Toast.makeText(getActivity(), getString(R.string.all_insufficient_input), Toast.LENGTH_SHORT).show();
                 }
@@ -243,6 +244,12 @@ public class RecordsPersonalFragment extends DaggerFragment implements DatePicke
             ApplicationHelpers.hideKeyboard(getActivity(), view);
             appInfoSharedPreferences.edit().putBoolean(ApplicationConstants.PREF_APP_INFO_IS_FIRST_ADDED_RECORD, false).apply();
         }
+    }
+
+    private void clearInputData() {
+        editTextWeight.setText("");
+        editTextReps.setText("");
+        editTextWeight.requestFocus();
     }
 
     @Override

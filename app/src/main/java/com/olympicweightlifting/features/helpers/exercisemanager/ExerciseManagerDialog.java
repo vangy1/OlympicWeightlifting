@@ -74,6 +74,7 @@ public class ExerciseManagerDialog extends DaggerAppCompatDialogFragment {
                 String exerciseName = Character.toUpperCase(editTextExerciseToAdd.getText().toString().charAt(0)) + editTextExerciseToAdd.getText().toString().substring(1);
                 Exercise exercise = new Exercise(exerciseName);
                 Completable.fromAction(() -> database.exerciseDao().insert(exercise)).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).doOnComplete(() -> addExercise(exercise)).onErrorComplete().subscribe();
+                editTextExerciseToAdd.setText("");
             }
         });
 
